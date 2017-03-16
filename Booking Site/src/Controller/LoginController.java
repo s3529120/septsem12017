@@ -6,6 +6,7 @@ import Model.UserAccountModel;
 import View.BusinessAccountMenuView;
 import View.LoginView;
 import View.UserAccountMenuView;
+import javafx.stage.Stage;
 
 public class LoginController {
 	private LoginView view;

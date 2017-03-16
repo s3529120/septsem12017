@@ -3,11 +3,13 @@ package Model;
 public class UserAccountModel extends AccountModel{
 	
 	//Attributes
+	private static int counter;
 	
 	//Constructor
 	public UserAccountModel(String username, String name,
 	                        String contactNo,String address,String email){
 		super(username,name,contactNo, address, email);
+		counter++;
 	}
 	
 	//Accessors
@@ -26,4 +28,7 @@ public class UserAccountModel extends AccountModel{
 		return super.setName(name);
 	}
 	//Methods
+	 public static int getNumOfInstances() {
+	        return counter;
+	    }
 }
