@@ -3,12 +3,11 @@ package Model;
 public class UserAccountModel extends AccountModel{
 	
 	//Attributes
-	private String name;
 	
 	//Constructor
-	public UserAccountModel(String username, String name){
-		super(username);
-		this.name=name;
+	public UserAccountModel(String username, String name,
+	                        String contactNo,String address,String email){
+		super(username,name,contactNo, address, email);
 	}
 	
 	//Accessors
@@ -16,7 +15,7 @@ public class UserAccountModel extends AccountModel{
 		return super.getUsername();
 	}
 	public String getName(){
-		return name;
+		return super.getName();
 	}
 	//Mutators
 	public Boolean setUsername(String name){
@@ -24,8 +23,7 @@ public class UserAccountModel extends AccountModel{
 		return true;
 	}
 	public Boolean setName(String name){
-		this.name=name;
-		return true;
+		return super.setName(name);
 	}
 	//Methods
 }

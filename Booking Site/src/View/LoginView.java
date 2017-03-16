@@ -27,6 +27,10 @@ public class LoginView {
 	}
 	
 	public void updateView(){
+	   Label headlbl = new Label("Login");
+      HBox headBox = new HBox();
+      headBox.getChildren().add(headlbl);
+	   
 		Label usrnamelbl = new Label("Username:");
 		TextField usernamefield = new TextField();
 		HBox usernameBox = new HBox();
@@ -42,15 +46,17 @@ public class LoginView {
 		Button loginbtn = new Button("Login");
 		loginbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				cont.login(usernamefield.getText(), 
-						pwordfield.getText());
+			   if(cont.isNotEmpty(usernamefield.getText(), pwordfield.getText())){
+			      cont.login(usernamefield.getText(), 
+			                 pwordfield.getText());
+			   }else{
+			      Label errlbl = new Label("Invalid entry made, please review input");
+			      headBox.getChildren().add(errlbl);
+			   }
 			}
 		});
 		
-		VBox vbox = new VBox();
-		vbox.getChildren().add(usernameBox);
-		vbox.getChildren().add(pwordBox);
-		vbox.getChildren().add(loginbtn);
+		VBox vbox = new VBox(headBox,usernameBox,pwordBox,loginbtn);
 		
 		StackPane pane = new StackPane(vbox);
 		

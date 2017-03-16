@@ -92,11 +92,12 @@ public class AccountController {
 			String contactno;
 			String busname;
 			String address;
+			String email;
 			
 			DatabaseModel dbMod = new DatabaseModel();
 			DatabaseController cont = new DatabaseController(dbMod);
 			
-			sql="SELECT ContactNo, Name, Address "
+			sql="SELECT ContactNo, Name, Address, Email "
 					+ "FROM Accounts "
 					+ "WHERE Username='"+name+"';";
 			
@@ -109,20 +110,24 @@ public class AccountController {
 			contactno=res.getString("ContactNo");
 			address=res.getString("Address");
 			busname=res.getString("Name");
+			email=res.getString("Email");
 			}catch(SQLException e){
 				return null;
 			}
 			
 			BusinessAccountModel acc = new BusinessAccountModel(name,
-					busname,contactno,address);
+					busname,contactno,address,email);
 			return acc;
 		}else if(type.compareToIgnoreCase("User")==0){
-			String personname;
+		   String contactno;
+         String personname;
+         String address;
+         String email;
 			
 			DatabaseModel dbMod = new DatabaseModel();
 			DatabaseController cont = new DatabaseController(dbMod);
 			
-			sql="SELECT ContactNo, Name, Address "
+			sql="SELECT ContactNo, Name, Address, Email "
 					+ "FROM Accounts "
 					+ "WHERE Username='"+name+"';";
 			
@@ -131,12 +136,15 @@ public class AccountController {
 			res=cont.runSQLRes(state);
 			
 			try{
-			personname=res.getString("Name");
+			   contactno=res.getString("ContactNo");
+	         address=res.getString("Address");
+	         personname=res.getString("Name");
+	         email=res.getString("Email");
 			}catch(SQLException e){
 				return null;
 			}
 			
-			UserAccountModel acc = new UserAccountModel(name,personname);
+			UserAccountModel acc = new UserAccountModel(name,personname,contactno,address,email);
 			return acc;
 		}else{
 			return null;

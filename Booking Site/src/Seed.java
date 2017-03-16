@@ -20,14 +20,15 @@ public class Seed {
 					+ "Username TEXT NOT NULL, "
 					+ "Password TEXT NOT NULL, "
 					+ "Name TEXT NOT NULL, "
-					+ "ContactNo TEXT, "
+					+ "ContactNo TEXT NOT NULL, "
 					+ "Type TEXT NOT NULL, "
-					+ "Address TEXT, "
+					+ "Address TEXT NOT NULL, " 
+					+"Email TEXT NOT NULL, "
 					+ "PRIMARY KEY (Username));";
 			state=dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate(state);
-			sql="INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address) "
-					+ "VALUES(?,?,?,?,?,?);";
+			sql="INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
+					+ "VALUES(?,?,?,?,?,?,?);";
 			state=dataCont.prepareStatement(sql);
 			state.setString(1, "bus001");
 			state.setString(2, "abc123");
@@ -35,6 +36,7 @@ public class Seed {
 			state.setString(4, "1300655506");
 			state.setString(5, "Business");
 			state.setString(6, "1 SQL Avenue");
+			state.setString(7, "jwares@gmail.com");
 			dataCont.runSQLUpdate(state);
 		} catch (Exception e) {
 			e.printStackTrace();
