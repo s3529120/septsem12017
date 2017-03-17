@@ -4,18 +4,13 @@ public class BusinessAccountModel extends AccountModel{
 	
 	//Attributes
 	private String businessName;
-	private String contactNo;
-	private String address;
 	private DayModel[] opendays;
 	private BookingModel[] bookings;
 	
 	//Constructor
 	public BusinessAccountModel(String username, String businessName,
-			String contactNo, String address) {
-		super(username);
-		this.businessName=businessName;
-		this.contactNo=contactNo;
-		this.address=address;
+			String contactNo, String address,String email) {
+		super(username,businessName,contactNo,address,email);
 	}
 	
 	//Accessors
@@ -23,13 +18,16 @@ public class BusinessAccountModel extends AccountModel{
 		return super.getUsername();
 	}
 	public String getBusinessName(){
-		return businessName;
+		return super.getName();
 	}
 	public String getContactNo(){
-		return contactNo;
+		return super.getContactNo();
 	}
 	public String getAddress(){
-		return address;
+		return super.getAddress();
+	}
+	public String getEmail(){
+	   return super.getEmail();
 	}
 	//Mutators
 	public Boolean setUsername(String name){
@@ -37,16 +35,20 @@ public class BusinessAccountModel extends AccountModel{
 		return true;
 	}
 	public Boolean setBusinessName(String name){
-		this.businessName=name;
+		super.setName(name);
 		return true;
 	}
 	public Boolean setContactNo(String num){
-		this.contactNo=num;
+		super.setContactNo(num);
 		return true;
 	}
 	public Boolean setAddress(String address){
-		this.address=address;
+		super.setAddress(address);
 		return true;
+	}
+	public Boolean setEmail(String email){
+	   super.setEmail(email);
+	   return true;
 	}
 	//Methods
 

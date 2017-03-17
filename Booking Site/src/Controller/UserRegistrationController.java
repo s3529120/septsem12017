@@ -1,12 +1,16 @@
 package Controller;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Model.DatabaseModel;
 import Model.UserAccountModel;
 import View.UserAccountMenuView;
 import View.UserRegistrationView;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 public class UserRegistrationController {
 	private UserRegistrationView view;
@@ -21,15 +25,53 @@ public class UserRegistrationController {
 		view.updateView();
 	}
 
-	public void register(String uname,String pname,String pword) {
+	public Boolean checkValues(TextField uname, TextField pname, TextField pword, 
+	                           TextField address, TextField contactNo, TextField email){
+	   PreparedStatement state;
+	   String sql;
+	   DatabaseModel dbmod = new DatabaseModel();
+	   DatabaseController dbcont = new DatabaseController(dbmod);
+	   ResultSet res;
+	   Boolean bool;
+	  
+	   
+	   sql="SELECT * FROM Accounts WHERE Username=?;";
+	   state=dbcont.prepareStatement(sql);
+	   try
+      {
+         state.setString(1, uname.getText());
+      }
+      catch (SQLException e)
+      {
+         return false;
+      }
+	   res=dbcont.runSQLRes(state);
+	   try{
+         bool=res.wasNull();
+      }catch(SQLException e){
+         return false;
+      }
+	   
+	   if(uname.getText()=="" || pname.getText()=="" || pword.getText()=="" || 
+	         address.getText()=="" || contactNo.getText()=="" || email.getText()==""){
+	      return false;
+	   }else if(bool==true){
+	      return false;
+	   }else{
+	      return true;
+	   }
+	   
+	}
+	
+	public void register(String uname,String pname,String pword,String address,String contactNo,String email) {
 		String sql;
 		PreparedStatement state;
-		model = new UserAccountModel(uname,pname);
+		model = new UserAccountModel(uname,pname,address,contactNo,email);
 		DatabaseModel dbmod = new DatabaseModel();
 		DatabaseController dbcont = new DatabaseController(dbmod);
 		
-		sql="INSERT INTO Accounts(Username,Password,Name,Type) "
-				+ "Values(?,?,?,?);";
+		sql="INSERT INTO Accounts(Username,Password,Name,Type,ContactNo,Email,Address) "
+				+ "Values(?,?,?,?,?,?,?);";
 		
 		state=dbcont.prepareStatement(sql);
 		try{
@@ -37,6 +79,9 @@ public class UserRegistrationController {
 			state.setString(2, pword);
 			state.setString(3, pname);
 			state.setString(4, "User");
+			state.setString(5, contactNo);
+			state.setString(6, email);
+			state.setString(7, address);
 		}catch(SQLException e){
 			e.printStackTrace();
 		}

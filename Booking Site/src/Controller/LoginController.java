@@ -19,16 +19,22 @@ public class LoginController {
 		view.updateView();
 	}
 	
+	public Boolean isNotEmpty(String username, String pword){
+	   if(username.compareTo("")==0 || pword.compareTo("")==0){
+	      return false;
+	   }else{
+	      return true;
+	   }
+	}
+	
 	public void login(String username, String pword){
 		AccountController cont = new AccountController();
 		AccountModel acc;
 		
-		System.out.println("xxx");
 		if(cont.checkUsername(username)){
 			if(cont.comparePassword(username, pword)){
 				acc=cont.createAccountModel(username, 
 						cont.checkAccountType(username));
-				System.out.println("xxx");
 				if(acc instanceof BusinessAccountModel){
 					BusinessAccountMenuView newview = new BusinessAccountMenuView(
 							view.stage);
