@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="src" path="Booking Site/src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="Booking Site/src/sqlite-jdbc-3.16.1.jar"/>
-	<classpathentry kind="lib" path="/Users/rob/Documents/University/2017_sem1/cosc2299/septsem12017/Booking Site/src/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="lib" path="/Users/rob/Documents/University/2017_sem1/cosc2299/septsem12017/Booking Site/src/junit-4.12.jar"/>
-	<classpathentry kind="output" path="Booking Site/bin"/>
-</classpath>
