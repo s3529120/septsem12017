@@ -17,67 +17,67 @@ import javafx.stage.Stage;
 public class UserRegistrationView {
 	public Stage stage;
 	private UserRegistrationController cont;
-	
+
 	public UserRegistrationView(Stage stage){
 		this.stage=stage;
 	}
-	
+
 	public Boolean setController(UserRegistrationController cont){
 		this.cont=cont;
 		return true;
 	}
-	
+
 	public void updateView(){
-		
+
 		Text head = new Text("Register");
 		HBox headhbox = new HBox(head);
-		
+
 		Label unamelbl = new Label("Username: ");
 		TextField usertxtfield = new TextField();
 		HBox unamehbox = new HBox(unamelbl,usertxtfield);
-		
+
 		Label pnamelbl = new Label("Your name: ");
 		TextField pnametxtfield = new TextField();
 		HBox pnamehbox = new HBox(pnamelbl,pnametxtfield);
-		
+
 		Label addlbl = new Label("Your Address: ");
-      TextField addtxtfield = new TextField();
-      HBox addhbox = new HBox(addlbl,addtxtfield);
-      
-      Label numlbl = new Label("Your Contact Number: ");
-      TextField numtxtfield = new TextField();
-      HBox numhbox = new HBox(numlbl,numtxtfield);
-      
-      Label maillbl = new Label("Your Email address: ");
-      TextField mailtxtfield = new TextField();
-      HBox mailhbox = new HBox(maillbl,mailtxtfield);
-		
+		TextField addtxtfield = new TextField();
+		HBox addhbox = new HBox(addlbl,addtxtfield);
+
+		Label numlbl = new Label("Your Contact Number: ");
+		TextField numtxtfield = new TextField();
+		HBox numhbox = new HBox(numlbl,numtxtfield);
+
+		Label maillbl = new Label("Your Email address: ");
+		TextField mailtxtfield = new TextField();
+		HBox mailhbox = new HBox(maillbl,mailtxtfield);
+
 		Label pwordlbl = new Label("Password: ");
 		PasswordField pwordfield = new PasswordField();
 		HBox pwordhbox = new HBox(pwordlbl,pwordfield);
-		
+
 		Button registerbtn = new Button("Register");
 		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-			   if(cont.checkValues(usertxtfield,
-			                    pnametxtfield,pwordfield,
-			                    numtxtfield,addtxtfield,mailtxtfield)){
-				cont.register(usertxtfield.getText(),
-						pnametxtfield.getText(),pwordfield.getText(),
-						numtxtfield.getText(),addtxtfield.getText(),mailtxtfield.getText());
-			   }else{
-			      headhbox.getChildren().add(new Label("Invalid entry made, " +
-			            "please review input."));
-			   }
+				if(cont.checkValues(usertxtfield,
+						pnametxtfield,pwordfield,
+						numtxtfield,addtxtfield,mailtxtfield)){
+					cont.register(usertxtfield.getText(),
+							pnametxtfield.getText(),pwordfield.getText(),
+							numtxtfield.getText(),addtxtfield.getText(),mailtxtfield.getText());
+				}else{
+					headhbox.getChildren().add(new Label("Invalid entry made, " +
+							"please review input."));
+				}
 			}
 		});
 		HBox btnbox = new HBox(registerbtn);
-		
+
 		VBox vbox = new VBox(headhbox,unamehbox,pnamehbox,addhbox,numhbox,
-		                     mailhbox,pwordhbox,btnbox);
+				mailhbox,pwordhbox,btnbox);
 		StackPane pane = new StackPane(vbox);
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
-		
+
 	}
 }
