@@ -1,0 +1,11 @@
+#java files
+.classpath
+.project
+Booking\ Site/bin/*
+
+#db files
+*.db
+
+#OSX file
+.DS_Store
+
