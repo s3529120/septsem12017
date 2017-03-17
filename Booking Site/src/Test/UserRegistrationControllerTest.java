@@ -10,8 +10,8 @@ import org.junit.Test;
 
 public class UserRegistrationControllerTest {
 	
-	Stage stage1 = new Stage();
-	UserRegistrationView view = new UserRegistrationView(stage1);
+	Stage stage = new Stage();
+	UserRegistrationView view = new UserRegistrationView(stage);
 	UserRegistrationController cont = new UserRegistrationController(view);
 	
 	@Test
