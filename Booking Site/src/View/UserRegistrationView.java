@@ -29,12 +29,7 @@ public class UserRegistrationView {
 	}
 
 	public void updateView(){
-<<<<<<< HEAD
 
-		Text head = new Text("Register");
-		HBox headhbox = new HBox(head);
-
-=======
 		
 		Text logtxt = new Text("Already have an account?");
 		Button loginbtn = new Button("Login");
@@ -48,7 +43,6 @@ public class UserRegistrationView {
 		
 		Text regtxt = new Text("Register with us.");
 		
->>>>>>> 547cb3c4523712c3fa8a261a2da9e32321aac4e7
 		Label unamelbl = new Label("Username: ");
 		TextField usertxtfield = new TextField();
 		HBox unamehbox = new HBox(unamelbl,usertxtfield);
@@ -76,25 +70,7 @@ public class UserRegistrationView {
 		Button registerbtn = new Button("Register");
 		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-<<<<<<< HEAD
-				if(cont.checkValues(usertxtfield,
-						pnametxtfield,pwordfield,
-						numtxtfield,addtxtfield,mailtxtfield)){
-					cont.register(usertxtfield.getText(),
-							pnametxtfield.getText(),pwordfield.getText(),
-							numtxtfield.getText(),addtxtfield.getText(),mailtxtfield.getText());
-				}else{
-					headhbox.getChildren().add(new Label("Invalid entry made, " +
-							"please review input."));
-				}
-			}
-		});
-		HBox btnbox = new HBox(registerbtn);
 
-		VBox vbox = new VBox(headhbox,unamehbox,pnamehbox,addhbox,numhbox,
-				mailhbox,pwordhbox,btnbox);
-		StackPane pane = new StackPane(vbox);
-=======
 			   if(cont.checkValues(usertxtfield,
 			                    pnametxtfield,pwordfield,
 			                    numtxtfield,addtxtfield,mailtxtfield)){
@@ -115,7 +91,7 @@ public class UserRegistrationView {
 		HBox regmenubox = new HBox(vbox,logbox);
 		
 		StackPane pane = new StackPane(regmenubox);
->>>>>>> 547cb3c4523712c3fa8a261a2da9e32321aac4e7
+
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
 

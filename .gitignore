@@ -1,7 +1,7 @@
 #java files
 .classpath
 .project
-Booking\ Site/bin/*
+/bin/
 
 #db files
 *.db
@@ -9,4 +9,4 @@ Booking\ Site/bin/*
 #OSX file
 .DS_Store
 
-/bin/
+
