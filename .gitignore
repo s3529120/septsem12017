@@ -1,7 +1,7 @@
 #java files
 .classpath
 .project
-/bin/
+*/bin/*
 
 #db files
 *.db
