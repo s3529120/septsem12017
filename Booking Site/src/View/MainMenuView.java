@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -21,15 +22,18 @@ public class MainMenuView{
 	
 	public void updateView(){
 		
-		Text txt = new Text("Welcome to booking site\n What would you like to do?");
+		Text txt = new Text("Booking Site.");
 		
+		Text logtxt = new Text("Already have an account?");
 		Button loginbtn = new Button("Login");
 		loginbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				cont.loginEvent();
 			}
 		});
+		VBox logbox = new VBox(logtxt,loginbtn);
 		
+		Text regtxt = new Text("Register with us.");
 		Button registerbtn = new Button("Register");
 		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
@@ -38,13 +42,15 @@ public class MainMenuView{
 				cont.updateView();
 			}
 		});
+		VBox regbox = new VBox(regtxt,registerbtn);
 		
-		VBox vbox = new VBox();
-		vbox.getChildren().add(txt);
-		vbox.getChildren().add(loginbtn);
-		vbox.getChildren().add(registerbtn);
+		HBox hbox = new HBox();
+		hbox.getChildren().add(regbox);
+		hbox.getChildren().add(logbox);
 		
-		StackPane frame = new StackPane(vbox);
+		VBox mainMenuBox = new VBox(txt,hbox);
+		
+		StackPane frame = new StackPane(mainMenuBox);
 		Scene scene = new Scene(frame);
 		
 		stage.setScene(scene);
