@@ -1,6 +1,7 @@
 package View;
 
 import Controller.LoginController;
+import Controller.UserRegistrationController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class LoginView {
@@ -27,9 +29,18 @@ public class LoginView {
 	}
 	
 	public void updateView(){
-	   Label headlbl = new Label("Login");
-      HBox headBox = new HBox();
-      headBox.getChildren().add(headlbl);
+		Text regtxt = new Text("Register with us.");
+		Button registerbtn = new Button("Register");
+		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				UserRegistrationView view = new UserRegistrationView(stage);
+				UserRegistrationController cont = new UserRegistrationController(view);
+				cont.updateView();
+			}
+		});
+		VBox regbox = new VBox(regtxt,registerbtn);
+		
+		Text welcometxt = new Text("Welcome back!");
 	   
 		Label usrnamelbl = new Label("Username:");
 		TextField usernamefield = new TextField();
@@ -51,14 +62,16 @@ public class LoginView {
 			                 pwordfield.getText());
 			   }else{
 			      Label errlbl = new Label("Invalid entry made, please review input");
-			      headBox.getChildren().add(errlbl);
+			      usernameBox.getChildren().add(errlbl);
 			   }
 			}
 		});
 		
-		VBox vbox = new VBox(headBox,usernameBox,pwordBox,loginbtn);
+		VBox vbox = new VBox(welcometxt,usernameBox,pwordBox,loginbtn);
 		
-		StackPane pane = new StackPane(vbox);
+		HBox loginpageBox = new HBox(regbox,vbox);
+		
+		StackPane pane = new StackPane(loginpageBox);
 		
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
