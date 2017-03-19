@@ -52,7 +52,6 @@ public class MainMenuView{
 		
 		StackPane frame = new StackPane(mainMenuBox);
 		Scene scene = new Scene(frame);
-		
 		stage.setScene(scene);
 		stage.show();
 	}
