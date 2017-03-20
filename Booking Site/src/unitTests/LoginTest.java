@@ -11,20 +11,36 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import Controller.AccountController;
 import Controller.DatabaseController;
+import Controller.LoginController;
 import Model.DatabaseModel;
 
 public class LoginTest
 {
 
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	{
+
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception
+	{
+
+	}
+
+	@Before
+	public void setUp() throws Exception
+	{
 		PreparedStatement state;
+		String sql;
 		DatabaseModel mod = new DatabaseModel();
 		DatabaseController cont = new DatabaseController(mod);
-		String sql;
 
 		try {
+			sql = "DROP TABLE IF EXISTS Accounts;";
+			cont.runSQLUpdate(cont.prepareStatement(sql));
 
 			sql="CREATE TABLE Accounts("
 					+ "Username TEXT NOT NULL, "
@@ -35,8 +51,8 @@ public class LoginTest
 					+ "Address TEXT NOT NULL, " 
 					+"Email TEXT NOT NULL, "
 					+ "PRIMARY KEY (Username));";
-			state=cont.prepareStatement(sql);
-			cont.runSQLUpdate(state);
+
+			cont.runSQLUpdate(cont.prepareStatement(sql));
 
 
 
@@ -66,68 +82,78 @@ public class LoginTest
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
 
-		}
+	@After
+	public void tearDown() throws Exception
+	{
+		PreparedStatement state;
+		String sql = null;
+		DatabaseModel mod = new DatabaseModel();
+		DatabaseController cont = new DatabaseController(mod);
 
-		@AfterClass
-		public static void tearDownAfterClass() throws Exception
-		{
-
-			/*
-			 * Method to remove any temporary data used for the testing
-			 * 	-Purge the database of any and all tables made during the tests  
-			 */
-			try {
-			PreparedStatement state;
-			DatabaseModel mod = new DatabaseModel();
-			DatabaseController cont = new DatabaseController(mod);
-			String sql = "DROP TABLE IF EXISTS Accounts;";
+		/*
+		 * Method to remove any temporary data used for the testing
+		 * 	-Purge the database of any and all tables made during the tests  
+		 *  -Close active connection
+		 */
+		try {
+			sql = "DROP TABLE IF EXISTS Accounts;";
 			state=cont.prepareStatement(sql);
 			cont.runSQLUpdate(state);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			cont.prepareStatement(null).close();
 		}
+	}
 
-		@Before
-		public void setUp() throws Exception
-		{
-		}
-
-		@After
-		public void tearDown() throws Exception
-		{
-		}
-
-		@Test
-		public void testCheckAccountType()
-		{
-			AccountController acont = new AccountController();
+	@Test
+	public void testCheckAccountType()
+	{
+		AccountController acont = new AccountController();
+		try {
 			assertEquals("User",acont.checkAccountType("usr002"));
 			assertEquals("Business",acont.checkAccountType("bus002"));
+		} finally {
+			
 		}
+	}
 
-		@Test
-		public void testCheckUsername()
-		{
-			AccountController acont = new AccountController();
+	@Test
+	public void testCheckUsername()
+	{
+		AccountController acont = new AccountController();
+
+		try{
 			assertTrue(acont.checkUsername("usr002"));
 			assertTrue(acont.checkUsername("bus002"));
 			assertFalse(acont.checkUsername("ihgbfduhiew"));
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
-
-		@Test
-		public void testComparePassword()
-		{
-			AccountController acont = new AccountController();
-			assertTrue(acont.comparePassword("usr002","wifesname"));
-			assertTrue(acont.comparePassword("bus002","password"));
-			assertFalse(acont.comparePassword("usr002","ihgbfduhiew"));
-			assertFalse(acont.comparePassword("bus002","ihgbfduhiew"));
-			//check for non-validation with other user creds
-			assertFalse(acont.comparePassword("bus002","wifesname"));
-			assertFalse(acont.comparePassword("usr002","password"));
-		}
-
-
 	}
+
+	@Test
+	public void testComparePassword()
+	{
+		AccountController acont = new AccountController();
+
+		assertTrue(acont.comparePassword("usr002","wifesname"));
+		assertTrue(acont.comparePassword("bus002","password"));
+		assertFalse(acont.comparePassword("usr002","ihgbfduhiew"));
+		assertFalse(acont.comparePassword("bus002","ihgbfduhiew"));
+		//check for non-validation with other user creds
+		assertFalse(acont.comparePassword("bus002","wifesname"));
+		assertFalse(acont.comparePassword("usr002","password"));
+	}
+
+	//	@Test
+	//	public void testLoginSuccess()
+	//	{
+	//		LoginController lcont = new LoginController(null);
+	////		Verify(lcont);
+	//
+	//	}
+
+}
