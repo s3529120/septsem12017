@@ -3,6 +3,7 @@ package unitTests;
 import static org.junit.Assert.*;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,8 +17,6 @@ import Model.DatabaseModel;
 
 public class LoginTest
 {
-
-
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	{
@@ -135,7 +134,7 @@ public class LoginTest
 	}
 
 	@Test
-	public void testComparePassword()
+	public void testComparePassword() throws SQLException
 	{
 		AccountController acont = new AccountController();
 
@@ -146,14 +145,8 @@ public class LoginTest
 		//check for non-validation with other user creds
 		assertFalse(acont.comparePassword("bus002","wifesname"));
 		assertFalse(acont.comparePassword("usr002","password"));
+		
 	}
 
-	//	@Test
-	//	public void testLoginSuccess()
-	//	{
-	//		LoginController lcont = new LoginController(null);
-	////		Verify(lcont);
-	//
-	//	}
 
 }
