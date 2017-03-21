@@ -31,6 +31,7 @@ public class LoginView {
 	public void updateView(){
 		Text regtxt = new Text("Register with us.");
 		Button registerbtn = new Button("Register");
+		
 		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				UserRegistrationView view = new UserRegistrationView(stage);
@@ -42,26 +43,25 @@ public class LoginView {
 		
 		Text welcometxt = new Text("Welcome back!");
 	   
-		Label usrnamelbl = new Label("Username:");
 		TextField usernamefield = new TextField();
 		HBox usernameBox = new HBox();
-		usernameBox.getChildren().add(usrnamelbl);
+		usernamefield.setPromptText("Username");
 		usernameBox.getChildren().add(usernamefield);
 		
-		Label pwordlbl = new Label("Password:");
 		PasswordField pwordfield = new PasswordField();
 		HBox pwordBox = new HBox();
-		pwordBox.getChildren().add(pwordlbl);
+		pwordfield.setPromptText("Password");
 		pwordBox.getChildren().add(pwordfield);
 		
 		Button loginbtn = new Button("Login");
+		Label errlbl = new Label("Invalid entry made, please review input");
 		loginbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 			   if(cont.isNotEmpty(usernamefield.getText(), pwordfield.getText())){
 			      cont.login(usernamefield.getText(), 
 			                 pwordfield.getText());
 			   }else{
-			      Label errlbl = new Label("Invalid entry made, please review input");
+			      
 			      usernameBox.getChildren().add(errlbl);
 			   }
 			}
@@ -71,9 +71,21 @@ public class LoginView {
 		
 		HBox loginpageBox = new HBox(regbox,vbox);
 		
+		loginpageBox.getStyleClass().add("loginpageBox");
+		vbox.getStyleClass().add("vbox");
+		regbox.getStyleClass().add("regbox");
+		usernameBox.setId("form");
+		pwordBox.setId("form");
+		registerbtn.setId("registerbtn");
+		regtxt.setId("heading");
+		welcometxt.setId("heading");
+		loginbtn.setId("loginbtn");
+		errlbl.setId("errorLabel");
+		
 		StackPane pane = new StackPane(loginpageBox);
 		
 		Scene scene = new Scene(pane);
+		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 		stage.setScene(scene);
 	}
 	
