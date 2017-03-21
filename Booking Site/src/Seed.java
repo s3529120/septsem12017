@@ -38,7 +38,7 @@ public class Seed {
 			state.setString(5, "Business");
 			state.setString(6, "1 SQL Avenue");
 			state.setString(7, "jwares@gmail.com");
-			dataCont.runSQLUpdate(state);		
+			dataCont.runSQLUpdate(state);	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

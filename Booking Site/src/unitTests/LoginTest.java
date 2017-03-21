@@ -100,6 +100,7 @@ public class LoginTest
 			sql = "DROP TABLE IF EXISTS Accounts;";
 			state=cont.prepareStatement(sql);
 			cont.runSQLUpdate(state);
+			cont.runSQLRes(state).close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -145,6 +146,8 @@ public class LoginTest
 		//check for non-validation with other user creds
 		assertFalse(acont.comparePassword("bus002","wifesname"));
 		assertFalse(acont.comparePassword("usr002","password"));
+		
+		//acont.close(); invalid as acont isn't database object.
 		
 	}
 
