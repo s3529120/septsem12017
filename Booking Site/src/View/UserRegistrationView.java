@@ -43,40 +43,51 @@ public class UserRegistrationView {
 		
 		Text regtxt = new Text("Register with us.");
 		
-		Label unamelbl = new Label("Username: ");
+		//Label unamelbl = new Label("Username: ");
 		TextField usertxtfield = new TextField();
-		HBox unamehbox = new HBox(unamelbl,usertxtfield);
+		usertxtfield.setPromptText("Username");
+		HBox unamehbox = new HBox(usertxtfield);
 
-		Label pnamelbl = new Label("Your name: ");
+		//Label pnamelbl = new Label("Your name: ");
 		TextField pnametxtfield = new TextField();
-		HBox pnamehbox = new HBox(pnamelbl,pnametxtfield);
+		pnametxtfield.setPromptText("Full Name");
+		HBox pnamehbox = new HBox(pnametxtfield);
 
-		Label addlbl = new Label("Your Address: ");
+		//Label addlbl = new Label("Your Address: ");
 		TextField addtxtfield = new TextField();
-		HBox addhbox = new HBox(addlbl,addtxtfield);
+		addtxtfield.setPromptText("Address");
+		HBox addhbox = new HBox(addtxtfield);
 
-		Label numlbl = new Label("Your Contact Number: ");
+		//Label numlbl = new Label("Your Contact Number: ");
 		TextField numtxtfield = new TextField();
-		HBox numhbox = new HBox(numlbl,numtxtfield);
+		numtxtfield.setPromptText("Contact Number");
+		HBox numhbox = new HBox(numtxtfield);
 
-		Label maillbl = new Label("Your Email address: ");
+		//Label maillbl = new Label("Your Email address: ");
 		TextField mailtxtfield = new TextField();
-		HBox mailhbox = new HBox(maillbl,mailtxtfield);
+		mailtxtfield.setPromptText("Email Address");
+		HBox mailhbox = new HBox(mailtxtfield);
 
-		Label pwordlbl = new Label("Password: ");
+		//Label pwordlbl = new Label("Password: ");
 		PasswordField pwordfield = new PasswordField();
-		HBox pwordhbox = new HBox(pwordlbl,pwordfield);
-
+		pwordfield.setPromptText("Password");
+		HBox pwordhbox = new HBox(pwordfield);
+		
+		PasswordField pwordfieldcon = new PasswordField();
+		pwordfieldcon.setPromptText("Confirm Password");
+		HBox pwordhboxcon = new HBox(pwordfieldcon);
+		
 		Button registerbtn = new Button("Register");
 		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 
+				//checking to make sure all fields are filled
 			   if(cont.checkValues(usertxtfield,
 			                    pnametxtfield,pwordfield,
 			                    numtxtfield,addtxtfield,mailtxtfield)){
-				cont.register(usertxtfield.getText(),
-						pnametxtfield.getText(),pwordfield.getText(),
-						numtxtfield.getText(),addtxtfield.getText(),mailtxtfield.getText());
+					cont.register(usertxtfield.getText(),
+							pnametxtfield.getText(),pwordfield.getText(),
+							numtxtfield.getText(),addtxtfield.getText(),mailtxtfield.getText());
 			   }else{
 			      unamehbox.getChildren().add(new Label("Invalid entry made, " +
 			            "please review input."));
@@ -86,13 +97,28 @@ public class UserRegistrationView {
 		HBox btnbox = new HBox(registerbtn);
 		
 		VBox vbox = new VBox(regtxt,unamehbox,pnamehbox,addhbox,numhbox,
-		                     mailhbox,pwordhbox,btnbox);
+		                     mailhbox,pwordhbox, pwordhboxcon,btnbox);
 		
 		HBox regmenubox = new HBox(vbox,logbox);
+		
+		regmenubox.getStyleClass().add("loginpageBox");
+		logbox.getStyleClass().add("vbox");
+		vbox.getStyleClass().add("regbox");
+		unamehbox.setId("form");
+		pnamehbox.setId("form");
+		addhbox.setId("form");
+		numhbox.setId("form");
+		mailhbox.setId("form");
+		pwordhbox.setId("form");
+		registerbtn.setId("largebtn");
+		loginbtn.setId("largebtn");
+		regtxt.setId("heading");
+		logtxt.setId("heading");
 		
 		StackPane pane = new StackPane(regmenubox);
 
 		Scene scene = new Scene(pane);
+		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 		stage.setScene(scene);
 
 	}

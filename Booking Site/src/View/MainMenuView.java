@@ -50,8 +50,21 @@ public class MainMenuView{
 		
 		VBox mainMenuBox = new VBox(txt,hbox);
 		
+		
+		mainMenuBox.getStyleClass().add("loginpageBox");
+		logbox.getStyleClass().add("vbox");
+		regbox.getStyleClass().add("regbox");
+		//usernameBox.setId("form");
+		//pwordBox.setId("form");
+		registerbtn.setId("largebtn");
+		loginbtn.setId("largebtn");
+		regtxt.setId("heading");
+		logtxt.setId("heading");
+		//welcometxt.setId("heading");
+		
 		StackPane frame = new StackPane(mainMenuBox);
 		Scene scene = new Scene(frame);
+		scene.getStylesheets().add(getClass().getResource("/view/css/styles.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
 	}

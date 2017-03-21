@@ -54,13 +54,14 @@ public class LoginView {
 		pwordBox.getChildren().add(pwordfield);
 		
 		Button loginbtn = new Button("Login");
+		Label errlbl = new Label("Invalid entry made, please review input");
 		loginbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 			   if(cont.isNotEmpty(usernamefield.getText(), pwordfield.getText())){
 			      cont.login(usernamefield.getText(), 
 			                 pwordfield.getText());
 			   }else{
-			      Label errlbl = new Label("Invalid entry made, please review input");
+			      
 			      usernameBox.getChildren().add(errlbl);
 			   }
 			}
@@ -79,6 +80,7 @@ public class LoginView {
 		regtxt.setId("heading");
 		welcometxt.setId("heading");
 		loginbtn.setId("loginbtn");
+		errlbl.setId("errorLabel");
 		
 		StackPane pane = new StackPane(loginpageBox);
 		
