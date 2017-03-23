@@ -42,14 +42,12 @@ public class UserRegistrationController {
       }
       catch (SQLException e)
       {
-		 System.out.println("Returning false because an sql exception occured");
          return false;
       }
 	   res=dbcont.runSQLRes(state);
 	   try{
          bool=res.wasNull();
       }catch(SQLException e){
-		   System.out.println("Returning false because an sql exception occured");
          return false;
       }
 	   
@@ -57,13 +55,10 @@ public class UserRegistrationController {
 	   
 	   if(uname.getText()=="" || pname.getText()=="" || pword.getText()=="" || pwordcon.getText()=="" || 
 	         address.getText()=="" || contactNo.getText()=="" || email.getText()==""){
-		   System.out.println("Returning false because a field was empty");
 	      return false;
 	   }else if(bool==true){
-		   System.out.println("Returning false because the username already exists");
 	      return false;
 	   } else if (pword.getText().equals(pwordcon.getText()) == false) {
-		   System.out.println("Returning false because passwords did not match");
 		   return false;
 	   }else{
 	      return true;
