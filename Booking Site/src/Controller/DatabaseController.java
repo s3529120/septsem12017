@@ -14,45 +14,76 @@ public class DatabaseController {
 		this.model=model;
 	}
 	
-	public PreparedStatement prepareStatement(String sql){
+	public Boolean createConnection(){
+	   try
+      {
+         model.setConnection(DriverManager.getConnection(model.getdburl()));
+         return true;
+      }
+      catch (SQLException e)
+      {
+         return false;
+      }
+	}
+	
+	public Boolean closeConnection(){
+	   if(model.getConnection()!=null){
+	      try
+         {
+            model.getConnection().close();
+            return true;
+         }
+         catch (SQLException e)
+         {
+            return false;
+         }
+	   }else{
+	      return false;
+	   }
+	}
+	
+	public Boolean prepareStatement(String sql){
 		try {
-			return DriverManager.getConnection(
-					model.getdburl())
-					.prepareStatement(sql);
+			model.setState(model.getConnection()
+					.prepareStatement(sql));
+			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
+         e.printStackTrace();
+			return false;
 		}
 	}
 	
-	public Boolean runSQL(PreparedStatement state){
+	public PreparedStatement getState(){
+	   return model.getState();
+	}
+	
+	public Boolean runSQL(){
 		try{
+		   PreparedStatement state=model.getState();
 			state.execute();
 			return true;
 		}catch(SQLException e){
-			e.printStackTrace();
 			return false;
 		}
 	}
 	
-	public Boolean runSQLUpdate(PreparedStatement state){
+	public Boolean runSQLUpdate(){
 		try{
+		   PreparedStatement state=model.getState();
 			state.executeUpdate();
 			return true;
 		}catch(SQLException e){
-			e.printStackTrace();
 			return false;
 		}
 	}
 	
-	public ResultSet runSQLRes(PreparedStatement state){
-		ResultSet res=null;
+	public ResultSet runSQLRes(){
+		ResultSet res;
 		try{
-			res=state.executeQuery();
+			res=model.getState().executeQuery();
 			return res;
 		}catch(SQLException e){
-			e.printStackTrace();
-			return res;
+			return null;
 		}
 	}
 

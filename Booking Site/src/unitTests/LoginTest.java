@@ -2,7 +2,6 @@ package unitTests;
 
 import static org.junit.Assert.*;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.junit.After;
@@ -32,14 +31,15 @@ public class LoginTest
 	@Before
 	public void setUp() throws Exception
 	{
-		PreparedStatement state;
 		String sql;
 		DatabaseModel mod = new DatabaseModel();
 		DatabaseController cont = new DatabaseController(mod);
 
 		try {
+		   cont.createConnection();
 			sql = "DROP TABLE IF EXISTS Accounts;";
-			cont.runSQLUpdate(cont.prepareStatement(sql));
+			cont.prepareStatement(sql);
+			cont.runSQLUpdate();
 
 			sql="CREATE TABLE Accounts("
 					+ "Username TEXT NOT NULL, "
@@ -51,33 +51,34 @@ public class LoginTest
 					+"Email TEXT NOT NULL, "
 					+ "PRIMARY KEY (Username));";
 
-			cont.runSQLUpdate(cont.prepareStatement(sql));
+			cont.prepareStatement(sql);
+			cont.runSQLUpdate();
 
 
 
 			sql="INSERT INTO ACCOUNTS(Username,Password,Name,ContactNo,Address,Email,Type) " +
 					"Values(?,?,?,?,?,?,?);";
-			state=cont.prepareStatement(sql);
-			state.setString(1, "bus002");
-			state.setString(2, "password");
-			state.setString(3, "Billy;s Bargains");
-			state.setString(4, "0387654321");
-			state.setString(5, "13 JUnit Place");
-			state.setString(6, "bbargains@gmail.com");
-			state.setString(7, "Business");
-			cont.runSQLUpdate(state);
+			cont.prepareStatement(sql);
+			cont.getState().setString(1, "bus002");
+			cont.getState().setString(2, "password");
+			cont.getState().setString(3, "Billy;s Bargains");
+			cont.getState().setString(4, "0387654321");
+			cont.getState().setString(5, "13 JUnit Place");
+			cont.getState().setString(6, "bbargains@gmail.com");
+			cont.getState().setString(7, "Business");
+			cont.runSQLUpdate();
 
 			sql="INSERT INTO ACCOUNTS(Username,Password,Name,ContactNo,Address,Email,Type) " +
 					"Values(?,?,?,?,?,?,?);";
-			state=cont.prepareStatement(sql);
-			state.setString(1, "usr002");
-			state.setString(2, "wifesname");
-			state.setString(3, "Jacob Genericson");
-			state.setString(4, "0412345678");
-			state.setString(5, "88  Warning Avenue");
-			state.setString(6, "jgsons@gmail.com");
-			state.setString(7, "User");
-			cont.runSQLUpdate(state);
+			cont.prepareStatement(sql);
+			cont.getState().setString(1, "usr002");
+			cont.getState().setString(2, "wifesname");
+			cont.getState().setString(3, "Jacob Genericson");
+			cont.getState().setString(4, "0412345678");
+			cont.getState().setString(5, "88  Warning Avenue");
+			cont.getState().setString(6, "jgsons@gmail.com");
+			cont.getState().setString(7, "User");
+			cont.runSQLUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -86,7 +87,6 @@ public class LoginTest
 	@After
 	public void tearDown() throws Exception
 	{
-		PreparedStatement state;
 		String sql = null;
 		DatabaseModel mod = new DatabaseModel();
 		DatabaseController cont = new DatabaseController(mod);
@@ -97,14 +97,14 @@ public class LoginTest
 		 *  -Close active connection
 		 */
 		try {
+		   cont.createConnection();
 			sql = "DROP TABLE IF EXISTS Accounts;";
-			state=cont.prepareStatement(sql);
-			cont.runSQLUpdate(state);
-			cont.runSQLRes(state).close();
+			cont.prepareStatement(sql);
+			cont.runSQLUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			cont.prepareStatement(null).close();
+			cont.closeConnection();
 		}
 	}
 

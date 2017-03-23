@@ -1,6 +1,5 @@
 package Controller;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -16,21 +15,35 @@ public class AccountController {
 			String sql="";
 			DatabaseModel dbMod = new DatabaseModel();
 			DatabaseController dbCont = new DatabaseController(dbMod);
-			PreparedStatement state;
+			int comp;
 			sql="SELECT * "
 					+ "FROM Accounts "
 					+ "WHERE Username='"+name+"';";
-
-			state=dbCont.prepareStatement(sql);
-
-			res=dbCont.runSQLRes(state);
 			
-			if(res==null){
-				System.out.print("null");
+			dbCont.createConnection();
+
+			dbCont.prepareStatement(sql);
+
+			res=dbCont.runSQLRes();
+			
+			try
+         {
+            comp=res.getString("Username").compareTo(name);
+         }
+         catch (SQLException e)
+         {
+            comp=-1;
+         }
+			
+			if(comp!=0){
+				dbCont.closeConnection();
 				return false;
 			}else{
+			   dbCont.closeConnection();
 				return true;
 			}
+			
+			
 	}
 
 
@@ -39,22 +52,25 @@ public class AccountController {
 		String sql="";
 		DatabaseModel dbMod = new DatabaseModel();
 		DatabaseController dbCont = new DatabaseController(dbMod);
-		PreparedStatement state;
 
+		dbCont.createConnection();
 		sql="SELECT Password "
 				+ "FROM Accounts "
 				+ "WHERE Username='"+name+"';";
-		state=dbCont.prepareStatement(sql);
+		dbCont.prepareStatement(sql);
 
-		res=dbCont.runSQLRes(state);
+		res=dbCont.runSQLRes();
 
 		try {
 			if(res.getString("Password").compareTo(pword)==0){
+			   dbCont.closeConnection();
 				return true;
 			}else{
+			   dbCont.closeConnection();
 				return false;
 			}
 		} catch (SQLException e) {
+		   dbCont.closeConnection();
 			return false;
 		}
 
@@ -62,22 +78,25 @@ public class AccountController {
 
 	public String checkAccountType(String name){
 		ResultSet res;
-		String sql="";
+		String sql="",type;
 		DatabaseModel dbMod = new DatabaseModel();
 		DatabaseController dbCont = new DatabaseController(dbMod);
-		PreparedStatement state;
 
+		dbCont.createConnection();
 		sql="SELECT Type "
 				+ "FROM Accounts "
 				+ "WHERE UserName='"+name+"';";
 
-		state=dbCont.prepareStatement(sql);
+		dbCont.prepareStatement(sql);
 
-		res=dbCont.runSQLRes(state);
+		res=dbCont.runSQLRes();
 
 		try {
-			return res.getString("Type");
+         type=res.getString("Type");
+		   dbCont.closeConnection();
+			return type;
 		} catch (SQLException e) {
+		   dbCont.closeConnection();
 			return "Failed to determine";
 		}
 	}
@@ -85,7 +104,6 @@ public class AccountController {
 	public AccountModel createAccountModel(String name, String type){
 		String sql="";
 		ResultSet res;
-		PreparedStatement state;
 		DatabaseModel dbmod = new DatabaseModel();
 		DatabaseController dbCont = new DatabaseController(dbmod);
 		if(type.compareToIgnoreCase("Business")==0){
@@ -94,17 +112,25 @@ public class AccountController {
 			String address;
 			String email;
 
-			DatabaseModel dbMod = new DatabaseModel();
-			DatabaseController cont = new DatabaseController(dbMod);
+			
+			dbCont.createConnection();
 
 			sql="SELECT ContactNo, Name, Address, Email "
 					+ "FROM Accounts "
-					+ "WHERE Username='"+name+"';";
+					+ "WHERE Username=?;";
 
-			state=dbCont.prepareStatement(sql);
+			dbCont.prepareStatement(sql);
+			try
+         {
+            dbCont.getState().setString(1, name);
+         }
+         catch (SQLException e1)
+         {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+         }
 
-
-			res=cont.runSQLRes(state);
+			res=dbCont.runSQLRes();
 
 			try{
 				contactno=res.getString("ContactNo");
@@ -112,11 +138,13 @@ public class AccountController {
 				busname=res.getString("Name");
 				email=res.getString("Email");
 			}catch(SQLException e){
+			   dbCont.closeConnection();
 				return null;
 			}
 
 			BusinessAccountModel acc = new BusinessAccountModel(name,
 					busname,contactno,address,email);
+			dbCont.closeConnection();
 			return acc;
 		}else if(type.compareToIgnoreCase("User")==0){
 			String contactno;
@@ -127,13 +155,23 @@ public class AccountController {
 			DatabaseModel dbMod = new DatabaseModel();
 			DatabaseController cont = new DatabaseController(dbMod);
 
+			dbCont.createConnection();
 			sql="SELECT ContactNo, Name, Address, Email "
 					+ "FROM Accounts "
-					+ "WHERE Username='"+name+"';";
+					+ "WHERE Username=?;";
 
-			state=dbCont.prepareStatement(sql);
+			dbCont.prepareStatement(sql);
+			try
+         {
+            dbCont.getState().setString(1, name);
+         }
+         catch (SQLException e1)
+         {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+         }
 
-			res=cont.runSQLRes(state);
+			res=cont.runSQLRes();
 
 			try{
 				contactno=res.getString("ContactNo");
@@ -141,12 +179,15 @@ public class AccountController {
 				personname=res.getString("Name");
 				email=res.getString("Email");
 			}catch(SQLException e){
+			   dbCont.closeConnection();
 				return null;
 			}
 
 			UserAccountModel acc = new UserAccountModel(name,personname,contactno,address,email);
+			dbCont.closeConnection();
 			return acc;
 		}else{
+		   dbCont.closeConnection();
 			return null;
 		}
 	}

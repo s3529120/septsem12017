@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -78,8 +77,6 @@ public class UserRegistrationView {
 		HBox pwordhboxcon = new HBox(pwordfieldcon);
 		
 		Button registerbtn = new Button("Register");
-		HBox btnbox = new HBox(registerbtn);
-		HBox promptbox = new HBox();
 		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 
@@ -91,15 +88,14 @@ public class UserRegistrationView {
 							pnametxtfield.getText(),pwordfield.getText(),
 							numtxtfield.getText(),addtxtfield.getText(),mailtxtfield.getText());
 			   }else{
-				   promptbox.getChildren().add(new Label("Invalid entry made\n " +
-			            "please review input."));
+			      //Add css change here
 			   }
 			}
 		});
-		
+		HBox btnbox = new HBox(registerbtn);
 		
 		VBox vbox = new VBox(regtxt,unamehbox,pnamehbox,addhbox,numhbox,
-		                     mailhbox,pwordhbox, pwordhboxcon,btnbox,promptbox);
+		                     mailhbox,pwordhbox, pwordhboxcon,btnbox);
 		
 		HBox regmenubox = new HBox(vbox,logbox);
 		

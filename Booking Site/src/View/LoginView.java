@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -54,7 +53,6 @@ public class LoginView {
 		pwordBox.getChildren().add(pwordfield);
 		
 		Button loginbtn = new Button("Login");
-		Label errlbl = new Label("Invalid entry made, please review input");
 		loginbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 			   if(cont.isNotEmpty(usernamefield.getText(), pwordfield.getText())){
@@ -62,7 +60,7 @@ public class LoginView {
 			                 pwordfield.getText());
 			   }else{
 			      
-			      usernameBox.getChildren().add(errlbl);
+			      //add css change here
 			   }
 			}
 		});
@@ -80,7 +78,6 @@ public class LoginView {
 		regtxt.setId("heading");
 		welcometxt.setId("heading");
 		loginbtn.setId("loginbtn");
-		errlbl.setId("errorLabel");
 		
 		StackPane pane = new StackPane(loginpageBox);
 		
