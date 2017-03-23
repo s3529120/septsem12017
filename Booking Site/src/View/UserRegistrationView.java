@@ -78,26 +78,28 @@ public class UserRegistrationView {
 		HBox pwordhboxcon = new HBox(pwordfieldcon);
 		
 		Button registerbtn = new Button("Register");
+		HBox btnbox = new HBox(registerbtn);
+		HBox promptbox = new HBox();
 		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 
 				//checking to make sure all fields are filled
 			   if(cont.checkValues(usertxtfield,
-			                    pnametxtfield,pwordfield,
+			                    pnametxtfield,pwordfield,pwordfieldcon,
 			                    numtxtfield,addtxtfield,mailtxtfield)){
 					cont.register(usertxtfield.getText(),
 							pnametxtfield.getText(),pwordfield.getText(),
 							numtxtfield.getText(),addtxtfield.getText(),mailtxtfield.getText());
 			   }else{
-			      unamehbox.getChildren().add(new Label("Invalid entry made, " +
+				   promptbox.getChildren().add(new Label("Invalid entry made\n " +
 			            "please review input."));
 			   }
 			}
 		});
-		HBox btnbox = new HBox(registerbtn);
+		
 		
 		VBox vbox = new VBox(regtxt,unamehbox,pnamehbox,addhbox,numhbox,
-		                     mailhbox,pwordhbox, pwordhboxcon,btnbox);
+		                     mailhbox,pwordhbox, pwordhboxcon,btnbox,promptbox);
 		
 		HBox regmenubox = new HBox(vbox,logbox);
 		
