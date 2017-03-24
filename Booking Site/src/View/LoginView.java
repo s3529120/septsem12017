@@ -1,5 +1,6 @@
 package View;
 
+import Controller.DefaultController;
 import Controller.LoginController;
 import Controller.UserRegistrationController;
 import javafx.event.ActionEvent;
@@ -30,6 +31,17 @@ public class LoginView {
 	public void updateView(){
 		Text regtxt = new Text("Register with us.");
 		Button registerbtn = new Button("Register");
+		Stage primaryStage = new Stage();
+		primaryStage.setWidth(800);
+		primaryStage.setHeight(600);
+		
+		Button returnbtn = new Button("Return");
+		returnbtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				DefaultController cont = new DefaultController(primaryStage, new MainMenuView(primaryStage));
+				cont.updateView();
+			}
+		});
 		
 		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
@@ -38,6 +50,7 @@ public class LoginView {
 				cont.updateView();
 			}
 		});
+		
 		VBox regbox = new VBox(regtxt,registerbtn);
 		
 		Text welcometxt = new Text("Welcome back!");
@@ -65,12 +78,13 @@ public class LoginView {
 			}
 		});
 		
-		VBox vbox = new VBox(welcometxt,usernameBox,pwordBox,loginbtn);
+		VBox vbox = new VBox(returnbtn,welcometxt,usernameBox,pwordBox,loginbtn);
 		
 		HBox loginpageBox = new HBox(regbox,vbox);
 		
 		loginpageBox.getStyleClass().add("loginpageBox");
 		vbox.getStyleClass().add("vbox");
+		returnbtn.setId("loginbtn");
 		regbox.getStyleClass().add("regbox");
 		usernameBox.setId("form");
 		pwordBox.setId("form");
