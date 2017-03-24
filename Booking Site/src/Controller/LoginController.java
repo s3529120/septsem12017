@@ -33,7 +33,6 @@ public class LoginController {
 		
 		if(cont.checkUsername(username)){
 			if(cont.comparePassword(username, pword)){
-			   System.out.println(username);
 				acc=cont.createAccountModel(username, 
 						cont.checkAccountType(username));
 				if(acc instanceof BusinessAccountModel){
