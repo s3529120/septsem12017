@@ -1,4 +1,3 @@
-
 import Controller.DefaultController;
 import View.MainMenuView;
 import javafx.application.Application;
