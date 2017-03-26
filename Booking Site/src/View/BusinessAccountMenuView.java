@@ -2,6 +2,7 @@ package View;
 
 import Controller.BusinessAccountMenuController;
 import Controller.DefaultController;
+import Controller.EmployeeController;
 import Model.BusinessAccountModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -47,6 +48,9 @@ public class BusinessAccountMenuView {
 		Button addempbtn = new Button("Add Employee");
       addempbtn.setOnAction(new EventHandler<ActionEvent>(){
          @Override public void handle(ActionEvent e){
+            EmployeeController empcont = new EmployeeController();
+            empcont.setView(new AddEmployeeView(new Stage()));
+            empcont.updateView();
          }
       });
       Button editavailbtn = new Button("Edit Availabilities");

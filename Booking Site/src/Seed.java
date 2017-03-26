@@ -10,11 +10,17 @@ public class Seed {
 		DatabaseController dataCont = new DatabaseController(dataMod);
 		
 		
-		sql="DROP TABLE IF EXISTS Accounts;";
+		sql="DROP TABLE IF EXISTS Accounts; ";
 		try {
 			dataCont.createConnection();
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
+			sql="DROP TABLE IF EXISTS Employee; ";
+			dataCont.prepareStatement(sql);
+         dataCont.runSQLUpdate();
+         sql="DROP TABLE IF EXISTS Address; ";
+         dataCont.prepareStatement(sql);
+         dataCont.runSQLUpdate();
 			sql="CREATE TABLE Accounts("
 					+ "Username TEXT NOT NULL, "
 					+ "Password TEXT NOT NULL, "
@@ -26,6 +32,22 @@ public class Seed {
 					+ "PRIMARY KEY (Username));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
+			sql="CREATE TABLE Address("
+               + "EmployeeEmail TEXT NOT NULL, "
+               + "StreetAdress TEXT NOT NULL, "
+               + "City TEXT NOT NULL, " 
+               + "State TEXT NOT NULL, "
+               + "PostCode TEXT NOT NULL, "
+               + "PRIMARY KEY (EmployeeEmail));";
+         dataCont.prepareStatement(sql);
+         dataCont.runSQLUpdate();
+         sql="CREATE TABLE Employee("
+               + "Name TEXT NOT NULL, "
+               + "ContactNo TEXT NOT NULL, "
+               + "Email TEXT NOT NULL, "
+               + "PRIMARY KEY (Email));";
+         dataCont.prepareStatement(sql);
+         dataCont.runSQLUpdate();
 			sql="INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
 					+ "VALUES(?,?,?,?,?,?,?);";
 			dataCont.prepareStatement(sql);
