@@ -37,7 +37,9 @@ public class UserRegistrationController {
 	      return false;
 	   }else if(bool==true){
 	      return false;
-	   }else{
+	   }else if (!pword.getText().equals(pwordcon.getText())) {
+		   return false;
+	   } else {
 	      return true;
 	   }
 	   

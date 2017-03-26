@@ -27,7 +27,7 @@ public class LoginController {
 	   }
 	}
 	
-	public void login(String username, String pword){
+	public boolean login(String username, String pword){
 		AccountController cont = new AccountController();
 		AccountModel acc;
 		
@@ -50,6 +50,6 @@ public class LoginController {
 				}
 			}
 		}
-		
+		return false;
 	}
 }
