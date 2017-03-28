@@ -83,8 +83,11 @@ public class UserRegistrationView {
 		HBox pwordhboxcon = new HBox(pwordfieldcon);
 		pwordhboxcon.setId("form");
 		
-		Text errortxt = new Text("Entered passwords do not match");
-		HBox errorbox = new HBox();
+		Text emptyerrortxt = new Text("All fields must be filled");
+		HBox emptyerrorbox = new HBox();
+		
+		Text passerrortxt = new Text("Entered passwords do not match");
+		HBox passerrorbox = new HBox();
 		
 		Button registerbtn = new Button("Register");
 		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
@@ -99,59 +102,23 @@ public class UserRegistrationView {
 							numtxtfield.getText(),addtxtfield.getText(),mailtxtfield.getText());
 			   }else{
 			      //checking for empty
-				   if(usertxtfield.getText().trim().equals("")) {
-						unamehbox.setId("incorrectForm");
-				   } else {
-						unamehbox.setId("form");
-				   }
-				   if(pnametxtfield.getText().trim().equals("")) {
-					   pnamehbox.setId("incorrectForm");
-				   } else {
-					   pnamehbox.setId("form");
-				   }
-				   if(pwordfield.getText().trim().equals("")) {
-					   pwordhbox.setId("incorrectForm");
-				   } else {
-					   pwordhbox.setId("form");
-				   }
-				   if(pwordfieldcon.getText().trim().equals("")) {
-					   pwordhboxcon.setId("incorrectForm");
-				   } else {
-					   pwordhboxcon.setId("form");
-				   }
-				   if(numtxtfield.getText().trim().equals("")) {
-					   numhbox.setId("incorrectForm");
-				   } else {
-					   numhbox.setId("form");
-				   }
-				   if(addtxtfield.getText().trim().equals("")) {
-					   addhbox.setId("incorrectForm");
-				   } else {
-					   addhbox.setId("form");
-				   }
-				   if(mailtxtfield.getText().trim().equals("")) {
-					   mailhbox.setId("incorrectForm");
-				   } else {
-					   mailhbox.setId("form");
-				   }
-				   
-				   //checking if the password fields are what cause the reject
-				   if (!pwordfield.getText().equals(pwordfieldcon.getText())) {
-					   if (!errorbox.getChildren().contains(errortxt)) {
-							errorbox.getChildren().add(errortxt);
-					   }
-				   } else {
-					   if (errorbox.getChildren().contains(errortxt)) {
-							errorbox.getChildren().remove(errortxt);
-					   }
-				   }
+				   cont.validateEntires(
+							usertxtfield, unamehbox, 
+							pnametxtfield, pnamehbox, 
+							pwordfield, pwordhbox, 
+							pwordfieldcon, pwordhboxcon, 
+							addtxtfield, addhbox, 
+							numtxtfield, numhbox, 
+							mailtxtfield, mailhbox, 
+							emptyerrortxt, emptyerrorbox,
+							passerrortxt, passerrorbox);
 			   }
 			}
 		});
 		HBox btnbox = new HBox(registerbtn);
 		
 		VBox vbox = new VBox(regtxt,unamehbox,pnamehbox,addhbox,numhbox,
-		                     mailhbox,pwordhbox, pwordhboxcon,btnbox,errorbox);
+		                     mailhbox,pwordhbox, pwordhboxcon,btnbox,emptyerrorbox,passerrorbox);
 		
 		HBox regmenubox = new HBox(vbox,logbox);
 		
