@@ -27,13 +27,12 @@ public class LoginController {
 	   }
 	}
 	
-	public void login(String username, String pword){
+	public boolean login(String username, String pword){
 		AccountController cont = new AccountController();
 		AccountModel acc;
 		
 		if(cont.checkUsername(username)){
 			if(cont.comparePassword(username, pword)){
-			   System.out.println(username);
 				acc=cont.createAccountModel(username, 
 						cont.checkAccountType(username));
 				if(acc instanceof BusinessAccountModel){
@@ -51,6 +50,6 @@ public class LoginController {
 				}
 			}
 		}
-		
+		return false;
 	}
 }

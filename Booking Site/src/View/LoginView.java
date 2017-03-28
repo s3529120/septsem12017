@@ -65,20 +65,40 @@ public class LoginView {
 		pwordfield.setPromptText("Password");
 		pwordBox.getChildren().add(pwordfield);
 		
+		Text errortxt = new Text("Incorrect username and password combination");
+		HBox errorbox = new HBox();
+		
 		Button loginbtn = new Button("Login");
 		loginbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 			   if(cont.isNotEmpty(usernamefield.getText(), pwordfield.getText())){
-			      cont.login(usernamefield.getText(), 
-			                 pwordfield.getText());
+			      if (!cont.login(usernamefield.getText(), 
+			                 pwordfield.getText())) {
+			    	  if (!errorbox.getChildren().contains(errortxt)) {
+							errorbox.getChildren().add(errortxt);
+					   }
+			    	  usernameBox.setId("form");
+			    	  pwordBox.setId("form");
+			      }
 			   }else{
-			      
-			      //add css change here
+				   if(usernamefield.getText().trim().equals("")) {
+					   usernameBox.setId("incorrectForm");
+				   } else {
+					   usernameBox.setId("form");
+				   }
+				   if(pwordfield.getText().trim().equals("")) {
+					   pwordBox.setId("incorrectForm");
+				   } else {
+					   pwordBox.setId("form");
+				   }
+				   if (errorbox.getChildren().contains(errortxt)) {
+						errorbox.getChildren().remove(errortxt);
+				   }
 			   }
 			}
 		});
 		
-		VBox vbox = new VBox(returnbtn,welcometxt,usernameBox,pwordBox,loginbtn);
+		VBox vbox = new VBox(returnbtn,welcometxt,usernameBox,pwordBox,loginbtn,errorbox);
 		
 		HBox loginpageBox = new HBox(regbox,vbox);
 		

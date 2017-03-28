@@ -152,9 +152,6 @@ public class AccountController {
 			String address;
 			String email;
 
-			DatabaseModel dbMod = new DatabaseModel();
-			DatabaseController cont = new DatabaseController(dbMod);
-
 			dbCont.createConnection();
 			sql="SELECT ContactNo, Name, Address, Email "
 					+ "FROM Accounts "
@@ -171,7 +168,7 @@ public class AccountController {
             e1.printStackTrace();
          }
 
-			res=cont.runSQLRes();
+			res=dbCont.runSQLRes();
 
 			try{
 				contactno=res.getString("ContactNo");
