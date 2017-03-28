@@ -31,14 +31,11 @@ public class LoginView {
 	public void updateView(){
 		Text regtxt = new Text("Register with us.");
 		Button registerbtn = new Button("Register");
-		Stage primaryStage = new Stage();
-		primaryStage.setWidth(800);
-		primaryStage.setHeight(600);
 		
 		Button returnbtn = new Button("Return");
 		returnbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				DefaultController cont = new DefaultController(primaryStage, new MainMenuView(primaryStage));
+				DefaultController cont = new DefaultController(stage, new MainMenuView(stage));
 				cont.updateView();
 			}
 		});
