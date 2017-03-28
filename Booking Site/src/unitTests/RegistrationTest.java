@@ -19,7 +19,6 @@ import View.UserRegistrationView;
 
 public class RegistrationTest
 {
-
    @BeforeClass
    public static void setUpBeforeClass() throws Exception
    {
@@ -121,6 +120,7 @@ public class RegistrationTest
       assertEquals(num,"0132316811");
       assertEquals(email,"pearson@gmail.com");
       assertEquals(type,"User");
+      
       dbcont.closeConnection();
    }
 
