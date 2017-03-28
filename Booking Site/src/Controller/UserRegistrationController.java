@@ -31,7 +31,6 @@ public class UserRegistrationController {
 	   Boolean bool;
 	   
 	   AccountController acon = new AccountController();
-
 	   bool=acon.checkUsername(uname.getText());
 	   
 	   if(uname.getText().isEmpty() || pname.getText().isEmpty() || pword.getText().isEmpty() || pwordcon.getText().isEmpty() ||
@@ -56,7 +55,8 @@ public class UserRegistrationController {
 			TextField contactNo, HBox numhbox,
 			TextField email, HBox mailhbox,
 			Text emptyerrortxt, HBox emptyerrorbox,
-			Text passerrortxt, HBox passerrorbox) {
+			Text passerrortxt, HBox passerrorbox,
+			Text takenerrortxt, HBox takenerrorbox) {
 
 		//checking for empty
 		boolean hasEmpty = false;
@@ -121,6 +121,18 @@ public class UserRegistrationController {
 		} else {
 			if (emptyerrorbox.getChildren().contains(emptyerrortxt)) {
 				emptyerrorbox.getChildren().remove(emptyerrortxt);
+			}
+		}
+		//checking if the account already exists and if it does adding the "taken error text"
+		AccountController acon = new AccountController();
+		boolean accExists=acon.checkUsername(uname.getText());
+		if (accExists) {
+			if (!takenerrorbox.getChildren().contains(takenerrortxt)) {
+				takenerrorbox.getChildren().add(takenerrortxt);
+			}
+		} else {
+			if (takenerrorbox.getChildren().contains(takenerrortxt)) {
+				takenerrorbox.getChildren().remove(takenerrortxt);
 			}
 		}
 	}

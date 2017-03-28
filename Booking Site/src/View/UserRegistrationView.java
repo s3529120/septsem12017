@@ -89,6 +89,9 @@ public class UserRegistrationView {
 		Text passerrortxt = new Text("Entered passwords do not match");
 		HBox passerrorbox = new HBox();
 		
+		Text takenerrortxt = new Text("That username has already been taken");
+		HBox takenerrorbox = new HBox();
+		
 		Button registerbtn = new Button("Register");
 		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
@@ -111,14 +114,15 @@ public class UserRegistrationView {
 							numtxtfield, numhbox, 
 							mailtxtfield, mailhbox, 
 							emptyerrortxt, emptyerrorbox,
-							passerrortxt, passerrorbox);
+							passerrortxt, passerrorbox,
+							takenerrortxt, takenerrorbox);
 			   }
 			}
 		});
 		HBox btnbox = new HBox(registerbtn);
 		
 		VBox vbox = new VBox(regtxt,unamehbox,pnamehbox,addhbox,numhbox,
-		                     mailhbox,pwordhbox, pwordhboxcon,btnbox,emptyerrorbox,passerrorbox);
+		                     mailhbox,pwordhbox, pwordhboxcon,btnbox,emptyerrorbox,passerrorbox,takenerrorbox);
 		
 		HBox regmenubox = new HBox(vbox,logbox);
 		
