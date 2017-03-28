@@ -62,40 +62,41 @@ public class LoginView {
 		pwordfield.setPromptText("Password");
 		pwordBox.getChildren().add(pwordfield);
 		
-		Text errortxt = new Text("Incorrect username and password combination");
-		HBox errorbox = new HBox();
+		Text emptyerrortxt = new Text("All fields must be filled");
+		HBox emptyerrorbox = new HBox();
+		
+		Text failerrortxt = new Text("Incorrect username and password combination");
+		HBox failerrorbox = new HBox();
 		
 		Button loginbtn = new Button("Login");
 		loginbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 			   if(cont.isNotEmpty(usernamefield.getText(), pwordfield.getText())){
-			      if (!cont.login(usernamefield.getText(), 
-			                 pwordfield.getText())) {
-			    	  if (!errorbox.getChildren().contains(errortxt)) {
-							errorbox.getChildren().add(errortxt);
+				   if (!cont.login(usernamefield.getText(), 
+						   pwordfield.getText())) {
+					   if (!failerrorbox.getChildren().contains(failerrortxt)) {
+						   failerrorbox.getChildren().add(failerrortxt);
 					   }
-			    	  usernameBox.setId("form");
-			    	  pwordBox.setId("form");
-			      }
-			   }else{
-				   if(usernamefield.getText().trim().equals("")) {
-					   usernameBox.setId("incorrectForm");
-				   } else {
+					   cont.validateEntries(
+							   usernamefield, usernameBox, 
+							   pwordfield, pwordBox,
+							   emptyerrortxt, emptyerrorbox);
 					   usernameBox.setId("form");
-				   }
-				   if(pwordfield.getText().trim().equals("")) {
-					   pwordBox.setId("incorrectForm");
-				   } else {
 					   pwordBox.setId("form");
 				   }
-				   if (errorbox.getChildren().contains(errortxt)) {
-						errorbox.getChildren().remove(errortxt);
+			   }else{
+				   cont.validateEntries(
+						   usernamefield, usernameBox, 
+						   pwordfield, pwordBox,
+							emptyerrortxt, emptyerrorbox);
+				   if (failerrorbox.getChildren().contains(failerrortxt)) {
+					   failerrorbox.getChildren().remove(failerrortxt);
 				   }
 			   }
 			}
 		});
 		
-		VBox vbox = new VBox(returnbtn,welcometxt,usernameBox,pwordBox,loginbtn,errorbox);
+		VBox vbox = new VBox(returnbtn,welcometxt,usernameBox,pwordBox,loginbtn,failerrorbox,emptyerrorbox);
 		
 		HBox loginpageBox = new HBox(regbox,vbox);
 		
