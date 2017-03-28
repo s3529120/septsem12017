@@ -1,5 +1,6 @@
 package View;
 
+import Controller.DefaultController;
 import Controller.LoginController;
 import Controller.UserRegistrationController;
 import javafx.event.ActionEvent;
@@ -38,6 +39,15 @@ public class UserRegistrationView {
 				cont.updateView();
 			}
 		});
+		
+		Button returnbtn = new Button("Return");
+		returnbtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				DefaultController cont = new DefaultController(stage, new MainMenuView(stage));
+				cont.updateView();
+			}
+		});
+		
 		VBox logbox = new VBox(logtxt,loginbtn);
 		
 		Text regtxt = new Text("Register with us.");
@@ -150,7 +160,7 @@ public class UserRegistrationView {
 		});
 		HBox btnbox = new HBox(registerbtn);
 		
-		VBox vbox = new VBox(regtxt,unamehbox,pnamehbox,addhbox,numhbox,
+		VBox vbox = new VBox(returnbtn,regtxt,unamehbox,pnamehbox,addhbox,numhbox,
 		                     mailhbox,pwordhbox, pwordhboxcon,btnbox,errorbox);
 		
 		HBox regmenubox = new HBox(vbox,logbox);
@@ -159,6 +169,7 @@ public class UserRegistrationView {
 		logbox.getStyleClass().add("vbox");
 		vbox.getStyleClass().add("regbox");
 		registerbtn.setId("largebtn");
+		returnbtn.setId("largebtn");
 		loginbtn.setId("largebtn");
 		regtxt.setId("heading");
 		logtxt.setId("heading");
