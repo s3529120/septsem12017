@@ -1,5 +1,6 @@
 package unitTests;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import Controller.DatabaseController;
@@ -40,6 +41,20 @@ public class TestSuite {
 	      cont.getState().setString(5, "88  Warning Avenue");
 	      cont.getState().setString(6, "jgsons@gmail.com");
 	      cont.getState().setString(7, "User");
+	      cont.runSQLUpdate();
+	      cont.closeConnection();
+	   }
+	   
+	   @AfterClass
+	   public static void tearDownAfterClass() throws Exception
+	   {
+	      DatabaseModel mod = new DatabaseModel();
+	      DatabaseController cont = new DatabaseController(mod);
+	      String sql;
+	      
+	      cont.createConnection();
+	      sql="DROP TABLE IF EXISTS Accounts;";
+	      cont.prepareStatement(sql);
 	      cont.runSQLUpdate();
 	      cont.closeConnection();
 	   }
