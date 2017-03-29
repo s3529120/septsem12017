@@ -33,7 +33,7 @@ public class EmployeeController
       dbcont.createConnection();
       
       //Prepare sql statement for execution
-      sql="SELECT ? FROM Employees WHERE Email=?;";
+      sql="SELECT ? FROM Employee WHERE Email=?;";
       dbcont.prepareStatement(sql);
       
       //Insert statement variable run and compare to expected
@@ -104,6 +104,77 @@ public class EmployeeController
          dbcont.closeConnection();
          return false;
       }
+   }
+   
+   public String[] getEmployees(){
+      String sql="";
+      DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+      ResultSet res;
+      int count=0;
+      
+      dbcont.createConnection();
+      sql="SELECT * FROM Employee;";
+      dbcont.prepareStatement(sql);
+      dbcont.prepareStatement(sql);
+      res=dbcont.runSQLRes();
+      
+      
+      try
+      {
+         if(!res.next()){
+            dbcont.closeConnection();
+            return new String[0];
+         }else{
+            while(res.next()){
+               count++;
+            }
+         }
+      }
+      catch (SQLException e)
+      {
+         dbcont.closeConnection();
+         return null;
+      }
+   
+      String emps[] = new String[count];
+      for(int i=0;i<count;i++){
+         try
+         {
+            sql="SELECT Name FROM Employee WHERE Email=?;";
+            dbcont.prepareStatement(sql);
+            dbcont.getState().setString(1, res.getString("Email"));
+            emps[count]=dbcont.runSQLRes().getString("Name");
+            res.next();
+            
+         }
+         catch (SQLException e)
+         {
+            dbcont.closeConnection();
+            return null;
+         }
+      }
+      dbcont.closeConnection();
+      return emps;
+   }
+   
+   public String getEmail(String name){
+      DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+      String sql="",email;
+      ResultSet res;
+      
+      dbcont.createConnection();
+      sql="SELECT Email FROM Employee WHERE Name=?;";
+      dbcont.prepareStatement(sql);
+      try{
+         dbcont.getState().setString(1, name);
+         res=dbcont.runSQLRes();
+         email=res.getString("Email");
+      }catch(SQLException e){
+         dbcont.closeConnection();
+         return "";
+      }
+      dbcont.closeConnection();
+      return email;
    }
    
    public void updateView(){

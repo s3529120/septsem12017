@@ -59,6 +59,7 @@ public class BusinessAccountMenuView {
          @Override public void handle(ActionEvent e){
             AvailabilitiesController cont =  new AvailabilitiesController();
             cont.setView(new EditAvailabilitiesView(new Stage()));
+            cont.getView().setController(cont);
             cont.updateView();
          }
       });

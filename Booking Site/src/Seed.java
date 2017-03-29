@@ -21,10 +21,10 @@ public class Seed {
          sql="DROP TABLE IF EXISTS Address; ";
          dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
-         sql="DROP TABLE IF EXISTS Availabilities; ";
+         sql="DROP TABLE IF EXISTS Availability; ";
          dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
-         sql="CREATE TABLE Availabilities("
+         sql="CREATE TABLE Availability("
                + "Date TEXT NOT NULL, "
                + "StartTime TEXT NOT NULL, "
                + "FinishTime TEXT NOT NULL, "
