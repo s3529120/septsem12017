@@ -21,6 +21,17 @@ public class Seed {
          sql="DROP TABLE IF EXISTS Address; ";
          dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
+         sql="DROP TABLE IF EXISTS Availabilities; ";
+         dataCont.prepareStatement(sql);
+         dataCont.runSQLUpdate();
+         sql="CREATE TABLE Availabilities("
+               + "Date TEXT NOT NULL, "
+               + "StartTime TEXT NOT NULL, "
+               + "FinishTime TEXT NOT NULL, "
+               +"Email TEXT NOT NULL, "
+               + "PRIMARY KEY (Email,Date,StartTime));";
+         dataCont.prepareStatement(sql);
+         dataCont.runSQLUpdate();
 			sql="CREATE TABLE Accounts("
 					+ "Username TEXT NOT NULL, "
 					+ "Password TEXT NOT NULL, "
