@@ -229,12 +229,14 @@ public class EmployeeController {
 				emptyerrorbox.getChildren().add(emptyerrortxt);
 			}
 		} else {
-			empaddedhbox.getChildren().add(empaddedtxt);
 			if (emptyerrorbox.getChildren().contains(emptyerrortxt)) {
 				emptyerrorbox.getChildren().remove(emptyerrortxt);
 			}
 		}
 
+	}
+	public void empAddedMessage(HBox empaddedhbox, Text empaddedtxt) {
+		empaddedhbox.getChildren().add(empaddedtxt);
 	}
 
 	public void updateView() {

@@ -105,7 +105,7 @@ public class AddEmployeeView
       Text emptyerrortxt = new Text("All fields must be filled.");
 	  HBox emptyerrorbox = new HBox();
 	  
-	  Text empaddedtxt = new Text("Employee has been successfully added!");
+	  Text empaddedtxt = new Text("Employee has been successfully added! :)");
 	  HBox empaddedhbox = new HBox();
       
       //Submit button
@@ -120,8 +120,7 @@ public class AddEmployeeView
                        contactnofield.getText(), emailfield.getText(), 
                        streetaddfield.getText(), cityfield.getText(), 
                        statebox.getValue(), pcodefield.getText());
-			   //empadded.getText().replaceAll("New employee has been added.");
-			   //Not working
+			   cont.empAddedMessage(empaddedhbox, empaddedtxt);
 		   }else{
 		      //checking for empty
 			   cont.validateEntries(
@@ -143,7 +142,7 @@ public class AddEmployeeView
       subbtn.getStyleClass().add("bluebtn");
       
       // Add above elements to vertical box
-      VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, subbtn, emptyerrorbox, empaddedhbox);
+      VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, subbtn, empaddedhbox, emptyerrorbox);
       addressInfo.setId("empAddressVbox");
 
 
