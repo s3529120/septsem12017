@@ -50,59 +50,99 @@ public class AddEmployeeView
       TextField fnamefield = new TextField();
       fnamefield.setPromptText("First Name");
       fnamefield.getStyleClass().add("textField");
+      HBox fnamehbox = new HBox(fnamefield);
+      fnamehbox.setId("form");
       
       TextField snamefield = new TextField();
       snamefield.setPromptText("Last Name");
       snamefield.getStyleClass().add("textField");
+      HBox snamehbox = new HBox(snamefield);
+      snamehbox.setId("form");
       
       TextField emailfield = new TextField();
       emailfield.setPromptText("Email");
       emailfield.getStyleClass().add("textField");
+      HBox emailhbox = new HBox(emailfield);
+      emailhbox.setId("form");
       
       TextField contactnofield = new TextField();
       contactnofield.setPromptText("Contact no.");
       contactnofield.getStyleClass().add("textField");
+      HBox contactnohbox = new HBox(contactnofield);
+      contactnohbox.setId("form");
       
       // Add above elements to vertical box
-      VBox userInfo = new VBox(backbtn, empadded, h1, fnamefield, snamefield, emailfield, contactnofield);
+      VBox userInfo = new VBox(backbtn, empadded, h1, fnamehbox, snamehbox, emailhbox, contactnohbox);
       userInfo.getStyleClass().add("addEmpVbox");
       
       /////// Vertical box 2 - address
       TextField streetaddfield = new TextField();
       streetaddfield.setPromptText("Street Address");
       streetaddfield.getStyleClass().add("textField");
+      HBox streetaddhbox = new HBox(streetaddfield);
+      streetaddhbox.setId("form");
       
       TextField cityfield = new TextField();
       cityfield.setPromptText("City");
       cityfield.getStyleClass().add("textField");
+      HBox cityhbox = new HBox(cityfield);
+      cityhbox.setId("form");
       
       ComboBox<String> statebox = new ComboBox<String>();
       statebox.setPromptText("State");
       statebox.getItems().addAll("A.C.T","N.S.W","Queensland","South Australia",
                                  "Tasmainia","Victoria","Western Australia");
       statebox.getStyleClass().add("textField");
+      HBox statehbox = new HBox(statebox);
+      statehbox.setId("form");
       
       TextField pcodefield = new TextField();
       pcodefield.setPromptText("Post Code");
       pcodefield.getStyleClass().add("textField");
+      HBox pcodehbox = new HBox(pcodefield);
+      pcodehbox.setId("form");
+      
+      Text emptyerrortxt = new Text("All fields must be filled.");
+	  HBox emptyerrorbox = new HBox();
+	  
+	  Text empaddedtxt = new Text("Employee has been successfully added!");
+	  HBox empaddedhbox = new HBox();
       
       //Submit button
       Button subbtn = new Button("Add");
       subbtn.setOnAction(new EventHandler<ActionEvent>(){
-         @Override public void handle(ActionEvent e){
-            cont.addEmployee(fnamefield.getText().concat(snamefield.getText()), 
-                             contactnofield.getText(), emailfield.getText(), 
-                             streetaddfield.getText(), cityfield.getText(), 
-                             statebox.getValue(), pcodefield.getText());
-            empadded.getText().replaceAll(".*?", fnamefield.getText().
-                                          concat(snamefield.getText()).concat(" added to Employees"));
+         @Override public void handle(ActionEvent e){         
+         
+       //checking to make sure all fields are filled
+		   if(cont.checkValues(fnamefield, snamefield, streetaddfield, pcodefield,
+					contactnofield, emailfield, cityfield)){
+			   cont.addEmployee(fnamefield.getText().concat(snamefield.getText()), 
+                       contactnofield.getText(), emailfield.getText(), 
+                       streetaddfield.getText(), cityfield.getText(), 
+                       statebox.getValue(), pcodefield.getText());
+			   //empadded.getText().replaceAll("New employee has been added.");
+		   }else{
+		      //checking for empty
+			   cont.validateEntries(
+						fnamefield, fnamehbox, 
+						snamefield, snamehbox, 
+						streetaddfield, streetaddhbox, 
+						pcodefield, pcodehbox, 
+						contactnofield, contactnohbox, 
+						emailfield, emailhbox,
+						cityfield, cityhbox,
+						emptyerrortxt, emptyerrorbox,
+						empaddedtxt, empaddedhbox);
+		   }
          }
+		   
+         
       });
       
       subbtn.getStyleClass().add("bluebtn");
       
       // Add above elements to vertical box
-      VBox addressInfo = new VBox(streetaddfield, cityfield, pcodefield, statebox, subbtn);
+      VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, subbtn, emptyerrorbox, empaddedhbox);
       addressInfo.setId("empAddressVbox");
 
 
@@ -120,4 +160,6 @@ public class AddEmployeeView
       stage.show();
       
    }
+
+
 }
