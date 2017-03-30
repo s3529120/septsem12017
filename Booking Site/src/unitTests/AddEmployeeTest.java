@@ -16,7 +16,7 @@ import Model.DatabaseModel;
 public class AddEmployeeTest {
 
 	@BeforeClass
-	public void setUpBeforeClass(){
+	public static void setUpBeforeClass(){
 		
 		//Employee fields
 		//String name,String contactno,String email,
@@ -54,7 +54,7 @@ public class AddEmployeeTest {
 	}
 
 	@AfterClass
-	public void tearDownAfterClass(){}
+	public static void tearDownAfterClass(){}
 
 	@Test
 	public void testAddEmp(){
