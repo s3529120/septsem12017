@@ -121,6 +121,7 @@ public class AddEmployeeView
                        streetaddfield.getText(), cityfield.getText(), 
                        statebox.getValue(), pcodefield.getText());
 			   //empadded.getText().replaceAll("New employee has been added.");
+			   //Not working
 		   }else{
 		      //checking for empty
 			   cont.validateEntries(
