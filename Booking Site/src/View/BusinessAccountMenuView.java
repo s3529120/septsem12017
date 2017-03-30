@@ -1,5 +1,6 @@
 package View;
 
+import Controller.AvailabilitiesController;
 import Controller.BusinessAccountMenuController;
 import Controller.DefaultController;
 import Controller.EmployeeController;
@@ -50,12 +51,17 @@ public class BusinessAccountMenuView {
          @Override public void handle(ActionEvent e){
             EmployeeController empcont = new EmployeeController();
             empcont.setView(new AddEmployeeView(new Stage()));
+            empcont.getView().setController(empcont);
             empcont.updateView();
          }
       });
       Button editavailbtn = new Button("Edit Availabilities");
       editavailbtn.setOnAction(new EventHandler<ActionEvent>(){
          @Override public void handle(ActionEvent e){
+            AvailabilitiesController cont =  new AvailabilitiesController();
+            cont.setView(new EditAvailabilitiesView(new Stage()));
+            cont.getView().setController(cont);
+            cont.updateView();
          }
       });
       HBox toprow = new HBox(addempbtn,editavailbtn);

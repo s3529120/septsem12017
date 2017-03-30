@@ -2,6 +2,8 @@ package Controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.sqlite.core.DB;
 
@@ -33,7 +35,7 @@ public class EmployeeController
       dbcont.createConnection();
       
       //Prepare sql statement for execution
-      sql="SELECT ? FROM Employees WHERE Email=?;";
+      sql="SELECT ? FROM Employee WHERE Email=?;";
       dbcont.prepareStatement(sql);
       
       //Insert statement variable run and compare to expected
@@ -75,19 +77,35 @@ public class EmployeeController
       
       //Prepare sql statement
       sql="INSERT INTO Employee(Name,ContactNo,Email) " +
-            "Values(?,?,?,?); " 
-            +"INSERT INTO Address(EmployeeEmail,StreetAddress,City,State,PostCode) " 
-            +"Values(?,?,?,?,?) ;";
+            "Values(?,?,?);";
+      dbcont.prepareStatement(sql);
       try
       {
          dbcont.getState().setString(1, name);
          dbcont.getState().setString(2, contactno);
          dbcont.getState().setString(3, email);
-         dbcont.getState().setString(4, email);
-         dbcont.getState().setString(5, streetadd);
-         dbcont.getState().setString(6, city);
-         dbcont.getState().setString(7, state);
-         dbcont.getState().setString(8, postcode);
+         
+      }
+      catch (SQLException e)
+      {
+         dbcont.closeConnection();
+         return false;
+      }
+      if(!dbcont.runSQLUpdate()){
+         dbcont.closeConnection();
+         return false;
+      }
+      
+      sql="INSERT INTO Address(EmployeeEmail,StreetAddress,City,State,PostCode) " 
+            +"Values(?,?,?,?,?) ;";
+      dbcont.prepareStatement(sql);
+      try
+      {
+         dbcont.getState().setString(1, email);
+         dbcont.getState().setString(2, streetadd);
+         dbcont.getState().setString(3, city);
+         dbcont.getState().setString(4, state);
+         dbcont.getState().setString(5, postcode);
          
       }
       catch (SQLException e)
@@ -104,6 +122,53 @@ public class EmployeeController
          dbcont.closeConnection();
          return false;
       }
+   }
+   
+   public String[] getEmployees(){
+      String sql="";
+      DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+      ResultSet res;
+      int count=0;
+      List<String> emps = new ArrayList<String>();
+      
+      dbcont.createConnection();
+      sql="SELECT * FROM Employee;";
+      dbcont.prepareStatement(sql);
+      res=dbcont.runSQLRes();
+      
+      try
+      {
+         while(res.next()){
+            emps.add(res.getString("Name"));
+         }
+      }
+      catch (SQLException e)
+      {
+         return null;
+      }
+      
+      dbcont.closeConnection();
+      return emps.toArray(new String[emps.size()]);
+   }
+   
+   public String getEmail(String name){
+      DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+      String sql="",email;
+      ResultSet res;
+      
+      dbcont.createConnection();
+      sql="SELECT Email FROM Employee WHERE Name=?;";
+      dbcont.prepareStatement(sql);
+      try{
+         dbcont.getState().setString(1, name);
+         res=dbcont.runSQLRes();
+         email=res.getString("Email");
+      }catch(SQLException e){
+         dbcont.closeConnection();
+         return "";
+      }
+      dbcont.closeConnection();
+      return email;
    }
    
    public void updateView(){

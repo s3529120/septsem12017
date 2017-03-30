@@ -36,6 +36,9 @@ public class AddEmployeeView
       });
       Text h1 = new Text("Add Employee");
       
+    //Confirmation message
+      Text empadded = new Text("");
+      
       //Boxes
       //Row 1
       TextField fnamefield = new TextField();
@@ -79,20 +82,24 @@ public class AddEmployeeView
       VBox boxes = new VBox(r1,r2,r3,r4);
       
       //Submit button
-      Button subbtn = new Button("View Bookings");
+      Button subbtn = new Button("Add");
       subbtn.setOnAction(new EventHandler<ActionEvent>(){
          @Override public void handle(ActionEvent e){
-            cont.addEmployee(fnamefield.getText()+snamefield.getText(), 
+            cont.addEmployee(fnamefield.getText().concat(snamefield.getText()), 
                              contactnofield.getText(), emailfield.getText(), 
                              streetaddfield.getText(), cityfield.getText(), 
                              statebox.getValue(), pcodefield.getText());
+            empadded.getText().replaceAll(".*?", fnamefield.getText().
+                                          concat(snamefield.getText()).concat(" added to Employees"));
          }
       });
+      
+      
      
       //Layout
       StackPane pane = new StackPane();
       
-      pane.getChildren().addAll(backbtn,h1,boxes,subbtn);
+      pane.getChildren().addAll(backbtn,h1,boxes,subbtn,empadded);
       Scene scene = new Scene(pane);
       stage.setScene(scene);
       stage.show();
