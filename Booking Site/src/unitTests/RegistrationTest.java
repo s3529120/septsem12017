@@ -100,7 +100,6 @@ public class RegistrationTest
 		try{
 			cont.register("usr004", "Anany Levitin", "pass", "3 Edition Street",
 					"0132316811", "pearson@gmail.com");
-
 			dbcont.createConnection();
 			sql="SELECT * FROM ACCOUNTS WHERE Username='usr004';";
 			dbcont.prepareStatement(sql);
