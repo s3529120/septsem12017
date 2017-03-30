@@ -73,3 +73,48 @@
 	-fx-padding: 15 35 0 50;
 	-fx-font-size: 11pt;
 }
+
+/* Add Employee */
+
+.redbtn {
+	-fx-padding: 15;
+	-fx-background-insets: 10 0 10 0;
+	-fx-background-color: #FF674E;
+}
+
+.bluebtn {
+	-fx-padding: 15;
+	-fx-background-insets: 10 0 10 0;
+	-fx-background-color: #3BF1FF;
+}
+
+.textField {
+	-fx-padding: 15;
+	-fx-background-insets: 10 0 10 0;
+	-fix-pref-width: 200;
+}
+
+.addEmpVbox {
+	-fx-padding: 25 20 20 50;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    -fx-pref-width: 400;
+    -fx-pref-width: 400;
+	-fx-max-height: 400;
+}
+
+#empAddressVbox {
+	
+	-fx-padding: 120 20 20 50;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    -fx-pref-width: 400;
+    -fx-pref-width: 400;
+	-fx-max-height: 400;
+}
+
+#addEmpPageBox {
+	-fx-padding: 5;
+    -fx-spacing: 5;
+}
+

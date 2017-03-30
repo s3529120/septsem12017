@@ -34,52 +34,57 @@ public class AddEmployeeView
             stage.close();
          }
       });
-      Text h1 = new Text("Add Employee");
       
-    //Confirmation message
+      backbtn.getStyleClass().add("redbtn");
+      
+      
+    //Confirmation message and heading
+      
       Text empadded = new Text("");
       
-      //Boxes
-      //Row 1
+      Text h1 = new Text("Add Employee");
+      h1.setId("heading");
+
+      ////////Vertical box 1 - user info
+      
       TextField fnamefield = new TextField();
       fnamefield.setPromptText("First Name");
+      fnamefield.getStyleClass().add("textField");
       
-      TextField streetaddfield = new TextField();
-      streetaddfield.setPromptText("Street Address");
-      
-      HBox r1 = new HBox(fnamefield,streetaddfield);
-      
-      //Row 2
       TextField snamefield = new TextField();
       snamefield.setPromptText("Last Name");
+      snamefield.getStyleClass().add("textField");
+      
+      TextField emailfield = new TextField();
+      emailfield.setPromptText("Email");
+      emailfield.getStyleClass().add("textField");
+      
+      TextField contactnofield = new TextField();
+      contactnofield.setPromptText("Contact no.");
+      contactnofield.getStyleClass().add("textField");
+      
+      // Add above elements to vertical box
+      VBox userInfo = new VBox(backbtn, empadded, h1, fnamefield, snamefield, emailfield, contactnofield);
+      userInfo.getStyleClass().add("addEmpVbox");
+      
+      /////// Vertical box 2 - address
+      TextField streetaddfield = new TextField();
+      streetaddfield.setPromptText("Street Address");
+      streetaddfield.getStyleClass().add("textField");
       
       TextField cityfield = new TextField();
       cityfield.setPromptText("City");
-      
-      HBox r2 = new HBox(snamefield,cityfield);
-      
-      //Row 3
-      TextField emailfield = new TextField();
-      emailfield.setPromptText("Email");
+      cityfield.getStyleClass().add("textField");
       
       ComboBox<String> statebox = new ComboBox<String>();
       statebox.setPromptText("State");
       statebox.getItems().addAll("A.C.T","N.S.W","Queensland","South Australia",
                                  "Tasmainia","Victoria","Western Australia");
-      
-      HBox r3 = new HBox(emailfield,statebox);
-      
-      //Row 4
-      TextField contactnofield = new TextField();
-      fnamefield.setPromptText("Contact no.");
+      statebox.getStyleClass().add("textField");
       
       TextField pcodefield = new TextField();
       pcodefield.setPromptText("Post Code");
-      
-      HBox r4 = new HBox(contactnofield,pcodefield);
-      
-      //Boxes
-      VBox boxes = new VBox(r1,r2,r3,r4);
+      pcodefield.getStyleClass().add("textField");
       
       //Submit button
       Button subbtn = new Button("Add");
@@ -94,13 +99,23 @@ public class AddEmployeeView
          }
       });
       
+      subbtn.getStyleClass().add("bluebtn");
       
-     
+      // Add above elements to vertical box
+      VBox addressInfo = new VBox(streetaddfield, cityfield, pcodefield, statebox, subbtn);
+      addressInfo.setId("empAddressVbox");
+
+
       //Layout
+      
+      HBox addEmployeeBox = new HBox(userInfo, addressInfo);
+      addEmployeeBox.setId("addEmpPageBox");
+      
       StackPane pane = new StackPane();
       
-      pane.getChildren().addAll(backbtn,h1,boxes,subbtn,empadded);
-      Scene scene = new Scene(pane);
+      pane.getChildren().addAll(addEmployeeBox);
+      Scene scene = new Scene(pane, 850, 450);
+      scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
       stage.setScene(scene);
       stage.show();
       
