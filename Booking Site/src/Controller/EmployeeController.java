@@ -148,6 +148,9 @@ public class EmployeeController
       }
       
       dbcont.closeConnection();
+      if (emps.isEmpty()) {
+    	  return null;
+      }
       return emps.toArray(new String[emps.size()]);
    }
    

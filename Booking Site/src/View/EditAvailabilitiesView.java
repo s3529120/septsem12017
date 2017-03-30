@@ -42,8 +42,20 @@ public class EditAvailabilitiesView
 		Text h1 = new Text("Manage Availabilities");
 
 		Text insertconfirm = new Text("");
-		
+
 		HBox top = new HBox(h1,backbox);
+
+		Text dateerrortxt = new Text("Please Select a date");
+		HBox dateerrorbox = new HBox();
+
+		Text employeeerrortxt = new Text("Employee not selected");
+		HBox employeeerrorbox = new HBox();
+
+		Text emptyerrortxt = new Text("No employees to edit");
+		HBox emptyerrorbox = new HBox();
+
+		Text timeerrortxt = new Text("Invalid time selection");
+		HBox timenerrorbox = new HBox();
 
 		//Box 1
 		DatePicker availDatePicker = new DatePicker();
@@ -60,6 +72,10 @@ public class EditAvailabilitiesView
 		GridPane.setHalignment(checkInlabel, HPos.LEFT);
 		gridPane.add(availDatePicker, 0, 1);
 		box1.getChildren().add(gridPane);
+		box1.getChildren().add(dateerrorbox);
+
+
+		box1.setId("form");
 
 		//Box2
 		String emps[];
@@ -68,40 +84,62 @@ public class EditAvailabilitiesView
 		emps=cont.getEmployees();
 		if(emps==null){
 			employee.getItems().add("None Exist");
+			if (!emptyerrorbox.getChildren().contains(emptyerrortxt)) {
+				emptyerrorbox.getChildren().add(emptyerrortxt);
+			}
 		}else{
 			for(int i=0;i<emps.length;i++){
 				employee.getItems().add(emps[i]);
 			}
+			if (emptyerrorbox.getChildren().contains(emptyerrortxt)) {
+				emptyerrorbox.getChildren().remove(emptyerrortxt);
+			}
 		}
+		HBox employeebox = new HBox(employee);
+		employeebox.setId("form");
 
 		Label startlbl = new Label("Start Time: ");
 		ComboBox<String> starttimes = new ComboBox<String>();
 		starttimes.getItems().addAll(cont.getPossibleTimes());
 		starttimes.getSelectionModel().selectFirst();
 		HBox startbox = new HBox(startlbl,starttimes);
+		startbox.setId("form");
 
 		Label finishlbl = new Label("End Time: ");
 		ComboBox<String> finishtimes = new ComboBox<String>();
 		finishtimes.getItems().addAll(cont.getPossibleTimes());
 		finishtimes.getSelectionModel().selectFirst();
 		HBox finishbox = new HBox(finishlbl,finishtimes);
+		finishbox.setId("form");
 
 		Button savebtn = new Button("Save");
 		savebtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 
-				cont.addAvailability( cont.getEmail(employee.getSelectionModel().getSelectedItem()), 
-						availDatePicker.getValue(), starttimes.getSelectionModel().getSelectedItem(),
-						finishtimes.getSelectionModel().getSelectedItem());
-				insertconfirm.getText().replaceAll(".*?",employee.getSelectionModel().getSelectedItem().toString()
-						.concat("'s available time added"));
+				if (cont.validateEntries(
+						cont.getEmail(employee.getSelectionModel().getSelectedItem()), employeebox,
+						availDatePicker.getValue(), box1,
+						starttimes.getSelectionModel().getSelectedItem(), startbox,
+						finishtimes.getSelectionModel().getSelectedItem(), finishbox,
+						dateerrortxt,dateerrorbox,
+						employeeerrortxt,employeeerrorbox,
+						timeerrortxt,timenerrorbox)) {
+
+					cont.addAvailability( 
+							cont.getEmail(employee.getSelectionModel().getSelectedItem()), 
+							availDatePicker.getValue(), 
+							starttimes.getSelectionModel().getSelectedItem(),
+							finishtimes.getSelectionModel().getSelectedItem());
+					insertconfirm.getText().replaceAll(".*?",employee.getSelectionModel().getSelectedItem().toString()
+							.concat("'s available time added"));
+				}
 			}
 		});
 
-		VBox box2 = new VBox(employee,startbox,finishbox,savebtn);
+		VBox box2 = new VBox(employeebox,startbox,finishbox,savebtn,emptyerrorbox,employeeerrorbox,timenerrorbox);
 		HBox body = new HBox(box1,box2);
 		VBox page = new VBox(top,body);
-		
+
 		page.getStyleClass().add("loginpageBox");
 		box1.getStyleClass().add("editavailBox");
 		box2.getStyleClass().add("editavailBox");
@@ -110,10 +148,7 @@ public class EditAvailabilitiesView
 		backbtn.setId("logoutbtn");
 		backbox.setId("logoutbox");
 		h1.setId("heading");
-		employee.setId("form");
-		startbox.setId("form");
-		finishbox.setId("form");
-		
+
 
 		StackPane pane = new StackPane(page,insertconfirm);
 
