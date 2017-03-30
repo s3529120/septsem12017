@@ -19,18 +19,6 @@ public class LoginTest
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	{
-
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception
-	{
-
-	}
-
-	@Before
-	public void setUp() throws Exception
-	{
 		String sql;
 		DatabaseModel mod = new DatabaseModel();
 		DatabaseController cont = new DatabaseController(mod);
@@ -84,8 +72,8 @@ public class LoginTest
 		}
 	}
 
-	@After
-	public void tearDown() throws Exception
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception
 	{
 		String sql = null;
 		DatabaseModel mod = new DatabaseModel();
@@ -108,6 +96,18 @@ public class LoginTest
 		}
 	}
 
+	@Before
+	public void setUp() throws Exception
+	{
+	
+	}
+
+	@After
+	public void tearDown() throws Exception
+	{
+	
+	}
+
 	@Test
 	public void testCheckAccountType()
 	{
@@ -115,8 +115,8 @@ public class LoginTest
 		try {
 			assertEquals("User",acont.checkAccountType("usr002"));
 			assertEquals("Business",acont.checkAccountType("bus002"));
-		} finally {
-			
+		}catch(Exception e) {
+			fail("SQLException generated");
 		}
 	}
 
@@ -129,26 +129,26 @@ public class LoginTest
 			assertTrue(acont.checkUsername("usr002"));
 			assertTrue(acont.checkUsername("bus002"));
 			assertFalse(acont.checkUsername("ihgbfduhiew"));
-		} catch(Exception e) {
-			e.printStackTrace();
+		}catch(Exception e) {
+			fail("SQLException generated");
 		}
 	}
 
 	@Test
-	public void testComparePassword() throws SQLException
+	public void testComparePassword()
 	{
 		AccountController acont = new AccountController();
-
-		assertTrue(acont.comparePassword("usr002","wifesname"));
-		assertTrue(acont.comparePassword("bus002","password"));
-		assertFalse(acont.comparePassword("usr002","ihgbfduhiew"));
-		assertFalse(acont.comparePassword("bus002","ihgbfduhiew"));
-		//check for non-validation with other user creds
-		assertFalse(acont.comparePassword("bus002","wifesname"));
-		assertFalse(acont.comparePassword("usr002","password"));
-		
-		//acont.close(); invalid as acont isn't database object.
-		
+		try{
+			assertTrue(acont.comparePassword("usr002","wifesname"));
+			assertTrue(acont.comparePassword("bus002","password"));
+			assertFalse(acont.comparePassword("usr002","ihgbfduhiew"));
+			assertFalse(acont.comparePassword("bus002","ihgbfduhiew"));
+			//check for non-validation with other user creds
+			assertFalse(acont.comparePassword("bus002","wifesname"));
+			assertFalse(acont.comparePassword("usr002","password"));
+		}catch(Exception e) {
+			fail("SQLException generated");
+		}
 	}
 
 
