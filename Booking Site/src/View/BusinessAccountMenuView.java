@@ -51,6 +51,7 @@ public class BusinessAccountMenuView {
          @Override public void handle(ActionEvent e){
             EmployeeController empcont = new EmployeeController();
             empcont.setView(new AddEmployeeView(new Stage()));
+            empcont.getView().setController(empcont);
             empcont.updateView();
          }
       });

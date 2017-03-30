@@ -2,6 +2,8 @@ package Controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.sqlite.core.DB;
 
@@ -75,19 +77,35 @@ public class EmployeeController
       
       //Prepare sql statement
       sql="INSERT INTO Employee(Name,ContactNo,Email) " +
-            "Values(?,?,?,?); " 
-            +"INSERT INTO Address(EmployeeEmail,StreetAddress,City,State,PostCode) " 
-            +"Values(?,?,?,?,?) ;";
+            "Values(?,?,?);";
+      dbcont.prepareStatement(sql);
       try
       {
          dbcont.getState().setString(1, name);
          dbcont.getState().setString(2, contactno);
          dbcont.getState().setString(3, email);
-         dbcont.getState().setString(4, email);
-         dbcont.getState().setString(5, streetadd);
-         dbcont.getState().setString(6, city);
-         dbcont.getState().setString(7, state);
-         dbcont.getState().setString(8, postcode);
+         
+      }
+      catch (SQLException e)
+      {
+         dbcont.closeConnection();
+         return false;
+      }
+      if(!dbcont.runSQLUpdate()){
+         dbcont.closeConnection();
+         return false;
+      }
+      
+      sql="INSERT INTO Address(EmployeeEmail,StreetAddress,City,State,PostCode) " 
+            +"Values(?,?,?,?,?) ;";
+      dbcont.prepareStatement(sql);
+      try
+      {
+         dbcont.getState().setString(1, email);
+         dbcont.getState().setString(2, streetadd);
+         dbcont.getState().setString(3, city);
+         dbcont.getState().setString(4, state);
+         dbcont.getState().setString(5, postcode);
          
       }
       catch (SQLException e)
@@ -111,50 +129,26 @@ public class EmployeeController
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       ResultSet res;
       int count=0;
+      List<String> emps = new ArrayList<String>();
       
       dbcont.createConnection();
       sql="SELECT * FROM Employee;";
       dbcont.prepareStatement(sql);
-      dbcont.prepareStatement(sql);
       res=dbcont.runSQLRes();
-      
       
       try
       {
-         if(!res.next()){
-            dbcont.closeConnection();
-            return new String[0];
-         }else{
-            while(res.next()){
-               count++;
-            }
+         while(res.next()){
+            emps.add(res.getString("Name"));
          }
       }
       catch (SQLException e)
       {
-         dbcont.closeConnection();
          return null;
       }
-   
-      String emps[] = new String[count];
-      for(int i=0;i<count;i++){
-         try
-         {
-            sql="SELECT Name FROM Employee WHERE Email=?;";
-            dbcont.prepareStatement(sql);
-            dbcont.getState().setString(1, res.getString("Email"));
-            emps[count]=dbcont.runSQLRes().getString("Name");
-            res.next();
-            
-         }
-         catch (SQLException e)
-         {
-            dbcont.closeConnection();
-            return null;
-         }
-      }
+      
       dbcont.closeConnection();
-      return emps;
+      return emps.toArray(new String[emps.size()]);
    }
    
    public String getEmail(String name){
