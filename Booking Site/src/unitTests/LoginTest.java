@@ -133,7 +133,7 @@ public class LoginTest
 			fail("SQLException generated");
 		}
 	}
-
+//split into multiple smaller tets
 	@Test
 	public void testComparePassword()
 	{
