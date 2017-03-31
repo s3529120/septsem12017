@@ -8,8 +8,8 @@ public class Seed {
 		String sql="";
 		DatabaseModel dataMod = new DatabaseModel();
 		DatabaseController dataCont = new DatabaseController(dataMod);
-		
-		
+
+
 		sql="DROP TABLE IF EXISTS Accounts; ";
 		try {
 			dataCont.createConnection();
@@ -17,21 +17,21 @@ public class Seed {
 			dataCont.runSQLUpdate();
 			sql="DROP TABLE IF EXISTS Employee; ";
 			dataCont.prepareStatement(sql);
-         dataCont.runSQLUpdate();
-         sql="DROP TABLE IF EXISTS Address; ";
-         dataCont.prepareStatement(sql);
-         dataCont.runSQLUpdate();
-         sql="DROP TABLE IF EXISTS Availability; ";
-         dataCont.prepareStatement(sql);
-         dataCont.runSQLUpdate();
-         sql="CREATE TABLE Availability("
-               + "Date TEXT NOT NULL, "
-               + "StartTime TEXT NOT NULL, "
-               + "FinishTime TEXT NOT NULL, "
-               +"Email TEXT NOT NULL, "
-               + "PRIMARY KEY (Email,Date,StartTime));";
-         dataCont.prepareStatement(sql);
-         dataCont.runSQLUpdate();
+			dataCont.runSQLUpdate();
+			sql="DROP TABLE IF EXISTS Address; ";
+			dataCont.prepareStatement(sql);
+			dataCont.runSQLUpdate();
+			sql="DROP TABLE IF EXISTS Availability; ";
+			dataCont.prepareStatement(sql);
+			dataCont.runSQLUpdate();
+			sql="CREATE TABLE Availability("
+					+ "Date TEXT NOT NULL, "
+					+ "StartTime TEXT NOT NULL, "
+					+ "FinishTime TEXT NOT NULL, "
+					+ "Email TEXT NOT NULL, "
+					+ "PRIMARY KEY (Email,Date,StartTime));";
+			dataCont.prepareStatement(sql);
+			dataCont.runSQLUpdate();
 			sql="CREATE TABLE Accounts("
 					+ "Username TEXT NOT NULL, "
 					+ "Password TEXT NOT NULL, "
@@ -44,21 +44,21 @@ public class Seed {
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 			sql="CREATE TABLE Address("
-               + "EmployeeEmail TEXT NOT NULL, "
-               + "StreetAddress TEXT NOT NULL, "
-               + "City TEXT NOT NULL, " 
-               + "State TEXT NOT NULL, "
-               + "PostCode TEXT NOT NULL, "
-               + "PRIMARY KEY (EmployeeEmail));";
-         dataCont.prepareStatement(sql);
-         dataCont.runSQLUpdate();
-         sql="CREATE TABLE Employee("
-               + "Name TEXT NOT NULL, "
-               + "ContactNo TEXT NOT NULL, "
-               + "Email TEXT NOT NULL, "
-               + "PRIMARY KEY (Email));";
-         dataCont.prepareStatement(sql);
-         dataCont.runSQLUpdate();
+					+ "EmployeeEmail TEXT NOT NULL, "
+					+ "StreetAddress TEXT NOT NULL, "
+					+ "City TEXT NOT NULL, " 
+					+ "State TEXT NOT NULL, "
+					+ "PostCode TEXT NOT NULL, "
+					+ "PRIMARY KEY (EmployeeEmail));";
+			dataCont.prepareStatement(sql);
+			dataCont.runSQLUpdate();
+			sql="CREATE TABLE Employee("
+					+ "Name TEXT NOT NULL, "
+					+ "ContactNo TEXT NOT NULL, "
+					+ "Email TEXT NOT NULL, "
+					+ "PRIMARY KEY (Email));";
+			dataCont.prepareStatement(sql);
+			dataCont.runSQLUpdate();
 			sql="INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
 					+ "VALUES(?,?,?,?,?,?,?);";
 			dataCont.prepareStatement(sql);

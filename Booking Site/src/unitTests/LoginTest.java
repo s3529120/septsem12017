@@ -85,7 +85,7 @@ public class LoginTest
 		 *  -Close active connection
 		 */
 		try {
-		   cont.createConnection();
+			cont.createConnection();
 			sql = "DROP TABLE IF EXISTS Accounts;";
 			cont.prepareStatement(sql);
 			cont.runSQLUpdate();
