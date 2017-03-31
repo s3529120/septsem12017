@@ -27,7 +27,7 @@ public class AddEmployeeTest {
 		DatabaseModel mod = new DatabaseModel();
 		DatabaseController cont = new DatabaseController(mod);
 		String sql;
-
+		
 		cont.createConnection();
 		sql="DROP TABLE IF EXISTS Employee;";
 		cont.prepareStatement(sql);
@@ -108,15 +108,22 @@ public class AddEmployeeTest {
 		EmployeeController econt = new EmployeeController();
 
 		try{
+			dbcont.createConnection();
 			econt.addEmployee("John Smith", "0555 555 555","myemail@gmail.com","123 Fake Street", 
 					"Melbourne", "Victoria", "3000");
 			sql="SELECT * FROM EMPLOYEE WHERE name='John Smith';";
 			dbcont.prepareStatement(sql);
 			res = dbcont.runSQLRes();
-
+			System.out.printf("\nRes collected\n");
 			name = res.getString("Name");
 			num = res.getString("ContactNo");
 			email = res.getString("Email");
+			System.out.printf("Name: %s\nContact No.: %s\nEmail: %s", name,num,email);
+			
+			sql="SELECT * FROM ADDRESS WHERE EmployeeEmail='myemail@gmail.com';";
+			dbcont.prepareStatement(sql);
+			res = dbcont.runSQLRes();
+			
 			add = res.getString("StreetAddress");
 			city = res.getString("City");
 			state = res.getString("State");
@@ -144,23 +151,29 @@ public class AddEmployeeTest {
 		ResultSet res;
 
 		try{	
-
-			sql="SELECT * FROM EMPLOYEE WHERE name='Jacob Genericson';";
-
+			dbcont.createConnection();
+			
+			sql="SELECT * FROM EMPLOYEE WHERE email='jgsons@gmail.com';";
 			dbcont.prepareStatement(sql);
 			res = dbcont.runSQLRes();
 
 			name = res.getString("Name");
 			num = res.getString("ContactNo");
 			email = res.getString("Email");
+			System.out.printf("Name: %s\nContact No.: %s\nEmail: %s", name,num,email);
+			
+			sql="SELECT * FROM ADDRESS WHERE EmployeeEmail='jgsons@gmail.com';";
+			dbcont.prepareStatement(sql);
+			res = dbcont.runSQLRes();
+			
 			add = res.getString("StreetAddress");
 			city = res.getString("City");
 			state = res.getString("State");
 			postc = res.getString("PostCode");
 
 			assertEquals(name,"Jacob Genericson");
-			assertEquals(num,"0555 555 555");
-			assertEquals(email,"myemail@gmail.com");
+			assertEquals(num,"0412345678");
+			assertEquals(email,"jgsons@gmail.com");
 			assertEquals(add,"123 Fake Street");
 			assertEquals(city,"Melbourne");
 			assertEquals(state,"Victoria");
