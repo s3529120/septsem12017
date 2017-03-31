@@ -41,7 +41,7 @@ public class EmployeeController
 		dbcont.createConnection();
 
 		//Prepare sql statement for execution
-		sql="SELECT ? FROM Employee WHERE Email=?;";
+		sql="SELECT Email FROM Employee WHERE Email=?;";
 		dbcont.prepareStatement(sql);
 
 		//Insert statement variable run and compare to expected
@@ -49,10 +49,11 @@ public class EmployeeController
 		{
 			dbcont.getState().setString(1, email);
 			res=dbcont.runSQLRes();
-			res.getString("Email").compareTo(email);
+			comp=res.getString("Email").compareTo(email);
 		}
 		catch (SQLException e)
 		{
+			e.printStackTrace();
 			dbcont.closeConnection();
 			return false;
 		}
@@ -62,6 +63,7 @@ public class EmployeeController
 		if(comp==0){
 			return true;
 		}else{
+			System.out.println(comp);
 			return false;
 		}
 	}
@@ -185,7 +187,7 @@ public class EmployeeController
 
 		if (fname.getText().isEmpty() || sname.getText().isEmpty() || address.getText().isEmpty()
 				|| pcode.getText().isEmpty() || contactNo.getText().isEmpty()
-				|| email.getText().isEmpty()) {
+				|| email.getText().isEmpty() || this.checkEmployee(email.getText())) {
 			return false;
 		} else {
 			return true;
@@ -193,10 +195,17 @@ public class EmployeeController
 
 	}
 
-	public void validateEntries(TextField fname, HBox fnamehbox, TextField sname, HBox snamehbox, TextField address,
-			HBox addresshbox, TextField pcode, HBox pcodehbox,
-			TextField contactno, HBox contactnohbox, TextField email, HBox emailhbox, TextField city, HBox cityhbox,
-			Text emptyerrortxt, HBox emptyerrorbox, Text empaddedtxt, HBox empaddedhbox) {
+	public void validateEntries(
+			TextField fname, HBox fnamehbox, 
+			TextField sname, HBox snamehbox, 
+			TextField address, HBox addresshbox, 
+			TextField pcode, HBox pcodehbox,
+			TextField contactno, HBox contactnohbox, 
+			TextField email, HBox emailhbox, 
+			TextField city, HBox cityhbox,
+			Text emptyerrortxt, HBox emptyerrorbox, 
+			Text empaddedtxt, HBox empaddedhbox,
+			Text takenerrortxt, HBox takenerrorbox) {
 
 		// checking for empty
 		boolean hasEmpty = false;
@@ -250,9 +259,32 @@ public class EmployeeController
 				emptyerrorbox.getChildren().add(emptyerrortxt);
 			}
 		} else {
-			empaddedhbox.getChildren().add(empaddedtxt);
 			if (emptyerrorbox.getChildren().contains(emptyerrortxt)) {
 				emptyerrorbox.getChildren().remove(emptyerrortxt);
+			}
+		}
+		//checking if the entrie sre successful
+		if(this.checkValues(fname, sname, address, pcode,
+				contactno, email, city) && !this.checkEmployee(email.getText())){
+			if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
+				empaddedhbox.getChildren().add(empaddedtxt);
+			}
+		} else {
+			if (empaddedhbox.getChildren().contains(empaddedtxt)) {
+				empaddedhbox.getChildren().remove(empaddedtxt);
+			}
+		}
+		//checking if the mployee is already in the databse
+		System.out.println(email.getText());
+		if(this.checkEmployee(email.getText())){
+			System.out.println("Employee is taken");
+			if (!takenerrorbox.getChildren().contains(takenerrortxt)) {
+				takenerrorbox.getChildren().add(takenerrortxt);
+			}
+		} else {
+			System.out.println("Employee is free");
+			if (takenerrorbox.getChildren().contains(takenerrortxt)) {
+				takenerrorbox.getChildren().remove(takenerrortxt);
 			}
 		}
 
