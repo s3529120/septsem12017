@@ -180,6 +180,84 @@ public class EmployeeController
       return email;
    }
    
+   public Boolean checkValues(TextField fname, TextField sname, TextField address, TextField pcode,
+			TextField contactNo, TextField email, TextField city) {
+
+		if (fname.getText().isEmpty() || sname.getText().isEmpty() || address.getText().isEmpty()
+				|| pcode.getText().isEmpty() || contactNo.getText().isEmpty()
+				|| email.getText().isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+
+	}
+
+	public void validateEntries(TextField fname, HBox fnamehbox, TextField sname, HBox snamehbox, TextField address,
+			HBox addresshbox, TextField pcode, HBox pcodehbox,
+			TextField contactno, HBox contactnohbox, TextField email, HBox emailhbox, TextField city, HBox cityhbox,
+			Text emptyerrortxt, HBox emptyerrorbox, Text empaddedtxt, HBox empaddedhbox) {
+
+		// checking for empty
+		boolean hasEmpty = false;
+		if (fname.getText().trim().equals("")) {
+			fnamehbox.setId("incorrectForm");
+			hasEmpty = true;
+		} else {
+			fnamehbox.setId("form");
+		}
+		if (sname.getText().trim().equals("")) {
+			snamehbox.setId("incorrectForm");
+			hasEmpty = true;
+		} else {
+			snamehbox.setId("form");
+		}
+		if (address.getText().trim().equals("")) {
+			addresshbox.setId("incorrectForm");
+			hasEmpty = true;
+		} else {
+			address.setId("form");
+		}
+		if (pcode.getText().trim().equals("")) {
+			pcodehbox.setId("incorrectForm");
+			hasEmpty = true;
+		} else {
+			pcode.setId("form");
+		}
+		if (contactno.getText().trim().equals("")) {
+			contactnohbox.setId("incorrectForm");
+			hasEmpty = true;
+		} else {
+			contactno.setId("form");
+		}
+		if (email.getText().trim().equals("")) {
+			emailhbox.setId("incorrectForm");
+			hasEmpty = true;
+		} else {
+			emailhbox.setId("form");
+		}
+		if (city.getText().trim().equals("")) {
+			cityhbox.setId("incorrectForm");
+			hasEmpty = true;
+		} else {
+			cityhbox.setId("form");
+		}
+
+		// checking if any of the fields were empty and if they were add the
+		// "empty error text", else "employee added" text
+		if (hasEmpty) {
+			if (!emptyerrorbox.getChildren().contains(emptyerrortxt)) {
+				emptyerrorbox.getChildren().add(emptyerrortxt);
+			}
+		} else {
+			empaddedhbox.getChildren().add(empaddedtxt);
+			if (emptyerrorbox.getChildren().contains(emptyerrortxt)) {
+				emptyerrorbox.getChildren().remove(emptyerrortxt);
+			}
+		}
+
+	}
+   
    public void updateView(){
       view.updateView();
    }
