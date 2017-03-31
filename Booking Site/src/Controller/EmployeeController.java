@@ -9,6 +9,12 @@ import org.sqlite.core.DB;
 
 import Model.DatabaseModel;
 import View.AddEmployeeView;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
+
 
 public class EmployeeController
 {

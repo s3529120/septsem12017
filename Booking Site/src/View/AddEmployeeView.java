@@ -34,75 +34,132 @@ public class AddEmployeeView
             stage.close();
          }
       });
-      Text h1 = new Text("Add Employee");
       
-    //Confirmation message
+      backbtn.getStyleClass().add("redbtn");
+      
+      
+    //Confirmation message and heading
+      
       Text empadded = new Text("");
       
-      //Boxes
-      //Row 1
+      Text h1 = new Text("Add Employee");
+      h1.setId("heading");
+
+      ////////Vertical box 1 - user info
+      
       TextField fnamefield = new TextField();
       fnamefield.setPromptText("First Name");
+      fnamefield.getStyleClass().add("textField");
+      HBox fnamehbox = new HBox(fnamefield);
+      fnamehbox.setId("form");
       
-      TextField streetaddfield = new TextField();
-      streetaddfield.setPromptText("Street Address");
-      
-      HBox r1 = new HBox(fnamefield,streetaddfield);
-      
-      //Row 2
       TextField snamefield = new TextField();
       snamefield.setPromptText("Last Name");
+      snamefield.getStyleClass().add("textField");
+      HBox snamehbox = new HBox(snamefield);
+      snamehbox.setId("form");
+      
+      TextField emailfield = new TextField();
+      emailfield.setPromptText("Email");
+      emailfield.getStyleClass().add("textField");
+      HBox emailhbox = new HBox(emailfield);
+      emailhbox.setId("form");
+      
+      TextField contactnofield = new TextField();
+      contactnofield.setPromptText("Contact no.");
+      contactnofield.getStyleClass().add("textField");
+      HBox contactnohbox = new HBox(contactnofield);
+      contactnohbox.setId("form");
+      
+      // Add above elements to vertical box
+      VBox userInfo = new VBox(backbtn, empadded, h1, fnamehbox, snamehbox, emailhbox, contactnohbox);
+      userInfo.getStyleClass().add("addEmpVbox");
+      
+      /////// Vertical box 2 - address
+      TextField streetaddfield = new TextField();
+      streetaddfield.setPromptText("Street Address");
+      streetaddfield.getStyleClass().add("textField");
+      HBox streetaddhbox = new HBox(streetaddfield);
+      streetaddhbox.setId("form");
       
       TextField cityfield = new TextField();
       cityfield.setPromptText("City");
-      
-      HBox r2 = new HBox(snamefield,cityfield);
-      
-      //Row 3
-      TextField emailfield = new TextField();
-      emailfield.setPromptText("Email");
+      cityfield.getStyleClass().add("textField");
+      HBox cityhbox = new HBox(cityfield);
+      cityhbox.setId("form");
       
       ComboBox<String> statebox = new ComboBox<String>();
       statebox.setPromptText("State");
       statebox.getItems().addAll("A.C.T","N.S.W","Queensland","South Australia",
                                  "Tasmainia","Victoria","Western Australia");
-      
-      HBox r3 = new HBox(emailfield,statebox);
-      
-      //Row 4
-      TextField contactnofield = new TextField();
-      fnamefield.setPromptText("Contact no.");
+      statebox.getStyleClass().add("textField");
+      HBox statehbox = new HBox(statebox);
+      statehbox.setId("form");
       
       TextField pcodefield = new TextField();
       pcodefield.setPromptText("Post Code");
+      pcodefield.getStyleClass().add("textField");
+      HBox pcodehbox = new HBox(pcodefield);
+      pcodehbox.setId("form");
       
-      HBox r4 = new HBox(contactnofield,pcodefield);
-      
-      //Boxes
-      VBox boxes = new VBox(r1,r2,r3,r4);
+      Text emptyerrortxt = new Text("All fields must be filled.");
+	  HBox emptyerrorbox = new HBox();
+	  
+	  Text empaddedtxt = new Text("Employee has been successfully added! :)");
+	  HBox empaddedhbox = new HBox();
       
       //Submit button
       Button subbtn = new Button("Add");
       subbtn.setOnAction(new EventHandler<ActionEvent>(){
-         @Override public void handle(ActionEvent e){
-            cont.addEmployee(fnamefield.getText().concat(snamefield.getText()), 
-                             contactnofield.getText(), emailfield.getText(), 
-                             streetaddfield.getText(), cityfield.getText(), 
-                             statebox.getValue(), pcodefield.getText());
-            empadded.getText().replaceAll(".*?", fnamefield.getText().
-                                          concat(snamefield.getText()).concat(" added to Employees"));
+         @Override public void handle(ActionEvent e){         
+         
+       //checking to make sure all fields are filled
+		   if(cont.checkValues(fnamefield, snamefield, streetaddfield, pcodefield,
+					contactnofield, emailfield, cityfield)){
+			   cont.addEmployee(fnamefield.getText().concat(snamefield.getText()), 
+                       contactnofield.getText(), emailfield.getText(), 
+                       streetaddfield.getText(), cityfield.getText(), 
+                       statebox.getValue(), pcodefield.getText());
+			   cont.empAddedMessage(empaddedhbox, empaddedtxt);
+		   }else{
+		      //checking for empty
+			   cont.validateEntries(
+						fnamefield, fnamehbox, 
+						snamefield, snamehbox, 
+						streetaddfield, streetaddhbox, 
+						pcodefield, pcodehbox, 
+						contactnofield, contactnohbox, 
+						emailfield, emailhbox,
+						cityfield, cityhbox,
+						emptyerrortxt, emptyerrorbox,
+						empaddedtxt, empaddedhbox);
+		   }
          }
+		   
+         
       });
       
+      subbtn.getStyleClass().add("bluebtn");
       
-     
+      // Add above elements to vertical box
+      VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, subbtn, empaddedhbox, emptyerrorbox);
+      addressInfo.setId("empAddressVbox");
+
+
       //Layout
+      
+      HBox addEmployeeBox = new HBox(userInfo, addressInfo);
+      addEmployeeBox.setId("addEmpPageBox");
+      
       StackPane pane = new StackPane();
       
-      pane.getChildren().addAll(backbtn,h1,boxes,subbtn,empadded);
-      Scene scene = new Scene(pane);
+      pane.getChildren().addAll(addEmployeeBox);
+      Scene scene = new Scene(pane, 850, 450);
+      scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
       stage.setScene(scene);
       stage.show();
       
    }
+
+
 }
