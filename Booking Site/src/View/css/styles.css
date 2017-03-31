@@ -36,6 +36,13 @@
     -fx-spacing: 10;
 }
 
+.editavailBox {
+	-fx-pref-width: 380;
+	-fx-pref-height: 400;
+	-fx-padding: 15 35 0 50;
+    -fx-spacing: 10;
+}
+
 #incorrectForm {
   	-fx-text-box-border: red ;
  	-fx-focus-color: red ;
@@ -60,6 +67,17 @@
 	-fx-background-insets: 15 0 15 0;
 }
 
+#menubtn {
+	-fx-padding: 25 25 25 25;
+	-fx-background-insets: 15 10 15 10;
+}
+
+#logoutbtn {
+	-fx-padding: 25 25 25 25;
+	-fx-background-insets: 15 10 15 10;
+    -fx-border-insets: 15 500 15 0;
+}
+
 #heading {
 	-fx-font-size: 15pt;
 }
@@ -73,6 +91,18 @@
 	-fx-padding: 15 35 0 50;
 	-fx-font-size: 11pt;
 }
+
+#menubox {
+	-fx-padding: 25 20 20 250;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
+#logoutbox {
+	-fx-padding: 0 0 0 250;
+}
+buttonbox {
+}
+
 
 /* Add Employee */
 
