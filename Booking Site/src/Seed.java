@@ -64,7 +64,7 @@ public class Seed {
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
 			dataCont.getState().setString(2, "abc123");
-			dataCont.getState().setString(3, "Johns Wares");
+			dataCont.getState().setString(3, "Johns Hairdressing");
 			dataCont.getState().setString(4, "1300655506");
 			dataCont.getState().setString(5, "Business");
 			dataCont.getState().setString(6, "1 SQL Avenue");

@@ -57,6 +57,9 @@ public class EditAvailabilitiesView
 		Text timeerrortxt = new Text("Invalid time selection");
 		HBox timenerrorbox = new HBox();
 
+		Text donetxt = new Text("Successfully added");
+		HBox donebox = new HBox();
+
 		//Box 1
 		DatePicker availDatePicker = new DatePicker();
 
@@ -132,11 +135,20 @@ public class EditAvailabilitiesView
 							finishtimes.getSelectionModel().getSelectedItem());
 					insertconfirm.getText().replaceAll(".*?",employee.getSelectionModel().getSelectedItem().toString()
 							.concat("'s available time added"));
+					if (!donebox.getChildren().contains(donetxt)) {
+						donebox.getChildren().add(donetxt);
+
+					}
+
+				} else {
+					if (donebox.getChildren().contains(donetxt)) {
+						donebox.getChildren().remove(donetxt);
+					}
 				}
 			}
 		});
 
-		VBox box2 = new VBox(employeebox,startbox,finishbox,savebtn,emptyerrorbox,employeeerrorbox,timenerrorbox);
+		VBox box2 = new VBox(employeebox,startbox,finishbox,savebtn,emptyerrorbox,employeeerrorbox,timenerrorbox,donebox);
 		HBox body = new HBox(box1,box2);
 		VBox page = new VBox(top,body);
 
