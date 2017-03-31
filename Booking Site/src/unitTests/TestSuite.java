@@ -75,13 +75,13 @@ public class TestSuite {
 		RegistrationTest rtest = new RegistrationTest();
 		AddEmployeeTest aetest = new AddEmployeeTest();
 		
-		ltest.testCheckAccountType();
-		ltest.testComparePassword();
-		ltest.testCheckUsername();
-		
-		rtest.testRegister();
-		
-		aetest.testCheckEmp();
-		aetest.testAddEmp();
+//		ltest.testCheckAccountType();
+//		ltest.testComparePassword();
+//		ltest.testCheckUsername();
+//		
+//		rtest.testRegister();
+//		
+//		aetest.testCheckEmp();
+//		aetest.testAddEmp();
 	}
 }

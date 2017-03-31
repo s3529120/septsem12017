@@ -104,6 +104,7 @@ public class EditAvailabilitiesView
 		Label startlbl = new Label("Start Time: ");
 		ComboBox<String> starttimes = new ComboBox<String>();
 		starttimes.getItems().addAll(cont.getPossibleTimes());
+		starttimes.visibleRowCountProperty().setValue(cont.getPossibleTimes().length);
 		starttimes.getSelectionModel().selectFirst();
 		HBox startbox = new HBox(startlbl,starttimes);
 		startbox.setId("form");
@@ -111,6 +112,7 @@ public class EditAvailabilitiesView
 		Label finishlbl = new Label("End Time: ");
 		ComboBox<String> finishtimes = new ComboBox<String>();
 		finishtimes.getItems().addAll(cont.getPossibleTimes());
+		finishtimes.visibleRowCountProperty().setValue(cont.getPossibleTimes().length);
 		finishtimes.getSelectionModel().selectFirst();
 		HBox finishbox = new HBox(finishlbl,finishtimes);
 		finishbox.setId("form");
