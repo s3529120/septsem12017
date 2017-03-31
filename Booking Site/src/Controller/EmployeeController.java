@@ -259,7 +259,9 @@ public class EmployeeController
 	}
 
 	public void empAddedMessage(HBox empaddedhbox, Text empaddedtxt) {
-		empaddedhbox.getChildren().add(empaddedtxt);
+		if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
+			empaddedhbox.getChildren().add(empaddedtxt);
+		}
 	}
 
 	public void updateView(){
