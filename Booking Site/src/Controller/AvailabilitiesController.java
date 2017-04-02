@@ -1,7 +1,7 @@
 package Controller;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.text.Text;
@@ -59,7 +59,7 @@ public class AvailabilitiesController
 
 	public boolean validateEntries(
 			String email, HBox emailbox,
-			LocalDate date, VBox datebox,
+			DayOfWeek dow, VBox datebox,
 			String startstring, HBox startbox,
 			String finishstring, HBox finbox,
 			Text dateerrortxt, HBox dateerrorbox,
@@ -96,7 +96,7 @@ public class AvailabilitiesController
 		}
 		
 		//checking if date is selected
-		if (date == null) {
+		if (dow == null) {
 			goodInputs = false;
 			if (!dateerrorbox.getChildren().contains(dateerrortxt)) {
 				dateerrorbox.getChildren().add(dateerrortxt);
@@ -112,7 +112,7 @@ public class AvailabilitiesController
 
 	public Boolean addAvailability(
 			String email,
-			LocalDate date,
+			DayOfWeek dow,
 			String startstring,
 			String finishstring) {
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
@@ -128,12 +128,12 @@ public class AvailabilitiesController
 		}
 
 		dbcont.createConnection();
-		sql="INSERT INTO Availability(Email,Date,StartTime,FinishTime) " +
+		sql="INSERT INTO Availability(Email,Day,StartTime,FinishTime) " +
 				"Values(?,?,?,?);";
 		dbcont.prepareStatement(sql);
 		try{
 			dbcont.getState().setString(1, email);
-			dbcont.getState().setString(2, date.toString());
+			dbcont.getState().setString(2, dow.toString());
 			dbcont.getState().setString(3, start.toString());
 			dbcont.getState().setString(4, finish.toString());
 		}catch(SQLException e){

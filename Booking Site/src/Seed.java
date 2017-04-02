@@ -25,7 +25,7 @@ public class Seed {
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 			sql="CREATE TABLE Availability("
-					+ "Date TEXT NOT NULL, "
+					+ "Day TEXT NOT NULL, "
 					+ "StartTime TEXT NOT NULL, "
 					+ "FinishTime TEXT NOT NULL, "
 					+ "Email TEXT NOT NULL, "
