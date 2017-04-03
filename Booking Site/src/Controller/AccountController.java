@@ -11,39 +11,39 @@ import Model.UserAccountModel;
 public class AccountController {
 
 	public Boolean checkUsername(String name){
-			ResultSet res;
-			String sql="";
-			DatabaseModel dbMod = new DatabaseModel();
-			DatabaseController dbCont = new DatabaseController(dbMod);
-			int comp;
-			sql="SELECT * "
-					+ "FROM Accounts "
-					+ "WHERE Username='"+name+"';";
-			
-			dbCont.createConnection();
+		ResultSet res;
+		String sql="";
+		DatabaseModel dbMod = new DatabaseModel();
+		DatabaseController dbCont = new DatabaseController(dbMod);
+		int comp;
+		sql="SELECT * "
+				+ "FROM Accounts "
+				+ "WHERE Username='"+name+"';";
 
-			dbCont.prepareStatement(sql);
+		dbCont.createConnection();
 
-			res=dbCont.runSQLRes();
-			
-			try
-         {
-            comp=res.getString("Username").compareTo(name);
-         }
-         catch (SQLException e)
-         {
-            comp=-1;
-         }
-			
-			if(comp!=0){
-				dbCont.closeConnection();
-				return false;
-			}else{
-			   dbCont.closeConnection();
-				return true;
-			}
-			
-			
+		dbCont.prepareStatement(sql);
+
+		res=dbCont.runSQLRes();
+
+		try
+		{
+			comp=res.getString("Username").compareTo(name);
+		}
+		catch (SQLException e)
+		{
+			comp=-1;
+		}
+
+		if(comp!=0){
+			dbCont.closeConnection();
+			return false;
+		}else{
+			dbCont.closeConnection();
+			return true;
+		}
+
+
 	}
 
 
@@ -63,14 +63,14 @@ public class AccountController {
 
 		try {
 			if(res.getString("Password").compareTo(pword)==0){
-			   dbCont.closeConnection();
+				dbCont.closeConnection();
 				return true;
 			}else{
-			   dbCont.closeConnection();
+				dbCont.closeConnection();
 				return false;
 			}
 		} catch (SQLException e) {
-		   dbCont.closeConnection();
+			dbCont.closeConnection();
 			return false;
 		}
 
@@ -92,11 +92,11 @@ public class AccountController {
 		res=dbCont.runSQLRes();
 
 		try {
-         type=res.getString("Type");
-		   dbCont.closeConnection();
+			type=res.getString("Type");
+			dbCont.closeConnection();
 			return type;
 		} catch (SQLException e) {
-		   dbCont.closeConnection();
+			dbCont.closeConnection();
 			return "Failed to determine";
 		}
 	}
@@ -112,7 +112,7 @@ public class AccountController {
 			String address;
 			String email;
 
-			
+
 			dbCont.createConnection();
 
 			sql="SELECT ContactNo, Name, Address, Email "
@@ -121,14 +121,14 @@ public class AccountController {
 
 			dbCont.prepareStatement(sql);
 			try
-         {
-            dbCont.getState().setString(1, name);
-         }
-         catch (SQLException e1)
-         {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-         }
+			{
+				dbCont.getState().setString(1, name);
+			}
+			catch (SQLException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			res=dbCont.runSQLRes();
 
@@ -138,7 +138,7 @@ public class AccountController {
 				busname=res.getString("Name");
 				email=res.getString("Email");
 			}catch(SQLException e){
-			   dbCont.closeConnection();
+				dbCont.closeConnection();
 				return null;
 			}
 
@@ -159,14 +159,14 @@ public class AccountController {
 
 			dbCont.prepareStatement(sql);
 			try
-         {
-            dbCont.getState().setString(1, name);
-         }
-         catch (SQLException e1)
-         {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-         }
+			{
+				dbCont.getState().setString(1, name);
+			}
+			catch (SQLException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			res=dbCont.runSQLRes();
 
@@ -176,7 +176,7 @@ public class AccountController {
 				personname=res.getString("Name");
 				email=res.getString("Email");
 			}catch(SQLException e){
-			   dbCont.closeConnection();
+				dbCont.closeConnection();
 				return null;
 			}
 
@@ -184,7 +184,7 @@ public class AccountController {
 			dbCont.closeConnection();
 			return acc;
 		}else{
-		   dbCont.closeConnection();
+			dbCont.closeConnection();
 			return null;
 		}
 	}
