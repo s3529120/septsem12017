@@ -104,10 +104,13 @@ public class AddEmployeeTest {
 
 	@Test
 	public void testAddEmp(){
-		//Can we double check this?
+		
+		/*Add new employee using employee controller
+		 *  and check for valid address and name and email
+		 * */
 		DatabaseModel dbmod = new DatabaseModel();
 		DatabaseController dbcont = new DatabaseController(dbmod);
-		String sql,name="",num="",email="";
+		String sql,name="",num="",email="",add="",city="",state="",postc="";
 		ResultSet res;
 
 		EmployeeController econt = new EmployeeController();
@@ -128,6 +131,22 @@ public class AddEmployeeTest {
 			assertEquals(name,"John Smith");
 			assertEquals(num,"0555 555 555");
 			assertEquals(email,"myemail@gmail.com");
+			
+			sql="SELECT * FROM ADDRESS WHERE EmployeeEmail='myemail@gmail.com';";
+			dbcont.prepareStatement(sql);
+			res = dbcont.runSQLRes();
+
+			email = res.getString("EmployeeEmail");
+			add = res.getString("StreetAddress");
+			city = res.getString("City");
+			state = res.getString("State");
+			postc = res.getString("PostCode");
+
+			assertEquals(email,"myemail@gmail.com");
+			assertEquals(add,"123 Fake Street");
+			assertEquals(city,"Melbourne");
+			assertEquals(state,"Victoria");
+			assertEquals(postc,"3000");
 
 
 		}catch(Exception e){
@@ -139,36 +158,10 @@ public class AddEmployeeTest {
 	}
 
 	@Test
-	public void testCheckNewAddress(){
-		DatabaseModel dbmod = new DatabaseModel();
-		DatabaseController dbcont = new DatabaseController(dbmod);
-		String sql,email="",add="",city="",state="",postc="";
-		ResultSet res;
-
-		try{
-			sql="SELECT * FROM ADDRESS WHERE EmployeeEmail='myemail@gmail.com';";
-			dbcont.prepareStatement(sql);
-			res = dbcont.runSQLRes();
-
-			add = res.getString("StreetAddress");
-			city = res.getString("City");
-			state = res.getString("State");
-			postc = res.getString("PostCode");
-
-			assertEquals(email,"myemail@gmail.com");
-			assertEquals(add,"123 Fake Street");
-			assertEquals(city,"Melbourne");
-			assertEquals(state,"Victoria");
-			assertEquals(postc,"3000");
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			dbcont.closeConnection();
-		}
-	}
-
-	@Test
 	public void testCheckEmp(){
+		
+		/*Add new employee and check for valid details using 
+		 * */
 		DatabaseModel dbmod = new DatabaseModel();
 		DatabaseController dbcont = new DatabaseController(dbmod);
 		String sql,name="",num="",email="",add="",city="",state="",postc="";
