@@ -1,3 +1,4 @@
+import Controller.BookingController;
 import Controller.DefaultController;
 import View.MainMenuView;
 import javafx.application.Application;
@@ -10,7 +11,10 @@ public class BookingSite extends Application {
 		primaryStage.setTitle("Booking Site");
 		primaryStage.setWidth(800);
 		primaryStage.setHeight(600);
+		
 		Seed.initialize();
+		BookingController bcont=new BookingController();
+		bcont.updateBookings();
 		
 		DefaultController cont = new DefaultController(primaryStage, 
 				new MainMenuView(primaryStage));
