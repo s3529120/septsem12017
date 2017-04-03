@@ -60,9 +60,9 @@ public class BookingController
                }
             }
          }catch(NullPointerException e){
+            dbcont.closeConnection();
             return;
          }catch(SQLException e){
-            
          }
          focus=focus.plusDays(1);
       }
@@ -77,7 +77,50 @@ public class BookingController
       }
       catch (SQLException e)
       {
-         e.printStackTrace();
+         dbcont.closeConnection();
       }
+      dbcont.closeConnection();
+   }
+   
+   public void removeBookings(LocalDate date,String empemail){
+      DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+      String sql="";
+      
+      dbcont.createConnection();
+      sql="DELETE FROM Booking WHERE Date=? AND EmployeeEmail=?;";
+      dbcont.prepareStatement(sql);
+      try
+      {
+         dbcont.getState().setString(1, date.toString());
+         dbcont.getState().setString(2, empemail);
+         dbcont.runSQLUpdate();
+      }
+      catch (SQLException e)
+      {
+      }
+      dbcont.closeConnection();
+   }
+   
+   public void addBookings(LocalDate date,LocalTime start,LocalTime finish,String empemail){
+      DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+      String sql="";
+      LocalTime focus=start;
+      
+      while(focus.isBefore(finish)){
+         sql="INSERT INTO Booking(Date,StartTime,FinishTime,EmployeeEmail) " +
+               "Value(?,?,?,?);";
+         dbcont.prepareStatement(sql);
+         try
+         {
+            dbcont.getState().setString(1, date.toString());
+            dbcont.getState().setString(2, start.toString());
+            dbcont.getState().setString(3, start.plusMinutes(15).toString());
+            dbcont.getState().setString(4, empemail.toString());
+            dbcont.runSQLUpdate();
+         }
+         catch (SQLException e) {}
+         focus=focus.plusMinutes(15);
+      }
+      dbcont.closeConnection();
    }
 }
