@@ -14,6 +14,7 @@ import Controller.DatabaseController;
 import Controller.LoginController;
 import Model.DatabaseModel;
 
+
 public class LoginTest
 {
 	@BeforeClass

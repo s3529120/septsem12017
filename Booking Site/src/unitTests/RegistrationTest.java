@@ -17,6 +17,14 @@ import Controller.UserRegistrationController;
 import Model.DatabaseModel;
 import View.UserRegistrationView;
 
+/*
+ * Need to separate tests.
+ * Just call 
+ * 	String sql;
+	DatabaseModel mod = new DatabaseModel();
+	DatabaseController cont = new DatabaseController(mod);
+ * */
+
 public class RegistrationTest
 {
 	@BeforeClass
@@ -55,6 +63,9 @@ public class RegistrationTest
 			cont.getState().setString(7, "User");
 			cont.runSQLUpdate();
 			cont.closeConnection();
+			
+			
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -71,9 +82,10 @@ public class RegistrationTest
 			sql="DROP TABLE IF EXISTS Accounts;";
 			cont.prepareStatement(sql);
 			cont.runSQLUpdate();
-			cont.closeConnection();
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally{
+			cont.closeConnection();
 		}
 	}
 
