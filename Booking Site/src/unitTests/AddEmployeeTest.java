@@ -78,9 +78,11 @@ public class AddEmployeeTest {
 			cont.getState().setString(5, "3000");
 			cont.runSQLUpdate();
 
-			cont.closeConnection();
 		}catch (Exception e) {
+			cont.closeConnection();
 			e.printStackTrace();
+		}finally{
+			cont.closeConnection();
 		}
 	}
 
@@ -96,6 +98,7 @@ public class AddEmployeeTest {
 			cont.runSQLUpdate();
 			cont.closeConnection();
 		}catch (Exception e) {
+			cont.closeConnection();
 			e.printStackTrace();
 		}finally{
 			cont.closeConnection();
@@ -158,6 +161,7 @@ public class AddEmployeeTest {
 
 		}catch(Exception e){
 			//fail("SQLException Error.\nTest Failure.\nStack Trace: ");
+			dbcont.closeConnection();
 			e.printStackTrace();
 		}finally{
 			dbcont.closeConnection();
@@ -202,8 +206,11 @@ public class AddEmployeeTest {
 			assertEquals(state,"Victoria");
 			assertEquals(postc,"3000");
 		}catch(Exception e){
+			dbcont.closeConnection();
 			fail("SQLException Error.\nTest Failure.\nStack Trace: ");
 			e.printStackTrace();
+		}finally{
+			dbcont.closeConnection();
 		}
 	}
 }

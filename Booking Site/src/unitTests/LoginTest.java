@@ -68,7 +68,10 @@ public class LoginTest
 			cont.getState().setString(7, "User");
 			cont.runSQLUpdate();
 		} catch (Exception e) {
+			cont.closeConnection();
 			e.printStackTrace();
+		}finally{
+			cont.closeConnection();
 		}
 	}
 
@@ -90,6 +93,7 @@ public class LoginTest
 			cont.prepareStatement(sql);
 			cont.runSQLUpdate();
 		} catch (Exception e) {
+			cont.closeConnection();
 			e.printStackTrace();
 		} finally {
 			cont.closeConnection();
