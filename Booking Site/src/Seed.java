@@ -34,10 +34,12 @@ public class Seed {
          dataCont.runSQLUpdate();
 			
          //Create tables
+         //System
          sql="CREATE TABLE System("
                + "BookingsUntil TEXT NOT NULL,PRIMARY KEY(BookingsUntil));";
          dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
+         //Accounts
 			sql="CREATE TABLE Accounts("
 					+ "Username TEXT NOT NULL, "
 					+ "Password TEXT NOT NULL, "
@@ -49,6 +51,7 @@ public class Seed {
 					+ "PRIMARY KEY (Username));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
+			//Employee
 			sql="CREATE TABLE Employee("
                + "Name TEXT NOT NULL, "
                + "ContactNo TEXT NOT NULL, "
@@ -56,6 +59,7 @@ public class Seed {
                + "PRIMARY KEY (Email));";
          dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
+         //Address
 			sql="CREATE TABLE Address("
 					+ "EmployeeEmail TEXT NOT NULL, "
 					+ "StreetAddress TEXT NOT NULL, "
@@ -66,6 +70,7 @@ public class Seed {
 					"FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
+			//Availability
 			sql="CREATE TABLE Availability("
                + "Day TEXT NOT NULL, "
                + "StartTime TEXT NOT NULL, "
@@ -75,6 +80,7 @@ public class Seed {
                "FOREIGN KEY (Email) REFERENCES Employee(Email));";
          dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
+         //Booking
          sql="CREATE TABLE Booking("
                + "Date TEXT NOT NULL, "
                + "StartTime TEXT NOT NULL, "
@@ -88,6 +94,7 @@ public class Seed {
          
          
          //Enter dummy data
+         //BusAccount 1
          sql="INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
                + "VALUES(?,?,?,?,?,?,?);";
          dataCont.runSQLUpdate();
@@ -100,6 +107,7 @@ public class Seed {
 			dataCont.getState().setString(6, "1 SQL Avenue");
 			dataCont.getState().setString(7, "jwares@gmail.com");
 			dataCont.runSQLUpdate();
+			//Booking date
 			sql="INSERT INTO System(BookingsUntil) "
                + "VALUES(?);";
          dataCont.runSQLUpdate();

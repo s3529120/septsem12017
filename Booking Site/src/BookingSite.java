@@ -8,14 +8,18 @@ public class BookingSite extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+	   //Set Stage properties 
 		primaryStage.setTitle("Booking Site");
 		primaryStage.setWidth(800);
 		primaryStage.setHeight(600);
 		
+		//Seed data for demonstration
 		Seed.initialize();
 		BookingController bcont=new BookingController();
 		bcont.updateBookings();
 		
+		//Startup methods
+		//Generate bookings as needed
 		DefaultController cont = new DefaultController(primaryStage, 
 				new MainMenuView(primaryStage));
 		cont.updateView();
