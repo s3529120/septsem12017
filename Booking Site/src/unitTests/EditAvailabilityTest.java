@@ -22,10 +22,18 @@ public class EditAvailabilityTest {
 		String sql="";
 		
 		try{
-			sql = "CREATE TABLE IF NOT EXISTS Availibility;";
+			sql = "DROP TABLE IF EXISTS Availibility;";
 			dbcont.prepareStatement(sql);
 			dbcont.runSQLUpdate();
 			
+			sql="CREATE TABLE Availability("
+					+ "Date TEXT NOT NULL, "
+					+ "StartTime TEXT NOT NULL, "
+					+ "FinishTime TEXT NOT NULL, "
+					+ "Email TEXT NOT NULL, "
+					+ "PRIMARY KEY (Email,Date,StartTime));";
+			dbcont.prepareStatement(sql);
+			dbcont.runSQLUpdate();
 			
 			
 		}catch(Exception e){
@@ -62,7 +70,7 @@ public class EditAvailabilityTest {
 		
 		try{	
 			avcont.addAvailability(email, today, start, end);
-				
+			/* This throws java.lang.NullPointerException as the errortexts and what not are null*/
 			valid = avcont.validateEntries(
 					email, null,
 					today, null,
