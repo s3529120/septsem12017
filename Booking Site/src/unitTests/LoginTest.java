@@ -37,7 +37,7 @@ public class LoginTest
 					+ "ContactNo TEXT NOT NULL, "
 					+ "Type TEXT NOT NULL, "
 					+ "Address TEXT NOT NULL, " 
-					+"Email TEXT NOT NULL, "
+					+ "Email TEXT NOT NULL, "
 					+ "PRIMARY KEY (Username));";
 
 			cont.prepareStatement(sql);
