@@ -116,18 +116,20 @@ public class AddEmployeeTest {
 		EmployeeController econt = new EmployeeController();
 
 		try{
-			dbcont.createConnection();
 			econt.addEmployee("John Smith", "0555 555 555","myemail@gmail.com","123 Fake Street", 
 					"Melbourne", "Victoria", "3000");
-			sql="SELECT * FROM EMPLOYEE WHERE name='John Smith';";
+			dbcont.createConnection();
+			sql="SELECT * FROM EMPLOYEE WHERE Email='myemail@gmail.com';";
 			dbcont.prepareStatement(sql);
 			
 			res = dbcont.runSQLRes();
 			
 			/*Result set closing above*/
 			/*not returning any values in result set*/
+			/*
 			for(int k=0;k<3;k++)
 				System.out.println(res.getString(k));
+				*/
 
 			name = res.getString("Name");
 			num = res.getString("ContactNo");

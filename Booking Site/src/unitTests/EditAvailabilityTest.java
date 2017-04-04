@@ -11,7 +11,7 @@ public class EditAvailabilityTest {
 		DatabaseController dbcont = new DatabaseController(dbmod);
 		String sql="";
 		
-		sql = "CREATE TABLE IF DOES NOT EXIST Availibility;";
+		sql = "CREATE TABLE IF NOT EXIST Availibility;";
 	}
 	
 	public void tearDownAfterClass(){
