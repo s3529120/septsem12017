@@ -6,12 +6,16 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+import Model.BookingModel;
 
 import Model.DatabaseModel;
 
 public class BookingController
 {
-   //Creates bookings on startup for a month ahead of time
+   //Creates bookings on startup for a month ahead of time and remove old bookings
    public void updateBookings(){
       DatabaseController dbcont=new DatabaseController(new DatabaseModel());
       LocalDate focus,booksCurrent,booksUntil=LocalDate.now().plusWeeks(4);
@@ -89,60 +93,186 @@ public class BookingController
       }
       catch (SQLException e)
       {
-         dbcont.closeConnection();
       }
-      dbcont.closeConnection();
-   }
-   
-   //Removes bookings for given employee on given date
-   public void removeBookings(LocalDate date,String empemail){
-      DatabaseController dbcont = new DatabaseController(new DatabaseModel());
-      String sql="";
       
-      //Open database connection
-      dbcont.createConnection();
-      //Prepare and run sql
-      sql="DELETE FROM Booking WHERE Date=? AND EmployeeEmail=?;";
+      //Remove old bookings
+      sql="SELECT * FROM Booking;";
       dbcont.prepareStatement(sql);
+      res=dbcont.runSQLRes();
       try
       {
-         dbcont.getState().setString(1, date.toString());
-         dbcont.getState().setString(2, empemail);
-         dbcont.runSQLUpdate();
+         while(res.next()){
+            focus=LocalDate.parse(res.getString("Date"), dtf);
+            if(focus.isBefore(LocalDate.now().minusWeeks(2))){
+               sql="DELETE FROM Booking WHERE Date=? AND StartTime=? AND FinishTime=?;";
+               dbcont.prepareStatement(sql);
+               dbcont.getState().setString(1, res.getString("Date"));
+               dbcont.getState().setString(2, res.getString("StartTime"));
+               dbcont.getState().setString(3, res.getString("FinishTime"));
+               dbcont.runSQLUpdate();
+            }
+         }
       }
       catch (SQLException e)
       {
       }
+      //Close Database connection
       dbcont.closeConnection();
    }
    
-   //Add bookings for employee on given day
-   public void addBookings(LocalDate date,LocalTime start,LocalTime finish,String empemail){
+   //Removes bookings for given employee on given date
+   public void removeBookings(DayOfWeek dow,String empemail){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
-      String sql="";
-      LocalTime focus=start;
+      LocalDate focus;
+      ArrayList<LocalDate> days = new ArrayList<LocalDate>();
+      
+      //Get all days matching day of week
+      focus=LocalDate.now();
+      while(!focus.isAfter(LocalDate.now().plusWeeks(4))){
+         if(focus.getDayOfWeek()==dow){
+            days.add(focus);
+         }
+         focus=focus.plusDays(1);
+      }
       
       //Open database connection
       dbcont.createConnection();
       
-      //Loop through available hours creating bookings
-      while(focus.isBefore(finish)){
+      days.forEach(x ->{
          //Prepare and run sql
-         sql="INSERT INTO Booking(Date,StartTime,FinishTime,EmployeeEmail) " +
-               "Value(?,?,?,?);";
-         dbcont.prepareStatement(sql);
+         dbcont.prepareStatement("DELETE FROM Booking WHERE Date=? AND EmployeeEmail=?;");
          try
          {
-            dbcont.getState().setString(1, date.toString());
-            dbcont.getState().setString(2, start.toString());
-            dbcont.getState().setString(3, start.plusMinutes(15).toString());
-            dbcont.getState().setString(4, empemail.toString());
+            dbcont.getState().setString(1, x.toString());
+            dbcont.getState().setString(2, empemail);
             dbcont.runSQLUpdate();
          }
-         catch (SQLException e) {}
-         //Increment appointment
-         focus=focus.plusMinutes(15);
+         catch (SQLException e)
+         {
+         }
+   });
+      dbcont.closeConnection();
+   }
+   
+   //Add bookings for employee on given day
+   public void addBookings(DayOfWeek dow,LocalTime start,LocalTime finish,String empemail){
+      DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+      String sql="";
+      LocalTime focus=start;
+      LocalDate focusdate;
+      
+      //Open database connection
+      dbcont.createConnection();
+      
+      //Loop through days
+      focusdate=LocalDate.now();
+      while(!focusdate.isAfter(LocalDate.now().plusWeeks(4))){
+         //Check if matches day of week
+         if(focusdate.getDayOfWeek()==dow){
+            //Loop through available hours creating bookings
+            while(focus.isBefore(finish)){
+               //Prepare and run sql
+               sql="INSERT INTO Booking(Date,StartTime,FinishTime,EmployeeEmail) " +
+                     "Value(?,?,?,?);";
+               dbcont.prepareStatement(sql);
+               try
+               {
+                  dbcont.getState().setString(1, focusdate.toString());
+                  dbcont.getState().setString(2, start.toString());
+                  dbcont.getState().setString(3, start.plusMinutes(15).toString());
+                  dbcont.getState().setString(4, empemail.toString());
+                  dbcont.runSQLUpdate();
+               }
+               catch (SQLException e) {}
+               //Increment appointment
+               focus=focus.plusMinutes(15);
+            }
+         }
+            focusdate=focusdate.plusDays(1);
       }
       dbcont.closeConnection();
+   }
+   
+   public List<BookingModel> getPastBookings(){
+      DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+      String sql;
+      List<BookingModel> bookings = new ArrayList<BookingModel>();
+      ResultSet res;
+      BookingModel mod;
+      DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+      
+      //Get all bookings
+      dbcont.createConnection();
+       sql="SELECT * FROM Booking;";
+       dbcont.prepareStatement(sql);
+       res=dbcont.runSQLRes();
+       try
+      {
+          //Loop through bookings
+         while(res.next()){
+            //Create booking model
+             mod=new BookingModel(LocalDate.parse(res.getString("Date"),dtf),
+                                  LocalTime.parse(res.getString("StartTime")),
+                                                LocalTime.parse(res.getString("FinishTime")));
+             mod.setEmployee(res.getString("EmployeeEmail"));
+             //Check if filled
+             try{
+                mod.setUser(res.getString("User"));
+             }catch(SQLException e1){
+                mod.setUser("Unfilled");
+             }
+             //If date has passed add to list to be returned
+             if(mod.getDate().isBefore(LocalDate.now())){
+                bookings.add(mod);
+             }
+          }
+      }
+      catch (SQLException e)
+      {
+         e.printStackTrace();
+      }
+       dbcont.closeConnection();
+       return bookings;
+   }
+   public List<BookingModel> getBookings(){
+      DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+      String sql;
+      List<BookingModel> bookings = new ArrayList<BookingModel>();
+      ResultSet res;
+      BookingModel mod;
+      DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+      
+      //Get all bookings
+      dbcont.createConnection();
+       sql="SELECT * FROM Booking;";
+       dbcont.prepareStatement(sql);
+       res=dbcont.runSQLRes();
+       try
+      {
+          //Loop through bookings
+         while(res.next()){
+            //Create booking model
+             mod=new BookingModel(LocalDate.parse(res.getString("Date"),dtf),
+                                  LocalTime.parse(res.getString("StartTime")),
+                                                LocalTime.parse(res.getString("FinishTime")));
+             mod.setEmployee(res.getString("EmployeeEmail"));
+             //Check if filled
+             try{
+                mod.setUser(res.getString("User"));
+             }catch(SQLException e1){
+                mod.setUser("Unfilled");
+             }
+             //If date has not passed add to list to be returned
+             if(!mod.getDate().isBefore(LocalDate.now())){
+                bookings.add(mod);
+             }
+          }
+      }
+      catch (SQLException e)
+      {
+         e.printStackTrace();
+      }
+       dbcont.closeConnection();
+       return bookings;
    }
 }

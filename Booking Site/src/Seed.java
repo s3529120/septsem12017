@@ -86,8 +86,11 @@ public class Seed {
                + "StartTime TEXT NOT NULL, "
                + "FinishTime NOT NULL, "
                +"EmployeeEmail TEXT NOT NULL, "
+               + "Username TEXT, " +
+               "Type TEXT, "
                + "PRIMARY KEY (Date,StartTime,EmployeeEmail)," +
-               "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email));";
+               "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email), " +
+               "FOREIGN KEY (Username) REFERENCES Accounts(Username));";
          dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
          

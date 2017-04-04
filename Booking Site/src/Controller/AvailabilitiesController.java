@@ -1,9 +1,13 @@
 package Controller;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.scene.text.Text;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
@@ -157,6 +161,42 @@ public class AvailabilitiesController
 		}
 		dbcont.runSQLUpdate();
 		dbcont.closeConnection();
+		
+		//Adjust bookings
+		BookingController bcont= new BookingController();
+		bcont.removeBookings(dow, email);
+		bcont.addBookings(dow, LocalTime.parse(startstring), LocalTime.parse(finishstring), email);
+		
 		return true;
+	}
+	
+	//Returns currently set availability for employee on given day
+	public Map<String,LocalTime> getAvailability(DayOfWeek dow, String empemail){
+	   DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+	   Map<String,LocalTime> map = new HashMap<String,LocalTime>();
+	   String sql;
+	   ResultSet res;
+	   
+	   //Create database connection
+	   dbcont.createConnection();
+	   
+	   //Prepare and run sql
+	   sql="SELECT StartTime,FinishTime FROM Availability WHERE Day=? AND EmployeeEmail=?;";
+	   dbcont.prepareStatement(sql);
+	   try
+      {
+         dbcont.getState().setString(1, dow.toString());
+         dbcont.getState().setString(2, empemail);
+         res=dbcont.runSQLRes();
+         //Get times and add to map
+         map.put("StartTime", LocalTime.parse(res.getString("StartTime")));
+         map.put("FinishTime", LocalTime.parse(res.getString("FinishTime")));
+      }
+      catch (SQLException e)
+      {
+         e.printStackTrace();
+      }
+	   dbcont.closeConnection();
+	   return map;
 	}
 }
