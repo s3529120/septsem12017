@@ -9,6 +9,9 @@ import org.junit.Test;
 import Controller.AvailabilitiesController;
 import Controller.DatabaseController;
 import Model.DatabaseModel;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class EditAvailabilityTest {
 
@@ -54,11 +57,24 @@ public class EditAvailabilityTest {
 	public void testAddAvail(){
 		AvailabilitiesController avcont = new AvailabilitiesController();
 		LocalDate today = LocalDate.now();
+		String email = "newemail@gmail.com",start="00:00",end="00:45";
+		boolean valid;
+		
 		try{	
-			avcont.addAvailability("newemail@gmail.com", today, "00:00", "00:30");
+			avcont.addAvailability(email, today, start, end);
+				
+			valid = avcont.validateEntries(
+					email, null,
+					today, null,
+					"00:00", null,
+					"00:45", null,
+					null, null,
+					null, null,
+					null, null);
 			
-			assertEquals(,);
-			assertEquals(,);
+			assertEquals(avcont.getEmail(email), email);
+			assertTrue(valid);
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
