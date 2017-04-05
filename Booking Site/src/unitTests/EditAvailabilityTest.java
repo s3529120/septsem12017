@@ -62,16 +62,16 @@ public class EditAvailabilityTest {
 	}
 
 	@Test
-	public void testAddAvail(){
+	public void testAddValidAvail(){
 		AvailabilitiesController avcont = new AvailabilitiesController();
 		LocalDate today = LocalDate.now();
 		String email = "newemail@gmail.com",start="00:00",end="00:45";
-		boolean valid;
+		boolean validate;
 
 		try{	
 			avcont.addAvailability(email, today, start, end);
 			/* This throws java.lang.NullPointerException as the errortexts and what not are null*/
-			valid = avcont.validateEntries(
+			validate = avcont.validateEntries(
 					email, null,
 					today, null,
 					"00:00", null,
@@ -81,7 +81,7 @@ public class EditAvailabilityTest {
 					null, null);
 
 			assertEquals(avcont.getEmail(email), email);
-			assertTrue(valid);
+			assertTrue(validate);
 
 		}catch(Exception e){
 			e.printStackTrace();
@@ -89,15 +89,15 @@ public class EditAvailabilityTest {
 	}
 
 	@Test
-	public void testInvalidAvail(){
+	public void testaAddInvalidAvail(){
 		AvailabilitiesController avcont = new AvailabilitiesController();
 		LocalDate today = LocalDate.now();
 		String email = "newemail@gmail.com",start="13:00",end="12:45";
-		boolean valid;
+		boolean validate;
 
 		try{
 			/* This throws java.lang.NullPointerException as the errortexts and what not are null*/
-			valid = avcont.validateEntries(
+			validate = avcont.validateEntries(
 					email, null,
 					today, null,
 					start, null,
@@ -106,8 +106,7 @@ public class EditAvailabilityTest {
 					null, null,
 					null, null);
 			
-			
-			assertFalse(valid);
+			assertFalse(validate);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
