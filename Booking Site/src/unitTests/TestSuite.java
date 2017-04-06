@@ -68,7 +68,7 @@ public class TestSuite {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void runAllTests()
 	{
 		LoginTest ltest = new LoginTest();
@@ -82,5 +82,6 @@ public class TestSuite {
 		rtest.testRegister();
 		
 		aetest.testCheckEmp();
+		aetest.testAddEmp();
 	}
 }

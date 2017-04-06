@@ -20,10 +20,12 @@ public class EmployeeController
 {
 	private AddEmployeeView view;
 
+	//Returns associated view
 	public AddEmployeeView getView(){
 		return this.view;
 	}
 
+	//Sets associated view
 	public Boolean setView(AddEmployeeView view){
 		this.view=view;
 		return true;
@@ -41,7 +43,7 @@ public class EmployeeController
 		dbcont.createConnection();
 
 		//Prepare sql statement for execution
-		sql="SELECT Email FROM Employee WHERE Email=?;";
+		sql="SELECT ? FROM Employee WHERE Email=?;";
 		dbcont.prepareStatement(sql);
 
 		//Insert statement variable run and compare to expected
@@ -49,11 +51,10 @@ public class EmployeeController
 		{
 			dbcont.getState().setString(1, email);
 			res=dbcont.runSQLRes();
-			comp=res.getString("Email").compareTo(email);
+			res.getString("Email").compareTo(email);
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
 			dbcont.closeConnection();
 			return false;
 		}
@@ -63,7 +64,6 @@ public class EmployeeController
 		if(comp==0){
 			return true;
 		}else{
-			System.out.println(comp);
 			return false;
 		}
 	}
@@ -83,7 +83,7 @@ public class EmployeeController
 		//Open database connection
 		dbcont.createConnection();
 
-		//Prepare sql statement
+		//Prepare and run employee sql statement
 		sql="INSERT INTO Employee(Name,ContactNo,Email) " +
 				"Values(?,?,?);";
 		dbcont.prepareStatement(sql);
@@ -104,6 +104,7 @@ public class EmployeeController
 			return false;
 		}
 
+		//Prepare and run address sql statement
 		sql="INSERT INTO Address(EmployeeEmail,StreetAddress,City,State,PostCode) " 
 				+"Values(?,?,?,?,?) ;";
 		dbcont.prepareStatement(sql);
@@ -132,6 +133,7 @@ public class EmployeeController
 		}
 	}
 
+	//Returns array of employees
 	public String[] getEmployees(){
 		String sql="";
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
@@ -139,7 +141,9 @@ public class EmployeeController
 		int count=0;
 		List<String> emps = new ArrayList<String>();
 
+		//Create database connection
 		dbcont.createConnection();
+		//Prepare and run sql
 		sql="SELECT * FROM Employee;";
 		dbcont.prepareStatement(sql);
 		res=dbcont.runSQLRes();
@@ -147,6 +151,7 @@ public class EmployeeController
 		try
 		{
 			while(res.next()){
+			   //Add returned employyes to list
 				emps.add(res.getString("Name"));
 			}
 		}
@@ -155,39 +160,50 @@ public class EmployeeController
 			return null;
 		}
 
+		//Close database connection
 		dbcont.closeConnection();
 		if (emps.isEmpty()) {
 			return null;
 		}
+		//Convert list of employees to array and return
 		return emps.toArray(new String[emps.size()]);
 	}
 
+	//Returns employee email given their name
 	public String getEmail(String name){
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		String sql="",email;
 		ResultSet res;
 
+		//Create database connection
 		dbcont.createConnection();
+		
+		//Prepare and run sql
 		sql="SELECT Email FROM Employee WHERE Name=?;";
 		dbcont.prepareStatement(sql);
 		try{
 			dbcont.getState().setString(1, name);
 			res=dbcont.runSQLRes();
+			//Retrieve email from results
 			email=res.getString("Email");
 		}catch(SQLException e){
+		   //Given no results return ""
 			dbcont.closeConnection();
 			return "";
 		}
+		
+		//Close connection and return value
 		dbcont.closeConnection();
 		return email;
 	}
 
+	//Determines whether given fields are empty
 	public Boolean checkValues(TextField fname, TextField sname, TextField address, TextField pcode,
 			TextField contactNo, TextField email, TextField city) {
 
 		if (fname.getText().isEmpty() || sname.getText().isEmpty() || address.getText().isEmpty()
 				|| pcode.getText().isEmpty() || contactNo.getText().isEmpty()
-				|| email.getText().isEmpty() || this.checkEmployee(email.getText())) {
+				|| email.getText().isEmpty()) {
 			return false;
 		} else {
 			return true;
@@ -195,17 +211,11 @@ public class EmployeeController
 
 	}
 
-	public void validateEntries(
-			TextField fname, HBox fnamehbox, 
-			TextField sname, HBox snamehbox, 
-			TextField address, HBox addresshbox, 
-			TextField pcode, HBox pcodehbox,
-			TextField contactno, HBox contactnohbox, 
-			TextField email, HBox emailhbox, 
-			TextField city, HBox cityhbox,
-			Text emptyerrortxt, HBox emptyerrorbox, 
-			Text empaddedtxt, HBox empaddedhbox,
-			Text takenerrortxt, HBox takenerrorbox) {
+	//Checks validity of given fields
+	public void validateEntries(TextField fname, HBox fnamehbox, TextField sname, HBox snamehbox, TextField address,
+			HBox addresshbox, TextField pcode, HBox pcodehbox,
+			TextField contactno, HBox contactnohbox, TextField email, HBox emailhbox, TextField city, HBox cityhbox,
+			Text emptyerrortxt, HBox emptyerrorbox, Text empaddedtxt, HBox empaddedhbox) {
 
 		// checking for empty
 		boolean hasEmpty = false;
@@ -259,43 +269,22 @@ public class EmployeeController
 				emptyerrorbox.getChildren().add(emptyerrortxt);
 			}
 		} else {
+			empaddedhbox.getChildren().add(empaddedtxt);
 			if (emptyerrorbox.getChildren().contains(emptyerrortxt)) {
 				emptyerrorbox.getChildren().remove(emptyerrortxt);
-			}
-		}
-		//checking if the entrie sre successful
-		if(this.checkValues(fname, sname, address, pcode,
-				contactno, email, city) && !this.checkEmployee(email.getText())){
-			if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
-				empaddedhbox.getChildren().add(empaddedtxt);
-			}
-		} else {
-			if (empaddedhbox.getChildren().contains(empaddedtxt)) {
-				empaddedhbox.getChildren().remove(empaddedtxt);
-			}
-		}
-		//checking if the mployee is already in the databse
-		System.out.println(email.getText());
-		if(this.checkEmployee(email.getText())){
-			System.out.println("Employee is taken");
-			if (!takenerrorbox.getChildren().contains(takenerrortxt)) {
-				takenerrorbox.getChildren().add(takenerrortxt);
-			}
-		} else {
-			System.out.println("Employee is free");
-			if (takenerrorbox.getChildren().contains(takenerrortxt)) {
-				takenerrorbox.getChildren().remove(takenerrortxt);
 			}
 		}
 
 	}
 
+	//Adds error message to error box
 	public void empAddedMessage(HBox empaddedhbox, Text empaddedtxt) {
 		if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
 			empaddedhbox.getChildren().add(empaddedtxt);
 		}
 	}
 
+	//Calls associated view to update window
 	public void updateView(){
 		view.updateView();
 	}
