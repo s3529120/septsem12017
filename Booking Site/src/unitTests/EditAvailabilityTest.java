@@ -129,7 +129,6 @@ public class EditAvailabilityTest {
 			dbcont.prepareStatement(sql);
 			res = dbcont.runSQLRes();
 			
-
 			
 			assertThat(res.getString(email), not(email));
 			assertThat(res.getString(startstring), is(startstring));
