@@ -1,15 +1,18 @@
 package Controller;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.scene.text.Text;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.ComboBox;
-
 import Model.DatabaseModel;
 import View.EditAvailabilitiesView;
 
@@ -19,32 +22,40 @@ public class AvailabilitiesController
 	//Appointment duration subject to change
 	public final int duration=15;
 
+	//Constructor - currently unmodified
 	public AvailabilitiesController(){
 
 	}
 
+	//Return associated view
 	public EditAvailabilitiesView getView(){
 		return view;
 	}
 
+	//Set associated view
 	public Boolean setView(EditAvailabilitiesView view){
 		this.view=view;
 		return true;
 	}
 
+	//Call associated view method to update window
 	public void updateView(){
 		view.updateView();
 	}
 
+	//Call EmployeeController to get email from given username
 	public String getEmail(String name){
 		EmployeeController empcont = new EmployeeController();
 		return empcont.getEmail(name);
 	}
 
+	//Returns list of times in day based on duration value
 	public String[] getPossibleTimes(){
 		String[] times=new String[(60/duration)*24];
 
+		//Hours loop
 		for(int i=0;i<24;i++){
+		   //Minutes loop
 			for(int j=0;j<(60/duration);j++){
 				times[i+j]=String.format("%02d:%02d",i,j*duration);
 			}
@@ -52,14 +63,16 @@ public class AvailabilitiesController
 		return times;
 	}
 
+	//Calls EmployeeController to return list of all employees
 	public String[] getEmployees(){
 		EmployeeController empcont = new EmployeeController();
 		return empcont.getEmployees();
 	}
 
+	////Checks that values of given boxes are valid
 	public boolean validateEntries(
 			String email, HBox emailbox,
-			LocalDate date, VBox datebox,
+			DayOfWeek dow, VBox datebox,
 			String startstring, HBox startbox,
 			String finishstring, HBox finbox,
 			Text dateerrortxt, HBox dateerrorbox,
@@ -96,7 +109,7 @@ public class AvailabilitiesController
 		}
 		
 		//checking if date is selected
-		if (date == null) {
+		if (dow == null) {
 			goodInputs = false;
 			if (!dateerrorbox.getChildren().contains(dateerrortxt)) {
 				dateerrorbox.getChildren().add(dateerrortxt);
@@ -110,30 +123,36 @@ public class AvailabilitiesController
 		return goodInputs;
 	}
 
+	//Adds availability for given employee to database
 	public Boolean addAvailability(
 			String email,
-			LocalDate date,
+			DayOfWeek dow,
 			String startstring,
 			String finishstring) {
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		EmployeeController empcont = new EmployeeController();
 		String sql="";
 
+		//Prepare DateTime objects
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
 		LocalTime start = LocalTime.parse(startstring, dtf);
 		LocalTime finish = LocalTime.parse(finishstring, dtf);
 
+		//Verify employee exists
 		if(empcont.checkEmployee(email)==false){
 			return false;
 		}
 
+		//Open database connection
 		dbcont.createConnection();
-		sql="INSERT INTO Availability(Email,Date,StartTime,FinishTime) " +
+		
+		//Prepare and run sql
+		sql="INSERT INTO Availability(Email,Day,StartTime,FinishTime) " +
 				"Values(?,?,?,?);";
 		dbcont.prepareStatement(sql);
 		try{
 			dbcont.getState().setString(1, email);
-			dbcont.getState().setString(2, date.toString());
+			dbcont.getState().setString(2, dow.toString());
 			dbcont.getState().setString(3, start.toString());
 			dbcont.getState().setString(4, finish.toString());
 		}catch(SQLException e){
@@ -142,6 +161,42 @@ public class AvailabilitiesController
 		}
 		dbcont.runSQLUpdate();
 		dbcont.closeConnection();
+		
+		//Adjust bookings
+		BookingController bcont= new BookingController();
+		bcont.removeBookings(dow, email);
+		bcont.addBookings(dow, LocalTime.parse(startstring), LocalTime.parse(finishstring), email);
+		
 		return true;
+	}
+	
+	//Returns currently set availability for employee on given day
+	public Map<String,LocalTime> getAvailability(DayOfWeek dow, String empemail){
+	   DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+	   Map<String,LocalTime> map = new HashMap<String,LocalTime>();
+	   String sql;
+	   ResultSet res;
+	   
+	   //Create database connection
+	   dbcont.createConnection();
+	   
+	   //Prepare and run sql
+	   sql="SELECT StartTime,FinishTime FROM Availability WHERE Day=? AND EmployeeEmail=?;";
+	   dbcont.prepareStatement(sql);
+	   try
+      {
+         dbcont.getState().setString(1, dow.toString());
+         dbcont.getState().setString(2, empemail);
+         res=dbcont.runSQLRes();
+         //Get times and add to map
+         map.put("StartTime", LocalTime.parse(res.getString("StartTime")));
+         map.put("FinishTime", LocalTime.parse(res.getString("FinishTime")));
+      }
+      catch (SQLException e)
+      {
+         e.printStackTrace();
+      }
+	   dbcont.closeConnection();
+	   return map;
 	}
 }

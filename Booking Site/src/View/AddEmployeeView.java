@@ -107,6 +107,9 @@ public class AddEmployeeView
 	  
 	  Text empaddedtxt = new Text("Employee has been successfully added! :)");
 	  HBox empaddedhbox = new HBox();
+	  
+	  Text takenerrortxt = new Text("Email already in use.");
+	  HBox takenerrorbox = new HBox();
       
       //Submit button
       Button subbtn = new Button("Add");
@@ -120,7 +123,18 @@ public class AddEmployeeView
                        contactnofield.getText(), emailfield.getText(), 
                        streetaddfield.getText(), cityfield.getText(), 
                        statebox.getValue(), pcodefield.getText());
-			   cont.empAddedMessage(empaddedhbox, empaddedtxt);
+			   //cont.empAddedMessage(empaddedhbox, empaddedtxt);
+			   cont.validateEntries(
+						fnamefield, fnamehbox, 
+						snamefield, snamehbox, 
+						streetaddfield, streetaddhbox, 
+						pcodefield, pcodehbox, 
+						contactnofield, contactnohbox, 
+						emailfield, emailhbox,
+						cityfield, cityhbox,
+						emptyerrortxt, emptyerrorbox,
+						empaddedtxt, empaddedhbox,
+						takenerrortxt, takenerrorbox);
 		   }else{
 		      //checking for empty
 			   cont.validateEntries(
@@ -132,7 +146,8 @@ public class AddEmployeeView
 						emailfield, emailhbox,
 						cityfield, cityhbox,
 						emptyerrortxt, emptyerrorbox,
-						empaddedtxt, empaddedhbox);
+						empaddedtxt, empaddedhbox,
+						takenerrortxt, takenerrorbox);
 		   }
          }
 		   
@@ -142,7 +157,7 @@ public class AddEmployeeView
       subbtn.getStyleClass().add("bluebtn");
       
       // Add above elements to vertical box
-      VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, subbtn, empaddedhbox, emptyerrorbox);
+      VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, subbtn, empaddedhbox, emptyerrorbox,takenerrorbox);
       addressInfo.setId("empAddressVbox");
 
 

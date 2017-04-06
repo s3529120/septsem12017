@@ -14,6 +14,7 @@ public class DatabaseController {
 		this.model=model;
 	}
 	
+	//Creates a connection to database
 	public Boolean createConnection(){
 	   try
       {
@@ -26,6 +27,7 @@ public class DatabaseController {
       }
 	}
 	
+	//Closes connection to database
 	public Boolean closeConnection(){
 	   if(model.getConnection()!=null){
 	      try
@@ -42,6 +44,7 @@ public class DatabaseController {
 	   }
 	}
 	
+	//Prepares an sql statement to be run
 	public Boolean prepareStatement(String sql){
 		try {
 			model.setState(model.getConnection()
@@ -53,20 +56,12 @@ public class DatabaseController {
 		}
 	}
 	
+	//Returns prepared statement from model
 	public PreparedStatement getState(){
 	   return model.getState();
 	}
 	
-	public Boolean runSQL(){
-		try{
-		   PreparedStatement state=model.getState();
-			state.execute();
-			return true;
-		}catch(SQLException e){
-			return false;
-		}
-	}
-	
+	//Runs prepared statement updating database
 	public Boolean runSQLUpdate(){
 		try{
 		   PreparedStatement state=model.getState();
@@ -77,6 +72,7 @@ public class DatabaseController {
 		}
 	}
 	
+	//Runs prepared statement returning result set from database
 	public ResultSet runSQLRes(){
 		ResultSet res;
 		try{
