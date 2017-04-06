@@ -1,7 +1,9 @@
 package unitTests;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
+import java.sql.ResultSet;
 import java.time.LocalDate;
 
 import org.junit.Test;
@@ -9,9 +11,6 @@ import org.junit.Test;
 import Controller.AvailabilitiesController;
 import Controller.DatabaseController;
 import Model.DatabaseModel;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class EditAvailabilityTest {
 
@@ -107,6 +106,35 @@ public class EditAvailabilityTest {
 					null, null);
 			
 			assertFalse(validate);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testAddEmptyFields(){
+		DatabaseModel dbmod = new DatabaseModel();
+		DatabaseController dbcont = new DatabaseController(dbmod);
+		String sql="";
+		ResultSet res;
+
+		
+		AvailabilitiesController avcont = new AvailabilitiesController();
+		LocalDate date = LocalDate.now();
+		String email = null,startstring="00:00",finishstring="12:45";
+		try{
+			avcont.addAvailability(email, date, startstring, finishstring);
+			
+			sql = "SELECT * FROM AVAILABILTY WHERE EMAIL='newemail@gmail.com';";
+			dbcont.prepareStatement(sql);
+			res = dbcont.runSQLRes();
+			
+
+			
+			assertThat(res.getString(email), not(email));
+			assertThat(res.getString(startstring), is(startstring));
+			assertThat(res.getString(finishstring), is(finishstring));
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
