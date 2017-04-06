@@ -55,7 +55,7 @@ public class AvailabilitiesController
 
 		//Hours loop
 		for(int i=0;i<24;i++){
-		   //Minutes loop
+			//Minutes loop
 			for(int j=0;j<(60/duration);j++){
 				times[i+j]=String.format("%02d:%02d",i,j*duration);
 			}
@@ -69,13 +69,12 @@ public class AvailabilitiesController
 		return empcont.getEmployees();
 	}
 
-	////Checks that values of given boxes are valid
+
 	public boolean validateEntries(
-			String email, HBox emailbox,
-			DayOfWeek dow, VBox datebox,
-			String startstring, HBox startbox,
-			String finishstring, HBox finbox,
-			Text dateerrortxt, HBox dateerrorbox,
+			String email,
+			DayOfWeek dow,
+			String startstring,
+			String finishstring,
 			Text employeeerrortxt, HBox employeeerrorbox,
 			Text timeerrortxt, HBox timenerrorbox) {
 		boolean goodInputs = true;
@@ -91,34 +90,29 @@ public class AvailabilitiesController
 				employeeerrorbox.getChildren().remove(employeeerrortxt);
 			}
 		}
-		
-		//Checking that times are ok
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-		LocalTime start = LocalTime.parse(startstring, dtf);
-		LocalTime finish = LocalTime.parse(finishstring, dtf);
-		
-		if ((startstring.equals(finishstring)) || start.isAfter(finish)) {
+		//checking that the times are entered
+		if (startstring.equals("") || finishstring.equals("")) {
 			goodInputs = false;
-			if (!timenerrorbox.getChildren().contains(timeerrortxt)) {
-				timenerrorbox.getChildren().add(timeerrortxt);
-			}
+
 		} else {
-			if (timenerrorbox.getChildren().contains(timeerrortxt)) {
-				timenerrorbox.getChildren().remove(timeerrortxt);
+			//Checking that times are ok
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+			LocalTime start = LocalTime.parse(startstring, dtf);
+			LocalTime finish = LocalTime.parse(finishstring, dtf);
+
+			if ((startstring.equals(finishstring)) || start.isAfter(finish)) {
+				goodInputs = false;
+				if (!timenerrorbox.getChildren().contains(timeerrortxt)) {
+					timenerrorbox.getChildren().add(timeerrortxt);
+				}
+			} else {
+				if (timenerrorbox.getChildren().contains(timeerrortxt)) {
+					timenerrorbox.getChildren().remove(timeerrortxt);
+				}
 			}
 		}
-		
-		//checking if date is selected
-		if (dow == null) {
-			goodInputs = false;
-			if (!dateerrorbox.getChildren().contains(dateerrortxt)) {
-				dateerrorbox.getChildren().add(dateerrortxt);
-			}
-		} else {
-			if (dateerrorbox.getChildren().contains(dateerrortxt)) {
-				dateerrorbox.getChildren().remove(dateerrortxt);
-			}
-		}
+
+
 
 		return goodInputs;
 	}
@@ -142,10 +136,11 @@ public class AvailabilitiesController
 		if(empcont.checkEmployee(email)==false){
 			return false;
 		}
+		System.out.println("Adding " + startstring + " - " + finishstring + " on + " + dow + " for " + email);
 
 		//Open database connection
 		dbcont.createConnection();
-		
+
 		//Prepare and run sql
 		sql="INSERT INTO Availability(Email,Day,StartTime,FinishTime) " +
 				"Values(?,?,?,?);";
@@ -157,46 +152,97 @@ public class AvailabilitiesController
 			dbcont.getState().setString(4, finish.toString());
 		}catch(SQLException e){
 			dbcont.closeConnection();
+			System.out.println("Failed to add the availability");
 			return false;
 		}
 		dbcont.runSQLUpdate();
 		dbcont.closeConnection();
-		
+
 		//Adjust bookings
 		BookingController bcont= new BookingController();
 		bcont.removeBookings(dow, email);
 		bcont.addBookings(dow, LocalTime.parse(startstring), LocalTime.parse(finishstring), email);
-		
+
 		return true;
 	}
-	
+
 	//Returns currently set availability for employee on given day
 	public Map<String,LocalTime> getAvailability(DayOfWeek dow, String empemail){
-	   DatabaseController dbcont = new DatabaseController(new DatabaseModel());
-	   Map<String,LocalTime> map = new HashMap<String,LocalTime>();
-	   String sql;
-	   ResultSet res;
-	   
-	   //Create database connection
-	   dbcont.createConnection();
-	   
-	   //Prepare and run sql
-	   sql="SELECT StartTime,FinishTime FROM Availability WHERE Day=? AND EmployeeEmail=?;";
-	   dbcont.prepareStatement(sql);
-	   try
-      {
-         dbcont.getState().setString(1, dow.toString());
-         dbcont.getState().setString(2, empemail);
-         res=dbcont.runSQLRes();
-         //Get times and add to map
-         map.put("StartTime", LocalTime.parse(res.getString("StartTime")));
-         map.put("FinishTime", LocalTime.parse(res.getString("FinishTime")));
-      }
-      catch (SQLException e)
-      {
-         e.printStackTrace();
-      }
-	   dbcont.closeConnection();
-	   return map;
+		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+		Map<String,LocalTime> map = new HashMap<String,LocalTime>();
+		String sql;
+		ResultSet res;
+		map.put("StartTime", null);
+		map.put("FinishTime", null);
+
+		//Create database connection
+		dbcont.createConnection();
+
+		//Prepare and run sql
+		sql="SELECT StartTime,FinishTime FROM Availability WHERE Day=? AND Email=?;";
+		dbcont.prepareStatement(sql);
+		try
+		{
+			dbcont.getState().setString(1, dow.toString());
+			dbcont.getState().setString(2, empemail);
+			res=dbcont.runSQLRes();
+			//Get times and add to map
+			map.put("StartTime", LocalTime.parse(res.getString("StartTime")));
+			map.put("FinishTime", LocalTime.parse(res.getString("FinishTime")));
+		}
+		catch (SQLException e)
+		{
+			//e.printStackTrace();
+			return map;
+		}
+		dbcont.closeConnection();
+		return map;
+	}
+
+	//Returns currently set availability as a string for employee on given day
+	public Map<String,String> getAvailabilityString(DayOfWeek dow, String empemail){
+		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+		Map<String,String> map = new HashMap<String,String>();
+		String sql;
+		ResultSet res;
+		map.put("StartTime", null);
+		map.put("FinishTime", null);
+
+		//Create database connection
+		dbcont.createConnection();
+
+		//Prepare and run sql
+		sql="SELECT StartTime,FinishTime FROM Availability WHERE Day=? AND Email=?;";
+		dbcont.prepareStatement(sql);
+		try
+		{
+			dbcont.getState().setString(1, dow.toString());
+			dbcont.getState().setString(2, empemail);
+			res=dbcont.runSQLRes();
+			//Get times and add to map
+			map.put("StartTime", res.getString("StartTime"));
+			map.put("FinishTime", res.getString("FinishTime"));
+		}
+		catch (SQLException e)
+		{
+			//e.printStackTrace();
+			return map;
+		}
+		dbcont.closeConnection();
+		return map;
+	}
+	
+	public void setSelection(DayOfWeek dow, String email, ComboBox<String> startBox, ComboBox<String> endBox) {
+		Map<String,String> sundayTimes = this.getAvailabilityString(dow,email);
+		if (sundayTimes.get("StartTime") != null) {
+			startBox.getSelectionModel().select(sundayTimes.get("StartTime"));
+		} else {
+			startBox.getSelectionModel().selectFirst();
+		}
+		if (sundayTimes.get("FinishTime") != null) {
+			endBox.getSelectionModel().select(sundayTimes.get("FinishTime"));
+		} else {
+			endBox.getSelectionModel().selectFirst();
+		}
 	}
 }

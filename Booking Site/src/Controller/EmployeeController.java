@@ -32,7 +32,7 @@ public class EmployeeController
 	}
 
 
-	//Check if employee already exists in database
+	//Check if employee already exists in database, returns TRUE if its already exists
 	public Boolean checkEmployee(String email){
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		String sql;
@@ -51,10 +51,12 @@ public class EmployeeController
 		{
 			dbcont.getState().setString(1, email);
 			res=dbcont.runSQLRes();
-			res.getString("Email").compareTo(email);
+			comp = res.getString("Email").compareTo(email);
+			System.out.println(res);
 		}
 		catch (SQLException e)
 		{
+			System.out.println("Email \"" + email + "\" was NOT found");
 			dbcont.closeConnection();
 			return false;
 		}
@@ -62,6 +64,7 @@ public class EmployeeController
 		//Close database and return true if employee exists
 		dbcont.closeConnection();
 		if(comp==0){
+			System.out.println("Email \"" + email + "\" was found");
 			return true;
 		}else{
 			return false;
@@ -101,6 +104,7 @@ public class EmployeeController
 		}
 		if(!dbcont.runSQLUpdate()){
 			dbcont.closeConnection();
+			//THIS IS WHERE THE METHOD IS RETURNING FALSE IF THE EMAIL IS ALREADY IN THE DB
 			return false;
 		}
 
@@ -120,6 +124,7 @@ public class EmployeeController
 		catch (SQLException e)
 		{
 			dbcont.closeConnection();
+			System.out.println("Returning false at 4");
 			return false;
 		}
 
@@ -129,6 +134,7 @@ public class EmployeeController
 			return true;
 		}else{
 			dbcont.closeConnection();
+			System.out.println("Returning false at 5");
 			return false;
 		}
 	}
@@ -151,7 +157,7 @@ public class EmployeeController
 		try
 		{
 			while(res.next()){
-			   //Add returned employyes to list
+				//Add returned employyes to list
 				emps.add(res.getString("Name"));
 			}
 		}
@@ -177,7 +183,7 @@ public class EmployeeController
 
 		//Create database connection
 		dbcont.createConnection();
-		
+
 		//Prepare and run sql
 		sql="SELECT Email FROM Employee WHERE Name=?;";
 		dbcont.prepareStatement(sql);
@@ -187,11 +193,11 @@ public class EmployeeController
 			//Retrieve email from results
 			email=res.getString("Email");
 		}catch(SQLException e){
-		   //Given no results return ""
+			//Given no results return ""
 			dbcont.closeConnection();
 			return "";
 		}
-		
+
 		//Close connection and return value
 		dbcont.closeConnection();
 		return email;
@@ -212,10 +218,17 @@ public class EmployeeController
 	}
 
 	//Checks validity of given fields
-	public void validateEntries(TextField fname, HBox fnamehbox, TextField sname, HBox snamehbox, TextField address,
-			HBox addresshbox, TextField pcode, HBox pcodehbox,
-			TextField contactno, HBox contactnohbox, TextField email, HBox emailhbox, TextField city, HBox cityhbox,
-			Text emptyerrortxt, HBox emptyerrorbox, Text empaddedtxt, HBox empaddedhbox) {
+	public void validateEntries(
+			TextField fname, HBox fnamehbox, 
+			TextField sname, HBox snamehbox, 
+			TextField address, HBox addresshbox, 
+			TextField pcode, HBox pcodehbox,
+			TextField contactno, HBox contactnohbox, 
+			TextField email, HBox emailhbox,
+			TextField city, HBox cityhbox,
+			Text emptyerrortxt, HBox emptyerrorbox, 
+			Text empaddedtxt, HBox empaddedhbox,
+			Text takenerrortxt, HBox takenerrorbox) {
 
 		// checking for empty
 		boolean hasEmpty = false;
@@ -269,12 +282,37 @@ public class EmployeeController
 				emptyerrorbox.getChildren().add(emptyerrortxt);
 			}
 		} else {
-			empaddedhbox.getChildren().add(empaddedtxt);
+			//empaddedhbox.getChildren().add(empaddedtxt);
 			if (emptyerrorbox.getChildren().contains(emptyerrortxt)) {
 				emptyerrorbox.getChildren().remove(emptyerrortxt);
 			}
 		}
 
+		// checking if the employee email has been taken
+		boolean notTaken = true;
+		if (this.checkEmployee(email.getText().trim())) {
+			//System.out.println("The email has been taken");
+			notTaken = false;
+			if (!takenerrorbox.getChildren().contains(takenerrortxt)) {
+				takenerrorbox.getChildren().add(takenerrortxt);
+			}
+		} else {
+			//System.out.println("The email is free");
+			if (takenerrorbox.getChildren().contains(takenerrortxt)) {
+				takenerrorbox.getChildren().remove(takenerrortxt);
+			}
+		}
+		
+		//checking whether or not to add the successful text
+		if (!hasEmpty && notTaken) {
+			if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
+				empaddedhbox.getChildren().add(empaddedtxt);
+			}
+		} else {
+			if (empaddedhbox.getChildren().contains(empaddedtxt)) {
+				empaddedhbox.getChildren().remove(empaddedtxt);
+			}
+		}
 	}
 
 	//Adds error message to error box

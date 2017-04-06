@@ -1,20 +1,22 @@
 package View;
 
+
 import Controller.AvailabilitiesController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EditAvailabilitiesView
 {
@@ -32,22 +34,8 @@ public class EditAvailabilitiesView
 
 	public void updateView(){
 
-		Button backbtn = new Button("Go Back");
-		backbtn.setOnAction(new EventHandler<ActionEvent>(){
-			@Override public void handle(ActionEvent e){
-				stage.close();
-			}
-		});
-		HBox backbox = new HBox(backbtn);
-		Text h1 = new Text("Manage Availabilities");
 
-		Text insertconfirm = new Text("");
-
-		HBox top = new HBox(h1,backbox);
-
-		Text dateerrortxt = new Text("Please Select a date");
-		HBox dateerrorbox = new HBox();
-
+		//Prompt texts
 		Text employeeerrortxt = new Text("Employee not selected");
 		HBox employeeerrorbox = new HBox();
 
@@ -60,27 +48,15 @@ public class EditAvailabilitiesView
 		Text donetxt = new Text("Successfully added");
 		HBox donebox = new HBox();
 
-		//Box 1
-		DatePicker availDatePicker = new DatePicker();
+		Text insertconfirm = new Text("");
 
-		GridPane gridPane = new GridPane();
-		gridPane.setHgap(10);
-		gridPane.setVgap(10);
+		//Title
+		Text pageTitle = new Text("Manage Availabilities");
+		pageTitle.setId("heading");
 
-		Label checkInlabel = new Label("Available:");
-		gridPane.add(checkInlabel, 0, 0);
+		//Select Employee
+		Label selectEmployeeText = new Label("Select an employ");
 
-
-		VBox box1 = new VBox(20);
-		GridPane.setHalignment(checkInlabel, HPos.LEFT);
-		gridPane.add(availDatePicker, 0, 1);
-		box1.getChildren().add(gridPane);
-		box1.getChildren().add(dateerrorbox);
-
-
-		box1.setId("form");
-
-		//Box2
 		String emps[];
 		ComboBox<String> employee = new ComboBox<String>();
 		employee.setPromptText("Employee");
@@ -98,68 +74,186 @@ public class EditAvailabilitiesView
 				emptyerrorbox.getChildren().remove(emptyerrortxt);
 			}
 		}
-		HBox employeebox = new HBox(employee);
+		employee.getSelectionModel().selectFirst();
+		HBox employeebox = new HBox(selectEmployeeText,employee,employeeerrorbox);
 		employeebox.setId("form");
 
-		Label startlbl = new Label("Start Time: ");
-		ComboBox<String> starttimes = new ComboBox<String>();
-		starttimes.getItems().addAll(cont.getPossibleTimes());
-		starttimes.getSelectionModel().selectFirst();
-		HBox startbox = new HBox(startlbl,starttimes);
-		startbox.setId("form");
+		//Back Button
+		Button backbtn = new Button("Go Back");
+		backbtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				stage.close();
+			}
+		});
+		HBox backbox = new HBox(backbtn);
+		
+		//top box construction
+		VBox titleAndEmployee = new VBox(pageTitle,employeebox);
+		HBox topBox = new HBox(titleAndEmployee,backbox);
 
-		Label finishlbl = new Label("End Time: ");
-		ComboBox<String> finishtimes = new ComboBox<String>();
-		finishtimes.getItems().addAll(cont.getPossibleTimes());
-		finishtimes.getSelectionModel().selectFirst();
-		HBox finishbox = new HBox(finishlbl,finishtimes);
-		finishbox.setId("form");
+		//Lots of text, because apparently i cant reuse the same ones
+		Text s1 = new Text("Start");
+		Text e1 = new Text("End");
+		Text s2 = new Text("Start");
+		Text e2 = new Text("End");
+		Text s3 = new Text("Start");
+		Text e3 = new Text("End");
+		Text s4 = new Text("Start");
+		Text e4 = new Text("End");
+		Text s5 = new Text("Start");
+		Text e5 = new Text("End");
+		Text s6 = new Text("Start");
+		Text e6 = new Text("End");
+		Text s7 = new Text("Start");
+		Text e7 = new Text("End");
+		
+		//setting up days
+		DayOfWeek sunday = DayOfWeek.valueOf("SUNDAY");
+		DayOfWeek monday = DayOfWeek.valueOf("MONDAY");
+		DayOfWeek tuesday = DayOfWeek.valueOf("TUESDAY");
+		DayOfWeek wednesday = DayOfWeek.valueOf("WEDNESDAY");
+		DayOfWeek thursday = DayOfWeek.valueOf("THURSDAY");
+		DayOfWeek friday = DayOfWeek.valueOf("FRIDAY");
+		DayOfWeek saturday = DayOfWeek.valueOf("SATURDAY");
+		DayOfWeek[] days = {sunday,monday,tuesday,wednesday,thursday,friday,saturday};
+		
+		//Setting up boxes
+		ComboBox<String> sundayStartTime = new ComboBox<String>();
+		ComboBox<String> sundayEndTime = new ComboBox<String>();
+		ComboBox<String> mondayStartTime = new ComboBox<String>();
+		ComboBox<String> mondayEndTime = new ComboBox<String>();
+		ComboBox<String> tuesdayStartTime = new ComboBox<String>();
+		ComboBox<String> tuesdayEndTime = new ComboBox<String>();
+		ComboBox<String> wednesdayStartTime = new ComboBox<String>();
+		ComboBox<String> wednesdayEndTime = new ComboBox<String>();
+		ComboBox<String> thursdayStartTime = new ComboBox<String>();
+		ComboBox<String> thursdayEndTime = new ComboBox<String>();
+		ComboBox<String> fridayStartTime = new ComboBox<String>();
+		ComboBox<String> fridayEndTime = new ComboBox<String>();
+		ComboBox<String> saturdayStartTime = new ComboBox<String>();
+		ComboBox<String> saturdayEndTime = new ComboBox<String>();
+		
+		//creating labels
+		Label sundayText = new Label("Sunday");
+		Label mondayText = new Label("Monday");
+		Label tuesdayText = new Label("Tuesday");
+		Label wednesdayText = new Label("Wednesday");
+		Label thursdayText = new Label("Thursday");
+		Label fridayText = new Label("Friday");
+		Label saturdayText = new Label("Saturday");
+		
+		//populating lists, id like to do this in a loop, but apparently cant create an array of combo boxes
+		sundayStartTime.getItems().addAll(cont.getPossibleTimes());
+		sundayEndTime.getItems().addAll(cont.getPossibleTimes());
+		mondayStartTime.getItems().addAll(cont.getPossibleTimes());
+		mondayEndTime.getItems().addAll(cont.getPossibleTimes());
+		tuesdayStartTime.getItems().addAll(cont.getPossibleTimes());
+		tuesdayEndTime.getItems().addAll(cont.getPossibleTimes());
+		wednesdayStartTime.getItems().addAll(cont.getPossibleTimes());
+		wednesdayEndTime.getItems().addAll(cont.getPossibleTimes());
+		thursdayStartTime.getItems().addAll(cont.getPossibleTimes());
+		thursdayEndTime.getItems().addAll(cont.getPossibleTimes());
+		fridayStartTime.getItems().addAll(cont.getPossibleTimes());
+		fridayEndTime.getItems().addAll(cont.getPossibleTimes());
+		saturdayStartTime.getItems().addAll(cont.getPossibleTimes());
+		saturdayEndTime.getItems().addAll(cont.getPossibleTimes());
+		
+		//Setting default selections
+		cont.setSelection(sunday, employee.getSelectionModel().getSelectedItem(), sundayStartTime, sundayEndTime);
+		cont.setSelection(monday, employee.getSelectionModel().getSelectedItem(), mondayStartTime, mondayEndTime);
+		cont.setSelection(tuesday, employee.getSelectionModel().getSelectedItem(), tuesdayStartTime, tuesdayEndTime);
+		cont.setSelection(wednesday, employee.getSelectionModel().getSelectedItem(), wednesdayStartTime, wednesdayEndTime);
+		cont.setSelection(thursday, employee.getSelectionModel().getSelectedItem(), thursdayStartTime, thursdayEndTime);
+		cont.setSelection(friday, employee.getSelectionModel().getSelectedItem(), fridayStartTime, fridayEndTime);
+		cont.setSelection(saturday, employee.getSelectionModel().getSelectedItem(), saturdayStartTime, saturdayEndTime);
+		
+		//creating boxes
+		VBox sundayBox = new VBox(sundayText,s1,sundayStartTime,e1,sundayEndTime);
+		VBox mondayBox = new VBox(mondayText,s2,mondayStartTime,e2,mondayEndTime);
+		VBox tuesdayBox = new VBox(tuesdayText,s3,tuesdayStartTime,e3,tuesdayEndTime);
+		VBox wednesdayBox = new VBox(wednesdayText,s4,wednesdayStartTime,e4,wednesdayEndTime);
+		VBox thursdayBox = new VBox(thursdayText,s5,thursdayStartTime,e5,thursdayEndTime);
+		VBox fridayBox = new VBox(fridayText,s6,fridayStartTime,e6,fridayEndTime);
+		VBox saturdayBox = new VBox(saturdayText,s7,saturdayStartTime,e7,saturdayEndTime);
+		
+		//setting styles
+		sundayBox.getStyleClass().add("daybox");
+		mondayBox.getStyleClass().add("daybox");
+		tuesdayBox.getStyleClass().add("daybox");
+		wednesdayBox.getStyleClass().add("daybox");
+		thursdayBox.getStyleClass().add("daybox");
+		fridayBox.getStyleClass().add("daybox");
+		saturdayBox.getStyleClass().add("daybox");
+
+		//putt em all together
+		HBox dayBox = new HBox(sundayBox,mondayBox,tuesdayBox,wednesdayBox,thursdayBox,fridayBox,saturdayBox);
+
+		//Save
 
 		Button savebtn = new Button("Save");
 		savebtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
+				//Creating arrays of the day to loop through
+				//jesus christ this is not gonna be pretty but i cant be bothered finding a datatype to suit it
+				String[] startTimes = {
+						sundayStartTime.getSelectionModel().getSelectedItem().toString(),
+						mondayStartTime.getSelectionModel().getSelectedItem().toString(),
+						tuesdayStartTime.getSelectionModel().getSelectedItem().toString(),
+						wednesdayStartTime.getSelectionModel().getSelectedItem().toString(),
+						thursdayStartTime.getSelectionModel().getSelectedItem().toString(),
+						fridayStartTime.getSelectionModel().getSelectedItem().toString(),
+						saturdayStartTime.getSelectionModel().getSelectedItem().toString(),};
+				String[] endTimes = {
+						sundayEndTime.getSelectionModel().getSelectedItem().toString(),
+						mondayEndTime.getSelectionModel().getSelectedItem().toString(),
+						tuesdayEndTime.getSelectionModel().getSelectedItem().toString(),
+						wednesdayEndTime.getSelectionModel().getSelectedItem().toString(),
+						thursdayEndTime.getSelectionModel().getSelectedItem().toString(),
+						fridayEndTime.getSelectionModel().getSelectedItem().toString(),
+						saturdayEndTime.getSelectionModel().getSelectedItem().toString(),};
+				for (int i = 0;i < 7; i++) {
+					if (cont.validateEntries( 
+							cont.getEmail(employee.getSelectionModel().getSelectedItem()),
+							days[i],
+							startTimes[i],
+							endTimes[i],
+							employeeerrortxt,employeeerrorbox,
+							timeerrortxt,timenerrorbox)) {
 
-				if (cont.validateEntries(
-						cont.getEmail(employee.getSelectionModel().getSelectedItem()), employeebox,
-						availDatePicker.getValue(), box1,
-						starttimes.getSelectionModel().getSelectedItem(), startbox,
-						finishtimes.getSelectionModel().getSelectedItem(), finishbox,
-						dateerrortxt,dateerrorbox,
-						employeeerrortxt,employeeerrorbox,
-						timeerrortxt,timenerrorbox)) {
+						System.out.println(days[i] + " Was a success!");
+						cont.addAvailability( 
+								cont.getEmail(employee.getSelectionModel().getSelectedItem()), 
+								days[i], 
+								startTimes[i],
+								endTimes[i]);
+						insertconfirm.getText().replaceAll(".*?",employee.getSelectionModel().getSelectedItem().toString()
+								.concat("'s available time added"));
+						if (!donebox.getChildren().contains(donetxt)) {
+							donebox.getChildren().add(donetxt);
 
-					cont.addAvailability( 
-							cont.getEmail(employee.getSelectionModel().getSelectedItem()), 
-							availDatePicker.getValue(), 
-							starttimes.getSelectionModel().getSelectedItem(),
-							finishtimes.getSelectionModel().getSelectedItem());
-					insertconfirm.getText().replaceAll(".*?",employee.getSelectionModel().getSelectedItem().toString()
-							.concat("'s available time added"));
-					if (!donebox.getChildren().contains(donetxt)) {
-						donebox.getChildren().add(donetxt);
+						}
 
-					}
-
-				} else {
-					if (donebox.getChildren().contains(donetxt)) {
-						donebox.getChildren().remove(donetxt);
+					} else {
+						if (donebox.getChildren().contains(donetxt)) {
+							donebox.getChildren().remove(donetxt);
+						}
 					}
 				}
+
 			}
 		});
 
-		VBox box2 = new VBox(employeebox,startbox,finishbox,savebtn,emptyerrorbox,employeeerrorbox,timenerrorbox,donebox);
-		HBox body = new HBox(box1,box2);
-		VBox page = new VBox(top,body);
+
+
+		//box Construction
+		VBox page = new VBox(topBox,dayBox,savebtn);
 
 		page.getStyleClass().add("loginpageBox");
-		box1.getStyleClass().add("editavailBox");
-		box2.getStyleClass().add("editavailBox");
 		backbtn.setId("largebtn");
 		savebtn.setId("largebtn");
 		backbtn.setId("logoutbtn");
 		backbox.setId("logoutbox");
-		h1.setId("heading");
+
 
 
 		StackPane pane = new StackPane(page,insertconfirm);
@@ -170,3 +264,6 @@ public class EditAvailabilitiesView
 		stage.show();
 	}
 }
+
+// Load root layout from fxml file.
+

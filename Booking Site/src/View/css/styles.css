@@ -21,6 +21,15 @@
 	-fx-max-height: 200;
 }
 
+.daybox {
+	-fx-padding: 5 5 5 5;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    -fx-pref-width: 400;
+    -fx-pref-width: 200;
+	-fx-max-height: 200;
+}
+
 .regbox {
 	-fx-padding: 20px;
     -fx-border-insets: 5px;
