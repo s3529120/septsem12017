@@ -31,6 +31,7 @@ public class Seed {
 			sql = "DROP TABLE IF EXISTS System; ";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
+<<<<<<< HEAD
 
 			// Create tables
 			// System
@@ -74,6 +75,39 @@ public class Seed {
 			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
 					+ "VALUES(?,?,?,?,?,?,?);";
 			dataCont.runSQLUpdate();
+=======
+			//Availability
+			sql="CREATE TABLE Availability("
+               + "Day TEXT NOT NULL, "
+               + "StartTime TEXT NOT NULL, "
+               + "FinishTime TEXT NOT NULL, "
+               + "Email TEXT NOT NULL, "
+               + "PRIMARY KEY (Email,Day,StartTime)," +
+               "FOREIGN KEY (Email) REFERENCES Employee(Email));";
+         dataCont.prepareStatement(sql);
+         dataCont.runSQLUpdate();
+         //Booking
+         sql="CREATE TABLE Booking("
+               + "Date TEXT NOT NULL, "
+               + "StartTime TEXT NOT NULL, "
+               + "FinishTime TEXT NOT NULL, "
+               + "EmployeeEmail TEXT NOT NULL, "
+               + "Username TEXT, " 
+               + "Type TEXT, "
+               + "PRIMARY KEY (Date,StartTime,EmployeeEmail), " 
+               + "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email), " 
+               + "FOREIGN KEY (Username) REFERENCES Accounts(Username));";
+         dataCont.prepareStatement(sql);
+         dataCont.runSQLUpdate();
+         
+         
+         
+         //Enter dummy data
+         //BusAccount 1
+         sql="INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
+               + "VALUES(?,?,?,?,?,?,?);";
+         dataCont.runSQLUpdate();
+>>>>>>> branch 'master' of https://github.com/s3529120/septsem12017.git
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
 			dataCont.getState().setString(2, "abc123");
