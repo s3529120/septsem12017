@@ -34,41 +34,18 @@ public class EmployeeController
 
 	//Check if employee already exists in database, returns TRUE if its already exists
 	public Boolean checkEmployee(String email){
-		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
-		String sql;
-		ResultSet res;
-		int comp=-1;
-
-		//Open database connection
-		dbcont.createConnection();
-
-		//Prepare sql statement for execution
-		sql="SELECT ? FROM Employee WHERE Email=?;";
-		dbcont.prepareStatement(sql);
-
-		//Insert statement variable run and compare to expected
-		try
-		{
-			dbcont.getState().setString(1, email);
-			res=dbcont.runSQLRes();
-			comp = res.getString("Email").compareTo(email);
-			System.out.println(res);
+		String[] emps = this.getEmployees();
+		
+		if(emps==null){
+		   return false;
 		}
-		catch (SQLException e)
-		{
-			System.out.println("Email \"" + email + "\" was NOT found");
-			dbcont.closeConnection();
-			return false;
+		
+		for (int i=0;i<emps.length;i++){
+		   if(emps[i]==email){
+		      return true;
+		   }
 		}
-
-		//Close database and return true if employee exists
-		dbcont.closeConnection();
-		if(comp==0){
-			System.out.println("Email \"" + email + "\" was found");
-			return true;
-		}else{
-			return false;
-		}
+		return false;
 	}
 
 	//Add employee to database
