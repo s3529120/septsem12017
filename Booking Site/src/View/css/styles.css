@@ -146,3 +146,27 @@ buttonbox {
     -fx-spacing: 5;
 }
 
+/* View Bookings */
+
+#bookingsMain {
+	-fx-pref-width: 100%;
+}
+
+#bookingsHeader {
+	-fx-padding: 120 20 20 50;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    -fx-pref-width: 400;
+    -fx-pref-width: 400;
+	-fx-max-height: 400;
+}
+
+#bookingsList {
+	-fx-padding: 120 20 20 50;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    -fx-pref-width: 400;
+    -fx-pref-width: 400;
+	-fx-max-height: 400;
+}
+

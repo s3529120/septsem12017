@@ -133,8 +133,7 @@ public class AddEmployeeView
 						emailfield, emailhbox,
 						cityfield, cityhbox,
 						emptyerrortxt, emptyerrorbox,
-						empaddedtxt, empaddedhbox,
-						takenerrortxt, takenerrorbox);
+						empaddedtxt, empaddedhbox);
 		   }else{
 		      //checking for empty
 			   cont.validateEntries(
@@ -146,8 +145,7 @@ public class AddEmployeeView
 						emailfield, emailhbox,
 						cityfield, cityhbox,
 						emptyerrortxt, emptyerrorbox,
-						empaddedtxt, empaddedhbox,
-						takenerrortxt, takenerrorbox);
+						empaddedtxt, empaddedhbox);
 		   }
          }
 		   
