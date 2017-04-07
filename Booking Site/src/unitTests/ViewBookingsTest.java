@@ -1,12 +1,20 @@
-
+package unitTests;
 
 import java.time.LocalDate;
 
-import Controller.DatabaseController;
-import Model.DatabaseModel;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-public class Seed {
-	public static void initialize(){
+import Controller.*;
+import Model.*;
+
+public class ViewBookingsTest {
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception
+	{
 		String sql="";
 		DatabaseModel dataMod = new DatabaseModel();
 		DatabaseController dataCont = new DatabaseController(dataMod);
@@ -76,8 +84,8 @@ public class Seed {
 					+ "StartTime TEXT NOT NULL, "
 					+ "FinishTime TEXT NOT NULL, "
 					+ "Email TEXT NOT NULL, "
-					+ "PRIMARY KEY (Email,Day,StartTime)," +
-					"FOREIGN KEY (Email) REFERENCES Employee(Email));";
+					+ "PRIMARY KEY (Email,Day,StartTime)," 
+					+ "FOREIGN KEY (Email) REFERENCES Employee(Email));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 			//Booking
@@ -86,11 +94,11 @@ public class Seed {
 					+ "StartTime TEXT NOT NULL, "
 					+ "FinishTime NOT NULL, "
 					+"EmployeeEmail TEXT NOT NULL, "
-					+ "Username TEXT, " +
-					"Type TEXT, "
-					+ "PRIMARY KEY (Date,StartTime,EmployeeEmail)," +
-					"FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email), " +
-					"FOREIGN KEY (Username) REFERENCES Accounts(Username));";
+					+ "Username TEXT, " 
+					+ "Type TEXT, "
+					+ "PRIMARY KEY (Date,StartTime,EmployeeEmail)," 
+					+ "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email), " 
+					+ "FOREIGN KEY (Username) REFERENCES Accounts(Username));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 
@@ -117,9 +125,69 @@ public class Seed {
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, LocalDate.now().toString());
 			dataCont.runSQLUpdate();   
+			
+			
 		} catch (Exception e) {
+			dataCont.closeConnection();
 			e.printStackTrace();
+		}finally{
+			dataCont.closeConnection();
 		}
-		dataCont.closeConnection();
 	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception
+	{
+		String sql="";
+		DatabaseModel dataMod = new DatabaseModel();
+		DatabaseController dataCont = new DatabaseController(dataMod);
+
+		//Drop tables
+		sql="DROP TABLE IF EXISTS Accounts; ";
+		try {
+			dataCont.createConnection();
+			dataCont.prepareStatement(sql);
+			dataCont.runSQLUpdate();
+			sql="DROP TABLE IF EXISTS Employee; ";
+			dataCont.prepareStatement(sql);
+			dataCont.runSQLUpdate();
+			sql="DROP TABLE IF EXISTS Address; ";
+			dataCont.prepareStatement(sql);
+			dataCont.runSQLUpdate();
+			sql="DROP TABLE IF EXISTS Availability; ";
+			dataCont.prepareStatement(sql);
+			dataCont.runSQLUpdate();
+			sql="DROP TABLE IF EXISTS Booking; ";
+			dataCont.prepareStatement(sql);
+			dataCont.runSQLUpdate();
+			sql="DROP TABLE IF EXISTS System; ";
+			dataCont.prepareStatement(sql);
+			dataCont.runSQLUpdate();
+			
+		} catch (Exception e) {
+			dataCont.closeConnection();
+			e.printStackTrace();
+		}finally{
+			dataCont.closeConnection();
+		}
+	}
+
+	@Before
+	public void setUp() throws Exception
+	{
+
+	}
+
+	@After
+	public void tearDown() throws Exception
+	{
+
+	}
+	
+	@Test
+	public void testGetBooking(){
+		BookingController bcont = new BookingController();
+		
+	}
+	
 }
