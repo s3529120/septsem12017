@@ -90,13 +90,13 @@ public class Seed {
          sql="CREATE TABLE Booking("
                + "Date TEXT NOT NULL, "
                + "StartTime TEXT NOT NULL, "
-               + "FinishTime TEXT NOT NULL, "
-               + "EmployeeEmail TEXT NOT NULL, "
-               + "Username TEXT, " 
-               + "Type TEXT, "
-               + "PRIMARY KEY (Date,StartTime,EmployeeEmail), " 
-               + "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email), " 
-               + "FOREIGN KEY (Username) REFERENCES Accounts(Username));";
+               + "FinishTime NOT NULL, "
+               +"EmployeeEmail TEXT NOT NULL, "
+               + "Username TEXT, " +
+               "Type TEXT, "
+               + "PRIMARY KEY (Date,StartTime,EmployeeEmail)," +
+               "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email), " +
+               "FOREIGN KEY (Username) REFERENCES Accounts(Username));";
          dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
          
