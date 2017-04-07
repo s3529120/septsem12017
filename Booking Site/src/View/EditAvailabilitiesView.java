@@ -59,19 +59,17 @@ public class EditAvailabilitiesView
 		//Select Employee
 		Label selectEmployeeText = new Label("Select an employ");
 
-		String emps[];
+		Map<String,String> emps;
 		ComboBox<String> employee = new ComboBox<String>();
 		employee.setPromptText("Employee");
 		emps=cont.getEmployees();
-		if(emps==null){
+		if(emps.isEmpty()){
 			employee.getItems().add("None Exist");
 			if (!emptyerrorbox.getChildren().contains(emptyerrortxt)) {
 				emptyerrorbox.getChildren().add(emptyerrortxt);
 			}
 		}else{
-			for(int i=0;i<emps.length;i++){
-				employee.getItems().add(emps[i]);
-			}
+				employee.getItems().addAll(emps.keySet());
 			if (emptyerrorbox.getChildren().contains(emptyerrortxt)) {
 				emptyerrorbox.getChildren().remove(emptyerrortxt);
 			}
@@ -162,13 +160,13 @@ public class EditAvailabilitiesView
 		saturdayEndTime.getItems().addAll(cont.getPossibleTimes());
 
 		//Setting default selections
-		cont.setSelection(sunday, employee.getSelectionModel().getSelectedItem(), sundayStartTime, sundayEndTime);
-		cont.setSelection(monday, employee.getSelectionModel().getSelectedItem(), mondayStartTime, mondayEndTime);
-		cont.setSelection(tuesday, employee.getSelectionModel().getSelectedItem(), tuesdayStartTime, tuesdayEndTime);
-		cont.setSelection(wednesday, employee.getSelectionModel().getSelectedItem(), wednesdayStartTime, wednesdayEndTime);
-		cont.setSelection(thursday, employee.getSelectionModel().getSelectedItem(), thursdayStartTime, thursdayEndTime);
-		cont.setSelection(friday, employee.getSelectionModel().getSelectedItem(), fridayStartTime, fridayEndTime);
-		cont.setSelection(saturday, employee.getSelectionModel().getSelectedItem(), saturdayStartTime, saturdayEndTime);
+		cont.setSelection(sunday, emps.get(employee.getSelectionModel().getSelectedItem()), sundayStartTime, sundayEndTime);
+		cont.setSelection(monday, emps.get(employee.getSelectionModel().getSelectedItem()), mondayStartTime, mondayEndTime);
+		cont.setSelection(tuesday, emps.get(employee.getSelectionModel().getSelectedItem()), tuesdayStartTime, tuesdayEndTime);
+		cont.setSelection(wednesday, emps.get(employee.getSelectionModel().getSelectedItem()), wednesdayStartTime, wednesdayEndTime);
+		cont.setSelection(thursday, emps.get(employee.getSelectionModel().getSelectedItem()), thursdayStartTime, thursdayEndTime);
+		cont.setSelection(friday, emps.get(employee.getSelectionModel().getSelectedItem()), fridayStartTime, fridayEndTime);
+		cont.setSelection(saturday, emps.get(employee.getSelectionModel().getSelectedItem()), saturdayStartTime, saturdayEndTime);
 
 		//creating boxes
 		VBox sundayBox = new VBox(sundayText,s1,sundayStartTime,e1,sundayEndTime);
@@ -194,13 +192,13 @@ public class EditAvailabilitiesView
 		//make it so that the fields update
 		employee.valueProperty().addListener(new ChangeListener<String>() {
 			@Override public void changed(ObservableValue ov, String t, String t1) {
-				cont.setSelection(sunday, employee.getSelectionModel().getSelectedItem(), sundayStartTime, sundayEndTime);
-				cont.setSelection(monday, employee.getSelectionModel().getSelectedItem(), mondayStartTime, mondayEndTime);
-				cont.setSelection(tuesday, employee.getSelectionModel().getSelectedItem(), tuesdayStartTime, tuesdayEndTime);
-				cont.setSelection(wednesday, employee.getSelectionModel().getSelectedItem(), wednesdayStartTime, wednesdayEndTime);
-				cont.setSelection(thursday, employee.getSelectionModel().getSelectedItem(), thursdayStartTime, thursdayEndTime);
-				cont.setSelection(friday, employee.getSelectionModel().getSelectedItem(), fridayStartTime, fridayEndTime);
-				cont.setSelection(saturday, employee.getSelectionModel().getSelectedItem(), saturdayStartTime, saturdayEndTime);
+			   cont.setSelection(sunday, emps.get(employee.getSelectionModel().getSelectedItem()), sundayStartTime, sundayEndTime);
+		      cont.setSelection(monday, emps.get(employee.getSelectionModel().getSelectedItem()), mondayStartTime, mondayEndTime);
+		      cont.setSelection(tuesday, emps.get(employee.getSelectionModel().getSelectedItem()), tuesdayStartTime, tuesdayEndTime);
+		      cont.setSelection(wednesday, emps.get(employee.getSelectionModel().getSelectedItem()), wednesdayStartTime, wednesdayEndTime);
+		      cont.setSelection(thursday, emps.get(employee.getSelectionModel().getSelectedItem()), thursdayStartTime, thursdayEndTime);
+		      cont.setSelection(friday, emps.get(employee.getSelectionModel().getSelectedItem()), fridayStartTime, fridayEndTime);
+		      cont.setSelection(saturday, emps.get(employee.getSelectionModel().getSelectedItem()), saturdayStartTime, saturdayEndTime);
 			}
 		});
 

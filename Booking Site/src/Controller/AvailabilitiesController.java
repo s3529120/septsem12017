@@ -64,7 +64,7 @@ public class AvailabilitiesController
 	}
 
 	//Calls EmployeeController to return list of all employees
-	public String[] getEmployees(){
+	public Map<String,String> getEmployees(){
 		EmployeeController empcont = new EmployeeController();
 		return empcont.getEmployees();
 	}
@@ -166,39 +166,6 @@ public class AvailabilitiesController
 		return true;
 	}
 
-	//Returns currently set availability for employee on given day
-	public Map<String,LocalTime> getAvailability(DayOfWeek dow, String empemail){
-		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
-		Map<String,LocalTime> map = new HashMap<String,LocalTime>();
-		String sql;
-		ResultSet res;
-		map.put("StartTime", null);
-		map.put("FinishTime", null);
-
-		//Create database connection
-		dbcont.createConnection();
-
-		//Prepare and run sql
-		sql="SELECT StartTime,FinishTime FROM Availability WHERE Day=? AND Email=?;";
-		dbcont.prepareStatement(sql);
-		try
-		{
-			dbcont.getState().setString(1, dow.toString());
-			dbcont.getState().setString(2, empemail);
-			res=dbcont.runSQLRes();
-			//Get times and add to map
-			map.put("StartTime", LocalTime.parse(res.getString("StartTime")));
-			map.put("FinishTime", LocalTime.parse(res.getString("FinishTime")));
-		}
-		catch (SQLException e)
-		{
-			//e.printStackTrace();
-			return map;
-		}
-		dbcont.closeConnection();
-		return map;
-	}
-
 	//Returns currently set availability as a string for employee on given day
 	public Map<String,String> getAvailabilityString(DayOfWeek dow, String empemail){
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
@@ -212,20 +179,25 @@ public class AvailabilitiesController
 		dbcont.createConnection();
 
 		//Prepare and run sql
-		sql="SELECT StartTime,FinishTime FROM Availability WHERE Day=? AND Email=?;";
+		sql="SELECT * FROM Availability;";
 		dbcont.prepareStatement(sql);
 		try
 		{
-			dbcont.getState().setString(1, dow.toString());
-			dbcont.getState().setString(2, empemail);
 			res=dbcont.runSQLRes();
 			//Get times and add to map
-			map.put("StartTime", res.getString("StartTime"));
-			map.put("FinishTime", res.getString("FinishTime"));
+			while(res.next()){
+			   if(res.getString("Day").compareToIgnoreCase(dow.toString())==0 && empemail.compareToIgnoreCase(res.getString("Email"))==0){
+			      map.remove("StartTime");
+			      map.remove("FinishTime");
+			      map.put("StartTime", res.getString("StartTime"));
+			      map.put("FinishTime", res.getString("FinishTime"));
+			   }
+			}
 		}
 		catch (SQLException e)
 		{
-			//e.printStackTrace();
+			e.printStackTrace();
+			dbcont.closeConnection();
 			return map;
 		}
 		dbcont.closeConnection();
@@ -234,7 +206,7 @@ public class AvailabilitiesController
 	
 	public void setSelection(DayOfWeek dow, String email, ComboBox<String> startBox, ComboBox<String> endBox) {
 		Map<String,String> sundayTimes = this.getAvailabilityString(dow,email);
-		if (sundayTimes.get("StartTime") != null) {
+		if (sundayTimes.get("StartTime")!=null) {
 			startBox.getSelectionModel().select(sundayTimes.get("StartTime"));
 		} else {
 			startBox.getSelectionModel().selectFirst();

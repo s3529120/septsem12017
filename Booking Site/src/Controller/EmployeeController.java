@@ -3,7 +3,9 @@ package Controller;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.sqlite.core.DB;
 
@@ -71,7 +73,6 @@ public class EmployeeController
 		{
 			dbcont.getState().setString(1, name);
 			dbcont.getState().setString(2, contactno);
-			dbcont.getState().setString(3, email);
 
 		}
 		catch (SQLException e)
@@ -81,7 +82,6 @@ public class EmployeeController
 		}
 		if(!dbcont.runSQLUpdate()){
 			dbcont.closeConnection();
-			//THIS IS WHERE THE METHOD IS RETURNING FALSE IF THE EMAIL IS ALREADY IN THE DB
 			return false;
 		}
 
@@ -117,12 +117,11 @@ public class EmployeeController
 	}
 
 	//Returns array of employees
-		public String[] getEmployees(){
+		public Map<String,String> getEmployees(){
 			String sql="";
 			DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 			ResultSet res;
-			int count=0;
-			List<String> emps = new ArrayList<String>();
+			Map<String,String> emps = new HashMap<String,String>();
 
 			//Create database connection
 			dbcont.createConnection();
@@ -135,7 +134,7 @@ public class EmployeeController
 			{
 				while(res.next()){
 					//Add returned employyes to list
-					emps.add(res.getString("Name"));
+					emps.put(res.getString("Name"),res.getString("Email"));
 				}
 			}
 			catch (SQLException e)
@@ -149,7 +148,7 @@ public class EmployeeController
 				return null;
 			}
 			//Convert list of employees to array and return
-			return emps.toArray(new String[emps.size()]);
+			return emps;
 		}
 	
 	//Returns array of employee emails
@@ -157,7 +156,6 @@ public class EmployeeController
 		String sql="";
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		ResultSet res;
-		int count=0;
 		List<String> emps = new ArrayList<String>();
 
 		//Create database connection
