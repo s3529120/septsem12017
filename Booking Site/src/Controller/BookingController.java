@@ -1,6 +1,5 @@
 package Controller;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
@@ -13,29 +12,10 @@ import java.util.List;
 import Model.BookingModel;
 
 import Model.DatabaseModel;
-import View.AddEmployeeView;
-import View.BookingsView;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 
 public class BookingController
 {
-   private BookingsView view;
-
-   
-   //Returns associated view
- 	public BookingsView getView(){
- 		return this.view;
- 	}
-   
- //Sets associated view
-   public Boolean setView(BookingsView view) {
-   	this.view=view;
-   	return true;
-   }
-
-//Creates bookings on startup for a month ahead of time and remove old bookings
+   //Creates bookings on startup for a month ahead of time and remove old bookings
    public void updateBookings(){
       DatabaseController dbcont=new DatabaseController(new DatabaseModel());
       LocalDate focus,booksCurrent,booksUntil=LocalDate.now().plusWeeks(4);
@@ -295,10 +275,4 @@ public class BookingController
        dbcont.closeConnection();
        return bookings;
    }
-   
- //Calls associated view to update window
-  	public void updateView(){
-  		view.updateView();
-  	}
-   
 }

@@ -1,17 +1,12 @@
 package View;
 
-import java.io.IOException;
-
 import Controller.AvailabilitiesController;
-import Controller.BookingController;
 import Controller.BusinessAccountMenuController;
 import Controller.DefaultController;
 import Controller.EmployeeController;
 import Model.BusinessAccountModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -80,10 +75,6 @@ public class BusinessAccountMenuView {
 		Button viewbookbtn = new Button("View Bookings");
 		viewbookbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				BookingController cont = new BookingController();
-				cont.setView(new BookingsView(new Stage()));
-				cont.getView().setController(cont);
-				cont.updateView();
 			}
 		});
 		

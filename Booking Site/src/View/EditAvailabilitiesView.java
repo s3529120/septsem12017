@@ -17,6 +17,8 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 public class EditAvailabilitiesView
 {
@@ -75,6 +77,7 @@ public class EditAvailabilitiesView
 			}
 		}
 		employee.getSelectionModel().selectFirst();
+		
 		HBox employeebox = new HBox(selectEmployeeText,employee,employeeerrorbox);
 		employeebox.setId("form");
 
@@ -86,7 +89,7 @@ public class EditAvailabilitiesView
 			}
 		});
 		HBox backbox = new HBox(backbtn);
-		
+
 		//top box construction
 		VBox titleAndEmployee = new VBox(pageTitle,employeebox);
 		HBox topBox = new HBox(titleAndEmployee,backbox);
@@ -106,7 +109,7 @@ public class EditAvailabilitiesView
 		Text e6 = new Text("End");
 		Text s7 = new Text("Start");
 		Text e7 = new Text("End");
-		
+
 		//setting up days
 		DayOfWeek sunday = DayOfWeek.valueOf("SUNDAY");
 		DayOfWeek monday = DayOfWeek.valueOf("MONDAY");
@@ -116,7 +119,7 @@ public class EditAvailabilitiesView
 		DayOfWeek friday = DayOfWeek.valueOf("FRIDAY");
 		DayOfWeek saturday = DayOfWeek.valueOf("SATURDAY");
 		DayOfWeek[] days = {sunday,monday,tuesday,wednesday,thursday,friday,saturday};
-		
+
 		//Setting up boxes
 		ComboBox<String> sundayStartTime = new ComboBox<String>();
 		ComboBox<String> sundayEndTime = new ComboBox<String>();
@@ -132,7 +135,7 @@ public class EditAvailabilitiesView
 		ComboBox<String> fridayEndTime = new ComboBox<String>();
 		ComboBox<String> saturdayStartTime = new ComboBox<String>();
 		ComboBox<String> saturdayEndTime = new ComboBox<String>();
-		
+
 		//creating labels
 		Label sundayText = new Label("Sunday");
 		Label mondayText = new Label("Monday");
@@ -141,7 +144,7 @@ public class EditAvailabilitiesView
 		Label thursdayText = new Label("Thursday");
 		Label fridayText = new Label("Friday");
 		Label saturdayText = new Label("Saturday");
-		
+
 		//populating lists, id like to do this in a loop, but apparently cant create an array of combo boxes
 		sundayStartTime.getItems().addAll(cont.getPossibleTimes());
 		sundayEndTime.getItems().addAll(cont.getPossibleTimes());
@@ -157,7 +160,7 @@ public class EditAvailabilitiesView
 		fridayEndTime.getItems().addAll(cont.getPossibleTimes());
 		saturdayStartTime.getItems().addAll(cont.getPossibleTimes());
 		saturdayEndTime.getItems().addAll(cont.getPossibleTimes());
-		
+
 		//Setting default selections
 		cont.setSelection(sunday, employee.getSelectionModel().getSelectedItem(), sundayStartTime, sundayEndTime);
 		cont.setSelection(monday, employee.getSelectionModel().getSelectedItem(), mondayStartTime, mondayEndTime);
@@ -166,7 +169,7 @@ public class EditAvailabilitiesView
 		cont.setSelection(thursday, employee.getSelectionModel().getSelectedItem(), thursdayStartTime, thursdayEndTime);
 		cont.setSelection(friday, employee.getSelectionModel().getSelectedItem(), fridayStartTime, fridayEndTime);
 		cont.setSelection(saturday, employee.getSelectionModel().getSelectedItem(), saturdayStartTime, saturdayEndTime);
-		
+
 		//creating boxes
 		VBox sundayBox = new VBox(sundayText,s1,sundayStartTime,e1,sundayEndTime);
 		VBox mondayBox = new VBox(mondayText,s2,mondayStartTime,e2,mondayEndTime);
@@ -175,7 +178,7 @@ public class EditAvailabilitiesView
 		VBox thursdayBox = new VBox(thursdayText,s5,thursdayStartTime,e5,thursdayEndTime);
 		VBox fridayBox = new VBox(fridayText,s6,fridayStartTime,e6,fridayEndTime);
 		VBox saturdayBox = new VBox(saturdayText,s7,saturdayStartTime,e7,saturdayEndTime);
-		
+
 		//setting styles
 		sundayBox.getStyleClass().add("daybox");
 		mondayBox.getStyleClass().add("daybox");
@@ -187,6 +190,19 @@ public class EditAvailabilitiesView
 
 		//putt em all together
 		HBox dayBox = new HBox(sundayBox,mondayBox,tuesdayBox,wednesdayBox,thursdayBox,fridayBox,saturdayBox);
+		
+		//make it so that the fields update
+		employee.valueProperty().addListener(new ChangeListener<String>() {
+			@Override public void changed(ObservableValue ov, String t, String t1) {
+				cont.setSelection(sunday, employee.getSelectionModel().getSelectedItem(), sundayStartTime, sundayEndTime);
+				cont.setSelection(monday, employee.getSelectionModel().getSelectedItem(), mondayStartTime, mondayEndTime);
+				cont.setSelection(tuesday, employee.getSelectionModel().getSelectedItem(), tuesdayStartTime, tuesdayEndTime);
+				cont.setSelection(wednesday, employee.getSelectionModel().getSelectedItem(), wednesdayStartTime, wednesdayEndTime);
+				cont.setSelection(thursday, employee.getSelectionModel().getSelectedItem(), thursdayStartTime, thursdayEndTime);
+				cont.setSelection(friday, employee.getSelectionModel().getSelectedItem(), fridayStartTime, fridayEndTime);
+				cont.setSelection(saturday, employee.getSelectionModel().getSelectedItem(), saturdayStartTime, saturdayEndTime);
+			}
+		});
 
 		//Save
 
@@ -194,7 +210,7 @@ public class EditAvailabilitiesView
 		savebtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				//Creating arrays of the day to loop through
-				//jesus christ this is not gonna be pretty but i cant be bothered finding a datatype to suit it
+				//jesus christ this is not gonna be pretty but i dont know a datatype to suit
 				String[] startTimes = {
 						sundayStartTime.getSelectionModel().getSelectedItem().toString(),
 						mondayStartTime.getSelectionModel().getSelectedItem().toString(),
@@ -263,7 +279,27 @@ public class EditAvailabilitiesView
 		stage.setScene(scene);
 		stage.show();
 	}
+
+	public void updateTimes(
+			ComboBox<String> employee,
+			DayOfWeek sunday, ComboBox<String> sundayStartTime, ComboBox<String> sundayEndTime,
+			DayOfWeek monday, ComboBox<String> mondayStartTime, ComboBox<String> mondayEndTime,
+			DayOfWeek tuesday, ComboBox<String> tuesdayStartTime, ComboBox<String> tuesdayEndTime,
+			DayOfWeek wednesday, ComboBox<String> wednesdayStartTime, ComboBox<String> wednesdayEndTime,
+			DayOfWeek thursday, ComboBox<String> thursdayStartTime, ComboBox<String> thursdayEndTime,
+			DayOfWeek friday, ComboBox<String> fridayStartTime, ComboBox<String> fridayEndTime,
+			DayOfWeek saturday, ComboBox<String> saturdayStartTime, ComboBox<String> saturdayEndTime) {
+		cont.setSelection(sunday, employee.getSelectionModel().getSelectedItem(), sundayStartTime, sundayEndTime);
+		cont.setSelection(monday, employee.getSelectionModel().getSelectedItem(), mondayStartTime, mondayEndTime);
+		cont.setSelection(tuesday, employee.getSelectionModel().getSelectedItem(), tuesdayStartTime, tuesdayEndTime);
+		cont.setSelection(wednesday, employee.getSelectionModel().getSelectedItem(), wednesdayStartTime, wednesdayEndTime);
+		cont.setSelection(thursday, employee.getSelectionModel().getSelectedItem(), thursdayStartTime, thursdayEndTime);
+		cont.setSelection(friday, employee.getSelectionModel().getSelectedItem(), fridayStartTime, fridayEndTime);
+		cont.setSelection(saturday, employee.getSelectionModel().getSelectedItem(), saturdayStartTime, saturdayEndTime);
+	}
 }
+
+
 
 // Load root layout from fxml file.
 

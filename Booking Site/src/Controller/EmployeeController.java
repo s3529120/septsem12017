@@ -34,41 +34,18 @@ public class EmployeeController
 
 	//Check if employee already exists in database, returns TRUE if its already exists
 	public Boolean checkEmployee(String email){
-		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
-		String sql;
-		ResultSet res;
-		int comp=-1;
-
-		//Open database connection
-		dbcont.createConnection();
-
-		//Prepare sql statement for execution
-		sql="SELECT ? FROM Employee WHERE Email=?;";
-		dbcont.prepareStatement(sql);
-
-		//Insert statement variable run and compare to expected
-		try
-		{
-			dbcont.getState().setString(1, email);
-			res=dbcont.runSQLRes();
-			comp = res.getString("Email").compareTo(email);
-			System.out.println(res);
+		String[] emps = this.getEmployeeEmails();
+		
+		if(emps==null){
+		   return false;
 		}
-		catch (SQLException e)
-		{
-			System.out.println("Email \"" + email + "\" was NOT found");
-			dbcont.closeConnection();
-			return false;
+		
+		for (int i=0;i<emps.length;i++){
+		   if(emps[i]==email){
+		      return true;
+		   }
 		}
-
-		//Close database and return true if employee exists
-		dbcont.closeConnection();
-		if(comp==0){
-			System.out.println("Email \"" + email + "\" was found");
-			return true;
-		}else{
-			return false;
-		}
+		return false;
 	}
 
 	//Add employee to database
@@ -140,7 +117,43 @@ public class EmployeeController
 	}
 
 	//Returns array of employees
-	public String[] getEmployees(){
+		public String[] getEmployees(){
+			String sql="";
+			DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+			ResultSet res;
+			int count=0;
+			List<String> emps = new ArrayList<String>();
+
+			//Create database connection
+			dbcont.createConnection();
+			//Prepare and run sql
+			sql="SELECT * FROM Employee;";
+			dbcont.prepareStatement(sql);
+			res=dbcont.runSQLRes();
+
+			try
+			{
+				while(res.next()){
+					//Add returned employyes to list
+					emps.add(res.getString("Name"));
+				}
+			}
+			catch (SQLException e)
+			{
+				return null;
+			}
+
+			//Close database connection
+			dbcont.closeConnection();
+			if (emps.isEmpty()) {
+				return null;
+			}
+			//Convert list of employees to array and return
+			return emps.toArray(new String[emps.size()]);
+		}
+	
+	//Returns array of employee emails
+	public String[] getEmployeeEmails(){
 		String sql="";
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		ResultSet res;
@@ -158,7 +171,7 @@ public class EmployeeController
 		{
 			while(res.next()){
 				//Add returned employyes to list
-				emps.add(res.getString("Name"));
+				emps.add(res.getString("Email"));
 			}
 		}
 		catch (SQLException e)
@@ -289,10 +302,8 @@ public class EmployeeController
 		}
 
 		// checking if the employee email has been taken
-		boolean notTaken = true;
 		if (this.checkEmployee(email.getText().trim())) {
 			//System.out.println("The email has been taken");
-			notTaken = false;
 			if (!takenerrorbox.getChildren().contains(takenerrortxt)) {
 				takenerrorbox.getChildren().add(takenerrortxt);
 			}
@@ -300,17 +311,6 @@ public class EmployeeController
 			//System.out.println("The email is free");
 			if (takenerrorbox.getChildren().contains(takenerrortxt)) {
 				takenerrorbox.getChildren().remove(takenerrortxt);
-			}
-		}
-		
-		//checking whether or not to add the successful text
-		if (!hasEmpty && notTaken) {
-			if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
-				empaddedhbox.getChildren().add(empaddedtxt);
-			}
-		} else {
-			if (empaddedhbox.getChildren().contains(empaddedtxt)) {
-				empaddedhbox.getChildren().remove(empaddedtxt);
 			}
 		}
 	}
