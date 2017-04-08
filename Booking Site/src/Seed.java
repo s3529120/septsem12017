@@ -136,16 +136,6 @@ public class Seed {
 			dataCont.getState().setString(4, "johndoe@example.com");
 			dataCont.runSQLUpdate();
 
-			// Employee 1 Availbility 3
-			sql = "INSERT INTO Availability(Day, StartTime, FinishTime, Email) " + "VALUES(?,?,?,?)";
-			dataCont.runSQLUpdate();
-			dataCont.prepareStatement(sql);
-			dataCont.getState().setString(1, "WEDNESDAY");
-			dataCont.getState().setString(2, "10:00");
-			dataCont.getState().setString(3, "18:00");
-			dataCont.getState().setString(4, "johndoe@example.com");
-			dataCont.runSQLUpdate();
-
 			///////////// EMPLOYEE 2
 			sql = "INSERT INTO Employee(Name, ContactNo, Email) " + "VALUES(?,?,?)";
 			dataCont.runSQLUpdate();

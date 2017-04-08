@@ -155,3 +155,16 @@ buttonbox {
     -fx-spacing: 5;
 }
 
+/** View Bookings **/
+
+#bookingBox {
+	-fx-border-color: #000;
+    -fx-border-width: 1px;
+    -fx-padding: 10;
+    -fx-spacing: 8;
+}
+
+#bookingDate {
+	-fx-font-size: 12pt;
+}
+
