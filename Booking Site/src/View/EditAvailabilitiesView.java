@@ -239,7 +239,6 @@ public class EditAvailabilitiesView
 							employeeerrortxt,employeeerrorbox,
 							timeerrortxt,timenerrorbox)) {
 
-						System.out.println(days[i] + " Was a success!");
 						cont.addAvailability( 
 								emps.get(employee.getSelectionModel().getSelectedItem()), 
 								days[i], 

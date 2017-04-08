@@ -139,35 +139,31 @@ public class AddEmployeeView
 
 				//checking to make sure all fields are filled
 				if(cont.checkValues(fnamefield, snamefield, streetaddfield, pcodefield,
-						contactnofield, emailfield, cityfield)){
-					System.out.println("Fields are valid, attempting to add");
+						contactnofield, emailfield, cityfield)){//cont.empAddedMessage(empaddedhbox, empaddedtxt);
+               cont.validateEntries(
+                                    fnamefield, fnamehbox, 
+                                    snamefield, snamehbox, 
+                                    streetaddfield, streetaddhbox, 
+                                    pcodefield, pcodehbox, 
+                                    contactnofield, contactnohbox, 
+                                    emailfield, emailhbox,
+                                    cityfield, cityhbox,
+                                    emptyerrortxt, emptyerrorbox,
+                                    empaddedtxt, empaddedhbox,
+                                    takenerrortxt, takenerrorbox);
 					if (cont.addEmployee(fnamefield.getText().concat(snamefield.getText()), 
 							contactnofield.getText(), emailfield.getText(), 
 							streetaddfield.getText(), cityfield.getText(), 
 							statebox.getValue(), pcodefield.getText())) {
-						System.out.println("Successully added " + emailfield.getText());
 						if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
 							empaddedhbox.getChildren().add(empaddedtxt);
 						}
 						
 					} else {
-						System.out.println("failed to added " + emailfield.getText());
 						if (empaddedhbox.getChildren().contains(empaddedtxt)) {
 							empaddedhbox.getChildren().remove(empaddedtxt);
 						}
 					}
-					//cont.empAddedMessage(empaddedhbox, empaddedtxt);
-					cont.validateEntries(
-							fnamefield, fnamehbox, 
-							snamefield, snamehbox, 
-							streetaddfield, streetaddhbox, 
-							pcodefield, pcodehbox, 
-							contactnofield, contactnohbox, 
-							emailfield, emailhbox,
-							cityfield, cityhbox,
-							emptyerrortxt, emptyerrorbox,
-							empaddedtxt, empaddedhbox,
-							takenerrortxt, takenerrorbox);
 				}else{
 					//checking for empty
 					cont.validateEntries(

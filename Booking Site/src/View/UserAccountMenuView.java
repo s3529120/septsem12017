@@ -1,5 +1,6 @@
 package View;
 
+import Controller.BookingController;
 import Controller.DefaultController;
 import Controller.EmployeeController;
 import Controller.UserAccountMenuController;
@@ -56,9 +57,10 @@ public class UserAccountMenuView {
 		Button makebookbtn = new Button("Make a Booking");
 		makebookbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
-				EmployeeController empcont = new EmployeeController();
-				empcont.setView(new AddEmployeeView(new Stage()));
-				empcont.updateView();
+			   BookingController cont = new BookingController();
+            cont.setView(new BookingsView(new Stage()));
+            cont.getView().setController(cont);
+            cont.updateView();
 			}
 		});
 		
