@@ -9,9 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javafx.scene.text.Text;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.GridPane;
 import javafx.scene.control.ComboBox;
 import Model.DatabaseModel;
 import View.EditAvailabilitiesView;
@@ -169,7 +167,6 @@ public class AvailabilitiesController
 		if(empcont.checkEmployee(email)==false){
 			return false;
 		}
-		System.out.println("Adding " + startstring + " - " + finishstring + " on + " + dow + " for " + email);
 
 		//Open database connection
 		dbcont.createConnection();
@@ -185,7 +182,6 @@ public class AvailabilitiesController
 			dbcont.getState().setString(4, finish.toString());
 		}catch(SQLException e){
 			dbcont.closeConnection();
-			System.out.println("Failed to add the availability");
 			return false;
 		}
 		dbcont.runSQLUpdate();
@@ -249,7 +245,6 @@ public class AvailabilitiesController
 	 */
 	public void setSelection(DayOfWeek dow, String email, ComboBox<String> startBox, ComboBox<String> endBox) {
 		Map<String,String> sundayTimes = this.getAvailabilityString(dow,email);
-		//System.out.println("For "+email+" on "+dow+" recieved time "+sundayTimes.get("StartTime")+" - "+sundayTimes.get("FinishTime"));
 		if (sundayTimes.get("StartTime")!=null) {
 			startBox.getSelectionModel().select(sundayTimes.get("StartTime"));
 		} else {

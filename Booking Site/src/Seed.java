@@ -78,7 +78,6 @@ public class Seed {
 			// BusAccount 1
 			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
 					+ "VALUES(?,?,?,?,?,?,?);";
-			dataCont.runSQLUpdate();
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
 			dataCont.getState().setString(2, "abc123");
@@ -91,14 +90,12 @@ public class Seed {
 
 			// Booking date
 			sql = "INSERT INTO System(BookingsUntil) " + "VALUES(?);";
-			dataCont.runSQLUpdate();
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, LocalDate.now().toString());
 			dataCont.runSQLUpdate();
 
 ///////////// EMPLOYEE 1
 			sql = "INSERT INTO Employee(Name, ContactNo, Email) " + "VALUES(?,?,?)";
-			dataCont.runSQLUpdate();
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "John Doe");
 			dataCont.getState().setString(2, "0455555555");
@@ -107,7 +104,6 @@ public class Seed {
 
 			// Employee 1 address
 			sql = "INSERT INTO Address(EmployeeEmail, StreetAddress, City, State, PostCode) " + "VALUES(?,?,?,?,?)";
-			dataCont.runSQLUpdate();
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "johndoe@example.com");
 			dataCont.getState().setString(2, "123 Some St");
@@ -118,7 +114,6 @@ public class Seed {
 
 			// Employee 1 Availability 1
 			sql = "INSERT INTO Availability(Day, StartTime, FinishTime, Email) " + "VALUES(?,?,?,?)";
-			dataCont.runSQLUpdate();
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "MONDAY");
 			dataCont.getState().setString(2, "10:00");
@@ -128,7 +123,6 @@ public class Seed {
 
 			// Employee 1 Availbility 2
 			sql = "INSERT INTO Availability(Day, StartTime, FinishTime, Email) " + "VALUES(?,?,?,?)";
-			dataCont.runSQLUpdate();
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "TUESDAY");
 			dataCont.getState().setString(2, "10:00");
@@ -138,7 +132,6 @@ public class Seed {
 
 			// Employee 1 Availbility 3
 			sql = "INSERT INTO Availability(Day, StartTime, FinishTime, Email) " + "VALUES(?,?,?,?)";
-			dataCont.runSQLUpdate();
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "WEDNESDAY");
 			dataCont.getState().setString(2, "10:00");
@@ -148,17 +141,14 @@ public class Seed {
 
 			///////////// EMPLOYEE 2
 			sql = "INSERT INTO Employee(Name, ContactNo, Email) " + "VALUES(?,?,?)";
-			dataCont.runSQLUpdate();
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "Jane Oliver");
 			dataCont.getState().setString(2, "0455555555");
 			dataCont.getState().setString(3, "janeoliver@example.com");
 			dataCont.runSQLUpdate();
-			dataCont.runSQLUpdate();
 
 			// Employee 2 address
 			sql = "INSERT INTO Address(EmployeeEmail, StreetAddress, City, State, PostCode) " + "VALUES(?,?,?,?,?)";
-			dataCont.runSQLUpdate();
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "janeoliver@example.com");
 			dataCont.getState().setString(2, "456 Some St");
@@ -169,7 +159,6 @@ public class Seed {
 
 			// Employee 2 Availbility 1
 			sql = "INSERT INTO Availability(Day, StartTime, FinishTime, Email) " + "VALUES(?,?,?,?)";
-			dataCont.runSQLUpdate();
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "THURSDAY");
 			dataCont.getState().setString(2, "10:00");
@@ -179,7 +168,6 @@ public class Seed {
 
 			// Employee 2 Availbility 2
 			sql = "INSERT INTO Availability(Day, StartTime, FinishTime, Email) " + "VALUES(?,?,?,?)";
-			dataCont.runSQLUpdate();
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "FRIDAY");
 			dataCont.getState().setString(2, "10:00");

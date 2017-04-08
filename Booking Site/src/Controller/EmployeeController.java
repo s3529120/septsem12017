@@ -50,7 +50,7 @@ public class EmployeeController
 		}
 		
 		for (int i=0;i<emps.length;i++){
-		   if(emps[i]==email){
+		   if(emps[i].compareToIgnoreCase(email)==0){
 		      return true;
 		   }
 		}
@@ -89,6 +89,7 @@ public class EmployeeController
 		{
 			dbcont.getState().setString(1, name);
 			dbcont.getState().setString(2, contactno);
+			dbcont.getState().setString(3, email);
 
 		}
 		catch (SQLException e)
@@ -190,6 +191,7 @@ public class EmployeeController
 		}
 		catch (SQLException e)
 		{
+		   e.printStackTrace();
 			return null;
 		}
 
@@ -316,18 +318,43 @@ public class EmployeeController
 
 		// checking if the employee email has been taken
 		if (this.checkEmployee(email.getText().trim())) {
-			//System.out.println("The email has been taken");
 			if (!takenerrorbox.getChildren().contains(takenerrortxt)) {
 				takenerrorbox.getChildren().add(takenerrortxt);
 			}
 		} else {
-			//System.out.println("The email is free");
 			if (takenerrorbox.getChildren().contains(takenerrortxt)) {
 				takenerrorbox.getChildren().remove(takenerrortxt);
 			}
 		}
 	}
 
+	/**Retrieves name from their email
+	 * @param email Employee email
+	 * @return Name of employee with given email
+	 */
+	public String getEmployeeName(String email){
+	   DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+	   String sql="",name;
+	   ResultSet res;
+	   
+	   //Create connection
+	   dbcont.createConnection();
+	   
+	   //Prepare statement
+	   sql="SELECT Email FROM Employee WHERE Name=?;";
+	   dbcont.prepareStatement(sql);
+	   try{
+	      dbcont.getState().setString(1, email);
+	      res=dbcont.runSQLRes();
+	      name=res.getString("Email");
+	   }catch(SQLException e){
+	      dbcont.closeConnection();
+	      return "Employee name not found";
+	   }
+	   dbcont.closeConnection();
+	   return name;
+	}
+	
 	//Adds error message to error box
 	public void empAddedMessage(HBox empaddedhbox, Text empaddedtxt) {
 		if (!empaddedhbox.getChildren().contains(empaddedtxt)) {

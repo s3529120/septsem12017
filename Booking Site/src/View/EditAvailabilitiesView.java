@@ -241,7 +241,7 @@ public class EditAvailabilitiesView
 
 						System.out.println(days[i] + " Was a success!");
 						cont.addAvailability( 
-								cont.getEmail(employee.getSelectionModel().getSelectedItem()), 
+								emps.get(employee.getSelectionModel().getSelectedItem()), 
 								days[i], 
 								startTimes[i],
 								endTimes[i]);
