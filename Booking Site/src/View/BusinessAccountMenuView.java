@@ -1,6 +1,7 @@
 package View;
 
 import Controller.AvailabilitiesController;
+import Controller.BookingController;
 import Controller.BusinessAccountMenuController;
 import Controller.DefaultController;
 import Controller.EmployeeController;
@@ -92,6 +93,10 @@ public class BusinessAccountMenuView {
 		Button viewbookbtn = new Button("View Bookings");
 		viewbookbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
+				BookingController cont = new BookingController();
+				cont.setView(new BookingsView(new Stage()));
+				cont.getView().setController(cont);
+				cont.updateView();
 			}
 		});
 		

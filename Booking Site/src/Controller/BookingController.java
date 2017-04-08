@@ -12,9 +12,31 @@ import java.util.List;
 import Model.BookingModel;
 
 import Model.DatabaseModel;
+import View.BookingsView;
 
 public class BookingController
 {
+	
+	private BookingsView view;
+
+	   
+	   //Returns associated view
+	 	public BookingsView getView(){
+	 		return this.view;
+	 	}
+	   
+	 //Sets associated view
+	   public Boolean setView(BookingsView view) {
+	   	this.view=view;
+	   	return true;
+	   }
+	   
+	 //Calls associated view to update window
+	  	public void updateView(){
+	  		view.updateView();
+	  	}
+	
+	
    /**Creates bookings on startup for a month ahead of time and remove old bookings.
     */
    public void updateBookings(){
@@ -290,4 +312,5 @@ public class BookingController
        dbcont.closeConnection();
        return bookings;
    }
+
 }
