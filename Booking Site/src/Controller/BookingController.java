@@ -50,11 +50,11 @@ public class BookingController
       
       //Open database connection
       dbcont.createConnection();
-      
       /*Prepare and run sql to retrieve value for what bookings have 
       already been generated until*/
       sql="SELECT BookingsUntil FROM System;";
       dbcont.prepareStatement(sql);
+
       res=dbcont.runSQLRes();
       try
       {
@@ -63,6 +63,7 @@ public class BookingController
       catch (SQLException e)
       {
          booksCurrent=LocalDate.now();
+
       }
       
       //Loops through dates and availabilities to be generated and inserts into database
@@ -71,16 +72,19 @@ public class BookingController
       while(focus.isAfter(booksUntil)==false){
          sql="SELECT * FROM Availability WHERE Day=?;";
          dbcont.prepareStatement(sql);
+
          try
          {
             dbcont.getState().setString(1, focus.getDayOfWeek().toString());
+
             res=dbcont.runSQLRes();
             //Get data to booking values
             while(res.next()){
                start=LocalTime.parse(res.getString("StartTime"));
                finish=LocalTime.parse(res.getString("FinishTime"));
-               emp=res.getString("EmployeeEmail");
+               emp=res.getString("Email");
                focustime=start;
+
                //Availability loop
                while(focustime.isBefore(finish)){
                   sql="INSERT INTO Booking(Date,StartTime,FinishTime,EmployeeEmail) " +
@@ -93,13 +97,14 @@ public class BookingController
                   dbcont.runSQLUpdate();
                   
                   //Increment appointment time
-                  focustime.plusMinutes(15);
+                  focustime=focustime.plusMinutes(15);
                }
             }
          }catch(NullPointerException e){
             dbcont.closeConnection();
             return;
          }catch(SQLException e){
+            e.printStackTrace();
          }
          //Increment date
          focus=focus.plusDays(1);
