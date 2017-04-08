@@ -74,7 +74,7 @@ public class EditAvailabilitiesView
 				emptyerrorbox.getChildren().add(emptyerrortxt);
 			}
 		}else{
-				employee.getItems().addAll(emps.keySet());
+			employee.getItems().addAll(emps.keySet());
 			if (emptyerrorbox.getChildren().contains(emptyerrortxt)) {
 				emptyerrorbox.getChildren().remove(emptyerrortxt);
 			}
@@ -282,27 +282,5 @@ public class EditAvailabilitiesView
 		stage.setScene(scene);
 		stage.show();
 	}
-
-	public void updateTimes(
-			ComboBox<String> employee,
-			DayOfWeek sunday, ComboBox<String> sundayStartTime, ComboBox<String> sundayEndTime,
-			DayOfWeek monday, ComboBox<String> mondayStartTime, ComboBox<String> mondayEndTime,
-			DayOfWeek tuesday, ComboBox<String> tuesdayStartTime, ComboBox<String> tuesdayEndTime,
-			DayOfWeek wednesday, ComboBox<String> wednesdayStartTime, ComboBox<String> wednesdayEndTime,
-			DayOfWeek thursday, ComboBox<String> thursdayStartTime, ComboBox<String> thursdayEndTime,
-			DayOfWeek friday, ComboBox<String> fridayStartTime, ComboBox<String> fridayEndTime,
-			DayOfWeek saturday, ComboBox<String> saturdayStartTime, ComboBox<String> saturdayEndTime) {
-		cont.setSelection(sunday, employee.getSelectionModel().getSelectedItem(), sundayStartTime, sundayEndTime);
-		cont.setSelection(monday, employee.getSelectionModel().getSelectedItem(), mondayStartTime, mondayEndTime);
-		cont.setSelection(tuesday, employee.getSelectionModel().getSelectedItem(), tuesdayStartTime, tuesdayEndTime);
-		cont.setSelection(wednesday, employee.getSelectionModel().getSelectedItem(), wednesdayStartTime, wednesdayEndTime);
-		cont.setSelection(thursday, employee.getSelectionModel().getSelectedItem(), thursdayStartTime, thursdayEndTime);
-		cont.setSelection(friday, employee.getSelectionModel().getSelectedItem(), fridayStartTime, fridayEndTime);
-		cont.setSelection(saturday, employee.getSelectionModel().getSelectedItem(), saturdayStartTime, saturdayEndTime);
-	}
 }
-
-
-
-// Load root layout from fxml file.
 

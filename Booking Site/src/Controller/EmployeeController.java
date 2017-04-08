@@ -117,7 +117,6 @@ public class EmployeeController
 		catch (SQLException e)
 		{
 			dbcont.closeConnection();
-			System.out.println("Returning false at 4");
 			return false;
 		}
 
@@ -127,7 +126,6 @@ public class EmployeeController
 			return true;
 		}else{
 			dbcont.closeConnection();
-			System.out.println("Returning false at 5");
 			return false;
 		}
 	}

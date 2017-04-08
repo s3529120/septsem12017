@@ -89,7 +89,13 @@ public class AvailabilitiesController
 	/**Call validateEntries to check that the fields for editing a roster are correct
 	 * @param email the email of the employee being modified
 	 * @param dow is the day of the week the availability is being changed for
-	 * @return Email associated with account
+	 * @param startstring is the time that the shift ill start converted from localtime to string
+	 * @param finishstring is the time the shift will end converted to string from localtime
+	 * @param employeeerrotxt is the message to add if an employee is not selected
+	 * @param employeeerrorbox is the box to add the error prompt to if no employee is selected
+	 * @param timeeerrortxt is the text to add if the given times are not valid for a shift
+	 * @param timeerrorbox is the bos to add the error prompt for if the times are not a valid shift
+	 * @return will return true if all entries for the given daya and employee make for a valid availability change
 	 */
 	public boolean validateEntries(
 			String email,
@@ -195,7 +201,7 @@ public class AvailabilitiesController
 
 	/**Returns currently set availability as a string for employee on given day
 	 * @param dow Day of week to get availability for
-	 * @param empemail Email address of employye whose availability to get.
+	 * @param empemail Email address of employee whose availability to get.
 	 * @return Map of start and finish times, for given employee, on given day.
 	 */
 	public Map<String,String> getAvailabilityString(DayOfWeek dow, String empemail){
@@ -235,8 +241,15 @@ public class AvailabilitiesController
 		return map;
 	}
 	
+	/**Modifies the selected option in the comobox of a given day based on the stored info for a given employee and if none is set, then set them to the first option
+	 * @param dow Day of week to get info for
+	 * @param email is the employee to get the info for
+	 * @param startBox is the combobox to set the starting time to if it exists
+	 * @param endBox is the combobox to the the shift ending time to if it exists
+	 */
 	public void setSelection(DayOfWeek dow, String email, ComboBox<String> startBox, ComboBox<String> endBox) {
 		Map<String,String> sundayTimes = this.getAvailabilityString(dow,email);
+		//System.out.println("For "+email+" on "+dow+" recieved time "+sundayTimes.get("StartTime")+" - "+sundayTimes.get("FinishTime"));
 		if (sundayTimes.get("StartTime")!=null) {
 			startBox.getSelectionModel().select(sundayTimes.get("StartTime"));
 		} else {

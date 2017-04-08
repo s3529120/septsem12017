@@ -140,6 +140,7 @@ public class AddEmployeeView
 				//checking to make sure all fields are filled
 				if(cont.checkValues(fnamefield, snamefield, streetaddfield, pcodefield,
 						contactnofield, emailfield, cityfield)){
+					System.out.println("Fields are valid, attempting to add");
 					if (cont.addEmployee(fnamefield.getText().concat(snamefield.getText()), 
 							contactnofield.getText(), emailfield.getText(), 
 							streetaddfield.getText(), cityfield.getText(), 
