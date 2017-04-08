@@ -7,14 +7,10 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 public class BookingsView {
@@ -72,9 +68,9 @@ public class BookingsView {
         	 
         	 Text startTime = new Text("Start: " + booking.getStartTime().toString());
         	 Text finishTime = new Text("End: " + booking.getFinishTime().toString());
-        	 Text email = new Text("Employee: " + booking.getEmployee());
+        	 Text employee = new Text("Employee: " + cont.getNameFromEmail(booking.getEmployee()));
         	 
-        	 VBox who = new VBox(email);
+        	 VBox who = new VBox(employee);
         	 VBox bookingType = new VBox();
         	 
         	 if (booking.getUser() != "Unfilled") {

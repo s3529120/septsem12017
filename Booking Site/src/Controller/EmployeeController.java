@@ -341,12 +341,12 @@ public class EmployeeController
 	   dbcont.createConnection();
 	   
 	   //Prepare statement
-	   sql="SELECT Email FROM Employee WHERE Name=?;";
+	   sql="SELECT Name FROM Employee WHERE Email=?;";
 	   dbcont.prepareStatement(sql);
 	   try{
 	      dbcont.getState().setString(1, email);
 	      res=dbcont.runSQLRes();
-	      name=res.getString("Email");
+	      name=res.getString("Name");
 	   }catch(SQLException e){
 	      dbcont.closeConnection();
 	      return "Employee name not found";
