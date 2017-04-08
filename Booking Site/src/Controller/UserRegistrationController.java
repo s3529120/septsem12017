@@ -17,11 +17,16 @@ public class UserRegistrationController {
 	private UserRegistrationView view;
 	private UserAccountModel model;
 	
+	/**Constructor, sets associated view and assigns self to view.
+	 * @param view View to associate.
+	 */
 	public UserRegistrationController(UserRegistrationView view){
 		this.view=view;
 		view.setController(this);
 	}
 	
+	/**Calls associated view to update window.
+	 */
 	public void updateView(){
 		view.updateView();
 	}

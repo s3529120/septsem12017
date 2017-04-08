@@ -5,6 +5,11 @@ import Controller.DatabaseController;
 import Model.DatabaseModel;
 
 public class Seed {
+   
+   /*
+    * Seeds table with data for demonstration purposes, also clears existing
+    * data on startup.
+    */
 	public static void initialize() {
 		String sql = "";
 		DatabaseModel dataMod = new DatabaseModel();

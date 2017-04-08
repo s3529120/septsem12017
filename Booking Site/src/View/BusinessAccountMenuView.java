@@ -20,16 +20,26 @@ public class BusinessAccountMenuView {
 	public Stage stage;
 	private BusinessAccountMenuController cont;
 
+	/**Constructor, assigns stage.
+	 * @param stage Window to manipulate.
+	 */
 	public BusinessAccountMenuView(Stage stage) {
 		this.stage=stage;
 	}
 
+	/**Assigns given controller to self.
+	 * @param controller Controller to associate.
+	 * @return True upon success.
+	 */
 	public Boolean setController(BusinessAccountMenuController controller){
 		this.cont=controller;
 		return true;
 	}
 
-	public void updateView(BusinessAccountModel model){
+	/**Update assigned window.
+	 * @param model
+	 */
+	public void updateView(){
 
 		//Logout button
 		Button logoutbtn = new Button("Logout");
@@ -43,10 +53,12 @@ public class BusinessAccountMenuView {
 		HBox logoutbox = new HBox(logoutbtn);
 
 		//Headings and text
-		Text h1 = new Text("Welcome "+model.getBusinessName()+"!");
+		Text h1 = new Text("Welcome "+cont.getModel().getBusinessName()+"!");
 		Text h2 = new Text("Select from the menu options below.");
 
 		//Functionality buttons
+		
+		//Add employee
 		Button addempbtn = new Button("Add Employee");
 		addempbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
@@ -56,6 +68,8 @@ public class BusinessAccountMenuView {
 				empcont.updateView();
 			}
 		});
+		
+		//Edit availability
 		Button editavailbtn = new Button("Edit Availabilities");
 		editavailbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
@@ -67,11 +81,14 @@ public class BusinessAccountMenuView {
 		});
 		HBox toprow = new HBox(addempbtn,editavailbtn);
 
+		//View Availabilities
 		Button viewavailbtn = new Button("View Availabilities");
 		viewavailbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 			}
 		});
+		
+		//View Bookings
 		Button viewbookbtn = new Button("View Bookings");
 		viewbookbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
@@ -85,6 +102,8 @@ public class BusinessAccountMenuView {
 		
 		VBox page = new VBox(logoutbox,h1,h2,toprow,botrow);
 
+		//Styles
+		
 		//mainMenuBox.getStyleClass().add("loginpageBox");
 		//logbox.getStyleClass().add("vbox");
 		//regbox.getStyleClass().add("regbox");
@@ -99,6 +118,7 @@ public class BusinessAccountMenuView {
 		//logtxt.setId("heading");
 		//welcometxt.setId("heading");
 
+		//Layout
 		StackPane pane = new StackPane();
 		pane.getChildren().add(page);
 		//pane.getChildren().add(headings);

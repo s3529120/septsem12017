@@ -23,12 +23,18 @@ public class UserAccountMenuView {
 		this.stage=stage;
 	}
 
+	/**Constructor, sets stage.
+    * @param stage Window to manipulate.
+    */
 	public Boolean setController(UserAccountMenuController controller){
 		this.cont=controller;
 		return true;
 	}
 
+	/**Updates associated window.
+    */
 	public void updateView(UserAccountModel model){
+	   
 		//Logout button
 		Button logoutbtn = new Button("Logout");
 		logoutbtn.setOnAction(new EventHandler<ActionEvent>(){
@@ -46,7 +52,7 @@ public class UserAccountMenuView {
 
 		
 
-		//Functionality buttons
+		//Make booking
 		Button makebookbtn = new Button("Make a Booking");
 		makebookbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
@@ -55,6 +61,8 @@ public class UserAccountMenuView {
 				empcont.updateView();
 			}
 		});
+		
+		//Layout
 		
 		VBox page = new VBox(logoutbox,h1,h2,makebookbtn);
 		

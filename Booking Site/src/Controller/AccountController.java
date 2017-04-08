@@ -10,7 +10,10 @@ import Model.UserAccountModel;
 
 public class AccountController {
 
-   //Checks if user exists in database returns true if yes false if no
+   /** Checks if user exists in database returns true if yes false if no.
+    * @param name Username to check if currently exists in database.
+    * @return True if already exists in database, false if not.
+    */
 	public Boolean checkUsername(String name){
 			ResultSet res;
 			String sql="";
@@ -50,7 +53,11 @@ public class AccountController {
 	}
 
 
-	//Compares given password to that stored for that user returns true on match
+	/** Compares given password to that stored for that user returns true on match.
+	 * @param name Username whose password to check.
+	 * @param pword Entered password to check against stored value
+	 * @return True if match, false if not.
+	 */
 	public Boolean comparePassword(String name, String pword){
 		ResultSet res;
 		String sql="";
@@ -83,7 +90,10 @@ public class AccountController {
 
 	}
 
-	//Checks the type of account returns either "Business" or "User"
+	/** Checks the type of account returns either "Business" or "User".
+	 * @param name Username to check account type of.
+	 * @return string "Business" or "User" for customers.
+	 */
 	public String checkAccountType(String name){
 		ResultSet res;
 		String sql="",type;
@@ -111,7 +121,11 @@ public class AccountController {
 		}
 	}
 
-	//Creates model from account data 
+	/**Creates model from account data.
+	 * @param name Username to assign account.
+	 * @param type Account type, "Business" or "User".
+	 * @return AccountModel representing account just vreated.
+	 */
 	public AccountModel createAccountModel(String name, String type){
 		String sql="";
 		ResultSet res;

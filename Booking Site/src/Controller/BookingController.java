@@ -15,7 +15,8 @@ import Model.DatabaseModel;
 
 public class BookingController
 {
-   //Creates bookings on startup for a month ahead of time and remove old bookings
+   /**Creates bookings on startup for a month ahead of time and remove old bookings.
+    */
    public void updateBookings(){
       DatabaseController dbcont=new DatabaseController(new DatabaseModel());
       LocalDate focus,booksCurrent,booksUntil=LocalDate.now().plusWeeks(4);
@@ -120,7 +121,10 @@ public class BookingController
       dbcont.closeConnection();
    }
    
-   //Removes bookings for given employee on given date
+   /**Removes bookings for given employee on given date
+    * @param dow Day of week to remove bookings for.
+    * @param empemail Email address of employee whose bookings to remove.
+    */
    public void removeBookings(DayOfWeek dow,String empemail){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       LocalDate focus;
@@ -154,7 +158,12 @@ public class BookingController
       dbcont.closeConnection();
    }
    
-   //Add bookings for employee on given day
+   /**Add bookings for employee on given day
+    * @param dow Day of week to create bookings for.
+    * @param start Time to generate bookings starting from.
+    * @param finish Time to finish generating bookings from.
+    * @param empemail Email address of employee for whom to generate bookings.
+    */
    public void addBookings(DayOfWeek dow,LocalTime start,LocalTime finish,String empemail){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       String sql="";
@@ -192,7 +201,9 @@ public class BookingController
       }
       dbcont.closeConnection();
    }
-   
+   /**Get list of bookings whose timeslot has passed.
+    * @return List of bookings that have passed.
+    */
    public List<BookingModel> getPastBookings(){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       String sql;
@@ -234,6 +245,10 @@ public class BookingController
        dbcont.closeConnection();
        return bookings;
    }
+   
+   /**Get list off bookings that have not yet passed
+    * @return List of bookings that have not passed.
+    */
    public List<BookingModel> getBookings(){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       String sql;

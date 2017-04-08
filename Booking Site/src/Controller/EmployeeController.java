@@ -27,14 +27,21 @@ public class EmployeeController
 		return this.view;
 	}
 
-	//Sets associated view
+	/**Sets associated view.
+	 * @param view View to associate with.
+	 * @return True to indicate success.
+	 */
 	public Boolean setView(AddEmployeeView view){
 		this.view=view;
 		return true;
 	}
 
 
-	//Check if employee already exists in database, returns TRUE if its already exists
+	/**Check if employee already exists in database, 
+	 * returns TRUE if its already exists.
+	 * @param email Email address of employee to check.
+	 * @return True if employee exists, false if not.
+	 */
 	public Boolean checkEmployee(String email){
 		String[] emps = this.getEmployeeEmails();
 		
@@ -50,7 +57,16 @@ public class EmployeeController
 		return false;
 	}
 
-	//Add employee to database
+	/**Add employee to database.
+	 * @param name Name of employee.
+	 * @param contactno Contact number of employee.
+	 * @param email Email address of employee.
+	 * @param streetadd Employee's street address.
+	 * @param city Employee's city of residence.
+	 * @param state Employee's state of residence.
+	 * @param postcode Employee's postcode.
+	 * @return True if successfully added, false if and error occurs.
+	 */
 	public Boolean addEmployee(String name,String contactno,String email,
 			String streetadd,String city,String state,String postcode){
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
@@ -133,7 +149,7 @@ public class EmployeeController
 			try
 			{
 				while(res.next()){
-					//Add returned employyes to list
+					//Add returned employees to list
 					emps.put(res.getString("Name"),res.getString("Email"));
 				}
 			}
@@ -151,7 +167,9 @@ public class EmployeeController
 			return emps;
 		}
 	
-	//Returns array of employee emails
+	/**Returns array of employee emails.
+	 * @return List of all employees email address'.
+	 */
 	public String[] getEmployeeEmails(){
 		String sql="";
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
@@ -227,8 +245,7 @@ public class EmployeeController
 		}
 
 	}
-
-	//Checks validity of given fields
+	
 	public void validateEntries(
 			TextField fname, HBox fnamehbox, 
 			TextField sname, HBox snamehbox, 
@@ -320,7 +337,8 @@ public class EmployeeController
 		}
 	}
 
-	//Calls associated view to update window
+	/**Calls associated view to update window.
+	 */
 	public void updateView(){
 		view.updateView();
 	}

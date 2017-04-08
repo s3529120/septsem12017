@@ -7,6 +7,10 @@ public class UserAccountMenuController {
 	private UserAccountMenuView view;
 	private UserAccountModel model;
 	
+	/**Constructor, sets associated model and view.
+	 * @param model Model to associate.
+	 * @param view View to associate.
+	 */
 	public UserAccountMenuController(UserAccountModel model, 
 			UserAccountMenuView view){
 		this.model=model;
@@ -14,6 +18,8 @@ public class UserAccountMenuController {
 		
 	}
 	
+	/**Calls associated view to update window.
+	 */
 	public void updateView(){
 		view.updateView(model);
 	}

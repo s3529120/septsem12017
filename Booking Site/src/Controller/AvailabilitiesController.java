@@ -22,34 +22,49 @@ public class AvailabilitiesController
 	//Appointment duration subject to change
 	public final int duration=15;
 
-	//Constructor - currently unmodified
+	/**Constructor - currently unmodified
+	 * 
+	 */
 	public AvailabilitiesController(){
 
 	}
 
-	//Return associated view
+	/**Return associated view.
+	 * @return Associated EditAvailabilitiesView
+	 */
 	public EditAvailabilitiesView getView(){
 		return view;
 	}
 
-	//Set associated view
+	/**Set associated view.
+	 * @param view View to associate with controller.
+	 * @return True indicating success.
+	 */
 	public Boolean setView(EditAvailabilitiesView view){
 		this.view=view;
 		return true;
 	}
 
-	//Call associated view method to update window
+	/**Call associated view method to update window
+	 * 
+	 */
 	public void updateView(){
 		view.updateView();
 	}
 
-	//Call EmployeeController to get email from given username
+	/**Call EmployeeController to get email from given username
+	 * @param name Username of account to get associated email of.
+	 * @return Email associated with account
+	 */
 	public String getEmail(String name){
 		EmployeeController empcont = new EmployeeController();
 		return empcont.getEmail(name);
 	}
 
-	//Returns list of times in day based on duration value
+	/**Returns list of times in day based on duration value
+	 * @return List of all possible appointment times that could be assigned 
+	 * throughout day.
+	 */
 	public String[] getPossibleTimes(){
 		String[] times=new String[(60/duration)*24];
 
@@ -63,7 +78,9 @@ public class AvailabilitiesController
 		return times;
 	}
 
-	//Calls EmployeeController to return list of all employees
+	/**Calls EmployeeController to return list of all employees.
+	 * @return Map containing names and email addresses of all employees.
+	 */
 	public Map<String,String> getEmployees(){
 		EmployeeController empcont = new EmployeeController();
 		return empcont.getEmployees();
@@ -117,7 +134,13 @@ public class AvailabilitiesController
 		return goodInputs;
 	}
 
-	//Adds availability for given employee to database
+	/**Adds availability for given employee to database
+	 * @param email Employee email
+	 * @param dow Day of week availability is on.
+	 * @param startstring Start of availability.
+	 * @param finishstring End of Availability.
+	 * @return True if successful, or false if error occurs.
+	 */
 	public Boolean addAvailability(
 			String email,
 			DayOfWeek dow,
@@ -166,7 +189,11 @@ public class AvailabilitiesController
 		return true;
 	}
 
-	//Returns currently set availability as a string for employee on given day
+	/**Returns currently set availability as a string for employee on given day
+	 * @param dow Day of week to get availability for
+	 * @param empemail Email address of employye whose availability to get.
+	 * @return Map of start and finish times, for given employee, on given day.
+	 */
 	public Map<String,String> getAvailabilityString(DayOfWeek dow, String empemail){
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		Map<String,String> map = new HashMap<String,String>();

@@ -25,6 +25,9 @@ public class EditAvailabilitiesView
 	public Stage stage;
 	private AvailabilitiesController cont;
 
+	/** Constructor, sets stage.
+	 * @param stage Window to be manipulated.
+	 */
 	public EditAvailabilitiesView(Stage stage){
 		this.stage=stage;
 	}
@@ -34,6 +37,8 @@ public class EditAvailabilitiesView
 		return true;
 	}
 
+	/**Updates associated window.
+	 */
 	public void updateView(){
 
 

@@ -18,15 +18,24 @@ public class AddEmployeeView
 	public Stage stage;
 	private EmployeeController cont;
 
+	/**Constructor, associates stage.
+	 * @param stage Window to manipulate.
+	 */
 	public AddEmployeeView(Stage stage){
 		this.stage=stage;
 	}
 
+	/**Sets associated controller.
+	 * @param cont Controller to associate.
+	 * @return True upon success.
+	 */
 	public Boolean setController(EmployeeController cont){
 		this.cont=cont;
 		return true;
 	}
 
+	/**Updates display of window.
+	 */
 	public void updateView(){
 		Button backbtn = new Button("Go Back");
 		backbtn.setOnAction(new EventHandler<ActionEvent>(){
@@ -45,26 +54,30 @@ public class AddEmployeeView
 		Text h1 = new Text("Add Employee");
 		h1.setId("heading");
 
-		////////Vertical box 1 - user info
+		//Vertical box 1 - user info
 
+		//First name
 		TextField fnamefield = new TextField();
 		fnamefield.setPromptText("First Name");
 		fnamefield.getStyleClass().add("textField");
 		HBox fnamehbox = new HBox(fnamefield);
 		fnamehbox.setId("form");
 
+		//Surname
 		TextField snamefield = new TextField();
 		snamefield.setPromptText("Last Name");
 		snamefield.getStyleClass().add("textField");
 		HBox snamehbox = new HBox(snamefield);
 		snamehbox.setId("form");
 
+		//Email address
 		TextField emailfield = new TextField();
 		emailfield.setPromptText("Email");
 		emailfield.getStyleClass().add("textField");
 		HBox emailhbox = new HBox(emailfield);
 		emailhbox.setId("form");
 
+		//Contact number
 		TextField contactnofield = new TextField();
 		contactnofield.setPromptText("Contact no.");
 		contactnofield.getStyleClass().add("textField");
@@ -75,19 +88,23 @@ public class AddEmployeeView
 		VBox userInfo = new VBox(backbtn, empadded, h1, fnamehbox, snamehbox, emailhbox, contactnohbox);
 		userInfo.getStyleClass().add("addEmpVbox");
 
-		/////// Vertical box 2 - address
+		// Vertical box 2 - address
+		
+		//Street address
 		TextField streetaddfield = new TextField();
 		streetaddfield.setPromptText("Street Address");
 		streetaddfield.getStyleClass().add("textField");
 		HBox streetaddhbox = new HBox(streetaddfield);
 		streetaddhbox.setId("form");
 
+		//City
 		TextField cityfield = new TextField();
 		cityfield.setPromptText("City");
 		cityfield.getStyleClass().add("textField");
 		HBox cityhbox = new HBox(cityfield);
 		cityhbox.setId("form");
 
+		//State
 		ComboBox<String> statebox = new ComboBox<String>();
 		statebox.setPromptText("State");
 		statebox.getItems().addAll("A.C.T","N.S.W","Queensland","South Australia",
@@ -96,18 +113,22 @@ public class AddEmployeeView
 		HBox statehbox = new HBox(statebox);
 		statehbox.setId("form");
 
+		//Postcode
 		TextField pcodefield = new TextField();
 		pcodefield.setPromptText("Post Code");
 		pcodefield.getStyleClass().add("textField");
 		HBox pcodehbox = new HBox(pcodefield);
 		pcodehbox.setId("form");
 
+		//Error text box
 		Text emptyerrortxt = new Text("All fields must be filled.");
 		HBox emptyerrorbox = new HBox();
 
+		//Success box
 		Text empaddedtxt = new Text("Employee has been successfully added! :)");
 		HBox empaddedhbox = new HBox();
 
+		//Email taken error box
 		Text takenerrortxt = new Text("Email already in use.");
 		HBox takenerrorbox = new HBox();
 
@@ -164,7 +185,6 @@ public class AddEmployeeView
 
 
 		});
-
 		subbtn.getStyleClass().add("bluebtn");
 
 		// Add above elements to vertical box
