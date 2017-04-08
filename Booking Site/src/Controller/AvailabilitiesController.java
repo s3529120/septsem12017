@@ -86,7 +86,11 @@ public class AvailabilitiesController
 		return empcont.getEmployees();
 	}
 
-
+	/**Call validateEntries to check that the fields for editing a roster are correct
+	 * @param email the email of the employee being modified
+	 * @param dow is the day of the week the availability is being changed for
+	 * @return Email associated with account
+	 */
 	public boolean validateEntries(
 			String email,
 			DayOfWeek dow,

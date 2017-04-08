@@ -21,7 +21,7 @@ public class BusinessAccountMenuController {
 	/**Call view to update window.
 	 */
 	public void updateView(){
-		view.updateView();
+		view.updateView(model);
 	}
 	
 	/**Returns associated model.

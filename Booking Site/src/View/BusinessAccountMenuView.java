@@ -39,7 +39,7 @@ public class BusinessAccountMenuView {
 	/**Update assigned window.
 	 * @param model
 	 */
-	public void updateView(){
+	public void updateView(BusinessAccountModel model){
 
 		//Logout button
 		Button logoutbtn = new Button("Logout");
@@ -52,8 +52,8 @@ public class BusinessAccountMenuView {
 		});
 		HBox logoutbox = new HBox(logoutbtn);
 
-		//Headings and text
-		Text h1 = new Text("Welcome "+cont.getModel().getBusinessName()+"!");
+		//Headings and text        
+		Text h1 = new Text("Welcome "+model.getBusinessName()+"!");
 		Text h2 = new Text("Select from the menu options below.");
 
 		//Functionality buttons
