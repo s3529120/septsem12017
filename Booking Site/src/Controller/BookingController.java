@@ -208,14 +208,14 @@ public class BookingController
             //Loop through available hours creating bookings
             while(focus.isBefore(finish)){
                //Prepare and run sql
-               sql="INSERT INTO Booking(Date,StartTime,FinishTime,EmployeeEmail) " +
-                     "Value(?,?,?,?);";
+               sql="INSERT INTO Booking(Date, StartTime, FinishTime, EmployeeEmail) " +
+                     "Values(?,?,?,?);";
                dbcont.prepareStatement(sql);
                try
                {
                   dbcont.getState().setString(1, focusdate.toString());
-                  dbcont.getState().setString(2, start.toString());
-                  dbcont.getState().setString(3, start.plusMinutes(15).toString());
+                  dbcont.getState().setString(2, focus.toString());
+                  dbcont.getState().setString(3, focus.plusMinutes(15).toString());
                   dbcont.getState().setString(4, empemail.toString());
                   dbcont.runSQLUpdate();
                }
@@ -271,6 +271,16 @@ public class BookingController
       }
        dbcont.closeConnection();
        return bookings;
+   }
+   
+   /**Retrieves employee name from their email
+    * @param email Employee email
+    * @return Employee name
+    */
+   public String getNameFromEmail(String email){
+      EmployeeController cont = new EmployeeController();
+      
+      return cont.getEmployeeName(email);
    }
    
    /**Get list off bookings that have not yet passed
