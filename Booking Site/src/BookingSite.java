@@ -2,6 +2,13 @@ import Controller.BookingController;
 import Controller.DefaultController;
 import View.MainMenuView;
 import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class BookingSite extends Application {
@@ -15,6 +22,8 @@ public class BookingSite extends Application {
 		
 		//Seed data for demonstration
 		Seed.initialize();
+		
+		//Generate bookings
 		BookingController bcont=new BookingController();
 		bcont.updateBookings();
 		

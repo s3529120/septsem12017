@@ -19,19 +19,30 @@ public class UserRegistrationView {
 	public Stage stage;
 	private UserRegistrationController cont;
 
+	/**Constructor, sets stage.
+    * @param stage Window to manipulate.
+    */
 	public UserRegistrationView(Stage stage){
 		this.stage=stage;
 	}
 
+	/**Sets associated controller
+    * @param cont Controller to associate.
+    * @return True upon success.
+    */
 	public Boolean setController(UserRegistrationController cont){
 		this.cont=cont;
 		return true;
 	}
 
+	/**Updates associated window.
+    */
 	public void updateView(){
 
-		
+		//Heading
 		Text logtxt = new Text("Already have an account?");
+		
+		//Login button
 		Button loginbtn = new Button("Login");
 		loginbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
@@ -40,6 +51,7 @@ public class UserRegistrationView {
 			}
 		});
 		
+		//Return button
 		Button returnbtn = new Button("Return");
 		returnbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
@@ -47,61 +59,69 @@ public class UserRegistrationView {
 				cont.updateView();
 			}
 		});
-		
 		VBox logbox = new VBox(logtxt,loginbtn);
 		
+		//Heading
 		Text regtxt = new Text("Register with us.");
 		
-		//Label unamelbl = new Label("Username: ");
+		
+		//Username
 		TextField usertxtfield = new TextField();
 		usertxtfield.setPromptText("Username");
 		HBox unamehbox = new HBox(usertxtfield);
 		unamehbox.setId("form");
 
-		//Label pnamelbl = new Label("Your name: ");
+		//Name
 		TextField pnametxtfield = new TextField();
 		pnametxtfield.setPromptText("Full Name");
 		HBox pnamehbox = new HBox(pnametxtfield);
 		pnamehbox.setId("form");
 
-		//Label addlbl = new Label("Your Address: ");
+		//Address
 		TextField addtxtfield = new TextField();
 		addtxtfield.setPromptText("Address");
 		HBox addhbox = new HBox(addtxtfield);
 		addhbox.setId("form");
 
-		//Label numlbl = new Label("Your Contact Number: ");
+		//Contact number
 		TextField numtxtfield = new TextField();
 		numtxtfield.setPromptText("Contact Number");
 		HBox numhbox = new HBox(numtxtfield);
 		numhbox.setId("form");
 
-		//Label maillbl = new Label("Your Email address: ");
+		//Email address
 		TextField mailtxtfield = new TextField();
 		mailtxtfield.setPromptText("Email Address");
 		HBox mailhbox = new HBox(mailtxtfield);
 		mailhbox.setId("form");
 
-		//Label pwordlbl = new Label("Password: ");
+		//Password
 		PasswordField pwordfield = new PasswordField();
 		pwordfield.setPromptText("Password");
 		HBox pwordhbox = new HBox(pwordfield);
 		pwordhbox.setId("form");
 		
+		//Confirm password
 		PasswordField pwordfieldcon = new PasswordField();
 		pwordfieldcon.setPromptText("Confirm Password");
 		HBox pwordhboxcon = new HBox(pwordfieldcon);
 		pwordhboxcon.setId("form");
 		
+		//Error boxes
+		
+		//Unfilled box
 		Text emptyerrortxt = new Text("All fields must be filled");
 		HBox emptyerrorbox = new HBox();
 		
+		//Password mismatch
 		Text passerrortxt = new Text("Entered passwords do not match");
 		HBox passerrorbox = new HBox();
 		
+		//Username taken
 		Text takenerrortxt = new Text("That username has already been taken");
 		HBox takenerrorbox = new HBox();
 		
+		//Register button
 		Button registerbtn = new Button("Register");
 		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
@@ -131,11 +151,14 @@ public class UserRegistrationView {
 		});
 		HBox btnbox = new HBox(registerbtn);
 		
+		//Layout
+		
 		VBox vbox = new VBox(returnbtn,regtxt,unamehbox,pnamehbox,addhbox,numhbox,
 		                     mailhbox,pwordhbox, pwordhboxcon,btnbox,emptyerrorbox,passerrorbox,takenerrorbox);
 		
 		HBox regmenubox = new HBox(vbox,logbox);
 		
+		//Sttyles
 		regmenubox.getStyleClass().add("loginpageBox");
 		logbox.getStyleClass().add("vbox");
 		vbox.getStyleClass().add("regbox");

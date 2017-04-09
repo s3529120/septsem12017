@@ -3,8 +3,10 @@ package Controller;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +14,34 @@ import java.util.List;
 import Model.BookingModel;
 
 import Model.DatabaseModel;
+import View.BookingsView;
+import javafx.scene.control.ProgressBar;
 
 public class BookingController
 {
-   //Creates bookings on startup for a month ahead of time and remove old bookings
+	
+	private BookingsView view;
+
+	   
+	   //Returns associated view
+	 	public BookingsView getView(){
+	 		return this.view;
+	 	}
+	   
+	 //Sets associated view
+	   public Boolean setView(BookingsView view) {
+	   	this.view=view;
+	   	return true;
+	   }
+	   
+	 //Calls associated view to update window
+	  	public void updateView(){
+	  		view.updateView();
+	  	}
+	
+	
+   /**Creates bookings on startup for a month ahead of time and remove old bookings.
+    */
    public void updateBookings(){
       DatabaseController dbcont=new DatabaseController(new DatabaseModel());
       LocalDate focus,booksCurrent,booksUntil=LocalDate.now().plusWeeks(4);
@@ -27,11 +53,11 @@ public class BookingController
       
       //Open database connection
       dbcont.createConnection();
-      
       /*Prepare and run sql to retrieve value for what bookings have 
       already been generated until*/
       sql="SELECT BookingsUntil FROM System;";
       dbcont.prepareStatement(sql);
+
       res=dbcont.runSQLRes();
       try
       {
@@ -40,6 +66,7 @@ public class BookingController
       catch (SQLException e)
       {
          booksCurrent=LocalDate.now();
+
       }
       
       //Loops through dates and availabilities to be generated and inserts into database
@@ -48,16 +75,19 @@ public class BookingController
       while(focus.isAfter(booksUntil)==false){
          sql="SELECT * FROM Availability WHERE Day=?;";
          dbcont.prepareStatement(sql);
+
          try
          {
             dbcont.getState().setString(1, focus.getDayOfWeek().toString());
+
             res=dbcont.runSQLRes();
             //Get data to booking values
             while(res.next()){
                start=LocalTime.parse(res.getString("StartTime"));
                finish=LocalTime.parse(res.getString("FinishTime"));
-               emp=res.getString("EmployeeEmail");
+               emp=res.getString("Email");
                focustime=start;
+
                //Availability loop
                while(focustime.isBefore(finish)){
                   sql="INSERT INTO Booking(Date,StartTime,FinishTime,EmployeeEmail) " +
@@ -70,13 +100,14 @@ public class BookingController
                   dbcont.runSQLUpdate();
                   
                   //Increment appointment time
-                  focustime.plusMinutes(15);
+                  focustime=focustime.plusMinutes(15);
                }
             }
          }catch(NullPointerException e){
             dbcont.closeConnection();
             return;
          }catch(SQLException e){
+            e.printStackTrace();
          }
          //Increment date
          focus=focus.plusDays(1);
@@ -120,7 +151,10 @@ public class BookingController
       dbcont.closeConnection();
    }
    
-   //Removes bookings for given employee on given date
+   /**Removes bookings for given employee on given date
+    * @param dow Day of week to remove bookings for.
+    * @param empemail Email address of employee whose bookings to remove.
+    */
    public void removeBookings(DayOfWeek dow,String empemail){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       LocalDate focus;
@@ -154,7 +188,12 @@ public class BookingController
       dbcont.closeConnection();
    }
    
-   //Add bookings for employee on given day
+   /**Add bookings for employee on given day
+    * @param dow Day of week to create bookings for.
+    * @param start Time to generate bookings starting from.
+    * @param finish Time to finish generating bookings from.
+    * @param empemail Email address of employee for whom to generate bookings.
+    */
    public void addBookings(DayOfWeek dow,LocalTime start,LocalTime finish,String empemail){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       String sql="";
@@ -172,14 +211,14 @@ public class BookingController
             //Loop through available hours creating bookings
             while(focus.isBefore(finish)){
                //Prepare and run sql
-               sql="INSERT INTO Booking(Date,StartTime,FinishTime,EmployeeEmail) " +
-                     "Value(?,?,?,?);";
+               sql="INSERT INTO Booking(Date, StartTime, FinishTime, EmployeeEmail) " +
+                     "Values(?,?,?,?);";
                dbcont.prepareStatement(sql);
                try
                {
                   dbcont.getState().setString(1, focusdate.toString());
-                  dbcont.getState().setString(2, start.toString());
-                  dbcont.getState().setString(3, start.plusMinutes(15).toString());
+                  dbcont.getState().setString(2, focus.toString());
+                  dbcont.getState().setString(3, focus.plusMinutes(15).toString());
                   dbcont.getState().setString(4, empemail.toString());
                   dbcont.runSQLUpdate();
                }
@@ -192,7 +231,9 @@ public class BookingController
       }
       dbcont.closeConnection();
    }
-   
+   /**Get list of bookings whose timeslot has passed.
+    * @return List of bookings that have passed.
+    */
    public List<BookingModel> getPastBookings(){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       String sql;
@@ -234,6 +275,20 @@ public class BookingController
        dbcont.closeConnection();
        return bookings;
    }
+   
+   /**Retrieves employee name from their email
+    * @param email Employee email
+    * @return Employee name
+    */
+   public String getNameFromEmail(String email){
+      EmployeeController cont = new EmployeeController();
+      
+      return cont.getEmployeeName(email);
+   }
+   
+   /**Get list off bookings that have not yet passed
+    * @return List of bookings that have not passed.
+    */
    public List<BookingModel> getBookings(){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       String sql;
@@ -275,4 +330,5 @@ public class BookingController
        dbcont.closeConnection();
        return bookings;
    }
+
 }

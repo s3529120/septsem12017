@@ -16,15 +16,23 @@ public class MainMenuView{
 	private Stage stage;
 	private DefaultController cont;
 	
+	/**Constructor, sets stage.
+	 * @param stage Window to manipulate.
+	 */
 	public MainMenuView(Stage stage){
 		this.stage=stage;
 	}
 	
+	/**Updates associated window.
+	 */
 	public void updateView(){
 		
+	   //Headings
 		Text txt = new Text("Booking Site.");
-		
 		Text logtxt = new Text("Already have an account?");
+      Text regtxt = new Text("Register with us.");
+		
+		//Login button
 		Button loginbtn = new Button("Login");
 		loginbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
@@ -33,7 +41,7 @@ public class MainMenuView{
 		});
 		VBox logbox = new VBox(logtxt,loginbtn);
 		
-		Text regtxt = new Text("Register with us.");
+		//Register button
 		Button registerbtn = new Button("Register");
 		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
@@ -44,13 +52,15 @@ public class MainMenuView{
 		});
 		VBox regbox = new VBox(regtxt,registerbtn);
 		
+		//Layout
+		
 		HBox hbox = new HBox();
 		hbox.getChildren().add(regbox);
 		hbox.getChildren().add(logbox);
 		
 		VBox mainMenuBox = new VBox(txt,hbox);
 		
-		
+		//Styles
 		mainMenuBox.getStyleClass().add("loginpageBox");
 		logbox.getStyleClass().add("vbox");
 		regbox.getStyleClass().add("regbox");
@@ -69,6 +79,10 @@ public class MainMenuView{
 		stage.show();
 	}
 	
+	/**Sets associated controller
+	 * @param cont Controller to associate.
+	 * @return True upon success.
+	 */
 	public Boolean setController(DefaultController cont){
 		this.cont=cont;
 		return true;
