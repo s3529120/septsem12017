@@ -49,7 +49,6 @@ public class BookingsView {
 		bookingstitle.setId("bookingstitle");
 		
 		HBox heading = new HBox(bookingstitle, backbtn);
-		//VBox headingcontainer = new VBox(heading);
 		heading.setId("bookingsHeader");
 
 		// Bookings
@@ -57,10 +56,6 @@ public class BookingsView {
 		List<BookingModel> bookings = cont.getBookings();
 
 		VBox bookingsList = new VBox();
-
-		if (bookings.isEmpty()) {
-			System.out.println("it's empty");
-		}
 
 		bookings.forEach(booking -> {
 			String newdate = booking.getDate().toString();
