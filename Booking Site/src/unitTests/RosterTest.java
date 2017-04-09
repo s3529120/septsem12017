@@ -174,7 +174,6 @@ public class RosterTest {
 			assertThat(res.getString(3), is("13:15"));
 			
 		}catch(Exception e){
-			fail("Sql Exception");
 			e.printStackTrace();
 		}finally{
 			dbcont.closeConnection();
