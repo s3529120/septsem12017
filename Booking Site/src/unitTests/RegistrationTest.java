@@ -17,6 +17,14 @@ import Controller.UserRegistrationController;
 import Model.DatabaseModel;
 import View.UserRegistrationView;
 
+/*
+ * Need to separate tests.
+ * Just call 
+ * 	String sql;
+	DatabaseModel mod = new DatabaseModel();
+	DatabaseController cont = new DatabaseController(mod);
+ * */
+
 public class RegistrationTest
 {
 	@BeforeClass
@@ -24,7 +32,7 @@ public class RegistrationTest
 	{
 		DatabaseModel mod = new DatabaseModel();
 		DatabaseController cont = new DatabaseController(mod);
-		String sql;
+		String sql; 
 		try{
 			cont.createConnection();
 			sql="DROP TABLE IF EXISTS Accounts;";
@@ -55,6 +63,9 @@ public class RegistrationTest
 			cont.getState().setString(7, "User");
 			cont.runSQLUpdate();
 			cont.closeConnection();
+			
+			
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -71,9 +82,10 @@ public class RegistrationTest
 			sql="DROP TABLE IF EXISTS Accounts;";
 			cont.prepareStatement(sql);
 			cont.runSQLUpdate();
-			cont.closeConnection();
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally{
+			cont.closeConnection();
 		}
 	}
 
@@ -87,9 +99,8 @@ public class RegistrationTest
 	{
 	}
 
-
 	@Test
-	public void testRegister()
+	public void testValidRegister()
 	{
 		DatabaseModel mod = new DatabaseModel();
 		DatabaseController dbcont = new DatabaseController(mod);
@@ -104,8 +115,6 @@ public class RegistrationTest
 			sql="SELECT * FROM ACCOUNTS WHERE Username='usr004';";
 			dbcont.prepareStatement(sql);
 
-
-
 			res=dbcont.runSQLRes();
 			uname=res.getString("Username");
 			pname=res.getString("Name");
@@ -115,7 +124,6 @@ public class RegistrationTest
 			email=res.getString("Email");
 			type=res.getString("Type");
 
-
 			assertEquals(uname,"usr004");
 			assertEquals(pname,"Anany Levitin");
 			assertEquals(pword,"pass");
@@ -123,11 +131,17 @@ public class RegistrationTest
 			assertEquals(num,"0132316811");
 			assertEquals(email,"pearson@gmail.com");
 			assertEquals(type,"User");
-
+			
 			dbcont.closeConnection();
 		}catch(SQLException e){
 			fail("SQLException generated");
 		}
+	}
+	
+	@Test
+	public void testInvalidRegister()
+	{
+		
 	}
 
 }

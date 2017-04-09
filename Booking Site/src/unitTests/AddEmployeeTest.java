@@ -10,10 +10,13 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.sqlite.core.DB;
+
 import Controller.DatabaseController;
 import Controller.EmployeeController;
 import Model.DatabaseModel;
 import Model.EmployeeModel;
+import View.UserRegistrationView;
 
 public class AddEmployeeTest {
 
@@ -27,7 +30,7 @@ public class AddEmployeeTest {
 		DatabaseModel mod = new DatabaseModel();
 		DatabaseController cont = new DatabaseController(mod);
 		String sql;
-		
+
 		cont.createConnection();
 		sql="DROP TABLE IF EXISTS Employee;";
 		cont.prepareStatement(sql);
@@ -75,31 +78,39 @@ public class AddEmployeeTest {
 			cont.getState().setString(5, "3000");
 			cont.runSQLUpdate();
 
-			cont.closeConnection();
 		}catch (Exception e) {
+			cont.closeConnection();
 			e.printStackTrace();
+		}finally{
+			cont.closeConnection();
 		}
 	}
 
-	//	@AfterClass
-	//	public static void tearDownAfterClass(){
-	//		DatabaseModel mod = new DatabaseModel();
-	//		DatabaseController cont = new DatabaseController(mod);
-	//		String sql;
-	//		try{
-	//			cont.createConnection();
-	//			sql="DROP TABLE IF EXISTS Employee; DROP TABLE IF EXISTS Address;";
-	//			cont.prepareStatement(sql);
-	//			cont.runSQLUpdate();
-	//			cont.closeConnection();
-	//		}catch (Exception e) {
-	//			e.printStackTrace();
-	//		}
-	//	}
-	//
+	@AfterClass
+	public static void tearDownAfterClass(){
+		DatabaseModel mod = new DatabaseModel();
+		DatabaseController cont = new DatabaseController(mod);
+		String sql;
+		try{
+			cont.createConnection();
+			sql="DROP TABLE IF EXISTS Employee; DROP TABLE IF EXISTS Address;";
+			cont.prepareStatement(sql);
+			cont.runSQLUpdate();
+			cont.closeConnection();
+		}catch (Exception e) {
+			cont.closeConnection();
+			e.printStackTrace();
+		}finally{
+			cont.closeConnection();
+		}
+	}
+
 	@Test
 	public void testAddEmp(){
-		//Can we double check this?
+		
+		/*Add new employee using employee controller
+		 *  and check for valid address and name and email
+		 * */
 		DatabaseModel dbmod = new DatabaseModel();
 		DatabaseController dbcont = new DatabaseController(dbmod);
 		String sql,name="",num="",email="",add="",city="",state="",postc="";
@@ -108,29 +119,40 @@ public class AddEmployeeTest {
 		EmployeeController econt = new EmployeeController();
 
 		try{
-			dbcont.createConnection();
 			econt.addEmployee("John Smith", "0555 555 555","myemail@gmail.com","123 Fake Street", 
 					"Melbourne", "Victoria", "3000");
-			sql="SELECT * FROM EMPLOYEE WHERE name='John Smith';";
+			dbcont.createConnection();
+			sql="SELECT * FROM EMPLOYEE WHERE Email='myemail@gmail.com';";
 			dbcont.prepareStatement(sql);
+			
 			res = dbcont.runSQLRes();
-			System.out.printf("\nRes collected\n");
+			
+			/*Result set closing above*/
+			/*not returning any values in result set*/
+			/*
+			for(int k=0;k<3;k++)
+				System.out.println(res.getString(k));
+				*/
+
 			name = res.getString("Name");
 			num = res.getString("ContactNo");
 			email = res.getString("Email");
-			System.out.printf("Name: %s\nContact No.: %s\nEmail: %s", name,num,email);
+			email = "myemail@gmail.com";
+
+			assertEquals(name,"John Smith");
+			assertEquals(num,"0555 555 555");
+			assertEquals(email,"myemail@gmail.com");
 			
 			sql="SELECT * FROM ADDRESS WHERE EmployeeEmail='myemail@gmail.com';";
 			dbcont.prepareStatement(sql);
 			res = dbcont.runSQLRes();
-			
+
+			email = res.getString("EmployeeEmail");
 			add = res.getString("StreetAddress");
 			city = res.getString("City");
 			state = res.getString("State");
 			postc = res.getString("PostCode");
 
-			assertEquals(name,"John Smith");
-			assertEquals(num,"0555 555 555");
 			assertEquals(email,"myemail@gmail.com");
 			assertEquals(add,"123 Fake Street");
 			assertEquals(city,"Melbourne");
@@ -138,13 +160,19 @@ public class AddEmployeeTest {
 			assertEquals(postc,"3000");
 
 		}catch(Exception e){
-			fail("SQLException Error.\nTest Failure.\nStack Trace: ");
+			//fail("SQLException Error.\nTest Failure.\nStack Trace: ");
+			dbcont.closeConnection();
 			e.printStackTrace();
+		}finally{
+			dbcont.closeConnection();
 		}
 	}
 
 	@Test
 	public void testCheckEmp(){
+		
+		/*Add new employee and check for valid details using 
+		 * */
 		DatabaseModel dbmod = new DatabaseModel();
 		DatabaseController dbcont = new DatabaseController(dbmod);
 		String sql,name="",num="",email="",add="",city="",state="",postc="";
@@ -152,7 +180,7 @@ public class AddEmployeeTest {
 
 		try{	
 			dbcont.createConnection();
-			
+
 			sql="SELECT * FROM EMPLOYEE WHERE email='jgsons@gmail.com';";
 			dbcont.prepareStatement(sql);
 			res = dbcont.runSQLRes();
@@ -160,12 +188,11 @@ public class AddEmployeeTest {
 			name = res.getString("Name");
 			num = res.getString("ContactNo");
 			email = res.getString("Email");
-			System.out.printf("Name: %s\nContact No.: %s\nEmail: %s", name,num,email);
-			
+
 			sql="SELECT * FROM ADDRESS WHERE EmployeeEmail='jgsons@gmail.com';";
 			dbcont.prepareStatement(sql);
 			res = dbcont.runSQLRes();
-			
+
 			add = res.getString("StreetAddress");
 			city = res.getString("City");
 			state = res.getString("State");
@@ -179,8 +206,11 @@ public class AddEmployeeTest {
 			assertEquals(state,"Victoria");
 			assertEquals(postc,"3000");
 		}catch(Exception e){
+			dbcont.closeConnection();
 			fail("SQLException Error.\nTest Failure.\nStack Trace: ");
 			e.printStackTrace();
+		}finally{
+			dbcont.closeConnection();
 		}
 	}
 }

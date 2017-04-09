@@ -208,7 +208,6 @@ public class EditAvailabilitiesView
 		});
 
 		//Save
-
 		Button savebtn = new Button("Save");
 		savebtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
