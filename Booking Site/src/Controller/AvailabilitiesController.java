@@ -124,8 +124,11 @@ public class AvailabilitiesController
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
 			LocalTime start = LocalTime.parse(startstring, dtf);
 			LocalTime finish = LocalTime.parse(finishstring, dtf);
+			
+			//checks that either the times are in order or, there is to be no roster
+			boolean goodTime = finish.isAfter(start) || (startstring.equals("00:00") && finishstring.equals("00:00"));
 
-			if ((startstring.equals(finishstring)) || start.isAfter(finish)) {
+			if (!goodTime) {
 				goodInputs = false;
 				if (!timenerrorbox.getChildren().contains(timeerrortxt)) {
 					timenerrorbox.getChildren().add(timeerrortxt);

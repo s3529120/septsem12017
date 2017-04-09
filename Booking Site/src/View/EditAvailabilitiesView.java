@@ -52,7 +52,6 @@ public class EditAvailabilitiesView
 		Text timeerrortxt = new Text("Invalid time selection");
 		HBox timenerrorbox = new HBox();
 
-		Text donetxt = new Text("Successfully added");
 		HBox donebox = new HBox();
 
 		Text insertconfirm = new Text("");
@@ -63,6 +62,8 @@ public class EditAvailabilitiesView
 
 		//Select Employee
 		Label selectEmployeeText = new Label("Select an employ");
+		//instructions
+		Label instructions = new Label("To indicate no roster for a given day, set boths times to 00:00");
 
 		Map<String,String> emps;
 		ComboBox<String> employee = new ComboBox<String>();
@@ -94,7 +95,7 @@ public class EditAvailabilitiesView
 		HBox backbox = new HBox(backbtn);
 
 		//top box construction
-		VBox titleAndEmployee = new VBox(pageTitle,employeebox);
+		VBox titleAndEmployee = new VBox(pageTitle,employeebox,instructions);
 		HBox topBox = new HBox(titleAndEmployee,backbox);
 
 		//Lots of text, because apparently i cant reuse the same ones
@@ -197,13 +198,14 @@ public class EditAvailabilitiesView
 		//make it so that the fields update
 		employee.valueProperty().addListener(new ChangeListener<String>() {
 			@Override public void changed(ObservableValue ov, String t, String t1) {
-			   cont.setSelection(sunday, emps.get(employee.getSelectionModel().getSelectedItem()), sundayStartTime, sundayEndTime);
-		      cont.setSelection(monday, emps.get(employee.getSelectionModel().getSelectedItem()), mondayStartTime, mondayEndTime);
-		      cont.setSelection(tuesday, emps.get(employee.getSelectionModel().getSelectedItem()), tuesdayStartTime, tuesdayEndTime);
-		      cont.setSelection(wednesday, emps.get(employee.getSelectionModel().getSelectedItem()), wednesdayStartTime, wednesdayEndTime);
-		      cont.setSelection(thursday, emps.get(employee.getSelectionModel().getSelectedItem()), thursdayStartTime, thursdayEndTime);
-		      cont.setSelection(friday, emps.get(employee.getSelectionModel().getSelectedItem()), fridayStartTime, fridayEndTime);
-		      cont.setSelection(saturday, emps.get(employee.getSelectionModel().getSelectedItem()), saturdayStartTime, saturdayEndTime);
+				donebox.getChildren().clear();
+				cont.setSelection(sunday, emps.get(employee.getSelectionModel().getSelectedItem()), sundayStartTime, sundayEndTime);
+				cont.setSelection(monday, emps.get(employee.getSelectionModel().getSelectedItem()), mondayStartTime, mondayEndTime);
+				cont.setSelection(tuesday, emps.get(employee.getSelectionModel().getSelectedItem()), tuesdayStartTime, tuesdayEndTime);
+				cont.setSelection(wednesday, emps.get(employee.getSelectionModel().getSelectedItem()), wednesdayStartTime, wednesdayEndTime);
+				cont.setSelection(thursday, emps.get(employee.getSelectionModel().getSelectedItem()), thursdayStartTime, thursdayEndTime);
+				cont.setSelection(friday, emps.get(employee.getSelectionModel().getSelectedItem()), fridayStartTime, fridayEndTime);
+				cont.setSelection(saturday, emps.get(employee.getSelectionModel().getSelectedItem()), saturdayStartTime, saturdayEndTime);
 			}
 		});
 
@@ -212,7 +214,7 @@ public class EditAvailabilitiesView
 		savebtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				//Creating arrays of the day to loop through
-				//jesus christ this is not gonna be pretty but i dont know a datatype to suit
+				//this might not be pretty but i dont know a datatype to suit
 				String[] startTimes = {
 						sundayStartTime.getSelectionModel().getSelectedItem().toString(),
 						mondayStartTime.getSelectionModel().getSelectedItem().toString(),
@@ -229,6 +231,9 @@ public class EditAvailabilitiesView
 						thursdayEndTime.getSelectionModel().getSelectedItem().toString(),
 						fridayEndTime.getSelectionModel().getSelectedItem().toString(),
 						saturdayEndTime.getSelectionModel().getSelectedItem().toString(),};
+				//Preparing string for prompts
+				String prompt = "Time saved for ";
+				int daysSaved = 0;
 				for (int i = 0;i < 7; i++) {
 					if (cont.validateEntries( 
 							cont.getEmail(employee.getSelectionModel().getSelectedItem()),
@@ -237,7 +242,6 @@ public class EditAvailabilitiesView
 							endTimes[i],
 							employeeerrortxt,employeeerrorbox,
 							timeerrortxt,timenerrorbox)) {
-
 						cont.addAvailability( 
 								emps.get(employee.getSelectionModel().getSelectedItem()), 
 								days[i], 
@@ -245,25 +249,31 @@ public class EditAvailabilitiesView
 								endTimes[i]);
 						insertconfirm.getText().replaceAll(".*?",employee.getSelectionModel().getSelectedItem().toString()
 								.concat("'s available time added"));
-						if (!donebox.getChildren().contains(donetxt)) {
-							donebox.getChildren().add(donetxt);
-
+						if (daysSaved == 0) {
+							prompt = prompt + days[i];						
+						} else {
+							prompt = prompt + ", " + days[i];
+							prompt.toLowerCase();
 						}
-
-					} else {
-						if (donebox.getChildren().contains(donetxt)) {
-							donebox.getChildren().remove(donetxt);
-						}
+						daysSaved++;
 					}
 				}
-
+				donebox.getChildren().clear();
+				if (daysSaved == 7) {
+					prompt = "Times saved for all days";
+				}
+				if (daysSaved > 0) {
+					Text successtxt = new Text(prompt);
+					donebox.getChildren().add(successtxt);
+				}
 			}
 		});
 
 
 
 		//box Construction
-		VBox page = new VBox(topBox,dayBox,savebtn);
+		HBox bottom = new HBox(savebtn,donebox);
+		VBox page = new VBox(topBox,dayBox,bottom);
 
 		page.getStyleClass().add("loginpageBox");
 		backbtn.setId("largebtn");
