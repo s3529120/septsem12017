@@ -1,12 +1,7 @@
 package unitTests;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
-import Controller.DatabaseController;
-import Model.DatabaseModel;
 
 
 @RunWith(Suite.class)
@@ -19,6 +14,5 @@ import Model.DatabaseModel;
 	   ViewBookingsTest.class
 	})
 
-public class TestSuite {
-		
+public class TestSuite {		
 }
