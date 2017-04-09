@@ -85,7 +85,7 @@ public class RosterTest {
 		try{
 			avcont.addAvailability(email, today, start, end);
 
-			assertNotNull(avcont.getAvailability(today, email));
+			assertNotNull(avcont.getAvailabilityString(today, email));
 			assertFalse(starttime.isAfter(finishtime) || starttime.equals(finishtime));
 
 		}catch(Exception e){
@@ -107,7 +107,7 @@ public class RosterTest {
 		try{
 			avcont.addAvailability(email, today, start, end);
 
-			assertNotNull(avcont.getAvailability(today, email));
+			assertNotNull(avcont.getAvailabilityString(today, email));
 			assertTrue(starttime.isAfter(finishtime) || starttime.equals(finishtime));
 		
 		}catch(Exception e){
@@ -130,7 +130,7 @@ public class RosterTest {
 		try{
 			avcont.addAvailability(email, today, startstring, finishstring);
 			
-			assertNull(avcont.getAvailability(today, email));
+			assertNull(avcont.getAvailabilityString(today, email));
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -154,7 +154,7 @@ public class RosterTest {
 		
 		try{
 			avcont.addAvailability(email, dow, startstring, finishstring);
-			assertNotNull(avcont.getAvailability(dow, email));
+			assertNotNull(avcont.getAvailabilityString(dow, email));
 			
 			sql = "SELECT * FROM availabilities WHERE email = 'email@email.com';";
 			dbcont.prepareStatement(sql);
@@ -169,7 +169,7 @@ public class RosterTest {
 			dbcont.prepareStatement(sql);
 			res = dbcont.runSQLRes();
 			
-			assertNotNull(avcont.getAvailability(dow, email));
+			assertNotNull(avcont.getAvailabilityString(dow, email));
 			assertThat(res.getString(2), is("12:00"));
 			assertThat(res.getString(3), is("13:15"));
 			
