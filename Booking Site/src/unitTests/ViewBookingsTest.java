@@ -1,12 +1,16 @@
 package unitTests;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import Controller.*;
 import Model.*;
@@ -187,7 +191,35 @@ public class ViewBookingsTest {
 	@Test
 	public void testGetBooking(){
 		BookingController bcont = new BookingController();
+		LocalDate focusdate=LocalDate.now();
+		DayOfWeek dow = focusdate.getDayOfWeek();
+		String empemail = "newemail@email.com";
+		LocalTime start=LocalTime.of(14, 00),finish=LocalTime.of(15, 00);
 		
+		bcont.addBookings(dow, start, finish, empemail);
+		
+		try{
+			assertTrue(bcont.getBookings().contains(dow));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testForBooking(){
+		BookingController bcont = new BookingController();
+		LocalDate focusdate=LocalDate.now();
+		DayOfWeek dow = focusdate.getDayOfWeek();
+		String empemail = "newemail@email.com";
+		LocalTime start=LocalTime.of(16, 00),finish=LocalTime.of(18, 00);
+		
+		bcont.addBookings(dow, start, finish, empemail);
+		
+		try{
+			assertFalse(bcont.getBookings().isEmpty());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 }
