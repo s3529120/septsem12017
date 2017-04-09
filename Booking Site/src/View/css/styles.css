@@ -160,11 +160,44 @@ buttonbox {
 #bookingBox {
 	-fx-border-color: #000;
     -fx-border-width: 1px;
-    -fx-padding: 10;
+    -fx-padding: 20;
     -fx-spacing: 8;
+    -fx-pref-width: 600px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
 }
 
 #bookingDate {
-	-fx-font-size: 12pt;
+	-fx-font-size: 20pt;
 }
 
+#datebox {
+	-fx-padding: 20 0;
+}
+
+#bookingscontainer {
+	-fx-padding: 15 0;
+	-fx-pref-width: 500px;
+}
+
+.bookingcol {
+	-fx-padding: 0 50 0 0;
+}
+
+#bookingsHeader {
+	-fx-padding: 15 0;
+    -fx-spacing: 10;
+}
+
+#bookingsMain {
+	-fx-padding: 25 45;
+}
+
+#bookingsh1 {
+	-fx-font-size: 25pt;
+	-fx-padding-left: 45;
+}
+
+#bookingstitle {
+	-fx-pref-width: 500px;
+}
