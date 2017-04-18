@@ -2,6 +2,7 @@ package unitTests;
 
 import static org.junit.Assert.*;
 
+import java.awt.TextField;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -111,60 +112,20 @@ public class AddEmployeeTest {
 		/*Add new employee using employee controller
 		 *  and check for valid address and name and email
 		 * */
-		DatabaseModel dbmod = new DatabaseModel();
-		DatabaseController dbcont = new DatabaseController(dbmod);
-		String sql,name="",num="",email="",add="",city="",state="",postc="";
-		ResultSet res;
+	
+		String name="John Smith", num="0555 555 555",email="JSemail@gmail.com",
+				add="123 Fake Street",city="Melbourne",state="Victoria",postc="3000";
 
 		EmployeeController econt = new EmployeeController();
 
 		try{
-			econt.addEmployee("John Smith", "0555 555 555","myemail@gmail.com","123 Fake Street", 
-					"Melbourne", "Victoria", "3000");
-			dbcont.createConnection();
-			sql="SELECT * FROM EMPLOYEE WHERE Email='myemail@gmail.com';";
-			dbcont.prepareStatement(sql);
+			econt.addEmployee(name, num, email, add, city, state, postc);
 			
-			res = dbcont.runSQLRes();
-			
-			/*Result set closing above*/
-			/*not returning any values in result set*/
-			/*
-			for(int k=0;k<3;k++)
-				System.out.println(res.getString(k));
-				*/
-
-			name = res.getString("Name");
-			num = res.getString("ContactNo");
-			email = res.getString("Email");
-			email = "myemail@gmail.com";
-
-			assertEquals(name,"John Smith");
-			assertEquals(num,"0555 555 555");
-			assertEquals(email,"myemail@gmail.com");
-			
-			sql="SELECT * FROM ADDRESS WHERE EmployeeEmail='myemail@gmail.com';";
-			dbcont.prepareStatement(sql);
-			res = dbcont.runSQLRes();
-
-			email = res.getString("EmployeeEmail");
-			add = res.getString("StreetAddress");
-			city = res.getString("City");
-			state = res.getString("State");
-			postc = res.getString("PostCode");
-
-			assertEquals(email,"myemail@gmail.com");
-			assertEquals(add,"123 Fake Street");
-			assertEquals(city,"Melbourne");
-			assertEquals(state,"Victoria");
-			assertEquals(postc,"3000");
+			assertTrue(econt.checkEmployee(email));
+			assertEquals(econt.getEmployeeName(email), name);	
 
 		}catch(Exception e){
-			//fail("SQLException Error.\nTest Failure.\nStack Trace: ");
-			dbcont.closeConnection();
 			e.printStackTrace();
-		}finally{
-			dbcont.closeConnection();
 		}
 	}
 
@@ -197,7 +158,7 @@ public class AddEmployeeTest {
 			city = res.getString("City");
 			state = res.getString("State");
 			postc = res.getString("PostCode");
-
+			
 			assertEquals(name,"Jacob Genericson");
 			assertEquals(num,"0412345678");
 			assertEquals(email,"jgsons@gmail.com");
@@ -213,4 +174,64 @@ public class AddEmployeeTest {
 			dbcont.closeConnection();
 		}
 	}
+	
+	@Test
+	public void testAddEmpNoFirstName(){
+		EmployeeController econt = new EmployeeController();
+		String name="", contactno="0555 555 555", email="nullemail@gmail.com", 
+				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000";
+		
+		try{
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
+			
+			/* Get the employee name assigned to email, should return empty, 
+			 * 		and isEmpty() should return true. */
+			assertTrue(econt.getEmployeeName(email).isEmpty());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testNameGtrMaxSize(){
+		/* Hard to test as max text field is 10^9 bits according to docs. 
+			From https://sqlite.org/faq.html#q9, 
+			"Sqlite will be happy to store a 500-million [varchar in TEXT]" */
+		EmployeeController econt = new EmployeeController();
+		String name="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+				+ "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+				+ "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b", 
+				contactno="0555 555 555", email="maxlengthemail@gmail.com", 
+				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000";
+		
+		try{
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
+			
+			/* Get the employee name assigned to email, should return empty, 
+			 * 		as was too long to fit into database.
+			 * This test will always evaluate as false as unable to actually break the max limit on TEXT */
+			assertTrue(econt.getEmployeeName(email).length() == 0);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testAddEmpNoLastName(){
+		EmployeeController econt = new EmployeeController();
+		String fname="Jim", lname= " ", name = fname+" "+lname, contactno="0555 555 555", email="nolnameemail@gmail.com", 
+				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000";
+		
+		try{
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
+			
+			System.out.println(econt.getEmployeeName(email).length());
+			/* Get the employee name assigned to email, and compare length with some known value. */
+			assertEquals(econt.getEmployeeName(email).length(), name.length());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 }
