@@ -143,7 +143,7 @@ public class RegistrationTest
 	@Test
 	public void testDuplicateRegister()
 	{
-		UserRegistrationController cont = new UserRegistrationController(null);
+		UserRegistrationController cont = new UserRegistrationController(new UserRegistrationView(null));
 		LoginController lcont = new LoginController(null);
 		String uname="usr004",pname="Jonathon Smithone",pword="mycatsname123",
 				address="62 Eagle Drive",contactNo="0123456789",email="user123@email.com";
