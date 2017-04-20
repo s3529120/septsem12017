@@ -13,8 +13,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import Controller.DatabaseController;
+import Controller.LoginController;
 import Controller.UserRegistrationController;
 import Model.DatabaseModel;
+import View.LoginView;
 import View.UserRegistrationView;
 
 /*
@@ -139,9 +141,20 @@ public class RegistrationTest
 	}
 	
 	@Test
-	public void testInvalidRegister()
+	public void testDuplicateRegister()
 	{
+		UserRegistrationController cont = new UserRegistrationController(null);
+		LoginController lcont = new LoginController(null);
+		String uname="usr004",pname="Jonathon Smithone",pword="mycatsname123",
+				address="62 Eagle Drive",contactNo="0123456789",email="user123@email.com";
 		
+		try{
+			cont.register(uname, pname, pword, address, contactNo, email);
+			
+			assertFalse(lcont.login(uname, pword));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }
