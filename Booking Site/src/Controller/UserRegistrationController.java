@@ -1,6 +1,7 @@
 package Controller;
 
 import java.sql.ResultSet;
+import jregex.*;
 import java.sql.SQLException;
 
 import Model.DatabaseModel;
@@ -12,10 +13,32 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import jregex.Pattern;
 
 public class UserRegistrationController {
 	private UserRegistrationView view;
 	private UserAccountModel model;
+	
+	// For origin of this code see http://jregex.sourceforge.net/examples-email.html
+	private static final String emailChars="[\\w.\\-]+"; //letters, dots, hyphens
+	private static final String alpha="\\w";
+	private static final String digit="\\d";
+	private static final String space="\\s";
+	private static final String hyphen="\\-";
+	private static final String alphaNums="\\w+";
+	private static final String dot="\\.";
+	private static final String symbols="[\\W\\S]"; //all non word characters + non spaces
+	
+	// Create a new pattern to match email format: chars@(chars.)*chars
+	// Create similar patterns for username, name, password, address etc.
+	private static final Pattern emailPattern=
+			new Pattern(emailChars + "@" + "(?:"+ alphaNums + dot + ")*" + alphaNums);
+	private static final Pattern username = new Pattern("(?:"+ alphaNums + ")*"); // Just letters+numbers
+	private static final Pattern fullname = new Pattern("(?:"+ alpha + space + ")*"); // Just letters
+	private static final Pattern password = new Pattern("(?:"+ alphaNums + symbols + ")*"); // Should be letters + numbers + Symbols
+	private static final Pattern addressPattern = new Pattern("(?:" + digit + ")*" + "(?:" + digit + alpha + ")*");
+	private static final Pattern phoneNo = new Pattern("(?:" + digit + space + ")*");// + space + parenthesis);
+	
 	
 	/**Constructor, sets associated view and assigns self to view.
 	 * @param view View to associate.
@@ -33,15 +56,20 @@ public class UserRegistrationController {
 
 	public Boolean checkValues(TextField uname, TextField pname, PasswordField pword, PasswordField pwordcon,
 	                           TextField address, TextField contactNo, TextField email){
-	   Boolean bool;
+	   Boolean userExists;
 	   
 	   AccountController acon = new AccountController();
-	   bool=acon.checkUsername(uname.getText());
+	   userExists=acon.checkUsername(uname.getText());
 	   
-	   if(uname.getText().isEmpty() || pname.getText().isEmpty() || pword.getText().isEmpty() || pwordcon.getText().isEmpty() ||
-	         address.getText().isEmpty() || contactNo.getText().isEmpty() || email.getText().isEmpty()){
+	   if(!(username.matcher(uname.getText().trim()).matches()) 
+			   || !(fullname.matcher(pname.getText().trim()).matches()) 
+			   || !(password.matcher(pword.getText().trim()).matches())
+			   || !(password.matcher(pwordcon.getText().trim()).matches())
+			   || !(addressPattern.matcher(address.getText().trim()).matches()) 
+			   || !(phoneNo.matcher(contactNo.getText().trim()).matches())
+			   || !(emailPattern.matcher(email.getText().trim()).matches())){
 	      return false;
-	   }else if(bool==true){
+	   }else if(userExists==true){
 	      return false;
 	   }else if (!pword.getText().equals(pwordcon.getText())) {
 		   return false;
@@ -51,7 +79,7 @@ public class UserRegistrationController {
 	   
 	}
 	
-	public void validateEntires(
+	public void validateEntries(
 			TextField uname, HBox unamehbox,
 			TextField pname, HBox pnamehbox,
 			PasswordField pword, HBox pwordhbox,
@@ -63,45 +91,54 @@ public class UserRegistrationController {
 			Text passerrortxt, HBox passerrorbox,
 			Text takenerrortxt, HBox takenerrorbox) {
 
-		//checking for empty
+		//checking for empty as well as if the pattern is matched
 		boolean hasEmpty = false;
-		if(uname.getText().trim().equals("")) {
+		if(uname.getText().trim().equals("") 
+				|| !(username.matcher(uname.getText().trim()).matches())) {
 			unamehbox.setId("incorrectForm");
 			hasEmpty = true;
 		} else {
 			unamehbox.setId("form");
 		}
-		if(pname.getText().trim().equals("")) {
+		if(pname.getText().trim().equals("")
+				|| !(fullname.matcher(pname.getText().trim()).matches())) {
 			pnamehbox.setId("incorrectForm");
 			hasEmpty = true;
 		} else {
 			pnamehbox.setId("form");
 		}
-		if(pword.getText().trim().equals("")) {
+		if(pword.getText().trim().equals("")
+				|| !(password.matcher(pword.getText().trim()).matches())) {
 			pwordhbox.setId("incorrectForm");
 			hasEmpty = true;
 		} else {
 			pwordhbox.setId("form");
 		}
-		if(pwordcon.getText().trim().equals("")) {
+		if(pwordcon.getText().trim().equals("")
+				|| !(password.matcher(pwordcon.getText().trim()).matches())) {
 			pwordhboxcon.setId("incorrectForm");
 			hasEmpty = true;
 		} else {
 			pwordhboxcon.setId("form");
 		}
-		if(contactNo.getText().trim().equals("")) {
+		if(contactNo.getText().trim().equals("")
+				|| !(phoneNo.matcher(contactNo.getText().trim()).matches())
+				|| contactNo.getText().replaceAll("\\s","").length() > 10
+				) {
 			numhbox.setId("incorrectForm");
 			hasEmpty = true;
 		} else {
 			numhbox.setId("form");
 		}
-		if(address.getText().trim().equals("")) {
+		if(address.getText().trim().equals("")
+				|| !(addressPattern.matcher(address.getText().trim()).matches())) {
 			addhbox.setId("incorrectForm");
 			hasEmpty = true;
 		} else {
 			addhbox.setId("form");
 		}
-		if(email.getText().trim().equals("")) {
+		if(email.getText().trim().equals("")
+				|| !(emailPattern.matcher(email.getText().trim()).matches())) {
 			mailhbox.setId("incorrectForm");
 			hasEmpty = true;
 		} else {

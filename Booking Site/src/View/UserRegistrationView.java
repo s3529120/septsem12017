@@ -135,7 +135,7 @@ public class UserRegistrationView {
 							numtxtfield.getText(),addtxtfield.getText(),mailtxtfield.getText());
 			   }else{
 			      //checking for empty
-				   cont.validateEntires(
+				   cont.validateEntries(
 							usertxtfield, unamehbox, 
 							pnametxtfield, pnamehbox, 
 							pwordfield, pwordhbox, 

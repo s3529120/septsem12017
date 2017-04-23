@@ -8,13 +8,17 @@ import View.LoginView;
 import View.UserAccountMenuView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import jregex.*;
 import javafx.scene.control.TextField;
+
 
 public class LoginController {
 	private LoginView view;
 
+	
+	
 	/**Constructor, sets associated view and assigns self to said view.
-	 * @param view View to associarte with.
+	 * @param view View to associate with.
 	 */
 	public LoginController(LoginView view){
 		this.view=view;
