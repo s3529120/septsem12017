@@ -58,7 +58,7 @@ public class BusinessAccountMenuView {
 		Text h2 = new Text("Select from the menu options below.");
 
 		//Functionality buttons
-		
+
 		//Add employee
 		Button addempbtn = new Button("Add Employee");
 		addempbtn.setOnAction(new EventHandler<ActionEvent>(){
@@ -69,7 +69,7 @@ public class BusinessAccountMenuView {
 				empcont.updateView();
 			}
 		});
-		
+
 		//Edit availability
 		Button editavailbtn = new Button("Edit Availabilities");
 		editavailbtn.setOnAction(new EventHandler<ActionEvent>(){
@@ -88,7 +88,7 @@ public class BusinessAccountMenuView {
 			@Override public void handle(ActionEvent e){
 			}
 		});
-		
+
 		//View Bookings
 		Button viewbookbtn = new Button("View Bookings");
 		viewbookbtn.setUserData(cont);
@@ -101,16 +101,16 @@ public class BusinessAccountMenuView {
 				bcont.updateView();
 			}
 		});
-		
+
 		HBox botrow = new HBox(viewavailbtn,viewbookbtn);
 
 		//VBox headings = new  VBox(h1,h2);
 		//VBox buttons = new  VBox(toprow,botrow);
-		
+
 		VBox page = new VBox(logoutbox,h1,h2,toprow,botrow);
 
 		//Styles
-		
+
 		//mainMenuBox.getStyleClass().add("loginpageBox");
 		//logbox.getStyleClass().add("vbox");
 		//regbox.getStyleClass().add("regbox");

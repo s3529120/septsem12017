@@ -41,8 +41,8 @@ public class BookingsView {
 		this.cont = controller;
 		return true;
 	}
-	
-	
+
+
 
 	public void updateView() {
 
@@ -61,7 +61,7 @@ public class BookingsView {
 		h1.setId("bookingsh1");
 		HBox bookingstitle = new HBox(h1);
 		bookingstitle.setId("bookingstitle");
-		
+
 		HBox heading = new HBox(bookingstitle, backbtn);
 		heading.setId("bookingsHeader");
 
@@ -101,15 +101,15 @@ public class BookingsView {
 			who.getStyleClass().add("bookingcol");
 			when.getStyleClass().add("bookingcol");
 			bookingType.getStyleClass().add("bookingcol");
-			
-			
+
+
 			HBox bookingBox = new HBox(who, when, bookingType);
 			bookingBox.setId("bookingBox");
-	      bookingBox.addEventHandler(ActionEvent.ACTION,new EventHandler<ActionEvent>(){
-	         @Override public void handle(ActionEvent e){
-	            assignToBooking(booking);
-	         }
-	      });
+			bookingBox.addEventHandler(ActionEvent.ACTION,new EventHandler<ActionEvent>(){
+				@Override public void handle(ActionEvent e){
+					assignToBooking(booking);
+				}
+			});
 
 			bookingsList.getChildren().add(bookingBox);
 
@@ -130,111 +130,111 @@ public class BookingsView {
 		stage.show();
 
 	}
-	
+
 	public void assignToBooking(BookingModel book){
-	   Stage popup = new Stage();
-	   StackPane pane=new StackPane();
-	   if(this.cont.getCaller() instanceof BusinessAccountModel){
-	      //Heading
-	      Text h1 = new Text("Assign customer to booking.");
-	      AccountController acont = new AccountController();
-	   
-	      //List initialization
-	      List<UserAccountModel> customers = acont.getAllCustomers();
-	      Map<String,String> map = new HashMap<String, String>();
-	      customers.forEach(x->{map.put(x.getName(), x.getUsername());});
-	   
-	      //Customer selector
-	      Label cuslbl = new Label("Please select the customer you wish to assign.");
-	      ComboBox<String> selector = new ComboBox<String>();
-	      map.forEach((k,v)->selector.getItems().add(k));
-	      VBox select = new VBox(cuslbl,selector);
-	      
-	    //Type selector
-	      TypeController tcont = new TypeController();
-	      tcont.setEmp(book.getEmployee());
-         Label typelbl = new Label("Please select the appointment type you desire.");
-         ComboBox<String> typeselector = new ComboBox<String>();
-         List<TypeModel> settypes = tcont.getSetTypes();
-         settypes.forEach(x -> typeselector.getItems().add(x.getName()));
-         VBox typeselect = new VBox(typelbl,typeselector);
-	   
-	    //Cancel button
-         Button cancel = new Button("Cancel");
-         cancel.setOnAction(new EventHandler<ActionEvent>(){
-            @Override public void handle(ActionEvent e){
-               popup.close();
-            }
-         });
-	      
-	      //Submit button
-	      Button submit = new Button("Submit");
-	      submit.setOnAction(new EventHandler<ActionEvent>(){
-	         @Override public void handle(ActionEvent e){
-	            BookingController cont = new BookingController();
-	            if(cont.setUser(book, map.get(selector.getSelectionModel().getSelectedItem()),TypeController.getModelByName(settypes, typeselector.getSelectionModel().getSelectedItem()))){
-	               //Success actions
-	            }else{
-	               //False message
-	            }
-	         }
-	      });
-	   //Add to pane
-	   pane.getChildren().addAll(h1,select,typeselect,cancel,submit);
-	   }else{
-	    //Heading
-         Text h1 = new Text("Would you like to confirm this Booking?");
-         
-         //Appointment details
-         Label dlbl = new Label("Date: ");
-         Text dtxt = new Text (book.getDate().toString());
-         HBox dbox= new HBox(dlbl,dtxt);
-         Label stlbl = new Label("Start Time: ");
-         Text sttxt = new Text (book.getDate().toString());
-         HBox stbox= new HBox(stlbl,sttxt);
-         Label ftlbl = new Label("Finish Time: ");
-         Text fttxt = new Text (book.getDate().toString());
-         HBox ftbox= new HBox(ftlbl,fttxt);
-         Label elbl = new Label("Employee: ");
-         Text etxt = new Text (book.getDate().toString());
-         HBox ebox= new HBox(elbl,etxt);
-         VBox dets=new VBox(dbox,stbox,ftbox,ebox);
-         
-       //Type selector
-         TypeController tcont = new TypeController();
-         tcont.setEmp(book.getEmployee());
-         Label typelbl = new Label("Please select the appointment type you desire.");
-         ComboBox<String> typeselector = new ComboBox<String>();
-         List<TypeModel> settypes = tcont.getSetTypes();
-         settypes.forEach(x -> typeselector.getItems().add(x.getName()));
-         VBox typeselect = new VBox(typelbl,typeselector);
-      
-       //Cancel button
-         Button cancel = new Button("Cancel");
-         cancel.setOnAction(new EventHandler<ActionEvent>(){
-            @Override public void handle(ActionEvent e){
-               popup.close();
-            }
-         });
-         
-         //Submit button
-         Button submit = new Button("Submit");
-         submit.setOnAction(new EventHandler<ActionEvent>(){
-            @Override public void handle(ActionEvent e){
-               BookingController cont = new BookingController();
-               if(cont.setUser(book, cont.getCaller().getUsername(),TypeController.getModelByName(settypes, typeselector.getSelectionModel().getSelectedItem()))){
-                  //Success actions
-               }else{
-                  //False message
-               }
-            }
-         });
-      //Add to pane
-      pane.getChildren().addAll(h1,dets,typeselect,cancel,submit);
-	   }
-	   Scene scene = new Scene(pane);
-	   popup.setScene(scene);
-	   popup.show();
+		Stage popup = new Stage();
+		StackPane pane=new StackPane();
+		if(this.cont.getCaller() instanceof BusinessAccountModel){
+			//Heading
+			Text h1 = new Text("Assign customer to booking.");
+			AccountController acont = new AccountController();
+
+			//List initialization
+			List<UserAccountModel> customers = acont.getAllCustomers();
+			Map<String,String> map = new HashMap<String, String>();
+			customers.forEach(x->{map.put(x.getName(), x.getUsername());});
+
+			//Customer selector
+			Label cuslbl = new Label("Please select the customer you wish to assign.");
+			ComboBox<String> selector = new ComboBox<String>();
+			map.forEach((k,v)->selector.getItems().add(k));
+			VBox select = new VBox(cuslbl,selector);
+
+			//Type selector
+			TypeController tcont = new TypeController();
+			tcont.setEmp(book.getEmployee());
+			Label typelbl = new Label("Please select the appointment type you desire.");
+			ComboBox<String> typeselector = new ComboBox<String>();
+			List<TypeModel> settypes = tcont.getSetTypes();
+			settypes.forEach(x -> typeselector.getItems().add(x.getName()));
+			VBox typeselect = new VBox(typelbl,typeselector);
+
+			//Cancel button
+			Button cancel = new Button("Cancel");
+			cancel.setOnAction(new EventHandler<ActionEvent>(){
+				@Override public void handle(ActionEvent e){
+					popup.close();
+				}
+			});
+
+			//Submit button
+			Button submit = new Button("Submit");
+			submit.setOnAction(new EventHandler<ActionEvent>(){
+				@Override public void handle(ActionEvent e){
+					BookingController cont = new BookingController();
+					if(cont.setUser(book, map.get(selector.getSelectionModel().getSelectedItem()),TypeController.getModelByName(settypes, typeselector.getSelectionModel().getSelectedItem()))){
+						//Success actions
+					}else{
+						//False message
+					}
+				}
+			});
+			//Add to pane
+			pane.getChildren().addAll(h1,select,typeselect,cancel,submit);
+		}else{
+			//Heading
+			Text h1 = new Text("Would you like to confirm this Booking?");
+
+			//Appointment details
+			Label dlbl = new Label("Date: ");
+			Text dtxt = new Text (book.getDate().toString());
+			HBox dbox= new HBox(dlbl,dtxt);
+			Label stlbl = new Label("Start Time: ");
+			Text sttxt = new Text (book.getDate().toString());
+			HBox stbox= new HBox(stlbl,sttxt);
+			Label ftlbl = new Label("Finish Time: ");
+			Text fttxt = new Text (book.getDate().toString());
+			HBox ftbox= new HBox(ftlbl,fttxt);
+			Label elbl = new Label("Employee: ");
+			Text etxt = new Text (book.getDate().toString());
+			HBox ebox= new HBox(elbl,etxt);
+			VBox dets=new VBox(dbox,stbox,ftbox,ebox);
+
+			//Type selector
+			TypeController tcont = new TypeController();
+			tcont.setEmp(book.getEmployee());
+			Label typelbl = new Label("Please select the appointment type you desire.");
+			ComboBox<String> typeselector = new ComboBox<String>();
+			List<TypeModel> settypes = tcont.getSetTypes();
+			settypes.forEach(x -> typeselector.getItems().add(x.getName()));
+			VBox typeselect = new VBox(typelbl,typeselector);
+
+			//Cancel button
+			Button cancel = new Button("Cancel");
+			cancel.setOnAction(new EventHandler<ActionEvent>(){
+				@Override public void handle(ActionEvent e){
+					popup.close();
+				}
+			});
+
+			//Submit button
+			Button submit = new Button("Submit");
+			submit.setOnAction(new EventHandler<ActionEvent>(){
+				@Override public void handle(ActionEvent e){
+					BookingController cont = new BookingController();
+					if(cont.setUser(book, cont.getCaller().getUsername(),TypeController.getModelByName(settypes, typeselector.getSelectionModel().getSelectedItem()))){
+						//Success actions
+					}else{
+						//False message
+					}
+				}
+			});
+			//Add to pane
+			pane.getChildren().addAll(h1,dets,typeselect,cancel,submit);
+		}
+		Scene scene = new Scene(pane);
+		popup.setScene(scene);
+		popup.show();
 	}
 
 }
