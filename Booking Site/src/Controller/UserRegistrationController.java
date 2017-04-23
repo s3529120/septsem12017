@@ -60,13 +60,13 @@ public class UserRegistrationController {
 		AccountController acon = new AccountController();
 		userExists=acon.checkUsername(uname.getText());
 
-		if(!(username.matcher(uname.getText()).matches()) 
-				|| !(fullname.matcher(pname.getText()).matches()) 
-				|| !(password.matcher(pword.getText()).matches())
-				|| !(password.matcher(pwordcon.getText()).matches())
-				|| !(addressPattern.matcher(address.getText()).matches()) 
-				|| !(phoneNo.matcher(contactNo.getText()).matches())
-				|| !(emailPattern.matcher(email.getText()).matches())){
+		if(!(username.matcher(uname.getText().trim()).matches()) 
+				|| !(fullname.matcher(pname.getText().trim()).matches()) 
+				|| !(password.matcher(pword.getText().trim()).matches())
+				|| !(password.matcher(pwordcon.getText().trim()).matches())
+				|| !(addressPattern.matcher(address.getText().trim()).matches()) 
+				|| !(phoneNo.matcher(contactNo.getText().trim()).matches())
+				|| !(emailPattern.matcher(email.getText().trim()).matches())){
 			System.out.println("Check Values returns false. Patterns don't match.");
 			return false;
 		}else if(userExists==true){
