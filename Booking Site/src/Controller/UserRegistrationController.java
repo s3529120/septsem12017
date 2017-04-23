@@ -23,7 +23,7 @@ public class UserRegistrationController {
 	private static final String alpha="[a-zA-Z]+";
 	private static final String digit="\\d+";
 	private static final String space="\\s";
-	private static final String hyphen="\\-+";
+	private static final String hyphen="\\-";
 	private static final String alphaNums="\\w+";
 	private static final String dot="\\.";
 	private static final String symbols="[\\W\\S]+"; //all non letter or number characters + non spaces
@@ -31,12 +31,12 @@ public class UserRegistrationController {
 	// Create a new pattern to match email format: chars@(chars.)*chars
 	// Create similar patterns for username, name, password, address etc.
 	private static final Pattern emailPattern=
-			Pattern.compile(emailChars + "@" + "(?:"+ alpha + digit + dot + hyphen + ")+" + dot + alphaNums);
+			Pattern.compile(emailChars + "@" + alphaNums + "(?:" + "\\." + alphaNums + ")++");
 	private static final Pattern username = Pattern.compile(alpha + "\\d*"); // Just one or more letters and any numbers
 	private static final Pattern fullname = Pattern.compile(alpha + "(?:" + space + alpha + ")*"); // Just letters, space and hyphen
 	private static final Pattern password = Pattern.compile("(?:" + alphaNums + "||" + symbols + ")+"); // Should be letters + numbers + Symbols
 	private static final Pattern addressPattern = Pattern.compile(digit + "(?:" + space + alpha + ")+");
-	private static final Pattern phoneNo = Pattern.compile("(?:" + "\\d" + "||" + space + ")+");// atleast one digit or space
+	private static final Pattern phoneNo = Pattern.compile("\\d" + "(?:" + "\\d" + "||" + space + ")+");// atleast one digit or space
 
 
 	/**Constructor, sets associated view and assigns self to view.
@@ -262,7 +262,7 @@ public class UserRegistrationController {
 				unameerrorbox.getChildren().add(unameerrortxt);
 			}
 		} else {
-			if (unameerrorbox.getChildren().contains(unameerrortxt)) {
+			if (unameerrorbox.getChildren().contains(unameerrortxt)){
 				unameerrorbox.getChildren().remove(unameerrortxt);
 			}
 		}
