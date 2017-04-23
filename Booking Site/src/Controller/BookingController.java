@@ -15,6 +15,7 @@ import Model.AccountModel;
 import Model.BookingModel;
 
 import Model.DatabaseModel;
+import Model.TypeModel;
 import View.BookingsView;
 import javafx.scene.control.ProgressBar;
 
@@ -99,23 +100,39 @@ public class BookingController
 	    * @param username Username of person to set booking to.
 	    * @return True if successful, false if failed/
 	    */
-	   public Boolean setUser(BookingModel booking,String uname){
+	   public Boolean setUser(BookingModel booking,String uname,TypeModel type){
 	      DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 	      String sql="";
+	      int numBooks;
+	      LocalTime incTime;
 	      
 	      //Assign to model
 	      booking.setUser(uname);
 	      
 	      //Insert into database
 	      dbcont.createConnection();
-	      sql="UPDATE Booking SET Username=? WHERE Date=? AND StartTime=? AND EmployeeEmail=?;";
+	      sql="UPDATE Booking SET Username=? WHERE Date=? AND StartTime=? ";
+	      
+	      //Determine number of booking slots required and alter sql
+	      numBooks=type.getDuration()/15;
+	      for(int i=1;i<numBooks;i++){
+	         sql=sql.concat("OR StartTime=? ");
+	      }
+	      
+	      sql=sql.concat("AND EmployeeEmail=?;");
 	      dbcont.prepareStatement(sql);
 	      try
          {
             dbcont.getState().setString(1, uname);
             dbcont.getState().setString(2, booking.getDate().toString());
             dbcont.getState().setString(3, booking.getStartTime().toString());
-            dbcont.getState().setString(4, booking.getEmployee());
+            incTime=booking.getStartTime();
+            for(int i=1;i<numBooks;i++){
+               incTime=incTime.plusMinutes(15);
+               dbcont.getState().setString(3+i, incTime.toString());
+            }
+            
+            dbcont.getState().setString(3+numBooks, booking.getEmployee());
             dbcont.runSQLUpdate();
          }
          catch (SQLException e)

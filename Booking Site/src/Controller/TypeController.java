@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import Model.DatabaseModel;
 import Model.TypeModel;
@@ -130,6 +131,17 @@ public class TypeController
       dbcont.closeConnection();
       return list;
       
+   }
+   
+   public static TypeModel getModelByName(List<TypeModel> list,String name){
+      TypeModel[] checkArr = new TypeModel[list.size()];
+      list.toArray(checkArr);
+      for(int i=0;i<list.size();i++){
+         if(checkArr[i].getName().compareToIgnoreCase(name)==0){
+            return checkArr[i];
+         }
+      }
+      return null;
    }
    
    public List<TypeModel> getSetTypes(){

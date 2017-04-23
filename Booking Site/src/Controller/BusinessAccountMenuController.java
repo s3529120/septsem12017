@@ -14,7 +14,6 @@ public class BusinessAccountMenuController {
 	public BusinessAccountMenuController(BusinessAccountModel model, 
 			BusinessAccountMenuView view){
 		this.model=model;
-		System.out.println(model.getName());
 		this.view=view;
 		
 	}

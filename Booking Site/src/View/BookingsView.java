@@ -2,9 +2,11 @@ package View;
 
 import Controller.AccountController;
 import Controller.BookingController;
+import Controller.TypeController;
 import Model.AccountModel;
 import Model.BookingModel;
 import Model.BusinessAccountModel;
+import Model.TypeModel;
 import Model.UserAccountModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -143,10 +145,19 @@ public class BookingsView {
 	      customers.forEach(x->{map.put(x.getName(), x.getUsername());});
 	   
 	      //Customer selector
-	      Label cuslbl = new Label("Please select the customer you eish to assign.");
+	      Label cuslbl = new Label("Please select the customer you wish to assign.");
 	      ComboBox<String> selector = new ComboBox<String>();
 	      map.forEach((k,v)->selector.getItems().add(k));
 	      VBox select = new VBox(cuslbl,selector);
+	      
+	    //Type selector
+	      TypeController tcont = new TypeController();
+	      tcont.setEmp(book.getEmployee());
+         Label typelbl = new Label("Please select the appointment type you desire.");
+         ComboBox<String> typeselector = new ComboBox<String>();
+         List<TypeModel> settypes = tcont.getSetTypes();
+         settypes.forEach(x -> typeselector.getItems().add(x.getName()));
+         VBox typeselect = new VBox(typelbl,typeselector);
 	   
 	    //Cancel button
          Button cancel = new Button("Cancel");
@@ -161,7 +172,7 @@ public class BookingsView {
 	      submit.setOnAction(new EventHandler<ActionEvent>(){
 	         @Override public void handle(ActionEvent e){
 	            BookingController cont = new BookingController();
-	            if(cont.setUser(book, map.get(selector.getSelectionModel().getSelectedItem()))){
+	            if(cont.setUser(book, map.get(selector.getSelectionModel().getSelectedItem()),TypeController.getModelByName(settypes, typeselector.getSelectionModel().getSelectedItem()))){
 	               //Success actions
 	            }else{
 	               //False message
@@ -169,7 +180,7 @@ public class BookingsView {
 	         }
 	      });
 	   //Add to pane
-	   pane.getChildren().addAll(h1,select,cancel,submit);
+	   pane.getChildren().addAll(h1,select,typeselect,cancel,submit);
 	   }else{
 	    //Heading
          Text h1 = new Text("Would you like to confirm this Booking?");
@@ -188,6 +199,15 @@ public class BookingsView {
          Text etxt = new Text (book.getDate().toString());
          HBox ebox= new HBox(elbl,etxt);
          VBox dets=new VBox(dbox,stbox,ftbox,ebox);
+         
+       //Type selector
+         TypeController tcont = new TypeController();
+         tcont.setEmp(book.getEmployee());
+         Label typelbl = new Label("Please select the appointment type you desire.");
+         ComboBox<String> typeselector = new ComboBox<String>();
+         List<TypeModel> settypes = tcont.getSetTypes();
+         settypes.forEach(x -> typeselector.getItems().add(x.getName()));
+         VBox typeselect = new VBox(typelbl,typeselector);
       
        //Cancel button
          Button cancel = new Button("Cancel");
@@ -202,7 +222,7 @@ public class BookingsView {
          submit.setOnAction(new EventHandler<ActionEvent>(){
             @Override public void handle(ActionEvent e){
                BookingController cont = new BookingController();
-               if(cont.setUser(book, cont.getCaller().getUsername())){
+               if(cont.setUser(book, cont.getCaller().getUsername(),TypeController.getModelByName(settypes, typeselector.getSelectionModel().getSelectedItem()))){
                   //Success actions
                }else{
                   //False message
@@ -210,7 +230,7 @@ public class BookingsView {
             }
          });
       //Add to pane
-      pane.getChildren().addAll(h1,dets,cancel,submit);
+      pane.getChildren().addAll(h1,dets,typeselect,cancel,submit);
 	   }
 	   Scene scene = new Scene(pane);
 	   popup.setScene(scene);
