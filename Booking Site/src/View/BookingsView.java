@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 
 import java.util.HashMap;
 import java.util.List;
@@ -105,8 +106,8 @@ public class BookingsView {
 
 			HBox bookingBox = new HBox(who, when, bookingType);
 			bookingBox.setId("bookingBox");
-			bookingBox.addEventHandler(ActionEvent.ACTION,new EventHandler<ActionEvent>(){
-				@Override public void handle(ActionEvent e){
+			bookingBox.addEventFilter(MouseEvent.MOUSE_CLICKED,new EventHandler<MouseEvent>(){
+				@Override public void handle(MouseEvent e){
 					assignToBooking(booking);
 				}
 			});
