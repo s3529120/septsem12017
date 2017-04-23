@@ -8,7 +8,6 @@ import View.LoginView;
 import View.UserAccountMenuView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import jregex.*;
 import javafx.scene.control.TextField;
 
 
