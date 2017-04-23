@@ -1,7 +1,7 @@
 package Controller;
 
 import java.sql.ResultSet;
-import jregex.*;
+import java.util.regex.*;
 import java.sql.SQLException;
 
 import Model.DatabaseModel;
@@ -13,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import jregex.Pattern;
 
 public class UserRegistrationController {
 	private UserRegistrationView view;
@@ -32,12 +31,12 @@ public class UserRegistrationController {
 	// Create a new pattern to match email format: chars@(chars.)*chars
 	// Create similar patterns for username, name, password, address etc.
 	private static final Pattern emailPattern=
-			new Pattern(emailChars + "@" + "(?:"+ alphaNums + dot + ")*" + alphaNums);
-	private static final Pattern username = new Pattern("(?:"+ alphaNums + ")*"); // Just letters+numbers
-	private static final Pattern fullname = new Pattern("(?:" + alpha + hyphen + ")*" + space + "(?:" + alpha + hyphen + ")*"); // Just letters, space and hyphen
-	private static final Pattern password = new Pattern("(?:"+ alphaNums + symbols + ")*"); // Should be letters + numbers + Symbols
-	private static final Pattern addressPattern = new Pattern("(?:" + digit + ")*" + "(?:" + space + alpha + ")*");
-	private static final Pattern phoneNo = new Pattern("(?:" + digit + space + ")*");// + space + parenthesis);
+			Pattern.compile(emailChars + "@" + "(?:"+ alphaNums + dot + ")*" + alphaNums);
+	private static final Pattern username = Pattern.compile(alphaNums); // Just letters+numbers
+	private static final Pattern fullname = Pattern.compile("(?:" + alpha + hyphen + ")*" + space + "(?:" + alpha + hyphen + ")*"); // Just letters, space and hyphen
+	private static final Pattern password = Pattern.compile(alphaNums + symbols); // Should be letters + numbers + Symbols
+	private static final Pattern addressPattern = Pattern.compile("(?:" + digit + ")*" + "(?:" + space + alpha + ")+");
+	private static final Pattern phoneNo = Pattern.compile(digit + space);// + space + parenthesis);
 
 
 	/**Constructor, sets associated view and assigns self to view.
