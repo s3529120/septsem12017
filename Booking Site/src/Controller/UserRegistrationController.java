@@ -89,10 +89,13 @@ public class UserRegistrationController {
 			TextField email, HBox mailhbox,
 			Text emptyerrortxt, HBox emptyerrorbox,
 			Text passerrortxt, HBox passerrorbox,
-			Text takenerrortxt, HBox takenerrorbox) {
+			Text takenerrortxt, HBox takenerrorbox,
+			Text emailerrortxt, HBox emailerrorbox,
+			Text phoneerrortxt, HBox phoneerrorbox
+			) {
 
 		//checking for empty as well as if the pattern is matched
-		boolean hasEmpty = false;
+		boolean hasEmpty = false, numTooLong = false;
 		if(uname.getText().trim().equals("") 
 				|| !(username.matcher(uname.getText().trim()).matches())) {
 			unamehbox.setId("incorrectForm");
@@ -122,11 +125,13 @@ public class UserRegistrationController {
 			pwordhboxcon.setId("form");
 		}
 		if(contactNo.getText().trim().equals("")
-				|| !(phoneNo.matcher(contactNo.getText().trim()).matches())
-				|| contactNo.getText().replaceAll("\\s","").length() > 10
-				) {
+				|| !(phoneNo.matcher(contactNo.getText().trim()).matches()) ) {
 			numhbox.setId("incorrectForm");
 			hasEmpty = true;
+			//Check for length of phone num
+		} else if( contactNo.getText().replaceAll("\\s","").length() > 10){
+			numhbox.setId("incorrectForm");
+			numTooLong = true;
 		} else {
 			numhbox.setId("form");
 		}

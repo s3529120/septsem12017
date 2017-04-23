@@ -121,6 +121,15 @@ public class UserRegistrationView {
 		Text takenerrortxt = new Text("That username has already been taken");
 		HBox takenerrorbox = new HBox();
 		
+		//Invalid email
+		Text emailerrortxt = new Text("Please enter an email in the correct format");
+		HBox emailerrorbox = new HBox();
+				
+		//Phone too long
+		Text phoneerrortxt = new Text("Please enter a phone number only 10 digits long");
+		HBox phoneerrorbox = new HBox();
+		
+		
 		//Register button
 		Button registerbtn = new Button("Register");
 		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
@@ -145,7 +154,9 @@ public class UserRegistrationView {
 							mailtxtfield, mailhbox, 
 							emptyerrortxt, emptyerrorbox,
 							passerrortxt, passerrorbox,
-							takenerrortxt, takenerrorbox);
+							takenerrortxt, takenerrorbox,
+							emailerrortxt, emailerrorbox,
+							phoneerrortxt, phoneerrorbox);
 			   }
 			}
 		});
