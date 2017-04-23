@@ -18,28 +18,28 @@ import jregex.Pattern;
 public class UserRegistrationController {
 	private UserRegistrationView view;
 	private UserAccountModel model;
-	
+
 	// For origin of this code see http://jregex.sourceforge.net/examples-email.html
 	private static final String emailChars="[\\w.\\-]+"; //letters, dots, hyphens
-	private static final String alpha="\\w";
+	private static final String alpha="[a-zA-Z]";
 	private static final String digit="\\d";
 	private static final String space="\\s";
 	private static final String hyphen="\\-";
-	private static final String alphaNums="\\w+";
+	private static final String alphaNums="\\w";
 	private static final String dot="\\.";
-	private static final String symbols="[\\W\\S]"; //all non word characters + non spaces
-	
+	private static final String symbols="[\\W\\S]"; //all non letter or number characters + non spaces
+
 	// Create a new pattern to match email format: chars@(chars.)*chars
 	// Create similar patterns for username, name, password, address etc.
 	private static final Pattern emailPattern=
 			new Pattern(emailChars + "@" + "(?:"+ alphaNums + dot + ")*" + alphaNums);
 	private static final Pattern username = new Pattern("(?:"+ alphaNums + ")*"); // Just letters+numbers
-	private static final Pattern fullname = new Pattern("(?:"+ alpha + space + ")*"); // Just letters
+	private static final Pattern fullname = new Pattern("(?:" + alpha + hyphen + ")*" + space + "(?:" + alpha + hyphen + ")*"); // Just letters, space and hyphen
 	private static final Pattern password = new Pattern("(?:"+ alphaNums + symbols + ")*"); // Should be letters + numbers + Symbols
-	private static final Pattern addressPattern = new Pattern("(?:" + digit + ")*" + "(?:" + digit + alpha + ")*");
+	private static final Pattern addressPattern = new Pattern("(?:" + digit + ")*" + "(?:" + space + alpha + ")*");
 	private static final Pattern phoneNo = new Pattern("(?:" + digit + space + ")*");// + space + parenthesis);
-	
-	
+
+
 	/**Constructor, sets associated view and assigns self to view.
 	 * @param view View to associate.
 	 */
@@ -47,7 +47,7 @@ public class UserRegistrationController {
 		this.view=view;
 		view.setController(this);
 	}
-	
+
 	/**Calls associated view to update window.
 	 */
 	public void updateView(){
@@ -55,30 +55,30 @@ public class UserRegistrationController {
 	}
 
 	public Boolean checkValues(TextField uname, TextField pname, PasswordField pword, PasswordField pwordcon,
-	                           TextField address, TextField contactNo, TextField email){
-	   Boolean userExists;
-	   
-	   AccountController acon = new AccountController();
-	   userExists=acon.checkUsername(uname.getText());
-	   
-	   if(!(username.matcher(uname.getText().trim()).matches()) 
-			   || !(fullname.matcher(pname.getText().trim()).matches()) 
-			   || !(password.matcher(pword.getText().trim()).matches())
-			   || !(password.matcher(pwordcon.getText().trim()).matches())
-			   || !(addressPattern.matcher(address.getText().trim()).matches()) 
-			   || !(phoneNo.matcher(contactNo.getText().trim()).matches())
-			   || !(emailPattern.matcher(email.getText().trim()).matches())){
-	      return false;
-	   }else if(userExists==true){
-	      return false;
-	   }else if (!pword.getText().equals(pwordcon.getText())) {
-		   return false;
-	   } else {
-	      return true;
-	   }
-	   
+			TextField address, TextField contactNo, TextField email){
+		Boolean userExists;
+
+		AccountController acon = new AccountController();
+		userExists=acon.checkUsername(uname.getText());
+
+		if(!(username.matcher(uname.getText().trim()).matches()) 
+				|| !(fullname.matcher(pname.getText().trim()).matches()) 
+				|| !(password.matcher(pword.getText().trim()).matches())
+				|| !(password.matcher(pwordcon.getText().trim()).matches())
+				|| !(addressPattern.matcher(address.getText().trim()).matches()) 
+				|| !(phoneNo.matcher(contactNo.getText().trim()).matches())
+				|| !(emailPattern.matcher(email.getText().trim()).matches())){
+			return false;
+		}else if(userExists==true){
+			return false;
+		}else if (!pword.getText().equals(pwordcon.getText())) {
+			return false;
+		} else {
+			return true;
+		}
+
 	}
-	
+
 	public void validateEntries(
 			TextField uname, HBox unamehbox,
 			TextField pname, HBox pnamehbox,
@@ -89,69 +89,98 @@ public class UserRegistrationController {
 			TextField email, HBox mailhbox,
 			Text emptyerrortxt, HBox emptyerrorbox,
 			Text passerrortxt, HBox passerrorbox,
-			Text takenerrortxt, HBox takenerrorbox,
+			Text unameerrortxt, HBox unameerrorbox,
+			Text pnameerrortxt, HBox pnameerrorbox,
 			Text emailerrortxt, HBox emailerrorbox,
-			Text phoneerrortxt, HBox phoneerrorbox
-			) {
+			Text phoneerrortxt, HBox phoneerrorbox,
+			Text streeterrortxt, HBox streeterrorbox
+			){
 
-		//checking for empty as well as if the pattern is matched
-		boolean hasEmpty = false, numTooLong = false;
-		if(uname.getText().trim().equals("") 
-				|| !(username.matcher(uname.getText().trim()).matches())) {
+		// Create bool vars to store state of entered data matching
+		boolean hasEmpty = false, numerror = false, unameerror = false, 
+				pnameerror = false, passerror = false, passconerror = false, 
+				streeterror = false, mailerror = false;
+
+		// checking for empty as well as if the pattern is matched
+		if(uname.getText().trim().equals("")) {
 			unamehbox.setId("incorrectForm");
 			hasEmpty = true;
+			unameerror = true;
+		} else if(!(username.matcher(uname.getText().trim()).matches())) { 
+			unamehbox.setId("incorrectForm");
+			unameerror = true;
 		} else {
 			unamehbox.setId("form");
 		}
-		if(pname.getText().trim().equals("")
-				|| !(fullname.matcher(pname.getText().trim()).matches())) {
+		if(pname.getText().trim().equals("")) {
 			pnamehbox.setId("incorrectForm");
 			hasEmpty = true;
+			pnameerror = true;
+		} else if(!(fullname.matcher(pname.getText().trim()).matches())) {
+			pnamehbox.setId("incorrectForm");
+			pnameerror = true;
 		} else {
 			pnamehbox.setId("form");
 		}
-		if(pword.getText().trim().equals("")
-				|| !(password.matcher(pword.getText().trim()).matches())) {
+		if(pword.getText().trim().equals("")) {
 			pwordhbox.setId("incorrectForm");
 			hasEmpty = true;
+			passerror = true;
+		} else if(!(password.matcher(pword.getText().trim()).matches())) {
+			pwordhbox.setId("incorrectForm");
+			passerror = true;
 		} else {
 			pwordhbox.setId("form");
 		}
-		if(pwordcon.getText().trim().equals("")
-				|| !(password.matcher(pwordcon.getText().trim()).matches())) {
+		if(pwordcon.getText().trim().equals("")) {
 			pwordhboxcon.setId("incorrectForm");
 			hasEmpty = true;
+			passconerror = true;
+		} else if(!(password.matcher(pwordcon.getText().trim()).matches())) {
+			pwordhboxcon.setId("incorrectForm");
+			passconerror = true;
 		} else {
 			pwordhboxcon.setId("form");
 		}
-		if(contactNo.getText().trim().equals("")
-				|| !(phoneNo.matcher(contactNo.getText().trim()).matches()) ) {
+		if(contactNo.getText().trim().equals("")){
 			numhbox.setId("incorrectForm");
 			hasEmpty = true;
-			//Check for length of phone num
-		} else if( contactNo.getText().replaceAll("\\s","").length() > 10){
+			numerror = true;
+		} else if(!(phoneNo.matcher(contactNo.getText().trim()).matches()) ) {
 			numhbox.setId("incorrectForm");
-			numTooLong = true;
+			numerror = true;
+			//Check for length of phone num
+//		} else if(contactNo.getText().replaceAll("\\s","").length() > 10){
+//			System.out.println(contactNo.getText().replaceAll("\\s","").length());
+//			System.out.println(contactNo.getText().replaceAll("\\s",""));
+//			numhbox.setId("incorrectForm");
+//			numerror = true;
 		} else {
 			numhbox.setId("form");
 		}
-		if(address.getText().trim().equals("")
-				|| !(addressPattern.matcher(address.getText().trim()).matches())) {
+		if(address.getText().trim().equals("")){
 			addhbox.setId("incorrectForm");
 			hasEmpty = true;
+			streeterror = true;
+		} else if(!(addressPattern.matcher(address.getText().trim()).matches())) {
+			addhbox.setId("incorrectForm");
+			streeterror = true;
 		} else {
 			addhbox.setId("form");
 		}
-		if(email.getText().trim().equals("")
-				|| !(emailPattern.matcher(email.getText().trim()).matches())) {
+		if(email.getText().trim().equals("")){
 			mailhbox.setId("incorrectForm");
 			hasEmpty = true;
+			mailerror = true;
+		} else if(!(emailPattern.matcher(email.getText().trim()).matches())) {
+			mailhbox.setId("incorrectForm");
+			mailerror = true;
 		} else {
 			mailhbox.setId("form");
 		}
 
 		//checking if the password fields are what cause the reject and if it is add the "pass error text"
-		if (!pword.getText().equals(pwordcon.getText())) {
+		if (!pword.getText().equals(pwordcon.getText()) || passerror) {
 			if (!passerrorbox.getChildren().contains(passerrortxt)) {
 				passerrorbox.getChildren().add(passerrortxt);
 			}
@@ -160,6 +189,17 @@ public class UserRegistrationController {
 				passerrorbox.getChildren().remove(passerrortxt);
 			}
 		}
+		// Check if the confirmation password matches the pattern
+		if (passconerror) {
+			if (!passerrorbox.getChildren().contains(passerrortxt)) {
+				passerrorbox.getChildren().add(passerrortxt);
+			}
+		} else {
+			if (passerrorbox.getChildren().contains(passerrortxt)) {
+				passerrorbox.getChildren().remove(passerrortxt);
+			}
+		}
+		
 		//checking if any of the fields were empty and if they were add the "empty error text"
 		if (hasEmpty) {
 			if (!emptyerrorbox.getChildren().contains(emptyerrortxt)) {
@@ -170,30 +210,75 @@ public class UserRegistrationController {
 				emptyerrorbox.getChildren().remove(emptyerrortxt);
 			}
 		}
+
+		//check if number is wrong
+		if(numerror){
+			if(!phoneerrorbox.getChildren().contains(phoneerrortxt)){
+				phoneerrorbox.getChildren().add(phoneerrortxt);
+			}
+		}else{
+			if(phoneerrorbox.getChildren().contains(phoneerrortxt)){
+				phoneerrorbox.getChildren().remove(phoneerrortxt);
+			}
+		}
+
+		//check if street address is wrong
+		if(streeterror){
+			if(!streeterrorbox.getChildren().contains(streeterrortxt)){
+				streeterrorbox.getChildren().add(streeterrortxt);
+			}
+		}else{
+			if(streeterrorbox.getChildren().contains(streeterrortxt)){
+				streeterrorbox.getChildren().remove(streeterrortxt);
+			}
+		}
+		
+		//check if mail is wrong
+		if(mailerror){
+			if(!emailerrorbox.getChildren().contains(emailerrortxt)){
+				emailerrorbox.getChildren().add(emailerrortxt);
+			}
+		}else{
+			if(emailerrorbox.getChildren().contains(emailerrortxt)){
+				emailerrorbox.getChildren().remove(emailerrortxt);
+			}
+		}
+		
+		// Check if the the name is invalid
+		if(pnameerror){
+			if(!pnameerrorbox.getChildren().contains(pnameerrortxt)){
+				pnameerrorbox.getChildren().add(pnameerrortxt);
+			}
+		}else{
+			if(pnameerrorbox.getChildren().contains(pnameerrortxt)){
+				pnameerrorbox.getChildren().remove(pnameerrortxt);
+			}
+		}
+		
 		//checking if the account already exists and if it does adding the "taken error text"
 		AccountController acon = new AccountController();
 		boolean accExists=acon.checkUsername(uname.getText());
 		if (accExists) {
-			if (!takenerrorbox.getChildren().contains(takenerrortxt)) {
-				takenerrorbox.getChildren().add(takenerrortxt);
+			if (!unameerrorbox.getChildren().contains(unameerrortxt)) {
+				unameerrorbox.getChildren().add(unameerrortxt);
 			}
 		} else {
-			if (takenerrorbox.getChildren().contains(takenerrortxt)) {
-				takenerrorbox.getChildren().remove(takenerrortxt);
+			if (unameerrorbox.getChildren().contains(unameerrortxt)) {
+				unameerrorbox.getChildren().remove(unameerrortxt);
 			}
 		}
 	}
-	
+
 	public void register(String uname,String pname,String pword,String address,String contactNo,String email) {
 		String sql;
 		model = new UserAccountModel(uname,pname,address,contactNo,email);
 		DatabaseModel dbmod = new DatabaseModel();
 		DatabaseController dbcont = new DatabaseController(dbmod);
-		
+
 		dbcont.createConnection();
 		sql="INSERT INTO Accounts(Username,Password,Name,Type,ContactNo,Email,Address) "
 				+ "Values(?,?,?,?,?,?,?);";
-		
+
 		dbcont.prepareStatement(sql);
 		try{
 			dbcont.getState().setString(1, uname);
@@ -204,15 +289,15 @@ public class UserRegistrationController {
 			dbcont.getState().setString(6, email);
 			dbcont.getState().setString(7, address);
 		}catch(SQLException e){
-		   dbcont.closeConnection();
+			dbcont.closeConnection();
 			e.printStackTrace();
 		}
 		if(dbcont.runSQLUpdate()){
-		
-		UserAccountMenuView newview = new UserAccountMenuView(view.stage);
-		UserAccountMenuController newcont = new UserAccountMenuController(model,newview);
-		newcont.updateView();
-		dbcont.closeConnection();
+
+			UserAccountMenuView newview = new UserAccountMenuView(view.stage);
+			UserAccountMenuController newcont = new UserAccountMenuController(model,newview);
+			newcont.updateView();
+			dbcont.closeConnection();
 		}
 	}
 }
