@@ -60,19 +60,23 @@ public class UserRegistrationController {
 		AccountController acon = new AccountController();
 		userExists=acon.checkUsername(uname.getText());
 
-		if(!(username.matcher(uname.getText().trim()).matches()) 
-				|| !(fullname.matcher(pname.getText().trim()).matches()) 
-				|| !(password.matcher(pword.getText().trim()).matches())
-				|| !(password.matcher(pwordcon.getText().trim()).matches())
-				|| !(addressPattern.matcher(address.getText().trim()).matches()) 
-				|| !(phoneNo.matcher(contactNo.getText().trim()).matches())
-				|| !(emailPattern.matcher(email.getText().trim()).matches())){
+		if(!(username.matcher(uname.getText()).matches()) 
+				|| !(fullname.matcher(pname.getText()).matches()) 
+				|| !(password.matcher(pword.getText()).matches())
+				|| !(password.matcher(pwordcon.getText()).matches())
+				|| !(addressPattern.matcher(address.getText()).matches()) 
+				|| !(phoneNo.matcher(contactNo.getText()).matches())
+				|| !(emailPattern.matcher(email.getText()).matches())){
+			System.out.println("Check Values returns false. Patterns don't match.");
 			return false;
 		}else if(userExists==true){
+			System.out.println("Check Values returns false. User exists.");
 			return false;
 		}else if (!pword.getText().equals(pwordcon.getText())) {
+			System.out.println("Check Values returns false. Passwords dont match.");
 			return false;
 		} else {
+			System.out.println("Check Values returns true.");
 			return true;
 		}
 
@@ -109,8 +113,10 @@ public class UserRegistrationController {
 			unamehbox.setId("incorrectForm");
 			unameerror = true;
 		} else {
+			unameerror = false;
 			unamehbox.setId("form");
 		}
+		
 		if(pname.getText().trim().equals("")) {
 			pnamehbox.setId("incorrectForm");
 			hasEmpty = true;
@@ -119,6 +125,7 @@ public class UserRegistrationController {
 			pnamehbox.setId("incorrectForm");
 			pnameerror = true;
 		} else {
+			pnameerror = false;
 			pnamehbox.setId("form");
 		}
 		if(pword.getText().trim().equals("")) {
@@ -129,8 +136,10 @@ public class UserRegistrationController {
 			pwordhbox.setId("incorrectForm");
 			passerror = true;
 		} else {
+			passerror = false;
 			pwordhbox.setId("form");
 		}
+		
 		if(pwordcon.getText().trim().equals("")) {
 			pwordhboxcon.setId("incorrectForm");
 			hasEmpty = true;
@@ -139,6 +148,7 @@ public class UserRegistrationController {
 			pwordhboxcon.setId("incorrectForm");
 			passconerror = true;
 		} else {
+			passconerror = false;
 			pwordhboxcon.setId("form");
 		}
 		if(contactNo.getText().trim().equals("")){
@@ -149,14 +159,16 @@ public class UserRegistrationController {
 			numhbox.setId("incorrectForm");
 			numerror = true;
 			//Check for length of phone num
-//		} else if(contactNo.getText().replaceAll("\\s","").length() > 10){
-//			System.out.println(contactNo.getText().replaceAll("\\s","").length());
-//			System.out.println(contactNo.getText().replaceAll("\\s",""));
-//			numhbox.setId("incorrectForm");
-//			numerror = true;
+			//		} else if(contactNo.getText().replaceAll("\\s","").length() > 10){
+			//			System.out.println(contactNo.getText().replaceAll("\\s","").length());
+			//			System.out.println(contactNo.getText().replaceAll("\\s",""));
+			//			numhbox.setId("incorrectForm");
+			//			numerror = true;
 		} else {
+			numerror = false;
 			numhbox.setId("form");
 		}
+		
 		if(address.getText().trim().equals("")){
 			addhbox.setId("incorrectForm");
 			hasEmpty = true;
@@ -165,8 +177,10 @@ public class UserRegistrationController {
 			addhbox.setId("incorrectForm");
 			streeterror = true;
 		} else {
+			streeterror = false;
 			addhbox.setId("form");
 		}
+		
 		if(email.getText().trim().equals("")){
 			mailhbox.setId("incorrectForm");
 			hasEmpty = true;
@@ -175,8 +189,18 @@ public class UserRegistrationController {
 			mailhbox.setId("incorrectForm");
 			mailerror = true;
 		} else {
+			mailerror = false;
 			mailhbox.setId("form");
 		}
+		
+		System.out.println("Are any empty:   "+hasEmpty);
+		System.out.println("Phone num error: "+numerror);
+		System.out.println("Uname error:     "+unameerror); 
+		System.out.println("Real name:       "+pnameerror);
+		System.out.println("pass error:      "+passerror);
+		System.out.println("pass con error:  "+passconerror);
+		System.out.println("street error:    "+streeterror);
+		System.out.println("mail error:      "+mailerror + "\n");
 
 		//checking if the password fields are what cause the reject and if it is add the "pass error text"
 		if (!pword.getText().equals(pwordcon.getText()) || passerror) {
@@ -198,7 +222,7 @@ public class UserRegistrationController {
 				passerrorbox.getChildren().remove(passerrortxt);
 			}
 		}
-		
+
 		//checking if any of the fields were empty and if they were add the "empty error text"
 		if (hasEmpty) {
 			if (!emptyerrorbox.getChildren().contains(emptyerrortxt)) {
@@ -231,7 +255,7 @@ public class UserRegistrationController {
 				streeterrorbox.getChildren().remove(streeterrortxt);
 			}
 		}
-		
+
 		//check if mail is wrong
 		if(mailerror){
 			if(!emailerrorbox.getChildren().contains(emailerrortxt)){
@@ -242,7 +266,7 @@ public class UserRegistrationController {
 				emailerrorbox.getChildren().remove(emailerrortxt);
 			}
 		}
-		
+
 		// Check if the the name is invalid
 		if(pnameerror){
 			if(!pnameerrorbox.getChildren().contains(pnameerrortxt)){
@@ -253,7 +277,7 @@ public class UserRegistrationController {
 				pnameerrorbox.getChildren().remove(pnameerrortxt);
 			}
 		}
-		
+
 		//checking if the account already exists and if it does adding the "taken error text"
 		AccountController acon = new AccountController();
 		boolean accExists=acon.checkUsername(uname.getText());
