@@ -3,7 +3,6 @@ package Controller;
 import java.sql.ResultSet;
 import java.util.regex.*;
 import java.sql.SQLException;
-
 import Model.DatabaseModel;
 import Model.UserAccountModel;
 import View.UserAccountMenuView;
@@ -13,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import utils.dataMatcher;
 
 public class UserRegistrationController {
 	private UserRegistrationView view;
@@ -109,7 +109,7 @@ public class UserRegistrationController {
 			unamehbox.setId("incorrectForm");
 			hasEmpty = true;
 			unameerror = true;
-		} else if(!(username.matcher(uname.getText().trim()).matches())) { 
+		} else if(!(dataMatcher.unameMatcher(uname.getText().trim())) ) { 
 			unamehbox.setId("incorrectForm");
 			unameerror = true;
 		} else {
