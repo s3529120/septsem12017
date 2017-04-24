@@ -64,7 +64,7 @@ public class TypeController
    }
    
    //Methods
-   public void removeSpec(String type){
+   public void addSpec(String type){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       String sql="";
       
@@ -87,7 +87,7 @@ public class TypeController
       
    }
    
-   public void addSpec(String type){
+   public void removeSpec(String type){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       String sql="";
       
@@ -132,6 +132,7 @@ public class TypeController
          e.printStackTrace();
       }
       dbcont.closeConnection();
+      list.forEach(x->System.out.println("getAll"+x));
       return list;
       
    }
@@ -152,11 +153,10 @@ public class TypeController
       String sql="";
       ResultSet res;
       List<TypeModel> list=new ArrayList<TypeModel>();
-      List<String> speclist=new ArrayList<String>();
       
       //Retrieve all types from database
       dbcont.createConnection();
-      sql="SELECT Type FROM Spec WHERE EmployeeEmail=?;";
+      sql="SELECT Spec.Type AS Type, Type.Duration as Duration FROM Spec INNER JOIN Type ON Spec.Type=Type.Type WHERE EmployeeEmail=?;";
       dbcont.prepareStatement(sql);
       try
       {
@@ -174,7 +174,7 @@ public class TypeController
       try
       {
          while(res.next()){
-            speclist.add(res.getString("Type"));
+            list.add(new TypeModel(res.getString("Type"),res.getInt("Duration")));
          }
       }
       catch (SQLException e)
@@ -182,22 +182,6 @@ public class TypeController
          e.printStackTrace();
       }
       
-      speclist.forEach(x->{
-         String Sql="SELECT Duration FROM Type WHERE Type=?;";
-         dbcont.prepareStatement(Sql);
-         try
-         {
-            dbcont.getState().setString(1, x);
-            ResultSet result=dbcont.runSQLRes();
-            list.add(new TypeModel(x,result.getInt("Duration")));
-         }
-         catch (SQLException e1)
-         {
-            dbcont.closeConnection();
-            list.add(new TypeModel("None",15));
-            e1.printStackTrace();
-         }
-      });
       
       dbcont.closeConnection();
       return list;

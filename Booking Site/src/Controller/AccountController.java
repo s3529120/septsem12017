@@ -20,16 +20,22 @@ public class AccountController {
       String sql="";
       ResultSet res;
       List<UserAccountModel> accs=new ArrayList<UserAccountModel>();
+      UserAccountModel cus;
       
       //Retrieve users from database
       dbcont.createConnection();
-      sql="SELECT Username FROM Accounts WHERE Type='User';";
+      sql="SELECT Username, Name FROM Accounts WHERE Type='User';";
       dbcont.prepareStatement(sql);
       res=dbcont.runSQLRes();
       try
       {
          while(res.next()){
-            accs.add((UserAccountModel) createAccountModel(res.getString("Username"),"User"));
+            cus=(UserAccountModel) createAccountModel(res.getString("Username"),"User");
+            cus.setName(res.getString("Name"));
+            if(cus!=null){
+               accs.add(cus);
+            }
+            cus=null;
          }
       }
       catch (SQLException e)
