@@ -131,18 +131,14 @@ public class AddEmployeeView
 		//Email taken error box
 		Text takenerrortxt = new Text("Email already in use.");
 		HBox takenerrorbox = new HBox();
+		
+		//invalid first name
+		Text fnamerrortxt = new Text("Please enter a first name using only letters, spaces, and hyphens");
+		HBox fnameerrorbox = new HBox();
 
 		//Surname error box
-		Text snamerrortxt = new Text("Please enter a name using only letters, spaces, and hyphens"); 
+		Text snamerrortxt = new Text("Please enter a surname using only letters, spaces, and hyphens"); 
 		HBox snameerrorbox = new HBox();
-
-		//Password mismatch
-		Text passerrortxt = new Text("Entered passwords do not match");
-		HBox passerrorbox = new HBox();
-
-		//invalid name
-		Text fnamerrortxt = new Text("Please enter a name using only letters, spaces, and hyphens");
-		HBox fnameerrorbox = new HBox();
 
 		//Invalid email
 		Text emailerrortxt = new Text("Please enter an email in the correct format");
@@ -191,7 +187,7 @@ public class AddEmployeeView
 							cityerrortxt, cityerrorbox,
 							postcerrortxt, postcerrorbox,
 							statebox.getValue());
-					if (cont.addEmployee(fnamefield.getText().concat(snamefield.getText()), 
+					if (cont.addEmployee(fnamefield.getText().concat(" ").concat(snamefield.getText()), 
 							contactnofield.getText(), emailfield.getText(), 
 							streetaddfield.getText(), cityfield.getText(), 
 							statebox.getValue(), pcodefield.getText())) {
@@ -233,7 +229,10 @@ public class AddEmployeeView
 		subbtn.getStyleClass().add("bluebtn");
 
 		// Add above elements to vertical box
-		VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, subbtn, empaddedhbox, emptyerrorbox, takenerrorbox);
+		VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, 
+				subbtn, empaddedhbox, emptyerrorbox, takenerrorbox, fnameerrorbox, 
+				snameerrorbox,emailerrorbox, phoneerrorbox, streeterrorbox, 
+				cityerrorbox, postcerrorbox);
 		addressInfo.setId("empAddressVbox");
 
 
@@ -251,6 +250,5 @@ public class AddEmployeeView
 		stage.show();
 
 	}
-
 
 }

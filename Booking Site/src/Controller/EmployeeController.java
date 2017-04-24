@@ -268,9 +268,8 @@ public class EmployeeController
 			String state) {
 
 		// checking for empty
-		boolean hasEmpty = false, numerror = false, unameerror = false, 
-				fnameerror = false, snameerror = false, passerror = false, 
-				passconerror = false, adderror = false, pcodeerror = false,
+		boolean hasEmpty = false, numerror = false, fnameerror = false, 
+				snameerror = false, adderror = false, pcodeerror = false,
 				emailerror = false, cityerror = false;
 
 		//Stringify all inputs
