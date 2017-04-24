@@ -17,8 +17,8 @@ public class BookingSite extends Application {
 	public void start(Stage primaryStage) {
 	   //Set Stage properties 
 		primaryStage.setTitle("Booking Site");
-		primaryStage.setWidth(800);
-		primaryStage.setHeight(600);
+		primaryStage.setWidth(1024);
+		primaryStage.setHeight(720);
 		
 		//Seed data for demonstration
 		Seed.initialize();

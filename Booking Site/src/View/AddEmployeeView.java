@@ -89,7 +89,7 @@ public class AddEmployeeView
 		userInfo.getStyleClass().add("addEmpVbox");
 
 		// Vertical box 2 - address
-		
+
 		//Street address
 		TextField streetaddfield = new TextField();
 		streetaddfield.setPromptText("Street Address");
@@ -140,17 +140,17 @@ public class AddEmployeeView
 				//checking to make sure all fields are filled
 				if(cont.checkValues(fnamefield, snamefield, streetaddfield, pcodefield,
 						contactnofield, emailfield, cityfield)){//cont.empAddedMessage(empaddedhbox, empaddedtxt);
-               cont.validateEntries(
-                                    fnamefield, fnamehbox, 
-                                    snamefield, snamehbox, 
-                                    streetaddfield, streetaddhbox, 
-                                    pcodefield, pcodehbox, 
-                                    contactnofield, contactnohbox, 
-                                    emailfield, emailhbox,
-                                    cityfield, cityhbox,
-                                    emptyerrortxt, emptyerrorbox,
-                                    empaddedtxt, empaddedhbox,
-                                    takenerrortxt, takenerrorbox);
+					cont.validateEntries(
+							fnamefield, fnamehbox, 
+							snamefield, snamehbox, 
+							streetaddfield, streetaddhbox, 
+							pcodefield, pcodehbox, 
+							contactnofield, contactnohbox, 
+							emailfield, emailhbox,
+							cityfield, cityhbox,
+							emptyerrortxt, emptyerrorbox,
+							empaddedtxt, empaddedhbox,
+							takenerrortxt, takenerrorbox);
 					if (cont.addEmployee(fnamefield.getText().concat(snamefield.getText()), 
 							contactnofield.getText(), emailfield.getText(), 
 							streetaddfield.getText(), cityfield.getText(), 
@@ -158,7 +158,7 @@ public class AddEmployeeView
 						if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
 							empaddedhbox.getChildren().add(empaddedtxt);
 						}
-						
+
 					} else {
 						if (empaddedhbox.getChildren().contains(empaddedtxt)) {
 							empaddedhbox.getChildren().remove(empaddedtxt);
