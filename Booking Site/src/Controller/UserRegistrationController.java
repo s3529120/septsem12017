@@ -55,18 +55,13 @@ public class UserRegistrationController {
 
 	public Boolean checkValues(TextField uname, TextField pname, PasswordField pword, PasswordField pwordcon,
 			TextField address, TextField contactNo, TextField email){
-		Boolean userExists;
-
+		Boolean userExists;	
+		
 		AccountController acon = new AccountController();
 		userExists=acon.checkUsername(uname.getText());
 
-		if(!(username.matcher(uname.getText().trim()).matches()) 
-				|| !(fullname.matcher(pname.getText().trim()).matches()) 
-				|| !(password.matcher(pword.getText().trim()).matches())
-				|| !(password.matcher(pwordcon.getText().trim()).matches())
-				|| !(addressPattern.matcher(address.getText().trim()).matches()) 
-				|| !(phoneNo.matcher(contactNo.getText().trim()).matches())
-				|| !(emailPattern.matcher(email.getText().trim()).matches())){
+		if(uname.getText().isEmpty() || pname.getText().isEmpty() || pword.getText().isEmpty() || pwordcon.getText().isEmpty() ||
+				address.getText().isEmpty() || contactNo.getText().isEmpty() || email.getText().isEmpty()){
 			System.out.println("Check Values returns false. Patterns don't match.");
 			return false;
 		}else if(userExists==true){
@@ -109,7 +104,7 @@ public class UserRegistrationController {
 			unamehbox.setId("incorrectForm");
 			hasEmpty = true;
 			unameerror = true;
-		} else if(!(dataMatcher.unameMatcher(uname.getText().trim())) ) { 
+		} else if(!dataMatcher.unameMatcher(uname.getText().trim())) { 
 			unamehbox.setId("incorrectForm");
 			unameerror = true;
 		} else {
@@ -121,7 +116,7 @@ public class UserRegistrationController {
 			pnamehbox.setId("incorrectForm");
 			hasEmpty = true;
 			pnameerror = true;
-		} else if(!(fullname.matcher(pname.getText().trim()).matches())) {
+		} else if(!dataMatcher.nameMatcher(pname.getText().trim())) {
 			pnamehbox.setId("incorrectForm");
 			pnameerror = true;
 		} else {
@@ -132,7 +127,7 @@ public class UserRegistrationController {
 			pwordhbox.setId("incorrectForm");
 			hasEmpty = true;
 			passerror = true;
-		} else if(!(password.matcher(pword.getText().trim()).matches())) {
+		} else if(!dataMatcher.passMatcher(pword.getText().trim())) {
 			pwordhbox.setId("incorrectForm");
 			passerror = true;
 		} else {
@@ -144,7 +139,7 @@ public class UserRegistrationController {
 			pwordhboxcon.setId("incorrectForm");
 			hasEmpty = true;
 			passconerror = true;
-		} else if(!(password.matcher(pwordcon.getText().trim()).matches())) {
+		} else if(!dataMatcher.passMatcher(pwordcon.getText().trim())) {
 			pwordhboxcon.setId("incorrectForm");
 			passconerror = true;
 		} else {
@@ -155,7 +150,7 @@ public class UserRegistrationController {
 			numhbox.setId("incorrectForm");
 			hasEmpty = true;
 			numerror = true;
-		} else if(!(phoneNo.matcher(contactNo.getText().trim()).matches()) ) {
+		} else if(!dataMatcher.phoneMatcher(contactNo.getText().trim())) {
 			numhbox.setId("incorrectForm");
 			numerror = true;
 			//Check for length of phone num
@@ -173,7 +168,7 @@ public class UserRegistrationController {
 			addhbox.setId("incorrectForm");
 			hasEmpty = true;
 			streeterror = true;
-		} else if(!(addressPattern.matcher(address.getText().trim()).matches())) {
+		} else if(!dataMatcher.addMatcher(address.getText().trim())) {
 			addhbox.setId("incorrectForm");
 			streeterror = true;
 		} else {
@@ -185,7 +180,7 @@ public class UserRegistrationController {
 			mailhbox.setId("incorrectForm");
 			hasEmpty = true;
 			mailerror = true;
-		} else if(!(emailPattern.matcher(email.getText().trim()).matches())) {
+		} else if(!dataMatcher.emailMatcher(email.getText().trim())) {
 			mailhbox.setId("incorrectForm");
 			mailerror = true;
 		} else {
