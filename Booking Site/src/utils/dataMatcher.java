@@ -25,7 +25,7 @@ public class dataMatcher {
 	private static final String addPattern = digit + "(?:" + space + alpha + ")+";
 	private static final String phonePattern = "\\d" + "(?:" + "\\d" + "||" + space + ")+";// atleast one digit or space
 	private static final String postcPattern = "\\d{4}";
-	private static final String cityPattern = "(?:" + "alpha" + "||" + space + ")+";
+	private static final String cityPattern = "(?:" + alpha + "||" + space + ")*";
 	
 	public static boolean emailMatcher(String s){
 		if(Pattern.matches(emailPattern, s)){

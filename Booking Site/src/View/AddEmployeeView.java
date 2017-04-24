@@ -132,6 +132,44 @@ public class AddEmployeeView
 		Text takenerrortxt = new Text("Email already in use.");
 		HBox takenerrorbox = new HBox();
 
+		//first name error box
+		Text fnamerrortxt = new Text(""); 
+		HBox fnameerrorbox = new HBox();
+
+		//Surname error box
+		Text snamerrortxt = new Text(""); 
+		HBox snameerrorbox = new HBox();
+
+		//Password mismatch
+		Text passerrortxt = new Text("Entered passwords do not match");
+		HBox passerrorbox = new HBox();
+
+		//invalid name
+		Text fnamerrortxt = new Text("Please enter a name using only letters, spaces, and hyphens");
+		HBox fnameerrorbox = new HBox();
+
+		//Invalid email
+		Text emailerrortxt = new Text("Please enter an email in the correct format");
+		HBox emailerrorbox = new HBox();
+
+		//Phone too long
+		Text phoneerrortxt = new Text("Please enter a valid phone number only 10 digits long");
+		HBox phoneerrorbox = new HBox();
+
+		// Street address invalid
+		Text streeterrortxt = new Text("Please enter a street number followed by a street name");
+		HBox streeterrorbox = new HBox();
+
+		//email error box
+		emailerrortxt = new Text(""); 
+		HBox emailerrorbox = new HBox;
+		phoneerrortxt = new Text(""); 
+		HBox phoneerrorbox,
+		streeterrortxt = new Text(""); 
+		HBox streeterrorbox,
+		postcerrortxt = new Text(""); 
+		HBox postcerrorbox;
+
 		//Submit button
 		Button subbtn = new Button("Add");
 		subbtn.setOnAction(new EventHandler<ActionEvent>(){
@@ -151,6 +189,12 @@ public class AddEmployeeView
 							emptyerrortxt, emptyerrorbox,
 							empaddedtxt, empaddedhbox,
 							takenerrortxt, takenerrorbox,
+							fnamerrortxt, fnameerrorbox,
+							snamerrortxt, snameerrorbox,
+							emailerrortxt, emailerrorbox,
+							phoneerrortxt, phoneerrorbox,
+							streeterrortxt, streeterrorbox,
+							postcerrortxt, postcerrorbox,
 							statebox.getValue());
 					if (cont.addEmployee(fnamefield.getText().concat(snamefield.getText()), 
 							contactnofield.getText(), emailfield.getText(), 
@@ -178,6 +222,12 @@ public class AddEmployeeView
 							emptyerrortxt, emptyerrorbox,
 							empaddedtxt, empaddedhbox,
 							takenerrortxt, takenerrorbox,
+							fnamerrortxt, fnameerrorbox,
+							snamerrortxt, snameerrorbox,
+							emailerrortxt, emailerrorbox,
+							phoneerrortxt, phoneerrorbox,
+							streeterrortxt, streeterrorbox,
+							postcerrortxt, postcerrorbox,
 							statebox.getValue());
 				}
 			}

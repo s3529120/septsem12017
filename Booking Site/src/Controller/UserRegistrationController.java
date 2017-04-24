@@ -93,7 +93,7 @@ public class UserRegistrationController {
 		// Create bool vars to store state of entered data matching
 		boolean hasEmpty = false, numerror = false, unameerror = false, 
 				pnameerror = false, passerror = false, passconerror = false, 
-				adderror = false, pcodeerror = false;
+				adderror = false, emailerror = false;
 
 		// checking for empty as well as if the pattern is matched
 		if(uname.getText().trim().equals("")) {
@@ -175,12 +175,12 @@ public class UserRegistrationController {
 		if(email.getText().trim().equals("")){
 			mailhbox.setId("incorrectForm");
 			hasEmpty = true;
-			pcodeerror = true;
+			emailerror = true;
 		} else if(!dataMatcher.emailMatcher(email.getText().trim())) {
 			mailhbox.setId("incorrectForm");
-			pcodeerror = true;
+			emailerror = true;
 		} else {
-			pcodeerror = false;
+			emailerror = false;
 			mailhbox.setId("form");
 		}
 		
@@ -249,7 +249,7 @@ public class UserRegistrationController {
 		}
 
 		//check if mail is wrong
-		if(pcodeerror){
+		if(emailerror){
 			if(!emailerrorbox.getChildren().contains(emailerrortxt)){
 				emailerrorbox.getChildren().add(emailerrortxt);
 			}
