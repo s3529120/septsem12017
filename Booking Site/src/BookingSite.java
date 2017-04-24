@@ -1,16 +1,13 @@
-import java.awt.geom.Rectangle2D;
-
 import com.sun.glass.ui.Screen;
-
 import Controller.BookingController;
 import Controller.DefaultController;
 import View.MainMenuView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+@SuppressWarnings("restriction")
 public class BookingSite extends Application {
-
-	@SuppressWarnings("restriction")
+	
 	@Override
 	public void start(Stage primaryStage) {
 	   //Set Stage properties 

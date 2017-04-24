@@ -260,7 +260,8 @@ public class EmployeeController
 
 		// checking for empty
 		boolean hasEmpty = false;
-		if (fname.getText().trim().equals("")) {
+		String fnameTrim = fname.getText().trim(), ;
+		if (fnameTrim.equals("")) {
 			fnamehbox.setId("incorrectForm");
 			hasEmpty = true;
 		} else {
