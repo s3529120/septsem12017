@@ -260,9 +260,10 @@ public class EmployeeController
 			Text takenerrortxt, HBox takenerrorbox,
 			Text fnameerrortxt, HBox fnameerrorbox,
 			Text snameerrortxt, HBox snameerrorbox,
-			Text emailrrortxt, HBox emailerrorbox,
+			Text emailerrortxt, HBox emailerrorbox,
 			Text phoneerrortxt, HBox phoneerrorbox,
 			Text streeterrortxt, HBox streeterrorbox,
+			Text cityerrortxt, HBox cityerrorbox,
 			Text postcerrortxt, HBox postcerrorbox,
 			String state) {
 
@@ -281,6 +282,7 @@ public class EmployeeController
 		if (fnameTrim.equals("")) {
 			fnamehbox.setId("incorrectForm");
 			hasEmpty = true;
+			fnameerror = true;
 		} else if(!dataMatcher.fnameMatcher(fnameTrim)){
 			fnamehbox.setId("incorrectForm");
 			fnameerror = true;
@@ -292,6 +294,7 @@ public class EmployeeController
 		if (snameTrim.equals("")) {
 			snamehbox.setId("incorrectForm");
 			hasEmpty = true;
+			snameerror = true;
 		} else if(!dataMatcher.snameMatcher(snameTrim)){
 			snamehbox.setId("incorrectForm");
 			snameerror = true;
@@ -303,6 +306,7 @@ public class EmployeeController
 		if (addTrim.equals("")) {
 			addresshbox.setId("incorrectForm");
 			hasEmpty = true;
+			adderror = true;
 		} else if(!dataMatcher.addMatcher(addTrim)) {
 			addresshbox.setId("incorrectForm");
 			adderror = true;
@@ -314,6 +318,7 @@ public class EmployeeController
 		if (pcodeTrim.equals("")) {
 			pcodehbox.setId("incorrectForm");
 			hasEmpty = true;
+			pcodeerror = true;
 		} else if(!dataMatcher.postcMatcher(pcodeTrim, state)){
 			pcodehbox.setId("incorrectForm");
 			pcodeerror = true;
@@ -325,6 +330,7 @@ public class EmployeeController
 		if (contactnoTrim.equals("")) {
 			contactnohbox.setId("incorrectForm");
 			hasEmpty = true;
+			numerror = true;
 		} else if(!dataMatcher.phoneMatcher(contactnoTrim)){
 			contactnohbox.setId("incorrectForm");
 			numerror = true;
@@ -336,6 +342,7 @@ public class EmployeeController
 		if (emailTrim.equals("")) {
 			emailhbox.setId("incorrectForm");
 			hasEmpty = true;
+			emailerror = true;
 		} else if(!dataMatcher.emailMatcher(emailTrim)){
 			emailhbox.setId("incorrectForm");
 			emailerror = true;
@@ -347,6 +354,7 @@ public class EmployeeController
 		if (cityTrim.equals("")) {
 			cityhbox.setId("incorrectForm");
 			hasEmpty = true;
+			cityerror = true;
 		} else if(!dataMatcher.cityMatcher(cityTrim)){
 			cityhbox.setId("incorrectForm");
 			cityerror = true;
@@ -381,23 +389,23 @@ public class EmployeeController
 
 		//Set error text for incorrect first name
 		if(fnameerror){
-			if(!fnameerrorbox.getChildren().contains(fnamerrortxt)){
-				fnameerrorbox.getChildren().add(fnamerrortxt);
+			if(!fnameerrorbox.getChildren().contains(fnameerrortxt)){
+				fnameerrorbox.getChildren().add(fnameerrortxt);
 			}
 		}else{
-			if (fnameerrorbox.getChildren().contains(fnamerrortxt)) {
-				fnameerrorbox.getChildren().remove(fnamerrortxt);
+			if (fnameerrorbox.getChildren().contains(fnameerrortxt)) {
+				fnameerrorbox.getChildren().remove(fnameerrortxt);
 			}
 		}
 
 		//Set error text for incorrect last name
-		if(fnameerror){
-			if(!snameerrorbox.getChildren().contains(snamerrortxt)){
-				snameerrorbox.getChildren().add(snamerrortxt);
+		if(snameerror){
+			if(!snameerrorbox.getChildren().contains(snameerrortxt)){
+				snameerrorbox.getChildren().add(snameerrortxt);
 			}
 		}else{
-			if (snameerrorbox.getChildren().contains(snamerrortxt)) {
-				snameerrorbox.getChildren().remove(snamerrortxt);
+			if (snameerrorbox.getChildren().contains(snameerrortxt)) {
+				snameerrorbox.getChildren().remove(snameerrortxt);
 			}
 		}
 
@@ -422,6 +430,17 @@ public class EmployeeController
 				streeterrorbox.getChildren().remove(streeterrortxt);
 			}
 		}
+		
+		// Check city error
+		if(cityerror){
+			if(!cityerrorbox.getChildren().contains(cityerrortxt)){
+				cityerrorbox.getChildren().add(cityerrortxt);
+			}
+		} else {
+			if(cityerrorbox.getChildren().contains(cityerrortxt)){
+				cityerrorbox.getChildren().remove(cityerrortxt);
+			}
+		}
 
 		//check if mail is wrong
 		if(emailerror){
@@ -433,6 +452,17 @@ public class EmployeeController
 				emailerrorbox.getChildren().remove(emailerrortxt);
 			}
 		}
+		
+		if(pcodeerror){
+			if(!postcerrorbox.getChildren().contains(postcerrortxt)){
+				postcerrorbox.getChildren().add(postcerrortxt);
+			}
+		} else {
+			if(postcerrorbox.getChildren().contains(postcerrortxt)){
+				postcerrorbox.getChildren().remove(postcerrortxt);
+			}
+		}
+		
 
 
 

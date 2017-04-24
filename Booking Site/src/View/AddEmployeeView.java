@@ -132,12 +132,8 @@ public class AddEmployeeView
 		Text takenerrortxt = new Text("Email already in use.");
 		HBox takenerrorbox = new HBox();
 
-		//first name error box
-		Text fnamerrortxt = new Text(""); 
-		HBox fnameerrorbox = new HBox();
-
 		//Surname error box
-		Text snamerrortxt = new Text(""); 
+		Text snamerrortxt = new Text("Please enter a name using only letters, spaces, and hyphens"); 
 		HBox snameerrorbox = new HBox();
 
 		//Password mismatch
@@ -159,16 +155,14 @@ public class AddEmployeeView
 		// Street address invalid
 		Text streeterrortxt = new Text("Please enter a street number followed by a street name");
 		HBox streeterrorbox = new HBox();
-
-		//email error box
-		emailerrortxt = new Text(""); 
-		HBox emailerrorbox = new HBox;
-		phoneerrortxt = new Text(""); 
-		HBox phoneerrorbox,
-		streeterrortxt = new Text(""); 
-		HBox streeterrorbox,
-		postcerrortxt = new Text(""); 
-		HBox postcerrorbox;
+		
+		// City error
+		Text cityerrortxt = new Text("Please enter a valid city"); 
+		HBox cityerrorbox = new HBox();
+		
+		//Postc error
+		Text postcerrortxt = new Text("Please enter a valid postcode-state combination"); 
+		HBox postcerrorbox = new HBox();
 
 		//Submit button
 		Button subbtn = new Button("Add");
@@ -194,6 +188,7 @@ public class AddEmployeeView
 							emailerrortxt, emailerrorbox,
 							phoneerrortxt, phoneerrorbox,
 							streeterrortxt, streeterrorbox,
+							cityerrortxt, cityerrorbox,
 							postcerrortxt, postcerrorbox,
 							statebox.getValue());
 					if (cont.addEmployee(fnamefield.getText().concat(snamefield.getText()), 
@@ -227,6 +222,7 @@ public class AddEmployeeView
 							emailerrortxt, emailerrorbox,
 							phoneerrortxt, phoneerrorbox,
 							streeterrortxt, streeterrorbox,
+							cityerrortxt, cityerrorbox,
 							postcerrortxt, postcerrorbox,
 							statebox.getValue());
 				}
@@ -237,7 +233,7 @@ public class AddEmployeeView
 		subbtn.getStyleClass().add("bluebtn");
 
 		// Add above elements to vertical box
-		VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, subbtn, empaddedhbox, emptyerrorbox,takenerrorbox);
+		VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, subbtn, empaddedhbox, emptyerrorbox, takenerrorbox);
 		addressInfo.setId("empAddressVbox");
 
 
