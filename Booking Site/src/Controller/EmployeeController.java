@@ -16,6 +16,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import utils.dataMatcher;
 
 
 public class EmployeeController
@@ -256,47 +257,74 @@ public class EmployeeController
 			TextField city, HBox cityhbox,
 			Text emptyerrortxt, HBox emptyerrorbox, 
 			Text empaddedtxt, HBox empaddedhbox,
-			Text takenerrortxt, HBox takenerrorbox) {
+			Text takenerrortxt, HBox takenerrorbox,
+			String state) {
 
 		// checking for empty
-		boolean hasEmpty = false;
-		String fnameTrim = fname.getText().trim(), ;
+		boolean hasEmpty = false, numerror = false, unameerror = false, 
+				fnameerror = false, snameerror = false, passerror = false, 
+				passconerror = false, adderror = false, pcodeerror = false;
+		
+		//Stringify all inputs
+		String fnameTrim = fname.getText().trim(), snameTrim = sname.getText().trim(),
+				addTrim = address.getText().trim(), pcodeTrim = pcode.getText().trim(),
+				contactnoTrim = contactno.getText().trim(), emailTrim = email.getText().trim(),
+				cityTrim = city.getText().trim();
+		
 		if (fnameTrim.equals("")) {
 			fnamehbox.setId("incorrectForm");
 			hasEmpty = true;
+		} else if(!dataMatcher.fnameMatcher(fnameTrim)){
+			fnamehbox.setId("incorrectForm");
+			fnameerror = true;
 		} else {
 			fnamehbox.setId("form");
 		}
-		if (sname.getText().trim().equals("")) {
+		
+		if (snameTrim.equals("")) {
 			snamehbox.setId("incorrectForm");
 			hasEmpty = true;
+		} else if(!dataMatcher.snameMatcher(snameTrim)){
+			snamehbox.setId("incorrectForm");
+			snameerror = true;
 		} else {
 			snamehbox.setId("form");
 		}
-		if (address.getText().trim().equals("")) {
+		
+		if (addTrim.equals("")) {
 			addresshbox.setId("incorrectForm");
 			hasEmpty = true;
+		} else if(!dataMatcher.addMatcher(addTrim)) {
+			addresshbox.setId("incorrectForm");
+			adderror = true;
 		} else {
 			address.setId("form");
 		}
-		if (pcode.getText().trim().equals("")) {
+		
+		if (pcodeTrim.equals("")) {
 			pcodehbox.setId("incorrectForm");
 			hasEmpty = true;
+		} else if(!dataMatcher.postcMatcher(pcodeTrim, state)){
+			pcodehbox.setId("incorrectForm");
+			pcodeerror = true;
 		} else {
 			pcode.setId("form");
 		}
-		if (contactno.getText().trim().equals("")) {
+		
+		if (contactnoTrim.equals("")) {
 			contactnohbox.setId("incorrectForm");
 			hasEmpty = true;
 		} else {
 			contactno.setId("form");
 		}
+		
 		if (email.getText().trim().equals("")) {
 			emailhbox.setId("incorrectForm");
 			hasEmpty = true;
 		} else {
 			emailhbox.setId("form");
 		}
+		
 		if (city.getText().trim().equals("")) {
 			cityhbox.setId("incorrectForm");
 			hasEmpty = true;

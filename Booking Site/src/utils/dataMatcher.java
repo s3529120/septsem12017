@@ -25,6 +25,7 @@ public class dataMatcher {
 	private static final String addPattern = digit + "(?:" + space + alpha + ")+";
 	private static final String phonePattern = "\\d" + "(?:" + "\\d" + "||" + space + ")+";// atleast one digit or space
 	private static final String postcPattern = "\\d{4}";
+	private static final String cityPattern = "(?:" + "alpha" + "||" + space + ")+";
 	
 	public static boolean emailMatcher(String s){
 		if(Pattern.matches(emailPattern, s)){
@@ -38,6 +39,22 @@ public class dataMatcher {
 		if(Pattern.matches(pnamePattern, s)){
 			return true;
 		} else {
+			return false;
+		}
+	}
+	
+	public static boolean fnameMatcher(String s){
+		if(Pattern.matches("[a-zA-z\\-\\s]+", s)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public static boolean snameMatcher(String s){
+		if(Pattern.matches("[a-zA-z\\-\\s]+", s)){
+			return true;
+		}else{
 			return false;
 		}
 	}
@@ -144,7 +161,14 @@ public class dataMatcher {
 				}
 			}
 			
-		}else{
+		}
+		return false;
+	}
+	
+	public static boolean cityMatcher(String s){
+		if(Pattern.matches(cityPattern, s)){
+			return true;
+		} else {
 			return false;
 		}
 	}

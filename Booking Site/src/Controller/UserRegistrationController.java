@@ -62,16 +62,12 @@ public class UserRegistrationController {
 
 		if(uname.getText().isEmpty() || pname.getText().isEmpty() || pword.getText().isEmpty() || pwordcon.getText().isEmpty() ||
 				address.getText().isEmpty() || contactNo.getText().isEmpty() || email.getText().isEmpty()){
-			System.out.println("Check Values returns false. Patterns don't match.");
 			return false;
 		}else if(userExists==true){
-			System.out.println("Check Values returns false. User exists.");
 			return false;
 		}else if (!pword.getText().equals(pwordcon.getText())) {
-			System.out.println("Check Values returns false. Passwords dont match.");
 			return false;
 		} else {
-			System.out.println("Check Values returns true.");
 			return true;
 		}
 
@@ -97,7 +93,7 @@ public class UserRegistrationController {
 		// Create bool vars to store state of entered data matching
 		boolean hasEmpty = false, numerror = false, unameerror = false, 
 				pnameerror = false, passerror = false, passconerror = false, 
-				streeterror = false, mailerror = false;
+				adderror = false, pcodeerror = false;
 
 		// checking for empty as well as if the pattern is matched
 		if(uname.getText().trim().equals("")) {
@@ -167,35 +163,36 @@ public class UserRegistrationController {
 		if(address.getText().trim().equals("")){
 			addhbox.setId("incorrectForm");
 			hasEmpty = true;
-			streeterror = true;
+			adderror = true;
 		} else if(!dataMatcher.addMatcher(address.getText().trim())) {
 			addhbox.setId("incorrectForm");
-			streeterror = true;
+			adderror = true;
 		} else {
-			streeterror = false;
+			adderror = false;
 			addhbox.setId("form");
 		}
 		
 		if(email.getText().trim().equals("")){
 			mailhbox.setId("incorrectForm");
 			hasEmpty = true;
-			mailerror = true;
+			pcodeerror = true;
 		} else if(!dataMatcher.emailMatcher(email.getText().trim())) {
 			mailhbox.setId("incorrectForm");
-			mailerror = true;
+			pcodeerror = true;
 		} else {
-			mailerror = false;
+			pcodeerror = false;
 			mailhbox.setId("form");
 		}
 		
-		System.out.println("Are any empty:   "+hasEmpty);
-		System.out.println("Phone num error: "+numerror);
-		System.out.println("Uname error:     "+unameerror); 
-		System.out.println("Real name:       "+pnameerror);
-		System.out.println("pass error:      "+passerror);
-		System.out.println("pass con error:  "+passconerror);
-		System.out.println("street error:    "+streeterror);
-		System.out.println("mail error:      "+mailerror + "\n");
+		//Basic debugging text
+//		System.out.println("Are any empty:   "+hasEmpty);
+//		System.out.println("Phone num error: "+numerror);
+//		System.out.println("Uname error:     "+unameerror); 
+//		System.out.println("Real name:       "+pnameerror);
+//		System.out.println("pass error:      "+passerror);
+//		System.out.println("pass con error:  "+passconerror);
+//		System.out.println("street error:    "+streeterror);
+//		System.out.println("mail error:      "+mailerror + "\n");
 
 		//checking if the password fields are what cause the reject and if it is add the "pass error text"
 		if (!pword.getText().equals(pwordcon.getText()) || passerror) {
@@ -241,7 +238,7 @@ public class UserRegistrationController {
 		}
 
 		//check if street address is wrong
-		if(streeterror){
+		if(adderror){
 			if(!streeterrorbox.getChildren().contains(streeterrortxt)){
 				streeterrorbox.getChildren().add(streeterrortxt);
 			}
@@ -252,7 +249,7 @@ public class UserRegistrationController {
 		}
 
 		//check if mail is wrong
-		if(mailerror){
+		if(pcodeerror){
 			if(!emailerrorbox.getChildren().contains(emailerrortxt)){
 				emailerrorbox.getChildren().add(emailerrortxt);
 			}

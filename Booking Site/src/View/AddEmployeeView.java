@@ -150,7 +150,8 @@ public class AddEmployeeView
 							cityfield, cityhbox,
 							emptyerrortxt, emptyerrorbox,
 							empaddedtxt, empaddedhbox,
-							takenerrortxt, takenerrorbox);
+							takenerrortxt, takenerrorbox,
+							statebox.getValue());
 					if (cont.addEmployee(fnamefield.getText().concat(snamefield.getText()), 
 							contactnofield.getText(), emailfield.getText(), 
 							streetaddfield.getText(), cityfield.getText(), 
@@ -176,7 +177,8 @@ public class AddEmployeeView
 							cityfield, cityhbox,
 							emptyerrortxt, emptyerrorbox,
 							empaddedtxt, empaddedhbox,
-							takenerrortxt, takenerrorbox);
+							takenerrortxt, takenerrorbox,
+							statebox.getValue());
 				}
 			}
 
