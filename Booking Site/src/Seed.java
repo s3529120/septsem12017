@@ -97,11 +97,11 @@ public class Seed {
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
 			dataCont.getState().setString(2, "abc123");
-			dataCont.getState().setString(3, "Johns Hairdressing");
+			dataCont.getState().setString(3, "Francois le toiletteur pour animaux");
 			dataCont.getState().setString(4, "1300655506");
 			dataCont.getState().setString(5, "Business");
-			dataCont.getState().setString(6, "1 SQL Avenue");
-			dataCont.getState().setString(7, "jwares@gmail.com");
+			dataCont.getState().setString(6, "1 Groomer Avenue");
+			dataCont.getState().setString(7, "francois@gmail.com");
 			dataCont.runSQLUpdate();
 
 			// Booking date
@@ -109,6 +109,18 @@ public class Seed {
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, LocalDate.now().toString());
 			dataCont.runSQLUpdate();
+			
+			//Types
+			sql="INSERT INTO Type(Type,Duration) Values('Nails',15);";
+			dataCont.runSQLUpdate();
+			sql="INSERT INTO Type(Type,Duration) Values('None',15);";
+         dataCont.runSQLUpdate();
+         sql="INSERT INTO Type(Type,Duration) Values('Cut',30);";
+         dataCont.runSQLUpdate();
+         sql="INSERT INTO Type(Type,Duration) Values('Style',30);";
+         dataCont.runSQLUpdate();
+         sql="INSERT INTO Type(Type,Duration) Values('Cut and Style',45);";
+         dataCont.runSQLUpdate();
 
 ///////////// EMPLOYEE 1
 			sql = "INSERT INTO Employee(Name, ContactNo, Email) " + "VALUES(?,?,?)";
@@ -117,6 +129,12 @@ public class Seed {
 			dataCont.getState().setString(2, "0455555555");
 			dataCont.getState().setString(3, "johndoe@example.com");
 			dataCont.runSQLUpdate();
+			
+			//Employee 1 Spec
+			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Nails',johndoe@example.com);";
+         dataCont.runSQLUpdate();
+         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('None',johndoe@example.com);";
+         dataCont.runSQLUpdate();
 
 			// Employee 1 address
 			sql = "INSERT INTO Address(EmployeeEmail, StreetAddress, City, State, PostCode) " + "VALUES(?,?,?,?,?)";
@@ -162,6 +180,16 @@ public class Seed {
 			dataCont.getState().setString(2, "0455555555");
 			dataCont.getState().setString(3, "janeoliver@example.com");
 			dataCont.runSQLUpdate();
+			
+			//Employee 2 Spec
+         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Cut',janeoliver@example.com);";
+         dataCont.runSQLUpdate();
+         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('None',johndoe@example.com);";
+         dataCont.runSQLUpdate();
+         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Style',johndoe@example.com);";
+         dataCont.runSQLUpdate();
+         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Cut and Style',johndoe@example.com);";
+         dataCont.runSQLUpdate();
 
 			// Employee 2 address
 			sql = "INSERT INTO Address(EmployeeEmail, StreetAddress, City, State, PostCode) " + "VALUES(?,?,?,?,?)";

@@ -79,6 +79,7 @@ public class TypeController
       }
       catch (SQLException e)
       {
+         e.printStackTrace();
       }
       dbcont.runSQLUpdate();
       dbcont.closeConnection();
@@ -99,6 +100,7 @@ public class TypeController
       }
       catch (SQLException e)
       {
+         e.printStackTrace();
       }
       dbcont.runSQLUpdate();
       dbcont.closeConnection();
@@ -127,6 +129,7 @@ public class TypeController
       }
       catch (SQLException e)
       {
+         e.printStackTrace();
       }
       dbcont.closeConnection();
       return list;
@@ -149,6 +152,7 @@ public class TypeController
       String sql="";
       ResultSet res;
       List<TypeModel> list=new ArrayList<TypeModel>();
+      List<String> speclist=new ArrayList<String>();
       
       //Retrieve all types from database
       dbcont.createConnection();
@@ -162,7 +166,7 @@ public class TypeController
       {
          dbcont.closeConnection();
          list.add(new TypeModel("None",15));
-         return list;
+         e1.printStackTrace();
       }
       res=dbcont.runSQLRes();
       
@@ -170,12 +174,31 @@ public class TypeController
       try
       {
          while(res.next()){
-            list.add(new TypeModel(res.getString("Type"),res.getInt("Duration")));
+            speclist.add(res.getString("Type"));
          }
       }
       catch (SQLException e)
       {
+         e.printStackTrace();
       }
+      
+      speclist.forEach(x->{
+         String Sql="SELECT Duration FROM Type WHERE Type=?;";
+         dbcont.prepareStatement(Sql);
+         try
+         {
+            dbcont.getState().setString(1, x);
+            ResultSet result=dbcont.runSQLRes();
+            list.add(new TypeModel(x,result.getInt("Duration")));
+         }
+         catch (SQLException e1)
+         {
+            dbcont.closeConnection();
+            list.add(new TypeModel("None",15));
+            e1.printStackTrace();
+         }
+      });
+      
       dbcont.closeConnection();
       return list;
       

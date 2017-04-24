@@ -234,6 +234,7 @@ public class BookingsView {
 			pane.getChildren().addAll(h1,dets,typeselect,cancel,submit);
 		}
 		Scene scene = new Scene(pane);
+		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 		popup.setScene(scene);
 		popup.show();
 	}
