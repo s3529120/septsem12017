@@ -166,7 +166,7 @@ public class AddEmployeeView
 						}
 					}
 				}else{
-					//checking for empty
+					//Perform validation if not empty
 					cont.validateEntries(
 							fnamefield, fnamehbox, 
 							snamefield, snamehbox, 
