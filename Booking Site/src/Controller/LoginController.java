@@ -3,11 +3,14 @@ package Controller;
 import Model.AccountModel;
 import Model.BusinessAccountModel;
 import Model.UserAccountModel;
+import View.BookingsView;
 import View.BusinessAccountMenuView;
 import View.LoginView;
 import View.UserAccountMenuView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import utils.AppData;
 import javafx.scene.control.TextField;
 
 
@@ -91,22 +94,19 @@ public class LoginController {
 						cont.checkAccountType(username));
 				//Create business account model.
 				if(acc instanceof BusinessAccountModel){
-					BusinessAccountMenuView newview = new BusinessAccountMenuView(
-							view.stage);
-					BusinessAccountMenuController newcont = new BusinessAccountMenuController(
-							(BusinessAccountModel) acc,newview);
-					newview.setController(newcont);
-					//Proceed window.
-					newcont.updateView();
+					BookingController bcont = new BookingController();
+		            bcont.setView(new BookingsView(view.stage));
+		            bcont.getView().setController(bcont);
+		            AppData.CALLER=acc;
+		            bcont.updateView();
 					//Create user account model.
 				}else if(acc instanceof UserAccountModel){
-					UserAccountMenuView newview = new UserAccountMenuView(
-							view.stage);
-					UserAccountMenuController newcont = new UserAccountMenuController(
-							(UserAccountModel) acc,newview);
-					newview.setController(newcont);
+					BookingController bcont = new BookingController();
+		            bcont.setView(new BookingsView(view.stage));
+		            bcont.getView().setController(bcont);
+		            AppData.CALLER=acc;
+		            bcont.updateView();
 					//Proceed window.
-					newcont.updateView();
 				}
 			}
 		}

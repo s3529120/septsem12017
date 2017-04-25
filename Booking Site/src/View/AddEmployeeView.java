@@ -1,6 +1,11 @@
 package View;
 
+import Controller.AvailabilitiesController;
+import Controller.BookingController;
+import Controller.DefaultController;
 import Controller.EmployeeController;
+import Controller.TypeController;
+import Model.BusinessAccountModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -12,6 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import utils.AppData;
 
 public class AddEmployeeView
 {
@@ -37,14 +43,65 @@ public class AddEmployeeView
 	/**Updates display of window.
 	 */
 	public void updateView(){
-		Button backbtn = new Button("Go Back");
-		backbtn.setOnAction(new EventHandler<ActionEvent>(){
-			@Override public void handle(ActionEvent e){
-				stage.close();
-			}
-		});
+		//Header init
+		Text heading = new Text("Booking Site");
+		//Add employee
+				Button addempbtn = new Button("Add Employee");
+				addempbtn.setOnAction(new EventHandler<ActionEvent>(){
+					@Override public void handle(ActionEvent e){
+						EmployeeController empcont = new EmployeeController();
+						empcont.setView(new AddEmployeeView(stage));
+						empcont.getView().setController(empcont);
+						empcont.updateView();
+					}
+				});
 
-		backbtn.getStyleClass().add("redbtn");
+				//Edit availability
+				Button editavailbtn = new Button("Edit Employee");
+				editavailbtn.setOnAction(new EventHandler<ActionEvent>(){
+					@Override public void handle(ActionEvent e){
+						AvailabilitiesController acont =  new AvailabilitiesController();
+						acont.setView(new EditAvailabilitiesView(stage));
+						acont.getView().setController(acont);
+						acont.updateView();
+					}
+				});
+				
+
+				//Edit type
+				Button edittypebtn = new Button("Edit Type");
+				edittypebtn.setOnAction(new EventHandler<ActionEvent>(){
+					@Override public void handle(ActionEvent e){
+						TypeController tcont=new TypeController();
+						TypeView tview = new TypeView(stage);
+						tcont.setView(tview);
+						tview.setCont(tcont);
+						tview.updateTypeView();
+					}
+				});
+
+				//View Bookings
+				Button viewbookbtn = new Button("View Bookings");
+				viewbookbtn.setUserData(cont);
+				viewbookbtn.setOnAction(new EventHandler<ActionEvent>(){
+					@Override public void handle(ActionEvent e){
+						BookingController bcont = new BookingController();
+						bcont.setView(new BookingsView(new Stage()));
+						bcont.getView().setController(bcont);
+						bcont.updateView();
+					}
+				});
+				//Logout button
+				Button logoutbtn = new Button("Logout");
+				logoutbtn.setOnAction(new EventHandler<ActionEvent>(){
+					@Override public void handle(ActionEvent e){
+						MainMenuView mainview = new MainMenuView(stage);
+						DefaultController maincont = new DefaultController(stage,mainview);
+						AppData.CALLER=null;
+						maincont.updateView();
+					}
+				});
+				HBox header = new HBox(heading,addempbtn,editavailbtn,edittypebtn,logoutbtn);
 
 
 		//Confirmation message and heading
@@ -85,7 +142,7 @@ public class AddEmployeeView
 		contactnohbox.setId("form");
 
 		// Add above elements to vertical box
-		VBox userInfo = new VBox(backbtn, empadded, h1, fnamehbox, snamehbox, emailhbox, contactnohbox);
+		VBox userInfo = new VBox( empadded, h1, fnamehbox, snamehbox, emailhbox, contactnohbox);
 		userInfo.getStyleClass().add("addEmpVbox");
 
 		// Vertical box 2 - address
@@ -242,11 +299,12 @@ public class AddEmployeeView
 		//Layout
 
 		HBox addEmployeeBox = new HBox(userInfo, addressInfo);
+		VBox addEmployeePage = new VBox(header,addEmployeeBox);
 		addEmployeeBox.setId("addEmpPageBox");
 
-		StackPane pane = new StackPane();
+		StackPane pane = new StackPane(addEmployeePage);
 
-		pane.getChildren().addAll(addEmployeeBox);
+		pane.getChildren().addAll();
 		Scene scene = new Scene(pane, 850, 450);
 		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 		stage.setScene(scene);

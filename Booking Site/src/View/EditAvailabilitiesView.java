@@ -2,6 +2,9 @@ package View;
 
 
 import Controller.AvailabilitiesController;
+import Controller.BookingController;
+import Controller.DefaultController;
+import Controller.EmployeeController;
 import Controller.TypeController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +17,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import utils.AppData;
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.HashMap;
@@ -101,14 +106,66 @@ public class EditAvailabilitiesView
 		HBox employeebox = new HBox(selectEmployeeText,employee,employeeerrorbox);
 		employeebox.setId("form");
 
-		//Back Button
-		Button backbtn = new Button("Go Back");
-		backbtn.setOnAction(new EventHandler<ActionEvent>(){
-			@Override public void handle(ActionEvent e){
-				stage.close();
-			}
-		});
-		HBox backbox = new HBox(specbtn,backbtn);
+		//Header init
+				Text heading = new Text("Booking Site");
+				//Add employee
+						Button addempbtn = new Button("Add Employee");
+						addempbtn.setOnAction(new EventHandler<ActionEvent>(){
+							@Override public void handle(ActionEvent e){
+								EmployeeController empcont = new EmployeeController();
+								empcont.setView(new AddEmployeeView(stage));
+								empcont.getView().setController(empcont);
+								empcont.updateView();
+							}
+						});
+
+						//Edit availability
+						Button editavailbtn = new Button("Edit Employee");
+						editavailbtn.setOnAction(new EventHandler<ActionEvent>(){
+							@Override public void handle(ActionEvent e){
+								AvailabilitiesController acont =  new AvailabilitiesController();
+								acont.setView(new EditAvailabilitiesView(stage));
+								acont.getView().setController(acont);
+								acont.updateView();
+							}
+						});
+						
+
+						//Edit type
+						Button edittypebtn = new Button("Edit Type");
+						edittypebtn.setOnAction(new EventHandler<ActionEvent>(){
+							@Override public void handle(ActionEvent e){
+								TypeController tcont=new TypeController();
+								TypeView tview = new TypeView(stage);
+								tcont.setView(tview);
+								tview.setCont(tcont);
+								tview.updateTypeView();
+							}
+						});
+
+						//View Bookings
+						Button viewbookbtn = new Button("View Bookings");
+						viewbookbtn.setUserData(cont);
+						viewbookbtn.setOnAction(new EventHandler<ActionEvent>(){
+							@Override public void handle(ActionEvent e){
+								BookingController bcont = new BookingController();
+								bcont.setView(new BookingsView(new Stage()));
+								bcont.getView().setController(bcont);
+								bcont.updateView();
+							}
+						});
+						//Logout button
+						Button logoutbtn = new Button("Logout");
+						logoutbtn.setOnAction(new EventHandler<ActionEvent>(){
+							@Override public void handle(ActionEvent e){
+								MainMenuView mainview = new MainMenuView(stage);
+								DefaultController maincont = new DefaultController(stage,mainview);
+								AppData.CALLER=null;
+								maincont.updateView();
+							}
+						});
+						HBox header = new HBox(heading,addempbtn,editavailbtn,edittypebtn,logoutbtn);
+		HBox backbox = new HBox(specbtn);
 
 		//top box construction
 		VBox titleAndEmployee = new VBox(pageTitle,employeebox,instructions);
@@ -289,12 +346,10 @@ public class EditAvailabilitiesView
 
 		//box Construction
 		HBox bottom = new HBox(savebtn,donebox);
-		VBox page = new VBox(topBox,dayBox,bottom);
+		VBox page = new VBox(header,topBox,dayBox,bottom);
 
 		page.getStyleClass().add("loginpageBox");
-		backbtn.setId("largebtn");
 		savebtn.setId("largebtn");
-		backbtn.setId("logoutbtn");
 		backbox.setId("logoutbox");
 
 

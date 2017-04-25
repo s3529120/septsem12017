@@ -24,7 +24,6 @@ public class BookingController
 
 	private BookingsView view;
 	private List<BookingModel> allBooks;
-	private AccountModel caller;
 
 
 	//Returns associated view
@@ -437,16 +436,6 @@ public class BookingController
 		dbcont.closeConnection();
 		allBooks=bookings;
 		return allBooks;
-	}
-
-	public AccountModel getCaller()
-	{
-		return caller;
-	}
-
-	public void setCaller(AccountModel caller)
-	{
-		this.caller = caller;
 	}
 
 }

@@ -1,12 +1,14 @@
 import com.sun.glass.ui.Screen;
 import Controller.BookingController;
 import Controller.DefaultController;
+import Model.AccountModel;
 import View.MainMenuView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 @SuppressWarnings("restriction")
 public class BookingSite extends Application {
+	
 	
 	@Override
 	public void start(Stage primaryStage) {

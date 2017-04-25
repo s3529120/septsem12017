@@ -60,7 +60,6 @@ public class UserAccountMenuView {
 			   BookingController bcont = new BookingController();
             bcont.setView(new BookingsView(new Stage()));
             bcont.getView().setController(bcont);
-            bcont.setCaller(cont.getModel());
             bcont.updateView();
 			}
 		});
