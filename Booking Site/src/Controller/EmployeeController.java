@@ -128,8 +128,8 @@ public class EmployeeController
 			return true;
 		}else{
 			dbcont.closeConnection();
-			return false;
 		}
+		return false;
 	}
 
 	//Returns array of employees
@@ -247,7 +247,7 @@ public class EmployeeController
 
 	}
 
-	public void validateEntries(
+	public boolean validateEntries(
 			TextField fname, HBox fnamehbox, 
 			TextField sname, HBox snamehbox, 
 			TextField address, HBox addresshbox, 
@@ -462,7 +462,13 @@ public class EmployeeController
 			}
 		}
 		
-
+		if(!(numerror || fnameerror || 
+				snameerror || adderror || pcodeerror ||
+				emailerror || cityerror)){
+			return true;
+		}
+		
+		return false;
 
 
 	}

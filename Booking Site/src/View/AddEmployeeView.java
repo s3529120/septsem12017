@@ -131,7 +131,7 @@ public class AddEmployeeView
 		//Email taken error box
 		Text takenerrortxt = new Text("Email already in use.");
 		HBox takenerrorbox = new HBox();
-		
+
 		//invalid first name
 		Text fnamerrortxt = new Text("Please enter a first name using only letters, spaces, and hyphens");
 		HBox fnameerrorbox = new HBox();
@@ -151,11 +151,11 @@ public class AddEmployeeView
 		// Street address invalid
 		Text streeterrortxt = new Text("Please enter a street number followed by a street name");
 		HBox streeterrorbox = new HBox();
-		
+
 		// City error
 		Text cityerrortxt = new Text("Please enter a valid city"); 
 		HBox cityerrorbox = new HBox();
-		
+
 		//Postc error
 		Text postcerrortxt = new Text("Please enter a valid postcode-state combination"); 
 		HBox postcerrorbox = new HBox();
@@ -167,8 +167,8 @@ public class AddEmployeeView
 
 				//checking to make sure all fields are filled
 				if(cont.checkValues(fnamefield, snamefield, streetaddfield, pcodefield,
-						contactnofield, emailfield, cityfield)){//cont.empAddedMessage(empaddedhbox, empaddedtxt);
-					cont.validateEntries(
+						contactnofield, emailfield, cityfield)){ //cont.empAddedMessage(empaddedhbox, empaddedtxt);
+					if(cont.validateEntries(
 							fnamefield, fnamehbox, 
 							snamefield, snamehbox, 
 							streetaddfield, streetaddhbox, 
@@ -186,18 +186,18 @@ public class AddEmployeeView
 							streeterrortxt, streeterrorbox,
 							cityerrortxt, cityerrorbox,
 							postcerrortxt, postcerrorbox,
-							statebox.getValue());
-					if (cont.addEmployee(fnamefield.getText().concat(" ").concat(snamefield.getText()), 
-							contactnofield.getText(), emailfield.getText(), 
-							streetaddfield.getText(), cityfield.getText(), 
-							statebox.getValue(), pcodefield.getText())) {
-						if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
-							empaddedhbox.getChildren().add(empaddedtxt);
-						}
-
-					} else {
-						if (empaddedhbox.getChildren().contains(empaddedtxt)) {
-							empaddedhbox.getChildren().remove(empaddedtxt);
+							statebox.getValue())){
+						if (cont.addEmployee(fnamefield.getText().concat(" ").concat(snamefield.getText()), 
+								contactnofield.getText(), emailfield.getText(), 
+								streetaddfield.getText(), cityfield.getText(), 
+								statebox.getValue(), pcodefield.getText())) {
+							if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
+								empaddedhbox.getChildren().add(empaddedtxt);
+							}
+						} else {
+							if (empaddedhbox.getChildren().contains(empaddedtxt)) {
+								empaddedhbox.getChildren().remove(empaddedtxt);
+							}
 						}
 					}
 				}else{
@@ -221,6 +221,9 @@ public class AddEmployeeView
 							cityerrortxt, cityerrorbox,
 							postcerrortxt, postcerrorbox,
 							statebox.getValue());
+					if (empaddedhbox.getChildren().contains(empaddedtxt)) {
+						empaddedhbox.getChildren().remove(empaddedtxt);
+					}
 				}
 			}
 
