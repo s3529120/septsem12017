@@ -108,7 +108,7 @@ public class AddEmployeeView
 		ComboBox<String> statebox = new ComboBox<String>();
 		statebox.setPromptText("State");
 		statebox.getItems().addAll("A.C.T","N.S.W", "N.T", "Queensland","South Australia",
-				"Tasmainia","Victoria","Western Australia");
+				"Tasmania","Victoria","Western Australia");
 		statebox.getStyleClass().add("textField");
 		HBox statehbox = new HBox(statebox);
 		statehbox.setId("form");
