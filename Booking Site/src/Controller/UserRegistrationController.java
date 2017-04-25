@@ -13,12 +13,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import utils.dataMatcher;
-import java.util.logging.*;
 
 public class UserRegistrationController {
 	private UserRegistrationView view;
 	private UserAccountModel model;
-	private static final Logger logger = new Logger.getLogger(UserRegistrationController.class.getName());
+	
 	// For origin of this code see http://jregex.sourceforge.net/examples-email.html
 	private static final String emailChars="[\\w.\\-]+"; //letters, dots, hyphens
 	private static final String alpha="[a-zA-Z]+";
