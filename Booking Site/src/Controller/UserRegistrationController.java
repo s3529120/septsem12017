@@ -1,8 +1,8 @@
 package Controller;
 
 import java.sql.ResultSet;
+import java.util.regex.*;
 import java.sql.SQLException;
-
 import Model.DatabaseModel;
 import Model.UserAccountModel;
 import View.UserAccountMenuView;
@@ -12,11 +12,33 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import utils.dataMatcher;
 
 public class UserRegistrationController {
 	private UserRegistrationView view;
 	private UserAccountModel model;
-	
+
+	// For origin of this code see http://jregex.sourceforge.net/examples-email.html
+	private static final String emailChars="[\\w.\\-]+"; //letters, dots, hyphens
+	private static final String alpha="[a-zA-Z]+";
+	private static final String digit="\\d+";
+	private static final String space="\\s";
+	private static final String hyphen="\\-";
+	private static final String alphaNums="\\w+";
+	private static final String dot="\\.";
+	private static final String symbols="[\\W\\S]+"; //all non letter or number characters + non spaces
+
+	// Create a new pattern to match email format: chars@(chars.)*chars
+	// Create similar patterns for username, name, password, address etc.
+	private static final Pattern emailPattern=
+			Pattern.compile(emailChars + "@" + alphaNums + "(?:" + "\\." + alphaNums + ")++");
+	private static final Pattern username = Pattern.compile(alpha + "\\d*"); // Just one or more letters and any numbers
+	private static final Pattern fullname = Pattern.compile(alpha + "(?:" + space + alpha + ")*"); // Just letters, space and hyphen
+	private static final Pattern password = Pattern.compile("(?:" + alphaNums + "||" + symbols + ")+"); // Should be letters + numbers + Symbols
+	private static final Pattern addressPattern = Pattern.compile(digit + "(?:" + space + alpha + ")+");
+	private static final Pattern phoneNo = Pattern.compile("\\d" + "(?:" + "\\d" + "||" + space + ")+");// atleast one digit or space
+
+
 	/**Constructor, sets associated view and assigns self to view.
 	 * @param view View to associate.
 	 */
@@ -24,7 +46,7 @@ public class UserRegistrationController {
 		this.view=view;
 		view.setController(this);
 	}
-	
+
 	/**Calls associated view to update window.
 	 */
 	public void updateView(){
@@ -32,26 +54,26 @@ public class UserRegistrationController {
 	}
 
 	public Boolean checkValues(TextField uname, TextField pname, PasswordField pword, PasswordField pwordcon,
-	                           TextField address, TextField contactNo, TextField email){
-	   Boolean bool;
-	   
-	   AccountController acon = new AccountController();
-	   bool=acon.checkUsername(uname.getText());
-	   
-	   if(uname.getText().isEmpty() || pname.getText().isEmpty() || pword.getText().isEmpty() || pwordcon.getText().isEmpty() ||
-	         address.getText().isEmpty() || contactNo.getText().isEmpty() || email.getText().isEmpty()){
-	      return false;
-	   }else if(bool==true){
-	      return false;
-	   }else if (!pword.getText().equals(pwordcon.getText())) {
-		   return false;
-	   } else {
-	      return true;
-	   }
-	   
+			TextField address, TextField contactNo, TextField email){
+		Boolean userExists;	
+		
+		AccountController acon = new AccountController();
+		userExists=acon.checkUsername(uname.getText());
+
+		if(uname.getText().isEmpty() || pname.getText().isEmpty() || pword.getText().isEmpty() || pwordcon.getText().isEmpty() ||
+				address.getText().isEmpty() || contactNo.getText().isEmpty() || email.getText().isEmpty()){
+			return false;
+		}else if(userExists==true){
+			return false;
+		}else if (!pword.getText().equals(pwordcon.getText())) {
+			return false;
+		} else {
+			return true;
+		}
+
 	}
-	
-	public void validateEntires(
+
+	public void validateEntries(
 			TextField uname, HBox unamehbox,
 			TextField pname, HBox pnamehbox,
 			PasswordField pword, HBox pwordhbox,
@@ -61,55 +83,119 @@ public class UserRegistrationController {
 			TextField email, HBox mailhbox,
 			Text emptyerrortxt, HBox emptyerrorbox,
 			Text passerrortxt, HBox passerrorbox,
-			Text takenerrortxt, HBox takenerrorbox) {
+			Text unameerrortxt, HBox unameerrorbox,
+			Text pnameerrortxt, HBox pnameerrorbox,
+			Text emailerrortxt, HBox emailerrorbox,
+			Text phoneerrortxt, HBox phoneerrorbox,
+			Text streeterrortxt, HBox streeterrorbox
+			){
 
-		//checking for empty
-		boolean hasEmpty = false;
+		// Create bool vars to store state of entered data matching
+		boolean hasEmpty = false, numerror = false, unameerror = false, 
+				pnameerror = false, passerror = false, passconerror = false, 
+				adderror = false, emailerror = false;
+
+		// checking for empty as well as if the pattern is matched
 		if(uname.getText().trim().equals("")) {
 			unamehbox.setId("incorrectForm");
 			hasEmpty = true;
+			unameerror = true;
+		} else if(!dataMatcher.unameMatcher(uname.getText().trim())) { 
+			unamehbox.setId("incorrectForm");
+			unameerror = true;
 		} else {
+			unameerror = false;
 			unamehbox.setId("form");
 		}
+		
 		if(pname.getText().trim().equals("")) {
 			pnamehbox.setId("incorrectForm");
 			hasEmpty = true;
+			pnameerror = true;
+		} else if(!dataMatcher.nameMatcher(pname.getText().trim())) {
+			pnamehbox.setId("incorrectForm");
+			pnameerror = true;
 		} else {
+			pnameerror = false;
 			pnamehbox.setId("form");
 		}
 		if(pword.getText().trim().equals("")) {
 			pwordhbox.setId("incorrectForm");
 			hasEmpty = true;
+			passerror = true;
+		} else if(!dataMatcher.passMatcher(pword.getText().trim())) {
+			pwordhbox.setId("incorrectForm");
+			passerror = true;
 		} else {
+			passerror = false;
 			pwordhbox.setId("form");
 		}
+		
 		if(pwordcon.getText().trim().equals("")) {
 			pwordhboxcon.setId("incorrectForm");
 			hasEmpty = true;
+			passconerror = true;
+		} else if(!dataMatcher.passMatcher(pwordcon.getText().trim())) {
+			pwordhboxcon.setId("incorrectForm");
+			passconerror = true;
 		} else {
+			passconerror = false;
 			pwordhboxcon.setId("form");
 		}
-		if(contactNo.getText().trim().equals("")) {
+		if(contactNo.getText().trim().equals("")){
 			numhbox.setId("incorrectForm");
 			hasEmpty = true;
+			numerror = true;
+		} else if(!dataMatcher.phoneMatcher(contactNo.getText().trim())) {
+			numhbox.setId("incorrectForm");
+			numerror = true;
+			//Check for length of phone num
+			//		} else if(contactNo.getText().replaceAll("\\s","").length() > 10){
+			//			System.out.println(contactNo.getText().replaceAll("\\s","").length());
+			//			System.out.println(contactNo.getText().replaceAll("\\s",""));
+			//			numhbox.setId("incorrectForm");
+			//			numerror = true;
 		} else {
+			numerror = false;
 			numhbox.setId("form");
 		}
-		if(address.getText().trim().equals("")) {
+		
+		if(address.getText().trim().equals("")){
 			addhbox.setId("incorrectForm");
 			hasEmpty = true;
+			adderror = true;
+		} else if(!dataMatcher.addMatcher(address.getText().trim())) {
+			addhbox.setId("incorrectForm");
+			adderror = true;
 		} else {
+			adderror = false;
 			addhbox.setId("form");
 		}
-		if(email.getText().trim().equals("")) {
+		
+		if(email.getText().trim().equals("")){
 			mailhbox.setId("incorrectForm");
 			hasEmpty = true;
+			emailerror = true;
+		} else if(!dataMatcher.emailMatcher(email.getText().trim())) {
+			mailhbox.setId("incorrectForm");
+			emailerror = true;
 		} else {
+			emailerror = false;
 			mailhbox.setId("form");
 		}
+		
+		//Basic debugging text
+//		System.out.println("Are any empty:   "+hasEmpty);
+//		System.out.println("Phone num error: "+numerror);
+//		System.out.println("Uname error:     "+unameerror); 
+//		System.out.println("Real name:       "+pnameerror);
+//		System.out.println("pass error:      "+passerror);
+//		System.out.println("pass con error:  "+passconerror);
+//		System.out.println("street error:    "+streeterror);
+//		System.out.println("mail error:      "+mailerror + "\n");
 
 		//checking if the password fields are what cause the reject and if it is add the "pass error text"
-		if (!pword.getText().equals(pwordcon.getText())) {
+		if (!pword.getText().equals(pwordcon.getText()) || passerror) {
 			if (!passerrorbox.getChildren().contains(passerrortxt)) {
 				passerrorbox.getChildren().add(passerrortxt);
 			}
@@ -118,6 +204,17 @@ public class UserRegistrationController {
 				passerrorbox.getChildren().remove(passerrortxt);
 			}
 		}
+		// Check if the confirmation password matches the pattern
+		if (passconerror) {
+			if (!passerrorbox.getChildren().contains(passerrortxt)) {
+				passerrorbox.getChildren().add(passerrortxt);
+			}
+		} else {
+			if (passerrorbox.getChildren().contains(passerrortxt)) {
+				passerrorbox.getChildren().remove(passerrortxt);
+			}
+		}
+
 		//checking if any of the fields were empty and if they were add the "empty error text"
 		if (hasEmpty) {
 			if (!emptyerrorbox.getChildren().contains(emptyerrortxt)) {
@@ -128,30 +225,75 @@ public class UserRegistrationController {
 				emptyerrorbox.getChildren().remove(emptyerrortxt);
 			}
 		}
+
+		//check if number is wrong
+		if(numerror){
+			if(!phoneerrorbox.getChildren().contains(phoneerrortxt)){
+				phoneerrorbox.getChildren().add(phoneerrortxt);
+			}
+		}else{
+			if(phoneerrorbox.getChildren().contains(phoneerrortxt)){
+				phoneerrorbox.getChildren().remove(phoneerrortxt);
+			}
+		}
+
+		//check if street address is wrong
+		if(adderror){
+			if(!streeterrorbox.getChildren().contains(streeterrortxt)){
+				streeterrorbox.getChildren().add(streeterrortxt);
+			}
+		}else{
+			if(streeterrorbox.getChildren().contains(streeterrortxt)){
+				streeterrorbox.getChildren().remove(streeterrortxt);
+			}
+		}
+
+		//check if mail is wrong
+		if(emailerror){
+			if(!emailerrorbox.getChildren().contains(emailerrortxt)){
+				emailerrorbox.getChildren().add(emailerrortxt);
+			}
+		}else{
+			if(emailerrorbox.getChildren().contains(emailerrortxt)){
+				emailerrorbox.getChildren().remove(emailerrortxt);
+			}
+		}
+
+		// Check if the the name is invalid
+		if(pnameerror){
+			if(!pnameerrorbox.getChildren().contains(pnameerrortxt)){
+				pnameerrorbox.getChildren().add(pnameerrortxt);
+			}
+		}else{
+			if(pnameerrorbox.getChildren().contains(pnameerrortxt)){
+				pnameerrorbox.getChildren().remove(pnameerrortxt);
+			}
+		}
+
 		//checking if the account already exists and if it does adding the "taken error text"
 		AccountController acon = new AccountController();
 		boolean accExists=acon.checkUsername(uname.getText());
 		if (accExists) {
-			if (!takenerrorbox.getChildren().contains(takenerrortxt)) {
-				takenerrorbox.getChildren().add(takenerrortxt);
+			if (!unameerrorbox.getChildren().contains(unameerrortxt)) {
+				unameerrorbox.getChildren().add(unameerrortxt);
 			}
 		} else {
-			if (takenerrorbox.getChildren().contains(takenerrortxt)) {
-				takenerrorbox.getChildren().remove(takenerrortxt);
+			if (unameerrorbox.getChildren().contains(unameerrortxt)){
+				unameerrorbox.getChildren().remove(unameerrortxt);
 			}
 		}
 	}
-	
+
 	public void register(String uname,String pname,String pword,String address,String contactNo,String email) {
 		String sql;
 		model = new UserAccountModel(uname,pname,address,contactNo,email);
 		DatabaseModel dbmod = new DatabaseModel();
 		DatabaseController dbcont = new DatabaseController(dbmod);
-		
+
 		dbcont.createConnection();
 		sql="INSERT INTO Accounts(Username,Password,Name,Type,ContactNo,Email,Address) "
 				+ "Values(?,?,?,?,?,?,?);";
-		
+
 		dbcont.prepareStatement(sql);
 		try{
 			dbcont.getState().setString(1, uname);
@@ -162,15 +304,15 @@ public class UserRegistrationController {
 			dbcont.getState().setString(6, email);
 			dbcont.getState().setString(7, address);
 		}catch(SQLException e){
-		   dbcont.closeConnection();
+			dbcont.closeConnection();
 			e.printStackTrace();
 		}
 		if(dbcont.runSQLUpdate()){
-		
-		UserAccountMenuView newview = new UserAccountMenuView(view.stage);
-		UserAccountMenuController newcont = new UserAccountMenuController(model,newview);
-		newcont.updateView();
-		dbcont.closeConnection();
+
+			UserAccountMenuView newview = new UserAccountMenuView(view.stage);
+			UserAccountMenuController newcont = new UserAccountMenuController(model,newview);
+			newcont.updateView();
+			dbcont.closeConnection();
 		}
 	}
 }

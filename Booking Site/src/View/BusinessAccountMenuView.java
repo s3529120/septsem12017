@@ -80,7 +80,7 @@ public class BusinessAccountMenuView {
 				acont.updateView();
 			}
 		});
-		HBox toprow = new HBox(addempbtn,editavailbtn);
+		
 
 		//View Availabilities
 		Button viewavailbtn = new Button("View Availabilities");
@@ -102,6 +102,7 @@ public class BusinessAccountMenuView {
 			}
 		});
 
+		HBox toprow = new HBox(addempbtn,editavailbtn);
 		HBox botrow = new HBox(viewavailbtn,viewbookbtn);
 
 		//VBox headings = new  VBox(h1,h2);

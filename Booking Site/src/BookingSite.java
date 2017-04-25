@@ -1,24 +1,26 @@
+import com.sun.glass.ui.Screen;
 import Controller.BookingController;
 import Controller.DefaultController;
 import View.MainMenuView;
 import javafx.application.Application;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+@SuppressWarnings("restriction")
 public class BookingSite extends Application {
-
+	
 	@Override
 	public void start(Stage primaryStage) {
 	   //Set Stage properties 
 		primaryStage.setTitle("Booking Site");
-		primaryStage.setWidth(800);
-		primaryStage.setHeight(600);
+
+		int primaryScreenBoundsx = Screen.getMainScreen().getWidth();
+		int primaryScreenBoundsy = Screen.getMainScreen().getHeight();
+		
+        //set Stage boundaries to visible bounds of the main screen
+		primaryStage.setX(0);
+        primaryStage.setY(0);
+        primaryStage.setWidth(primaryScreenBoundsx);
+        primaryStage.setHeight(primaryScreenBoundsy);
 		
 		//Seed data for demonstration
 		Seed.initialize();

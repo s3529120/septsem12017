@@ -89,7 +89,7 @@ public class AddEmployeeView
 		userInfo.getStyleClass().add("addEmpVbox");
 
 		// Vertical box 2 - address
-		
+
 		//Street address
 		TextField streetaddfield = new TextField();
 		streetaddfield.setPromptText("Street Address");
@@ -107,7 +107,7 @@ public class AddEmployeeView
 		//State
 		ComboBox<String> statebox = new ComboBox<String>();
 		statebox.setPromptText("State");
-		statebox.getItems().addAll("A.C.T","N.S.W","Queensland","South Australia",
+		statebox.getItems().addAll("A.C.T","N.S.W", "N.T", "Queensland","South Australia",
 				"Tasmainia","Victoria","Western Australia");
 		statebox.getStyleClass().add("textField");
 		HBox statehbox = new HBox(statebox);
@@ -132,6 +132,34 @@ public class AddEmployeeView
 		Text takenerrortxt = new Text("Email already in use.");
 		HBox takenerrorbox = new HBox();
 
+		//invalid first name
+		Text fnamerrortxt = new Text("Please enter a first name using only letters, spaces, and hyphens");
+		HBox fnameerrorbox = new HBox();
+
+		//Surname error box
+		Text snamerrortxt = new Text("Please enter a surname using only letters, spaces, and hyphens"); 
+		HBox snameerrorbox = new HBox();
+
+		//Invalid email
+		Text emailerrortxt = new Text("Please enter an email in the correct format");
+		HBox emailerrorbox = new HBox();
+
+		//Phone too long
+		Text phoneerrortxt = new Text("Please enter a valid phone number only 10 digits long");
+		HBox phoneerrorbox = new HBox();
+
+		// Street address invalid
+		Text streeterrortxt = new Text("Please enter a street number followed by a street name");
+		HBox streeterrorbox = new HBox();
+
+		// City error
+		Text cityerrortxt = new Text("Please enter a valid city"); 
+		HBox cityerrorbox = new HBox();
+
+		//Postc error
+		Text postcerrortxt = new Text("Please enter a valid postcode-state combination"); 
+		HBox postcerrorbox = new HBox();
+
 		//Submit button
 		Button subbtn = new Button("Add");
 		subbtn.setOnAction(new EventHandler<ActionEvent>(){
@@ -139,33 +167,41 @@ public class AddEmployeeView
 
 				//checking to make sure all fields are filled
 				if(cont.checkValues(fnamefield, snamefield, streetaddfield, pcodefield,
-						contactnofield, emailfield, cityfield)){//cont.empAddedMessage(empaddedhbox, empaddedtxt);
-               cont.validateEntries(
-                                    fnamefield, fnamehbox, 
-                                    snamefield, snamehbox, 
-                                    streetaddfield, streetaddhbox, 
-                                    pcodefield, pcodehbox, 
-                                    contactnofield, contactnohbox, 
-                                    emailfield, emailhbox,
-                                    cityfield, cityhbox,
-                                    emptyerrortxt, emptyerrorbox,
-                                    empaddedtxt, empaddedhbox,
-                                    takenerrortxt, takenerrorbox);
-					if (cont.addEmployee(fnamefield.getText().concat(snamefield.getText()), 
-							contactnofield.getText(), emailfield.getText(), 
-							streetaddfield.getText(), cityfield.getText(), 
-							statebox.getValue(), pcodefield.getText())) {
-						if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
-							empaddedhbox.getChildren().add(empaddedtxt);
-						}
-						
-					} else {
-						if (empaddedhbox.getChildren().contains(empaddedtxt)) {
-							empaddedhbox.getChildren().remove(empaddedtxt);
+						contactnofield, emailfield, cityfield)){ //cont.empAddedMessage(empaddedhbox, empaddedtxt);
+					if(cont.validateEntries(
+							fnamefield, fnamehbox, 
+							snamefield, snamehbox, 
+							streetaddfield, streetaddhbox, 
+							pcodefield, pcodehbox, 
+							contactnofield, contactnohbox, 
+							emailfield, emailhbox,
+							cityfield, cityhbox,
+							emptyerrortxt, emptyerrorbox,
+							empaddedtxt, empaddedhbox,
+							takenerrortxt, takenerrorbox,
+							fnamerrortxt, fnameerrorbox,
+							snamerrortxt, snameerrorbox,
+							emailerrortxt, emailerrorbox,
+							phoneerrortxt, phoneerrorbox,
+							streeterrortxt, streeterrorbox,
+							cityerrortxt, cityerrorbox,
+							postcerrortxt, postcerrorbox,
+							statebox.getValue())){
+						if (cont.addEmployee(fnamefield.getText().concat(" ").concat(snamefield.getText()), 
+								contactnofield.getText(), emailfield.getText(), 
+								streetaddfield.getText(), cityfield.getText(), 
+								statebox.getValue(), pcodefield.getText())) {
+							if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
+								empaddedhbox.getChildren().add(empaddedtxt);
+							}
+						} else {
+							if (empaddedhbox.getChildren().contains(empaddedtxt)) {
+								empaddedhbox.getChildren().remove(empaddedtxt);
+							}
 						}
 					}
 				}else{
-					//checking for empty
+					//Perform validation if not empty
 					cont.validateEntries(
 							fnamefield, fnamehbox, 
 							snamefield, snamehbox, 
@@ -176,7 +212,18 @@ public class AddEmployeeView
 							cityfield, cityhbox,
 							emptyerrortxt, emptyerrorbox,
 							empaddedtxt, empaddedhbox,
-							takenerrortxt, takenerrorbox);
+							takenerrortxt, takenerrorbox,
+							fnamerrortxt, fnameerrorbox,
+							snamerrortxt, snameerrorbox,
+							emailerrortxt, emailerrorbox,
+							phoneerrortxt, phoneerrorbox,
+							streeterrortxt, streeterrorbox,
+							cityerrortxt, cityerrorbox,
+							postcerrortxt, postcerrorbox,
+							statebox.getValue());
+					if (empaddedhbox.getChildren().contains(empaddedtxt)) {
+						empaddedhbox.getChildren().remove(empaddedtxt);
+					}
 				}
 			}
 
@@ -185,7 +232,10 @@ public class AddEmployeeView
 		subbtn.getStyleClass().add("bluebtn");
 
 		// Add above elements to vertical box
-		VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, subbtn, empaddedhbox, emptyerrorbox,takenerrorbox);
+		VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, 
+				subbtn, empaddedhbox, emptyerrorbox, takenerrorbox, fnameerrorbox, 
+				snameerrorbox,emailerrorbox, phoneerrorbox, streeterrorbox, 
+				cityerrorbox, postcerrorbox);
 		addressInfo.setId("empAddressVbox");
 
 

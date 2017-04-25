@@ -16,6 +16,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import utils.dataMatcher;
 
 
 public class EmployeeController
@@ -44,15 +45,15 @@ public class EmployeeController
 	 */
 	public Boolean checkEmployee(String email){
 		String[] emps = this.getEmployeeEmails();
-		
+
 		if(emps==null){
-		   return false;
+			return false;
 		}
-		
+
 		for (int i=0;i<emps.length;i++){
-		   if(emps[i].compareToIgnoreCase(email)==0){
-		      return true;
-		   }
+			if(emps[i].compareToIgnoreCase(email)==0){
+				return true;
+			}
 		}
 		return false;
 	}
@@ -127,45 +128,45 @@ public class EmployeeController
 			return true;
 		}else{
 			dbcont.closeConnection();
-			return false;
 		}
+		return false;
 	}
 
 	//Returns array of employees
-		public Map<String,String> getEmployees(){
-			String sql="";
-			DatabaseController dbcont = new DatabaseController(new DatabaseModel());
-			ResultSet res;
-			Map<String,String> emps = new HashMap<String,String>();
+	public Map<String,String> getEmployees(){
+		String sql="";
+		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+		ResultSet res;
+		Map<String,String> emps = new HashMap<String,String>();
 
-			//Create database connection
-			dbcont.createConnection();
-			//Prepare and run sql
-			sql="SELECT * FROM Employee;";
-			dbcont.prepareStatement(sql);
-			res=dbcont.runSQLRes();
+		//Create database connection
+		dbcont.createConnection();
+		//Prepare and run sql
+		sql="SELECT * FROM Employee;";
+		dbcont.prepareStatement(sql);
+		res=dbcont.runSQLRes();
 
-			try
-			{
-				while(res.next()){
-					//Add returned employees to list
-					emps.put(res.getString("Name"),res.getString("Email"));
-				}
+		try
+		{
+			while(res.next()){
+				//Add returned employees to list
+				emps.put(res.getString("Name"),res.getString("Email"));
 			}
-			catch (SQLException e)
-			{
-				return null;
-			}
-
-			//Close database connection
-			dbcont.closeConnection();
-			if (emps.isEmpty()) {
-				return null;
-			}
-			//Convert list of employees to array and return
-			return emps;
 		}
-	
+		catch (SQLException e)
+		{
+			return null;
+		}
+
+		//Close database connection
+		dbcont.closeConnection();
+		if (emps.isEmpty()) {
+			return null;
+		}
+		//Convert list of employees to array and return
+		return emps;
+	}
+
 	/**Returns array of employee emails.
 	 * @return List of all employees email address'.
 	 */
@@ -191,7 +192,7 @@ public class EmployeeController
 		}
 		catch (SQLException e)
 		{
-		   e.printStackTrace();
+			e.printStackTrace();
 			return null;
 		}
 
@@ -245,8 +246,8 @@ public class EmployeeController
 		}
 
 	}
-	
-	public void validateEntries(
+
+	public boolean validateEntries(
 			TextField fname, HBox fnamehbox, 
 			TextField sname, HBox snamehbox, 
 			TextField address, HBox addresshbox, 
@@ -256,50 +257,108 @@ public class EmployeeController
 			TextField city, HBox cityhbox,
 			Text emptyerrortxt, HBox emptyerrorbox, 
 			Text empaddedtxt, HBox empaddedhbox,
-			Text takenerrortxt, HBox takenerrorbox) {
+			Text takenerrortxt, HBox takenerrorbox,
+			Text fnameerrortxt, HBox fnameerrorbox,
+			Text snameerrortxt, HBox snameerrorbox,
+			Text emailerrortxt, HBox emailerrorbox,
+			Text phoneerrortxt, HBox phoneerrorbox,
+			Text streeterrortxt, HBox streeterrorbox,
+			Text cityerrortxt, HBox cityerrorbox,
+			Text postcerrortxt, HBox postcerrorbox,
+			String state) {
 
 		// checking for empty
-		boolean hasEmpty = false;
-		if (fname.getText().trim().equals("")) {
+		boolean hasEmpty = false, numerror = false, fnameerror = false, 
+				snameerror = false, adderror = false, pcodeerror = false,
+				emailerror = false, cityerror = false;
+
+		//Stringify all inputs
+		String fnameTrim = fname.getText().trim(), snameTrim = sname.getText().trim(),
+				addTrim = address.getText().trim(), pcodeTrim = pcode.getText().trim(),
+				contactnoTrim = contactno.getText().trim(), emailTrim = email.getText().trim(),
+				cityTrim = city.getText().trim();
+
+		if (fnameTrim.equals("")) {
 			fnamehbox.setId("incorrectForm");
 			hasEmpty = true;
+			fnameerror = true;
+		} else if(!dataMatcher.fnameMatcher(fnameTrim)){
+			fnamehbox.setId("incorrectForm");
+			fnameerror = true;
 		} else {
+			fnameerror = false;
 			fnamehbox.setId("form");
 		}
-		if (sname.getText().trim().equals("")) {
+
+		if (snameTrim.equals("")) {
 			snamehbox.setId("incorrectForm");
 			hasEmpty = true;
+			snameerror = true;
+		} else if(!dataMatcher.snameMatcher(snameTrim)){
+			snamehbox.setId("incorrectForm");
+			snameerror = true;
 		} else {
+			snameerror = false;
 			snamehbox.setId("form");
 		}
-		if (address.getText().trim().equals("")) {
+
+		if (addTrim.equals("")) {
 			addresshbox.setId("incorrectForm");
 			hasEmpty = true;
+			adderror = true;
+		} else if(!dataMatcher.addMatcher(addTrim)) {
+			addresshbox.setId("incorrectForm");
+			adderror = true;
 		} else {
+			adderror = false;
 			address.setId("form");
 		}
-		if (pcode.getText().trim().equals("")) {
+
+		if (pcodeTrim.equals("")) {
 			pcodehbox.setId("incorrectForm");
 			hasEmpty = true;
+			pcodeerror = true;
+		} else if(!dataMatcher.postcMatcher(pcodeTrim, state)){
+			pcodehbox.setId("incorrectForm");
+			pcodeerror = true;
 		} else {
+			pcodeerror = false;
 			pcode.setId("form");
 		}
-		if (contactno.getText().trim().equals("")) {
+
+		if (contactnoTrim.equals("")) {
 			contactnohbox.setId("incorrectForm");
 			hasEmpty = true;
-		} else {
+			numerror = true;
+		} else if(!dataMatcher.phoneMatcher(contactnoTrim)){
+			contactnohbox.setId("incorrectForm");
+			numerror = true;
+		}else{
+			numerror = false;
 			contactno.setId("form");
 		}
-		if (email.getText().trim().equals("")) {
+
+		if (emailTrim.equals("")) {
 			emailhbox.setId("incorrectForm");
 			hasEmpty = true;
-		} else {
+			emailerror = true;
+		} else if(!dataMatcher.emailMatcher(emailTrim)){
+			emailhbox.setId("incorrectForm");
+			emailerror = true;
+		}else{
+			emailerror = false;
 			emailhbox.setId("form");
 		}
-		if (city.getText().trim().equals("")) {
+
+		if (cityTrim.equals("")) {
 			cityhbox.setId("incorrectForm");
 			hasEmpty = true;
+			cityerror = true;
+		} else if(!dataMatcher.cityMatcher(cityTrim)){
+			cityhbox.setId("incorrectForm");
+			cityerror = true;
 		} else {
+			cityerror = false;
 			cityhbox.setId("form");
 		}
 
@@ -317,7 +376,7 @@ public class EmployeeController
 		}
 
 		// checking if the employee email has been taken
-		if (this.checkEmployee(email.getText().trim())) {
+		if (this.checkEmployee(emailTrim)) {
 			if (!takenerrorbox.getChildren().contains(takenerrortxt)) {
 				takenerrorbox.getChildren().add(takenerrortxt);
 			}
@@ -326,6 +385,92 @@ public class EmployeeController
 				takenerrorbox.getChildren().remove(takenerrortxt);
 			}
 		}
+
+		//Set error text for incorrect first name
+		if(fnameerror){
+			if(!fnameerrorbox.getChildren().contains(fnameerrortxt)){
+				fnameerrorbox.getChildren().add(fnameerrortxt);
+			}
+		}else{
+			if (fnameerrorbox.getChildren().contains(fnameerrortxt)) {
+				fnameerrorbox.getChildren().remove(fnameerrortxt);
+			}
+		}
+
+		//Set error text for incorrect last name
+		if(snameerror){
+			if(!snameerrorbox.getChildren().contains(snameerrortxt)){
+				snameerrorbox.getChildren().add(snameerrortxt);
+			}
+		}else{
+			if (snameerrorbox.getChildren().contains(snameerrortxt)) {
+				snameerrorbox.getChildren().remove(snameerrortxt);
+			}
+		}
+
+		//check if number is wrong
+		if(numerror){
+			if(!phoneerrorbox.getChildren().contains(phoneerrortxt)){
+				phoneerrorbox.getChildren().add(phoneerrortxt);
+			}
+		}else{
+			if(phoneerrorbox.getChildren().contains(phoneerrortxt)){
+				phoneerrorbox.getChildren().remove(phoneerrortxt);
+			}
+		}
+
+		//check if street address is wrong
+		if(adderror){
+			if(!streeterrorbox.getChildren().contains(streeterrortxt)){
+				streeterrorbox.getChildren().add(streeterrortxt);
+			}
+		}else{
+			if(streeterrorbox.getChildren().contains(streeterrortxt)){
+				streeterrorbox.getChildren().remove(streeterrortxt);
+			}
+		}
+		
+		// Check city error
+		if(cityerror){
+			if(!cityerrorbox.getChildren().contains(cityerrortxt)){
+				cityerrorbox.getChildren().add(cityerrortxt);
+			}
+		} else {
+			if(cityerrorbox.getChildren().contains(cityerrortxt)){
+				cityerrorbox.getChildren().remove(cityerrortxt);
+			}
+		}
+
+		//check if mail is wrong
+		if(emailerror){
+			if(!emailerrorbox.getChildren().contains(emailerrortxt)){
+				emailerrorbox.getChildren().add(emailerrortxt);
+			}
+		}else{
+			if(emailerrorbox.getChildren().contains(emailerrortxt)){
+				emailerrorbox.getChildren().remove(emailerrortxt);
+			}
+		}
+		
+		if(pcodeerror){
+			if(!postcerrorbox.getChildren().contains(postcerrortxt)){
+				postcerrorbox.getChildren().add(postcerrortxt);
+			}
+		} else {
+			if(postcerrorbox.getChildren().contains(postcerrortxt)){
+				postcerrorbox.getChildren().remove(postcerrortxt);
+			}
+		}
+		
+		if(!(numerror || fnameerror || 
+				snameerror || adderror || pcodeerror ||
+				emailerror || cityerror)){
+			return true;
+		}
+		
+		return false;
+
+
 	}
 
 	/**Retrieves name from their email
@@ -333,28 +478,28 @@ public class EmployeeController
 	 * @return Name of employee with given email
 	 */
 	public String getEmployeeName(String email){
-	   DatabaseController dbcont = new DatabaseController(new DatabaseModel());
-	   String sql="",name;
-	   ResultSet res;
-	   
-	   //Create connection
-	   dbcont.createConnection();
-	   
-	   //Prepare statement
-	   sql="SELECT Name FROM Employee WHERE Email=?;";
-	   dbcont.prepareStatement(sql);
-	   try{
-	      dbcont.getState().setString(1, email);
-	      res=dbcont.runSQLRes();
-	      name=res.getString("Name");
-	   }catch(SQLException e){
-	      dbcont.closeConnection();
-	      return "Employee name not found";
-	   }
-	   dbcont.closeConnection();
-	   return name;
+		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+		String sql="",name;
+		ResultSet res;
+
+		//Create connection
+		dbcont.createConnection();
+
+		//Prepare statement
+		sql="SELECT Name FROM Employee WHERE Email=?;";
+		dbcont.prepareStatement(sql);
+		try{
+			dbcont.getState().setString(1, email);
+			res=dbcont.runSQLRes();
+			name=res.getString("Name");
+		}catch(SQLException e){
+			dbcont.closeConnection();
+			return "Employee name not found";
+		}
+		dbcont.closeConnection();
+		return name;
 	}
-	
+
 	//Adds error message to error box
 	public void empAddedMessage(HBox empaddedhbox, Text empaddedtxt) {
 		if (!empaddedhbox.getChildren().contains(empaddedtxt)) {

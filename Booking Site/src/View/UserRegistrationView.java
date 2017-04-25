@@ -118,8 +118,24 @@ public class UserRegistrationView {
 		HBox passerrorbox = new HBox();
 		
 		//Username taken
-		Text takenerrortxt = new Text("That username has already been taken");
-		HBox takenerrorbox = new HBox();
+		Text unameerrortxt = new Text("That username is unavailable");
+		HBox unameerrorbox = new HBox();
+		
+		//invalid name
+		Text pnamerrortxt = new Text("Please enter a name using only letters, spaces, and hyphens");
+		HBox pnameerrorbox = new HBox();
+		
+		//Invalid email
+		Text emailerrortxt = new Text("Please enter an email in the correct format");
+		HBox emailerrorbox = new HBox();
+				
+		//Phone too long
+		Text phoneerrortxt = new Text("Please enter a valid phone number only 10 digits long");
+		HBox phoneerrorbox = new HBox();
+		
+		// Street address invalid
+		Text streeterrortxt = new Text("Please enter a street number followed by a street name");
+		HBox streeterrorbox = new HBox();
 		
 		//Register button
 		Button registerbtn = new Button("Register");
@@ -135,7 +151,7 @@ public class UserRegistrationView {
 							numtxtfield.getText(),addtxtfield.getText(),mailtxtfield.getText());
 			   }else{
 			      //checking for empty
-				   cont.validateEntires(
+				   cont.validateEntries(
 							usertxtfield, unamehbox, 
 							pnametxtfield, pnamehbox, 
 							pwordfield, pwordhbox, 
@@ -145,7 +161,11 @@ public class UserRegistrationView {
 							mailtxtfield, mailhbox, 
 							emptyerrortxt, emptyerrorbox,
 							passerrortxt, passerrorbox,
-							takenerrortxt, takenerrorbox);
+							unameerrortxt, unameerrorbox,
+							pnamerrortxt, pnameerrorbox,
+							emailerrortxt, emailerrorbox,
+							phoneerrortxt, phoneerrorbox,
+							streeterrortxt, streeterrorbox);
 			   }
 			}
 		});
@@ -154,11 +174,13 @@ public class UserRegistrationView {
 		//Layout
 		
 		VBox vbox = new VBox(returnbtn,regtxt,unamehbox,pnamehbox,addhbox,numhbox,
-		                     mailhbox,pwordhbox, pwordhboxcon,btnbox,emptyerrorbox,passerrorbox,takenerrorbox);
+		                     mailhbox,pwordhbox, pwordhboxcon,btnbox,emptyerrorbox,
+		                     passerrorbox,unameerrorbox,pnameerrorbox,emailerrorbox,
+		                     phoneerrorbox,streeterrorbox);
 		
 		HBox regmenubox = new HBox(vbox,logbox);
 		
-		//Sttyles
+		//Styles
 		regmenubox.getStyleClass().add("loginpageBox");
 		logbox.getStyleClass().add("vbox");
 		vbox.getStyleClass().add("regbox");
