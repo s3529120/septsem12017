@@ -52,78 +52,78 @@ public class BookingsView {
 	public void updateView() {
 
 		//Header init
-				Text heading = new Text("Booking Site");
-				//Add employee
-						Button addempbtn = new Button("Add Employee");
-						addempbtn.setOnAction(new EventHandler<ActionEvent>(){
-							@Override public void handle(ActionEvent e){
-								EmployeeController empcont = new EmployeeController();
-								empcont.setView(new AddEmployeeView(stage));
-								empcont.getView().setController(empcont);
-								empcont.updateView();
-							}
-						});
+		Text heading = new Text("Booking Site");
+		//Add employee
+		Button addempbtn = new Button("Add Employee");
+		addempbtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				EmployeeController empcont = new EmployeeController();
+				empcont.setView(new AddEmployeeView(stage));
+				empcont.getView().setController(empcont);
+				empcont.updateView();
+			}
+		});
 
-						//Edit availability
-						Button editavailbtn = new Button("Edit Employee");
-						editavailbtn.setOnAction(new EventHandler<ActionEvent>(){
-							@Override public void handle(ActionEvent e){
-								AvailabilitiesController acont =  new AvailabilitiesController();
-								acont.setView(new EditAvailabilitiesView(stage));
-								acont.getView().setController(acont);
-								acont.updateView();
-							}
-						});
-						
+		//Edit availability
+		Button editavailbtn = new Button("Edit Employee");
+		editavailbtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				AvailabilitiesController acont =  new AvailabilitiesController();
+				acont.setView(new EditAvailabilitiesView(stage));
+				acont.getView().setController(acont);
+				acont.updateView();
+			}
+		});
 
-						//Edit type
-						Button edittypebtn = new Button("Edit Type");
-						edittypebtn.setOnAction(new EventHandler<ActionEvent>(){
-							@Override public void handle(ActionEvent e){
-								TypeController tcont=new TypeController();
-								TypeView tview = new TypeView(stage);
-								tcont.setView(tview);
-								tview.setCont(tcont);
-								tview.updateTypeView();
-							}
-						});
 
-						//View Bookings
-						Button viewbookbtn = new Button("View Bookings");
-						viewbookbtn.setUserData(cont);
-						viewbookbtn.setOnAction(new EventHandler<ActionEvent>(){
-							@Override public void handle(ActionEvent e){
-								BookingController bcont = new BookingController();
-								bcont.setView(new BookingsView(new Stage()));
-								bcont.getView().setController(bcont);
-								bcont.updateView();
-							}
-						});
-						//Logout button
-						Button logoutbtn = new Button("Logout");
-						logoutbtn.setOnAction(new EventHandler<ActionEvent>(){
-							@Override public void handle(ActionEvent e){
-								MainMenuView mainview = new MainMenuView(stage);
-								DefaultController maincont = new DefaultController(stage,mainview);
-								AppData.CALLER=null;
-								maincont.updateView();
-							}
-						});
-						HBox header = new HBox(heading,addempbtn,editavailbtn,edittypebtn,logoutbtn);
-		
+		//Edit type
+		Button edittypebtn = new Button("Edit Type");
+		edittypebtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				TypeController tcont=new TypeController();
+				TypeView tview = new TypeView(stage);
+				tcont.setView(tview);
+				tview.setCont(tcont);
+				tview.updateTypeView();
+			}
+		});
+
+		//View Bookings
+		Button viewbookbtn = new Button("View Bookings");
+		viewbookbtn.setUserData(cont);
+		viewbookbtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				BookingController bcont = new BookingController();
+				bcont.setView(new BookingsView(new Stage()));
+				bcont.getView().setController(bcont);
+				bcont.updateView();
+			}
+		});
+		//Logout button
+		Button logoutbtn = new Button("Logout");
+		logoutbtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				MainMenuView mainview = new MainMenuView(stage);
+				DefaultController maincont = new DefaultController(stage,mainview);
+				AppData.CALLER=null;
+				maincont.updateView();
+			}
+		});
+		HBox header = new HBox(heading,addempbtn,editavailbtn,edittypebtn,logoutbtn);
+
 		//Past bookings switch
 		Button switchbtn=null;
 		if(AppData.CALLER instanceof BusinessAccountModel){
-				switchbtn = new Button("Past Bookings");
-				switchbtn.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent e) {
-						updateViewPast();
-					}
-				});
+			switchbtn = new Button("Past Bookings");
+			switchbtn.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent e) {
+					updateViewPast();
+				}
+			});
 		}
 
-		
+
 		//Heading
 		Text h1;
 		if(AppData.CALLER instanceof BusinessAccountModel){
@@ -131,7 +131,7 @@ public class BookingsView {
 		}else{
 			h1=new Text("Available Appoinments");
 		}
-		
+
 		h1.setId("bookingsh1");
 		HBox bookingstitle = new HBox(h1);
 		bookingstitle.setId("bookingstitle");
@@ -213,69 +213,69 @@ public class BookingsView {
 		stage.show();
 
 	}
-	
+
 	public void updateViewPast() {
 
 		//Header init
-				Text heading = new Text("Booking Site");
-				//Add employee
-						Button addempbtn = new Button("Add Employee");
-						addempbtn.setOnAction(new EventHandler<ActionEvent>(){
-							@Override public void handle(ActionEvent e){
-								EmployeeController empcont = new EmployeeController();
-								empcont.setView(new AddEmployeeView(stage));
-								empcont.getView().setController(empcont);
-								empcont.updateView();
-							}
-						});
+		Text heading = new Text("Booking Site");
+		//Add employee
+		Button addempbtn = new Button("Add Employee");
+		addempbtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				EmployeeController empcont = new EmployeeController();
+				empcont.setView(new AddEmployeeView(stage));
+				empcont.getView().setController(empcont);
+				empcont.updateView();
+			}
+		});
 
-						//Edit availability
-						Button editavailbtn = new Button("Edit Employee");
-						editavailbtn.setOnAction(new EventHandler<ActionEvent>(){
-							@Override public void handle(ActionEvent e){
-								AvailabilitiesController acont =  new AvailabilitiesController();
-								acont.setView(new EditAvailabilitiesView(stage));
-								acont.getView().setController(acont);
-								acont.updateView();
-							}
-						});
-						
+		//Edit availability
+		Button editavailbtn = new Button("Edit Employee");
+		editavailbtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				AvailabilitiesController acont =  new AvailabilitiesController();
+				acont.setView(new EditAvailabilitiesView(stage));
+				acont.getView().setController(acont);
+				acont.updateView();
+			}
+		});
 
-						//Edit type
-						Button edittypebtn = new Button("Edit Type");
-						edittypebtn.setOnAction(new EventHandler<ActionEvent>(){
-							@Override public void handle(ActionEvent e){
-								TypeController tcont=new TypeController();
-								TypeView tview = new TypeView(stage);
-								tcont.setView(tview);
-								tview.setCont(tcont);
-								tview.updateTypeView();
-							}
-						});
 
-						//View Bookings
-						Button viewbookbtn = new Button("View Bookings");
-						viewbookbtn.setUserData(cont);
-						viewbookbtn.setOnAction(new EventHandler<ActionEvent>(){
-							@Override public void handle(ActionEvent e){
-								BookingController bcont = new BookingController();
-								bcont.setView(new BookingsView(new Stage()));
-								bcont.getView().setController(bcont);
-								bcont.updateView();
-							}
-						});
-						//Logout button
-						Button logoutbtn = new Button("Logout");
-						logoutbtn.setOnAction(new EventHandler<ActionEvent>(){
-							@Override public void handle(ActionEvent e){
-								MainMenuView mainview = new MainMenuView(stage);
-								DefaultController maincont = new DefaultController(stage,mainview);
-								AppData.CALLER=null;
-								maincont.updateView();
-							}
-						});
-						HBox header = new HBox(heading,addempbtn,editavailbtn,edittypebtn,logoutbtn);
-		
+		//Edit type
+		Button edittypebtn = new Button("Edit Type");
+		edittypebtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				TypeController tcont=new TypeController();
+				TypeView tview = new TypeView(stage);
+				tcont.setView(tview);
+				tview.setCont(tcont);
+				tview.updateTypeView();
+			}
+		});
+
+		//View Bookings
+		Button viewbookbtn = new Button("View Bookings");
+		viewbookbtn.setUserData(cont);
+		viewbookbtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				BookingController bcont = new BookingController();
+				bcont.setView(new BookingsView(new Stage()));
+				bcont.getView().setController(bcont);
+				bcont.updateView();
+			}
+		});
+		//Logout button
+		Button logoutbtn = new Button("Logout");
+		logoutbtn.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				MainMenuView mainview = new MainMenuView(stage);
+				DefaultController maincont = new DefaultController(stage,mainview);
+				AppData.CALLER=null;
+				maincont.updateView();
+			}
+		});
+		HBox header = new HBox(heading,addempbtn,editavailbtn,edittypebtn,logoutbtn);
+
 		//Back to the future... bookings
 		Button switchbtn = new Button("Future Bookings");
 		switchbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -285,7 +285,7 @@ public class BookingsView {
 			}
 		});
 
-		
+
 		//Heading
 		Text h1 = new Text("Past Bookings");
 		h1.setId("bookingsh1");
@@ -368,7 +368,7 @@ public class BookingsView {
 			//Heading
 			Text h1 = new Text("Assign customer to booking.");
 			AccountController acont = new AccountController();
-			
+
 			//Appointment details
 			Label dlbl = new Label("Date: ");
 			Text dtxt = new Text (book.getDate().toString());
@@ -425,7 +425,8 @@ public class BookingsView {
 				}
 			});
 			//Add to pane
-			pane.getChildren().addAll(h1,dets,select,typeselect,cancel,submit);
+			VBox all = new VBox(h1,dets,select,typeselect,cancel,submit);
+			pane.getChildren().addAll(all);
 		}else{
 			//Heading
 			Text h1 = new Text("Would you like to confirm this Booking?");
@@ -475,7 +476,8 @@ public class BookingsView {
 				}
 			});
 			//Add to pane
-			pane.getChildren().addAll(h1,dets,typeselect,cancel,submit);
+			VBox all = new VBox(h1,dets,typeselect,cancel,submit);
+			pane.getChildren().addAll(all);
 		}
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());

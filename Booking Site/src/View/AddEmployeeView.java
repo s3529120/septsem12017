@@ -299,11 +299,12 @@ public class AddEmployeeView
 		//Layout
 
 		HBox addEmployeeBox = new HBox(userInfo, addressInfo);
+		VBox addEmployeePage = new VBox(header,addEmployeeBox);
 		addEmployeeBox.setId("addEmpPageBox");
 
-		StackPane pane = new StackPane();
+		StackPane pane = new StackPane(addEmployeePage);
 
-		pane.getChildren().addAll(header,addEmployeeBox);
+		pane.getChildren().addAll();
 		Scene scene = new Scene(pane, 850, 450);
 		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 		stage.setScene(scene);
