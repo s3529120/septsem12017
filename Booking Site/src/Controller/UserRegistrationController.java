@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import utils.dataMatcher;
 
+
 public class UserRegistrationController {
 	private UserRegistrationView view;
 	private UserAccountModel model;
