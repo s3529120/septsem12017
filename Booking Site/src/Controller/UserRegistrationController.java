@@ -3,8 +3,11 @@ package Controller;
 import java.sql.ResultSet;
 import java.util.regex.*;
 import java.sql.SQLException;
+
+import Model.AccountModel;
 import Model.DatabaseModel;
 import Model.UserAccountModel;
+import View.BookingsView;
 import View.UserAccountMenuView;
 import View.UserRegistrationView;
 import javafx.scene.control.PasswordField;
@@ -12,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import utils.dataMatcher;
 
 public class UserRegistrationController {
@@ -309,10 +313,16 @@ public class UserRegistrationController {
 		}
 		if(dbcont.runSQLUpdate()){
 
-			UserAccountMenuView newview = new UserAccountMenuView(view.stage);
-			UserAccountMenuController newcont = new UserAccountMenuController(model,newview);
-			newcont.updateView();
+			AccountController acont=new AccountController();
+			AccountModel acc=acont.createAccountModel(uname, "User");
+			acc.setAddress(address);
+			acc.setContactNo(contactNo);
+			acc.setName(pname);
 			dbcont.closeConnection();
+			BookingController bcont = new BookingController();
+            bcont.setView(new BookingsView(view.stage));
+            bcont.getView().setController(bcont);
+            bcont.updateView();
 		}
 	}
 }

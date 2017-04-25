@@ -64,6 +64,43 @@ public class TypeController
    }
    
    //Methods
+   public Boolean addType(String typename,int duration){
+	   DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+	   String sql="";
+	   
+	   dbcont.createConnection();
+	   sql="INSERT INTO Type(Type, Duration) Values(?,?);";
+	   dbcont.prepareStatement(sql);
+	   try {
+		dbcont.getState().setString(1, typename);
+		dbcont.getState().setInt(2, duration);
+		dbcont.runSQLUpdate();
+	} catch (SQLException e) {
+		dbcont.closeConnection();
+		return false;
+	}
+	   dbcont.closeConnection();
+	   return true;
+   }
+   
+   public Boolean removeType(String typename){
+	   DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+	   String sql="";
+	   
+	   dbcont.createConnection();
+	   sql="DELETE FROM Type WHERE Type=?;";
+	   dbcont.prepareStatement(sql);
+	   try {
+		dbcont.getState().setString(1, typename);
+		dbcont.runSQLUpdate();
+	} catch (SQLException e) {
+		dbcont.closeConnection();
+		return false;
+	}
+	   dbcont.closeConnection();
+	   return true;
+   }
+   
    public void addSpec(String type){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       String sql="";
