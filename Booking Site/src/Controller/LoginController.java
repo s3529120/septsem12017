@@ -95,6 +95,7 @@ public class LoginController {
 							view.stage);
 					BusinessAccountMenuController newcont = new BusinessAccountMenuController(
 							(BusinessAccountModel) acc,newview);
+					newview.setController(newcont);
 					//Proceed window.
 					newcont.updateView();
 					//Create user account model.
@@ -103,6 +104,7 @@ public class LoginController {
 							view.stage);
 					UserAccountMenuController newcont = new UserAccountMenuController(
 							(UserAccountModel) acc,newview);
+					newview.setController(newcont);
 					//Proceed window.
 					newcont.updateView();
 				}

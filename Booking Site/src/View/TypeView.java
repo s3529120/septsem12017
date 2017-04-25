@@ -78,6 +78,7 @@ public class TypeView
       StackPane pane = new StackPane();
       pane.getChildren().addAll(h1,addVbox,remVbox,done);
       Scene scene = new Scene(pane);
+      scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
       stage.setScene(scene);
       stage.show();
    }

@@ -64,7 +64,7 @@ public class TypeController
    }
    
    //Methods
-   public void removeSpec(String type){
+   public void addSpec(String type){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       String sql="";
       
@@ -79,6 +79,7 @@ public class TypeController
       }
       catch (SQLException e)
       {
+         e.printStackTrace();
       }
       dbcont.runSQLUpdate();
       dbcont.closeConnection();
@@ -86,7 +87,7 @@ public class TypeController
       
    }
    
-   public void addSpec(String type){
+   public void removeSpec(String type){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       String sql="";
       
@@ -99,6 +100,7 @@ public class TypeController
       }
       catch (SQLException e)
       {
+         e.printStackTrace();
       }
       dbcont.runSQLUpdate();
       dbcont.closeConnection();
@@ -127,8 +129,10 @@ public class TypeController
       }
       catch (SQLException e)
       {
+         e.printStackTrace();
       }
       dbcont.closeConnection();
+      list.forEach(x->System.out.println("getAll"+x));
       return list;
       
    }
@@ -152,7 +156,7 @@ public class TypeController
       
       //Retrieve all types from database
       dbcont.createConnection();
-      sql="SELECT Type FROM Spec WHERE EmployeeEmail=?;";
+      sql="SELECT Spec.Type AS Type, Type.Duration as Duration FROM Spec INNER JOIN Type ON Spec.Type=Type.Type WHERE EmployeeEmail=?;";
       dbcont.prepareStatement(sql);
       try
       {
@@ -162,7 +166,7 @@ public class TypeController
       {
          dbcont.closeConnection();
          list.add(new TypeModel("None",15));
-         return list;
+         e1.printStackTrace();
       }
       res=dbcont.runSQLRes();
       
@@ -175,7 +179,10 @@ public class TypeController
       }
       catch (SQLException e)
       {
+         e.printStackTrace();
       }
+      
+      
       dbcont.closeConnection();
       return list;
       
