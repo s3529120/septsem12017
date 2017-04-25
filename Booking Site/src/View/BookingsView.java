@@ -368,6 +368,21 @@ public class BookingsView {
 			//Heading
 			Text h1 = new Text("Assign customer to booking.");
 			AccountController acont = new AccountController();
+			
+			//Appointment details
+			Label dlbl = new Label("Date: ");
+			Text dtxt = new Text (book.getDate().toString());
+			HBox dbox= new HBox(dlbl,dtxt);
+			Label stlbl = new Label("Start Time: ");
+			Text sttxt = new Text (book.getDate().toString());
+			HBox stbox= new HBox(stlbl,sttxt);
+			Label ftlbl = new Label("Finish Time: ");
+			Text fttxt = new Text (book.getDate().toString());
+			HBox ftbox= new HBox(ftlbl,fttxt);
+			Label elbl = new Label("Employee: ");
+			Text etxt = new Text (book.getDate().toString());
+			HBox ebox= new HBox(elbl,etxt);
+			VBox dets=new VBox(dbox,stbox,ftbox,ebox);
 
 			//List initialization
 			List<UserAccountModel> customers = acont.getAllCustomers();
@@ -410,7 +425,7 @@ public class BookingsView {
 				}
 			});
 			//Add to pane
-			pane.getChildren().addAll(h1,select,typeselect,cancel,submit);
+			pane.getChildren().addAll(h1,dets,select,typeselect,cancel,submit);
 		}else{
 			//Heading
 			Text h1 = new Text("Would you like to confirm this Booking?");
