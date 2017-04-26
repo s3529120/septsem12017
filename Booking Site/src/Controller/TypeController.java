@@ -169,7 +169,6 @@ public class TypeController
          e.printStackTrace();
       }
       dbcont.closeConnection();
-      list.forEach(x->System.out.println("getAll"+x));
       return list;
       
    }

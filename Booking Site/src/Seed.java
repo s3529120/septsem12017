@@ -65,7 +65,7 @@ public class Seed {
       // Spec
          sql = "CREATE TABLE Spec(Type TEXT NOT NULL, EmployeeEmail TEXT NOT NULL, PRIMARY KEY (Type, EmployeeEmail), " +
                "FOREIGN KEY (Type) REFERENCES Type(Type), " +
-               "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(EmployeeEmail));";
+               "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email));";
          dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
 			// Address
@@ -111,15 +111,30 @@ public class Seed {
 			dataCont.runSQLUpdate();
 			
 			//Types
-			sql="INSERT INTO Type(Type,Duration) Values('Nails',15);";
+			sql="INSERT INTO Type(Type,Duration) Values(?,?);";
+			dataCont.prepareStatement(sql);
+			dataCont.getState().setString(1, "Nails");
+			dataCont.getState().setInt(2, 15);
 			dataCont.runSQLUpdate();
-			sql="INSERT INTO Type(Type,Duration) Values('None',15);";
+			sql="INSERT INTO Type(Type,Duration) Values(?,?);";
+			dataCont.prepareStatement(sql);
+			dataCont.getState().setString(1, "None");
+			dataCont.getState().setInt(2, 15);
          dataCont.runSQLUpdate();
-         sql="INSERT INTO Type(Type,Duration) Values('Cut',30);";
+         sql="INSERT INTO Type(Type,Duration) Values(?,?);";
+			dataCont.prepareStatement(sql);
+         dataCont.getState().setString(1, "Cut");
+			dataCont.getState().setInt(2, 30);
          dataCont.runSQLUpdate();
-         sql="INSERT INTO Type(Type,Duration) Values('Style',30);";
+         sql="INSERT INTO Type(Type,Duration) Values(?,?);";
+			dataCont.prepareStatement(sql);
+         dataCont.getState().setString(1, "Style");
+			dataCont.getState().setInt(2, 30);
          dataCont.runSQLUpdate();
-         sql="INSERT INTO Type(Type,Duration) Values('Cut and Style',45);";
+         sql="INSERT INTO Type(Type,Duration) Values(?,?);";
+			dataCont.prepareStatement(sql);
+         dataCont.getState().setString(1, "Cut and Style");
+			dataCont.getState().setInt(2, 45);
          dataCont.runSQLUpdate();
 
 ///////////// EMPLOYEE 1
@@ -131,9 +146,11 @@ public class Seed {
 			dataCont.runSQLUpdate();
 			
 			//Employee 1 Spec
-			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Nails',johndoe@example.com);";
+			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Nails','johndoe@example.com');";
+			dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
-         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('None',johndoe@example.com);";
+         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('None','johndoe@example.com');";
+			dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
 
 			// Employee 1 address
@@ -182,13 +199,17 @@ public class Seed {
 			dataCont.runSQLUpdate();
 			
 			//Employee 2 Spec
-         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Cut',janeoliver@example.com);";
+         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Cut','janeoliver@example.com');";
+			dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
-         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('None',johndoe@example.com);";
+         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('None','johndoe@example.com');";
+			dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
-         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Style',johndoe@example.com);";
+         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Style','johndoe@example.com');";
+			dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
-         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Cut and Style',johndoe@example.com);";
+         sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Cut and Style','johndoe@example.com');";
+			dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
 
 			// Employee 2 address
