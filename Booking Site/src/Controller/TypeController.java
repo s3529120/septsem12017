@@ -223,11 +223,10 @@ public class TypeController
       return list;
       
    }
-   
    public List<TypeModel> getUnknownTypes(){
       List<TypeModel> all = getAllTypes();
       List<TypeModel> known=getSetTypes();
-      known.forEach(x->{if(all.contains(x)){all.remove(x);}});
+      all.removeAll(known);
       return all;
    }
 }

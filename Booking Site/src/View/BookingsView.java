@@ -200,7 +200,7 @@ public class BookingsView {
 		if(AppData.CALLER instanceof BusinessAccountModel){
 			main = new VBox(header,heading, bookingscontainer);
 		}else{
-			main = new VBox(heading, bookingscontainer);
+			main = new VBox(heading,logoutbtn, bookingscontainer);
 		}
 		main.setId("bookingsMain");
 

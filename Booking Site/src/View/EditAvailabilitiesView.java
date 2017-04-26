@@ -119,16 +119,7 @@ public class EditAvailabilitiesView
 							}
 						});
 
-						//Edit availability
-						Button editavailbtn = new Button("Edit Employee");
-						editavailbtn.setOnAction(new EventHandler<ActionEvent>(){
-							@Override public void handle(ActionEvent e){
-								AvailabilitiesController acont =  new AvailabilitiesController();
-								acont.setView(new EditAvailabilitiesView(stage));
-								acont.getView().setController(acont);
-								acont.updateView();
-							}
-						});
+						
 						
 
 						//Edit type
@@ -149,7 +140,7 @@ public class EditAvailabilitiesView
 						viewbookbtn.setOnAction(new EventHandler<ActionEvent>(){
 							@Override public void handle(ActionEvent e){
 								BookingController bcont = new BookingController();
-								bcont.setView(new BookingsView(new Stage()));
+								bcont.setView(new BookingsView(stage));
 								bcont.getView().setController(bcont);
 								bcont.updateView();
 							}
@@ -164,7 +155,7 @@ public class EditAvailabilitiesView
 								maincont.updateView();
 							}
 						});
-						HBox header = new HBox(heading,addempbtn,editavailbtn,edittypebtn,logoutbtn);
+						HBox header = new HBox(heading,viewbookbtn,addempbtn,edittypebtn,logoutbtn);
 		HBox backbox = new HBox(specbtn);
 
 		//top box construction

@@ -116,17 +116,7 @@ public class TypeView
 		});
 
 
-		//Edit type
-		Button edittypebtn = new Button("Edit Type");
-		edittypebtn.setOnAction(new EventHandler<ActionEvent>(){
-			@Override public void handle(ActionEvent e){
-				TypeController tcont=new TypeController();
-				TypeView tview = new TypeView(stage);
-				tcont.setView(tview);
-				tview.setCont(tcont);
-				tview.updateTypeView();
-			}
-		});
+		
 
 		//View Bookings
 		Button viewbookbtn = new Button("View Bookings");
@@ -134,7 +124,7 @@ public class TypeView
 		viewbookbtn.setOnAction(new EventHandler<ActionEvent>(){
 			@Override public void handle(ActionEvent e){
 				BookingController bcont = new BookingController();
-				bcont.setView(new BookingsView(new Stage()));
+				bcont.setView(new BookingsView(stage));
 				bcont.getView().setController(bcont);
 				bcont.updateView();
 			}
@@ -149,7 +139,7 @@ public class TypeView
 				maincont.updateView();
 			}
 		});
-		HBox header = new HBox(heading,addempbtn,editavailbtn,edittypebtn,logoutbtn);
+		HBox header = new HBox(heading,viewbookbtn,addempbtn,editavailbtn,logoutbtn);
 		Text h1 = new Text("Edit Types");
 
 		//Add

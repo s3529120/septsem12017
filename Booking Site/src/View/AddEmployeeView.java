@@ -45,14 +45,15 @@ public class AddEmployeeView
 	public void updateView(){
 		//Header init
 		Text heading = new Text("Booking Site");
-		//Add employee
-				Button addempbtn = new Button("Add Employee");
-				addempbtn.setOnAction(new EventHandler<ActionEvent>(){
+		//View Bookings
+				Button viewbookbtn = new Button("View Bookings");
+				viewbookbtn.setUserData(cont);
+				viewbookbtn.setOnAction(new EventHandler<ActionEvent>(){
 					@Override public void handle(ActionEvent e){
-						EmployeeController empcont = new EmployeeController();
-						empcont.setView(new AddEmployeeView(stage));
-						empcont.getView().setController(empcont);
-						empcont.updateView();
+						BookingController bcont = new BookingController();
+						bcont.setView(new BookingsView(stage));
+						bcont.getView().setController(bcont);
+						bcont.updateView();
 					}
 				});
 
@@ -79,18 +80,6 @@ public class AddEmployeeView
 						tview.updateTypeView();
 					}
 				});
-
-				//View Bookings
-				Button viewbookbtn = new Button("View Bookings");
-				viewbookbtn.setUserData(cont);
-				viewbookbtn.setOnAction(new EventHandler<ActionEvent>(){
-					@Override public void handle(ActionEvent e){
-						BookingController bcont = new BookingController();
-						bcont.setView(new BookingsView(new Stage()));
-						bcont.getView().setController(bcont);
-						bcont.updateView();
-					}
-				});
 				//Logout button
 				Button logoutbtn = new Button("Logout");
 				logoutbtn.setOnAction(new EventHandler<ActionEvent>(){
@@ -101,7 +90,7 @@ public class AddEmployeeView
 						maincont.updateView();
 					}
 				});
-				HBox header = new HBox(heading,addempbtn,editavailbtn,edittypebtn,logoutbtn);
+				HBox header = new HBox(heading,viewbookbtn,editavailbtn,edittypebtn,logoutbtn);
 
 
 		//Confirmation message and heading
