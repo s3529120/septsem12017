@@ -237,3 +237,9 @@ buttonbox {
 	-fx-padding: 0 0 25 0;
 	-fx-max-width: 300px;
 }
+
+/* BOOKINGS VIEW */
+
+#switchbtn {
+	-fx-min-width: 200px;
+}

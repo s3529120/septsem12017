@@ -127,7 +127,7 @@ public class BookingsView {
 		//Heading
 		Text h1;
 		if(AppData.CALLER instanceof BusinessAccountModel){
-			h1=new Text("View Bookings");
+			h1=new Text("Bookings");
 		}else{
 			h1=new Text("Available Appoinments");
 		}
