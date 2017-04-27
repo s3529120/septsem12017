@@ -113,7 +113,7 @@ public class BookingController
 		sql="UPDATE Booking SET Username=? WHERE Date=? AND StartTime=? ";
 
 		//Determine number of booking slots required and alter sql
-		numBooks=type.getDuration()/15;
+		numBooks=type.getDuration()/60;
 		for(int i=1;i<numBooks;i++){
 			sql=sql.concat("OR StartTime=? ");
 		}
@@ -127,7 +127,7 @@ public class BookingController
 			dbcont.getState().setString(3, booking.getStartTime().toString());
 			incTime=booking.getStartTime();
 			for(int i=1;i<numBooks;i++){
-				incTime=incTime.plusMinutes(15);
+				incTime=incTime.plusMinutes(60);
 				dbcont.getState().setString(3+i, incTime.toString());
 			}
 
@@ -198,12 +198,12 @@ public class BookingController
 						dbcont.prepareStatement(sql);
 						dbcont.getState().setString(1, focus.toString());
 						dbcont.getState().setString(2, focustime.toString());
-						dbcont.getState().setString(3, focustime.plusMinutes(15).toString());
+						dbcont.getState().setString(3, focustime.plusMinutes(60).toString());
 						dbcont.getState().setString(4, emp);
 						dbcont.runSQLUpdate();
 
 						//Increment appointment time
-						focustime=focustime.plusMinutes(15);
+						focustime=focustime.plusMinutes(60);
 					}
 				}
 			}catch(NullPointerException e){
@@ -321,13 +321,13 @@ public class BookingController
 					{
 						dbcont.getState().setString(1, focusdate.toString());
 						dbcont.getState().setString(2, focus.toString());
-						dbcont.getState().setString(3, focus.plusMinutes(15).toString());
+						dbcont.getState().setString(3, focus.plusMinutes(60).toString());
 						dbcont.getState().setString(4, empemail.toString());
 						dbcont.runSQLUpdate();
 					}
 					catch (SQLException e) {}
 					//Increment appointment
-					focus=focus.plusMinutes(15);
+					focus=focus.plusMinutes(60);
 				}
 			}
 			focusdate=focusdate.plusDays(1);

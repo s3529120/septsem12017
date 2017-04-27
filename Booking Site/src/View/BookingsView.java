@@ -122,7 +122,7 @@ public class BookingsView {
 				}
 			});
 		}
-
+		switchbtn.setId("switchbtn");
 
 		//Heading
 		Text h1;
@@ -142,13 +142,13 @@ public class BookingsView {
 		}else{
 			head=new HBox(bookingstitle);
 		}
-		heading.setId("bookingsHeader");
+		head.setId("bookingsHeader");
 
 		// Bookings
+		
+		VBox bookingsList = new VBox(head);
 
 		List<BookingModel> bookings = cont.getBookings();
-
-		VBox bookingsList = new VBox();
 
 		bookings.forEach(booking -> {
 			String newdate = booking.getDate().toString();
