@@ -122,7 +122,6 @@ public class BookingsView {
 				}
 			});
 		}
-		switchbtn.setId("switchbtn");
 
 		//Heading
 		Text h1;
@@ -138,6 +137,7 @@ public class BookingsView {
 
 		HBox head;
 		if(AppData.CALLER instanceof BusinessAccountModel){
+			switchbtn.setId("switchbtn");
 			head=new HBox(bookingstitle,switchbtn);
 		}else{
 			head=new HBox(bookingstitle);
