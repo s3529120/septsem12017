@@ -226,7 +226,26 @@ public class TypeController
    public List<TypeModel> getUnknownTypes(){
       List<TypeModel> all = getAllTypes();
       List<TypeModel> known=getSetTypes();
-      all.removeAll(known);
-      return all;
+      List<TypeModel> list=new ArrayList<TypeModel>();
+      Boolean match;
+      
+      TypeModel[] allArr = new TypeModel[all.size()];
+      TypeModel[] knownArr = new TypeModel[known.size()];
+      allArr=all.toArray(allArr);
+      knownArr=known.toArray(knownArr);
+      for(int i=0;i<all.size();i++){
+         match=false;
+         for(int j=0;j<known.size();j++){
+            if(allArr[i].getName().compareToIgnoreCase(knownArr[j].getName())==0){
+               match=true;
+            }
+         }
+         if(!match){
+            list.add(allArr[i]);
+         }
+      }
+      
+      
+      return list;
    }
 }
