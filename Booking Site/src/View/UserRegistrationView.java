@@ -1,5 +1,7 @@
 package View;
 
+import com.sun.glass.ui.Screen;
+
 import Controller.DefaultController;
 import Controller.LoginController;
 import Controller.UserRegistrationController;
@@ -54,11 +56,12 @@ public class UserRegistrationView {
 		//Return button
 		Button returnbtn = new Button("Return");
 		returnbtn.setOnAction(new EventHandler<ActionEvent>(){
-			@Override public void handle(ActionEvent e){
+			@Override public void handle(ActionEvent e){		        
 				DefaultController cont = new DefaultController(stage, new MainMenuView(stage));
 				cont.updateView();
 			}
 		});
+		
 		VBox logbox = new VBox(logtxt,loginbtn);
 		
 		//Heading
@@ -195,6 +198,5 @@ public class UserRegistrationView {
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 		stage.setScene(scene);
-
 	}
 }

@@ -201,3 +201,39 @@ buttonbox {
 #bookingstitle {
 	-fx-pref-width: 500px;
 }
+
+/* MAIN */
+
+#border {
+	-fx-background-color: #74d1e1;
+	-fx-background-image: url("/view/images/stripes.png");
+    -fx-background-repeat: repeat;   
+}
+
+/* MAIN MENU */
+
+#mainMenuVBox {
+    -fx-alignment: center;
+    -fx-padding: 10;
+    -fx-background-color: #e0dfc8;
+    -fx-border-color: #f76907;
+    -fx-border-width: 10;
+}
+
+/* FORM */
+
+.orangebtn {
+	-fx-background-color: #f76907;
+	-fx-padding: 15 20 15 20;
+	-fx-font-size: 25px;
+	-fx-border-color: #de8b44;
+    -fx-border-width: 3;
+    -fx-pref-width: 300px;
+}
+
+.main-heading {
+	-fx-text-align: center;
+	-fx-font-size: 35px;
+	-fx-padding: 0 0 25 0;
+	-fx-max-width: 300px;
+}
