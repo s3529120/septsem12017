@@ -151,6 +151,9 @@ public class BookingsView {
 		List<BookingModel> bookings = cont.getBookings();
 
 		bookings.forEach(booking -> {
+		   if(booking.getUser().compareToIgnoreCase("Unfilled")!=0 && AppData.CALLER instanceof UserAccountModel){
+            return;
+         }
 			String newdate = booking.getDate().toString();
 			if (currentdate == null || !currentdate.equals(newdate)) {
 				currentdate = newdate;
@@ -186,7 +189,7 @@ public class BookingsView {
 			bookingBox.setId("bookingBox");
 			bookingBox.addEventFilter(MouseEvent.MOUSE_CLICKED,new EventHandler<MouseEvent>(){
 				@Override public void handle(MouseEvent e){
-					assignToBooking(booking);
+					assignToBooking(booking,cont);
 				}
 			});
 
@@ -302,6 +305,7 @@ public class BookingsView {
 		VBox bookingsList = new VBox();
 
 		bookings.forEach(booking -> {
+		   
 			String newdate = booking.getDate().toString();
 			if (currentdate == null || !currentdate.equals(newdate)) {
 				currentdate = newdate;
@@ -337,7 +341,7 @@ public class BookingsView {
 			bookingBox.setId("bookingBox");
 			bookingBox.addEventFilter(MouseEvent.MOUSE_CLICKED,new EventHandler<MouseEvent>(){
 				@Override public void handle(MouseEvent e){
-					assignToBooking(booking);
+					assignToBooking(booking,cont);
 				}
 			});
 
@@ -361,7 +365,7 @@ public class BookingsView {
 
 	}
 
-	public void assignToBooking(BookingModel book){
+	public void assignToBooking(BookingModel book,BookingController parcont){
 		Stage popup = new Stage();
 		StackPane pane=new StackPane();
 		if(AppData.CALLER instanceof BusinessAccountModel){
@@ -398,7 +402,7 @@ public class BookingsView {
 			//Type selector
 			TypeController tcont = new TypeController();
 			tcont.setEmp(book.getEmployee());
-			Label typelbl = new Label("Please select the appointment type you desire.");
+			Label typelbl = new Label("Please select the appointment type you desire to book.");
 			ComboBox<String> typeselector = new ComboBox<String>();
 			List<TypeModel> settypes = tcont.getSetTypes();
 			settypes.forEach(x -> typeselector.getItems().add(x.getName()));
@@ -418,7 +422,19 @@ public class BookingsView {
 				@Override public void handle(ActionEvent e){
 					BookingController cont = new BookingController();
 					if(cont.setUser(book, map.get(selector.getSelectionModel().getSelectedItem()),TypeController.getModelByName(settypes, typeselector.getSelectionModel().getSelectedItem()))){
-						//Success actions
+					 //Confirm text
+                  Text conftxt = new Text("Booking Confirmed!");
+                //Close button
+                  Button close = new Button("Close");
+                  close.setOnAction(new EventHandler<ActionEvent>(){
+                     @Override public void handle(ActionEvent e){
+                        popup.close();
+                     }
+                  });
+                  VBox vbox = new VBox(conftxt,close);
+                  Scene confscene = new Scene(vbox);
+                  popup.setScene(confscene);
+                  //parcont.updateView();
 					}else{
 						//False message
 					}
@@ -447,13 +463,13 @@ public class BookingsView {
 			VBox dets=new VBox(dbox,stbox,ftbox,ebox);
 
 			//Type selector
-			TypeController tcont = new TypeController();
-			tcont.setEmp(cont.getNameFromEmail(book.getEmployee()));
-			Label typelbl = new Label("Please select the appointment type you desire.");
-			ComboBox<String> typeselector = new ComboBox<String>();
-			List<TypeModel> settypes = tcont.getSetTypes();
-			settypes.forEach(x -> typeselector.getItems().add(x.getName()));
-			VBox typeselect = new VBox(typelbl,typeselector);
+         TypeController tcont = new TypeController();
+         tcont.setEmp(book.getEmployee());
+         Label typelbl = new Label("Please select the appointment type you desire.");
+         ComboBox<String> typeselector = new ComboBox<String>();
+         List<TypeModel> settypes = tcont.getSetTypes();
+         settypes.forEach(x -> typeselector.getItems().add(x.getName()));
+         VBox typeselect = new VBox(typelbl,typeselector);
 
 			//Cancel button
 			Button cancel = new Button("Cancel");
@@ -468,8 +484,20 @@ public class BookingsView {
 			submit.setOnAction(new EventHandler<ActionEvent>(){
 				@Override public void handle(ActionEvent e){
 					BookingController cont = new BookingController();
-					if(cont.setUser(book, AppData.CALLER.getUsername(),TypeController.getModelByName(settypes, typeselector.getSelectionModel().getSelectedItem()))){
-						//Success actions
+					if(cont.setUser(book,AppData.CALLER.getUsername(),TypeController.getModelByName(settypes, typeselector.getSelectionModel().getSelectedItem()))){
+					   //Confirm text
+					   Text conftxt = new Text("Booking Confirmed!");
+					 //Close button
+			         Button close = new Button("Close");
+			         close.setOnAction(new EventHandler<ActionEvent>(){
+			            @Override public void handle(ActionEvent e){
+			               popup.close();
+			            }
+			         });
+						VBox vbox = new VBox(conftxt,close);
+						Scene confscene = new Scene(vbox);
+						popup.setScene(confscene);
+						//parcont.updateView();
 					}else{
 						//False message
 					}

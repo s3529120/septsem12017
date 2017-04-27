@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import utils.AppData;
 import utils.dataMatcher;
 
 public class UserRegistrationController {
@@ -298,6 +299,7 @@ public class UserRegistrationController {
 			acc.setContactNo(contactNo);
 			acc.setName(pname);
 			dbcont.closeConnection();
+			AppData.CALLER=acc;
 			BookingController bcont = new BookingController();
             bcont.setView(new BookingsView(view.stage));
             bcont.getView().setController(bcont);
