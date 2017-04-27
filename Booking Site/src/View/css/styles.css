@@ -216,17 +216,17 @@ buttonbox {
     -fx-alignment: center;
     -fx-padding: 10;
     -fx-background-color: #e0dfc8;
-    -fx-border-color: #f76907;
+    -fx-border-color: #ff8833;
     -fx-border-width: 10;
 }
 
 /* FORM */
 
 .orangebtn {
-	-fx-background-color: #f76907;
+	-fx-background-color: #ff8833;
 	-fx-padding: 15 20 15 20;
 	-fx-font-size: 25px;
-	-fx-border-color: #de8b44;
+	-fx-border-color: #ffb580;
     -fx-border-width: 3;
     -fx-pref-width: 300px;
 }
