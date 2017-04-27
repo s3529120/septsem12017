@@ -380,7 +380,7 @@ public class BookingsView {
 			Text fttxt = new Text (book.getDate().toString());
 			HBox ftbox= new HBox(ftlbl,fttxt);
 			Label elbl = new Label("Employee: ");
-			Text etxt = new Text (book.getDate().toString());
+			Text etxt = new Text (cont.getNameFromEmail(book.getEmployee()));
 			HBox ebox= new HBox(elbl,etxt);
 			VBox dets=new VBox(dbox,stbox,ftbox,ebox);
 
@@ -442,13 +442,13 @@ public class BookingsView {
 			Text fttxt = new Text (book.getDate().toString());
 			HBox ftbox= new HBox(ftlbl,fttxt);
 			Label elbl = new Label("Employee: ");
-			Text etxt = new Text (book.getDate().toString());
+			Text etxt = new Text (cont.getNameFromEmail(book.getEmployee()));
 			HBox ebox= new HBox(elbl,etxt);
 			VBox dets=new VBox(dbox,stbox,ftbox,ebox);
 
 			//Type selector
 			TypeController tcont = new TypeController();
-			tcont.setEmp(book.getEmployee());
+			tcont.setEmp(cont.getNameFromEmail(book.getEmployee()));
 			Label typelbl = new Label("Please select the appointment type you desire.");
 			ComboBox<String> typeselector = new ComboBox<String>();
 			List<TypeModel> settypes = tcont.getSetTypes();
