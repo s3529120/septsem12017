@@ -2,7 +2,7 @@ package utils;
 
 import java.util.regex.*;
 
-public class dataMatcher {
+public class DataMatcher {
 	
 	// Declare sets and patterns to match
 	// For origin of this code see http://jregex.sourceforge.net/examples-email.html
@@ -27,6 +27,10 @@ public class dataMatcher {
 	private static final String postcPattern = "\\d{4}";
 	private static final String cityPattern = "(?:" + alpha + "||" + space + ")*";
 	
+	/**
+	 * @param s A string to compare with emailPattern
+	 * @return True if s matches chars followed by '@' followed by chars, periods, numbers, or hyphens
+	 */
 	public static boolean emailMatcher(String s){
 		if(Pattern.matches(emailPattern, s)){
 			return true;
@@ -34,7 +38,11 @@ public class dataMatcher {
 			return false;
 		}		
 	}
-	
+
+	/**
+	 * @param s A string to compare with pnamePattern
+	 * @return True if s matches a word comprised of only alphabet chars, spaces, and hyphens
+	 */
 	public static boolean nameMatcher(String s){
 		if(Pattern.matches(pnamePattern, s)){
 			return true;
@@ -42,7 +50,11 @@ public class dataMatcher {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * @param s A string to compare with [a-zA-z\\-\\s]+
+	 * @return True if s matches [a-zA-z\\-\\s]+
+	 */
 	public static boolean fnameMatcher(String s){
 		if(Pattern.matches("[a-zA-z\\-\\s]+", s)){
 			return true;
@@ -51,6 +63,10 @@ public class dataMatcher {
 		}
 	}
 	
+	/**
+	 * @param s A string to compare with [a-zA-z\\-\\s]+
+	 * @return True if s matches [a-zA-z\\-\\s]+
+	 */
 	public static boolean snameMatcher(String s){
 		if(Pattern.matches("[a-zA-z\\-\\s]+", s)){
 			return true;
@@ -59,6 +75,10 @@ public class dataMatcher {
 		}
 	}
 	
+	/**
+	 * @param s A string to compare with unamePattern
+	 * @return True if s matches a word made of letters, followed by {digits}*
+	 */
 	public static boolean unameMatcher(String s){
 		if(Pattern.matches(unamePattern, s)){
 			return true;
@@ -66,7 +86,12 @@ public class dataMatcher {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * @param s A string to compare with passPattern
+	 * @return True if s matches a word comprised of symbols (ie. shift + number keys), 
+	 * 		lettters, spaces, and numbers
+	 */
 	public static boolean passMatcher(String s){
 		if(Pattern.matches(passPattern, s)){
 			return true;
@@ -74,7 +99,12 @@ public class dataMatcher {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * @param s A string to compare with addPattern
+	 * @return True if s matches digits, followed by a space, 
+	 * 		followed by a word comprised of only letters
+	 */
 	public static boolean addMatcher(String s){
 		if(Pattern.matches(addPattern, s)){
 			return true;
@@ -82,7 +112,11 @@ public class dataMatcher {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * @param s A string to compare with phonePattern
+	 * @return True if s matches 10 digits
+	 */
 	public static boolean phoneMatcher(String s){
 		if(Pattern.matches(phonePattern, s)){
 			return true;
@@ -90,7 +124,11 @@ public class dataMatcher {
 			return false;
 		}
 	}	
-	
+
+	/**
+	 * @param s A string to compare with 4 digits
+	 * @return True if s matches 4 digits, and if it is in the correct state
+	 */
 	public static boolean postcMatcher(String s, String state){
 		if(Pattern.matches(postcPattern, s)){
 			int postCode;
@@ -164,7 +202,11 @@ public class dataMatcher {
 		}
 		return false;
 	}
-	
+
+	/**
+	 * @param s A string to compare with cityPattern
+	 * @return True if s matches cityPattern
+	 */
 	public static boolean cityMatcher(String s){
 		if(Pattern.matches(cityPattern, s)){
 			return true;

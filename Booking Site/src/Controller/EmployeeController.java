@@ -16,7 +16,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import utils.dataMatcher;
+import utils.DataMatcher;
 
 
 public class EmployeeController
@@ -282,7 +282,7 @@ public class EmployeeController
 			fnamehbox.setId("incorrectForm");
 			hasEmpty = true;
 			fnameerror = true;
-		} else if(!dataMatcher.fnameMatcher(fnameTrim)){
+		} else if(!DataMatcher.fnameMatcher(fnameTrim)){
 			fnamehbox.setId("incorrectForm");
 			fnameerror = true;
 		} else {
@@ -294,7 +294,7 @@ public class EmployeeController
 			snamehbox.setId("incorrectForm");
 			hasEmpty = true;
 			snameerror = true;
-		} else if(!dataMatcher.snameMatcher(snameTrim)){
+		} else if(!DataMatcher.snameMatcher(snameTrim)){
 			snamehbox.setId("incorrectForm");
 			snameerror = true;
 		} else {
@@ -306,7 +306,7 @@ public class EmployeeController
 			addresshbox.setId("incorrectForm");
 			hasEmpty = true;
 			adderror = true;
-		} else if(!dataMatcher.addMatcher(addTrim)) {
+		} else if(!DataMatcher.addMatcher(addTrim)) {
 			addresshbox.setId("incorrectForm");
 			adderror = true;
 		} else {
@@ -318,7 +318,7 @@ public class EmployeeController
 			pcodehbox.setId("incorrectForm");
 			hasEmpty = true;
 			pcodeerror = true;
-		} else if(!dataMatcher.postcMatcher(pcodeTrim, state)){
+		} else if(!DataMatcher.postcMatcher(pcodeTrim, state)){
 			pcodehbox.setId("incorrectForm");
 			pcodeerror = true;
 		} else {
@@ -330,7 +330,7 @@ public class EmployeeController
 			contactnohbox.setId("incorrectForm");
 			hasEmpty = true;
 			numerror = true;
-		} else if(!dataMatcher.phoneMatcher(contactnoTrim)){
+		} else if(!DataMatcher.phoneMatcher(contactnoTrim)){
 			contactnohbox.setId("incorrectForm");
 			numerror = true;
 		}else{
@@ -342,7 +342,7 @@ public class EmployeeController
 			emailhbox.setId("incorrectForm");
 			hasEmpty = true;
 			emailerror = true;
-		} else if(!dataMatcher.emailMatcher(emailTrim)){
+		} else if(!DataMatcher.emailMatcher(emailTrim)){
 			emailhbox.setId("incorrectForm");
 			emailerror = true;
 		}else{
@@ -354,7 +354,7 @@ public class EmployeeController
 			cityhbox.setId("incorrectForm");
 			hasEmpty = true;
 			cityerror = true;
-		} else if(!dataMatcher.cityMatcher(cityTrim)){
+		} else if(!DataMatcher.cityMatcher(cityTrim)){
 			cityhbox.setId("incorrectForm");
 			cityerror = true;
 		} else {

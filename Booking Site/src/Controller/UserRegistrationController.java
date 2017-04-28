@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import utils.AppData;
-import utils.dataMatcher;
+import utils.DataMatcher;
 
 public class UserRegistrationController {
 	private UserRegistrationView view;
@@ -83,7 +83,7 @@ public class UserRegistrationController {
 			unamehbox.setId("incorrectForm");
 			hasEmpty = true;
 			unameerror = true;
-		} else if(!dataMatcher.unameMatcher(uname.getText().trim())) { 
+		} else if(!DataMatcher.unameMatcher(uname.getText().trim())) { 
 			unamehbox.setId("incorrectForm");
 			unameerror = true;
 		} else {
@@ -95,7 +95,7 @@ public class UserRegistrationController {
 			pnamehbox.setId("incorrectForm");
 			hasEmpty = true;
 			pnameerror = true;
-		} else if(!dataMatcher.nameMatcher(pname.getText().trim())) {
+		} else if(!DataMatcher.nameMatcher(pname.getText().trim())) {
 			pnamehbox.setId("incorrectForm");
 			pnameerror = true;
 		} else {
@@ -109,7 +109,7 @@ public class UserRegistrationController {
 			hasEmpty = true;
 			passerror = true;
 			passconerror = true;
-		} else if(!dataMatcher.passMatcher(pword.getText().trim())) {
+		} else if(!DataMatcher.passMatcher(pword.getText().trim())) {
 			pwordhbox.setId("incorrectForm");
 			passerror = true;
 			passconerror = true;
@@ -128,7 +128,7 @@ public class UserRegistrationController {
 			passconerror = true;
 			pwordhboxcon.setId("incorrectForm");
 			pwordhbox.setId("incorrectForm");
-		} else if(!dataMatcher.passMatcher(pwordcon.getText().trim())) {
+		} else if(!DataMatcher.passMatcher(pwordcon.getText().trim())) {
 			pwordhboxcon.setId("incorrectForm");
 			pwordhbox.setId("incorrectForm");
 			passerror = true;
@@ -141,7 +141,7 @@ public class UserRegistrationController {
 			numhbox.setId("incorrectForm");
 			hasEmpty = true;
 			numerror = true;
-		} else if(!dataMatcher.phoneMatcher(contactNo.getText().trim())) {
+		} else if(!DataMatcher.phoneMatcher(contactNo.getText().trim())) {
 			numhbox.setId("incorrectForm");
 			numerror = true;
 			//Check for length of phone num
@@ -159,7 +159,7 @@ public class UserRegistrationController {
 			addhbox.setId("incorrectForm");
 			hasEmpty = true;
 			adderror = true;
-		} else if(!dataMatcher.addMatcher(address.getText().trim())) {
+		} else if(!DataMatcher.addMatcher(address.getText().trim())) {
 			addhbox.setId("incorrectForm");
 			adderror = true;
 		} else {
@@ -171,7 +171,7 @@ public class UserRegistrationController {
 			mailhbox.setId("incorrectForm");
 			hasEmpty = true;
 			emailerror = true;
-		} else if(!dataMatcher.emailMatcher(email.getText().trim())) {
+		} else if(!DataMatcher.emailMatcher(email.getText().trim())) {
 			mailhbox.setId("incorrectForm");
 			emailerror = true;
 		} else {
