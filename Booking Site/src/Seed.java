@@ -239,6 +239,45 @@ public class Seed {
 			dataCont.getState().setString(3, "18:00");
 			dataCont.getState().setString(4, "janeoliver@example.com");
 			dataCont.runSQLUpdate();
+			
+			//Customer 1
+			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
+					+ "VALUES(?,?,?,?,?,?,?);";
+			dataCont.prepareStatement(sql);
+			dataCont.getState().setString(1, "cus001");
+			dataCont.getState().setString(2, "abc123");
+			dataCont.getState().setString(3, "Adam Adamson");
+			dataCont.getState().setString(4, "1234567890");
+			dataCont.getState().setString(5, "User");
+			dataCont.getState().setString(6, "1 abc Avenue");
+			dataCont.getState().setString(7, "aadamson@gmail.com");
+			dataCont.runSQLUpdate();
+			
+			//Customer 2
+			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
+					+ "VALUES(?,?,?,?,?,?,?);";
+			dataCont.prepareStatement(sql);
+			dataCont.getState().setString(1, "cus002");
+			dataCont.getState().setString(2, "abc234");
+			dataCont.getState().setString(3, "Bob Bobson");
+			dataCont.getState().setString(4, "2345678901");
+			dataCont.getState().setString(5, "User");
+			dataCont.getState().setString(6, "2 abc Avenue");
+			dataCont.getState().setString(7, "bbobson@gmail.com");
+			dataCont.runSQLUpdate();
+			
+			//Customer 3
+			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
+					+ "VALUES(?,?,?,?,?,?,?);";
+			dataCont.prepareStatement(sql);
+			dataCont.getState().setString(1, "cus003");
+			dataCont.getState().setString(2, "abc345");
+			dataCont.getState().setString(3, "Carl Carlson");
+			dataCont.getState().setString(4, "3456789012");
+			dataCont.getState().setString(5, "User");
+			dataCont.getState().setString(6, "3 abc Avenue");
+			dataCont.getState().setString(7, "ccarlson@gmail.com");
+			dataCont.runSQLUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
