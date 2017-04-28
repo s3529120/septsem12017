@@ -32,7 +32,7 @@ import java.util.Map;
 
 public class BookingsView {
 
-	final ScrollPane sp = new ScrollPane();
+	final ScrollPane sp;
 	private String currentdate;
 
 	private BookingController cont;
@@ -50,7 +50,8 @@ public class BookingsView {
 
 
 	public void updateView() {
-
+		//Int scrollpane
+		sp = new ScrollPane()
 		//Header init
 		Text heading = new Text("Booking Site");
 		//Add employee
@@ -434,7 +435,7 @@ public class BookingsView {
                   VBox vbox = new VBox(conftxt,close);
                   Scene confscene = new Scene(vbox);
                   popup.setScene(confscene);
-                  //parcont.updateView();
+                  parcont.updateView();
 					}else{
 						//False message
 					}
@@ -497,7 +498,7 @@ public class BookingsView {
 						VBox vbox = new VBox(conftxt,close);
 						Scene confscene = new Scene(vbox);
 						popup.setScene(confscene);
-						//parcont.updateView();
+						parcont.updateView();
 					}else{
 						//False message
 					}
