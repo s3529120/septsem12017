@@ -32,7 +32,7 @@ import java.util.Map;
 
 public class BookingsView {
 
-	final ScrollPane sp;
+	private ScrollPane sp;
 	private String currentdate;
 
 	private BookingController cont;
@@ -51,7 +51,7 @@ public class BookingsView {
 
 	public void updateView() {
 		//Int scrollpane
-		sp = new ScrollPane()
+		sp = new ScrollPane();
 		//Header init
 		Text heading = new Text("Booking Site");
 		//Add employee
@@ -221,6 +221,7 @@ public class BookingsView {
 	public void updateViewPast() {
 
 		//Header init
+		sp = new ScrollPane();
 		Text heading = new Text("Booking Site");
 		//Add employee
 		Button addempbtn = new Button("Add Employee");
