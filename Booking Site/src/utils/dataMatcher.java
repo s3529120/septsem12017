@@ -23,7 +23,7 @@ public class dataMatcher {
 	private static final String pnamePattern = alpha + "(?:" + space + alpha + ")*"; // Just letters, space and hyphen
 	private static final String passPattern = "(?:" + alphaNums + "||" + symbols + ")+"; // Should be letters + numbers + Symbols
 	private static final String addPattern = digit + "(?:" + space + alpha + ")+";
-	private static final String phonePattern = "\\d" + "(?:" + "\\d" + "||" + space + ")+";// atleast one digit or space
+	private static final String phonePattern = "(?:" + "\\d" + "){10}";// Ten digits
 	private static final String postcPattern = "\\d{4}";
 	private static final String cityPattern = "(?:" + alpha + "||" + space + ")*";
 	
