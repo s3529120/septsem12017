@@ -55,7 +55,38 @@ public class UserRegistrationController {
 			return true;
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @param uname 
+	 * @param unamehbox
+	 * @param pname
+	 * @param pnamehbox
+	 * @param pword
+	 * @param pwordhbox
+	 * @param pwordcon
+	 * @param pwordhboxcon
+	 * @param address
+	 * @param addhbox
+	 * @param contactNo
+	 * @param numhbox
+	 * @param email
+	 * @param mailhbox
+	 * @param emptyerrortxt
+	 * @param emptyerrorbox
+	 * @param passerrortxt
+	 * @param passerrorbox
+	 * @param unameerrortxt
+	 * @param unameerrorbox
+	 * @param pnameerrortxt
+	 * @param pnameerrorbox
+	 * @param emailerrortxt
+	 * @param emailerrorbox
+	 * @param phoneerrortxt
+	 * @param phoneerrorbox
+	 * @param streeterrortxt
+	 * @param streeterrorbox
+	 */
 	public void validateEntries(
 			TextField uname, HBox unamehbox,
 			TextField pname, HBox pnamehbox,
