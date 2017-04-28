@@ -54,7 +54,6 @@ public class UserRegistrationController {
 		} else {
 			return true;
 		}
-
 	}
 
 	public void validateEntries(
@@ -103,13 +102,17 @@ public class UserRegistrationController {
 			pnameerror = false;
 			pnamehbox.setId("form");
 		}
+		
+		
 		if(pword.getText().trim().equals("")) {
 			pwordhbox.setId("incorrectForm");
 			hasEmpty = true;
 			passerror = true;
+			passconerror = true;
 		} else if(!dataMatcher.passMatcher(pword.getText().trim())) {
 			pwordhbox.setId("incorrectForm");
 			passerror = true;
+			passconerror = true;
 		} else {
 			passerror = false;
 			pwordhbox.setId("form");
@@ -119,8 +122,16 @@ public class UserRegistrationController {
 			pwordhboxcon.setId("incorrectForm");
 			hasEmpty = true;
 			passconerror = true;
+			passerror = true;
+		} else if(pword.getText().trim().compareTo(pwordcon.getText().trim()) != 0){
+			passerror = true;
+			passconerror = true;
+			pwordhboxcon.setId("incorrectForm");
+			pwordhbox.setId("incorrectForm");
 		} else if(!dataMatcher.passMatcher(pwordcon.getText().trim())) {
 			pwordhboxcon.setId("incorrectForm");
+			pwordhbox.setId("incorrectForm");
+			passerror = true;
 			passconerror = true;
 		} else {
 			passconerror = false;
@@ -179,7 +190,7 @@ public class UserRegistrationController {
 //		System.out.println("mail error:      "+mailerror + "\n");
 
 		//checking if the password fields are what cause the reject and if it is add the "pass error text"
-		if (!pword.getText().equals(pwordcon.getText()) || passerror) {
+		if (!pword.getText().equals(pwordcon.getText())) {
 			if (!passerrorbox.getChildren().contains(passerrortxt)) {
 				passerrorbox.getChildren().add(passerrortxt);
 			}
@@ -188,6 +199,17 @@ public class UserRegistrationController {
 				passerrorbox.getChildren().remove(passerrortxt);
 			}
 		}
+		
+		if (passerror) {
+			if (!passerrorbox.getChildren().contains(passerrortxt)) {
+				passerrorbox.getChildren().add(passerrortxt);
+			}
+		} else {
+			if (passerrorbox.getChildren().contains(passerrortxt)) {
+				passerrorbox.getChildren().remove(passerrortxt);
+			}
+		}
+		
 		// Check if the confirmation password matches the pattern
 		if (passconerror) {
 			if (!passerrorbox.getChildren().contains(passerrortxt)) {
