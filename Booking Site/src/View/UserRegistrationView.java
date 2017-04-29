@@ -1,5 +1,8 @@
 package View;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.sun.glass.ui.Screen;
 
 import Controller.DefaultController;
@@ -21,6 +24,7 @@ public class UserRegistrationView {
 	public Stage stage;
 	private UserRegistrationController cont;
 
+
 	/**Constructor, sets stage.
     * @param stage Window to manipulate.
     */
@@ -40,7 +44,12 @@ public class UserRegistrationView {
 	/**Updates associated window.
     */
 	public void updateView(){
-
+		
+		// Pass these HashMaps to checkEntries or validate entries where necessary
+		Map<String,Boolean> errorMap = new HashMap<String,Boolean>();
+		Map<String,Text> textMap = new HashMap<String,Text>();
+		Map<String,HBox> hboxMap = new HashMap<String,HBox>();
+		
 		//Heading
 		Text logtxt = new Text("Already have an account?");
 		

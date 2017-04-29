@@ -1,11 +1,7 @@
 package Controller;
 
 import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.*;
 import java.sql.SQLException;
-
 import Model.AccountModel;
 import Model.DatabaseModel;
 import Model.UserAccountModel;
@@ -25,9 +21,6 @@ public class UserRegistrationController {
 	private UserRegistrationView view;
 	private UserAccountModel model;
 
-	Map<String,Boolean> errorMap = new HashMap<String,Boolean>();
-	Map<String,Text> textMap = new HashMap<String,Text>();
-	Map<String,HBox> hboxMap = new HashMap<String,HBox>();;
 
 	/**Constructor, sets associated view and assigns self to view.
 	 * @param view View to associate.
