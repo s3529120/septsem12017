@@ -1,5 +1,8 @@
 package utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import Controller.AccountController;
 import Controller.EmployeeController;
 import javafx.scene.control.PasswordField;
@@ -13,10 +16,11 @@ public class Validator {
 	 * Set error text's on appropriate hboxes if there are any errors
 	 * @return True if no errors
 	 */
-	public boolean setFormIds(){
+	public boolean setFormIds(Map<String,Boolean> errorMap){
+		Map<String,Boolean> errors = new HashMap<String,Boolean>();
+		errors.put("hasEmpty", false);
 		
-		
-		if (hasEmpty) {
+		if (errors.get("hasEmpty")) {
 			if (!emptyerrorbox.getChildren().contains(emptyerrortxt)) {
 				emptyerrorbox.getChildren().add(emptyerrortxt);
 			}
