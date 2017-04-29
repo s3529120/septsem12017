@@ -14,21 +14,22 @@ public class Validator {
 	
 	/**
 	 * Set error text's on appropriate hboxes if there are any errors
+	 * @param errorMap A map containing the error names, returned from validateUserEntries, and validateEmpEntries
+	 * @param textMap The Text messages to append to the HBoxes for a given error, such as hasEmpty, fnameError, etc
+	 * @param hboxMap The HBoxes passed in to append/remove the error messages
 	 * @return True if no errors
 	 */
-	public boolean setFormIds(Map<String,Boolean> errorMap){
-		Map<String,Boolean> errors = new HashMap<String,Boolean>();
-		errors.put("hasEmpty", false);
+	public boolean setFormIds(Map<String,Boolean> errorMap, Map<String,Text> textMap, 
+			Map<String,HBox> hboxMap){
 		
-		if (errors.get("hasEmpty")) {
-			if (!emptyerrorbox.getChildren().contains(emptyerrortxt)) {
-				emptyerrorbox.getChildren().add(emptyerrortxt);
+		if (errorMap.get("hasEmpty")) {
+			if (! hboxMap.get("emptyerrorbox").getChildren().contains(textMap.get("emptyerrortxt")) ) {
+				hboxMap.get("emptyerrorbox").getChildren().add(textMap.get("emptyerrortxt"));
 			}
 		} else {
 			//empaddedhbox.getChildren().add(empaddedtxt);
-			if (emptyerrorbox.getChildren().contains(emptyerrortxt)) {
-				emptyerrorbox.getChildren().remove(emptyerrortxt);
-			}
+			if ( hboxMap.get("emptyerrorbox").getChildren().contains(textMap.get("emptyerrortxt")) ) {
+				hboxMap.get("emptyerrorbox").getChildren().remove(textMap.get("emptyerrortxt"));
 		}
 
 		// checking if the employee email has been taken

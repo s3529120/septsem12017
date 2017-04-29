@@ -1,6 +1,8 @@
 package Controller;
 
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.*;
 import java.sql.SQLException;
 
@@ -22,6 +24,10 @@ import utils.DataMatcher;
 public class UserRegistrationController {
 	private UserRegistrationView view;
 	private UserAccountModel model;
+
+	Map<String,Boolean> errorMap = new HashMap<String,Boolean>();
+	Map<String,Text> textMap = new HashMap<String,Text>();
+	Map<String,HBox> hboxMap = new HashMap<String,HBox>();;
 
 	/**Constructor, sets associated view and assigns self to view.
 	 * @param view View to associate.
@@ -58,35 +64,7 @@ public class UserRegistrationController {
 	
 	/**Validates the user registration entries, pass from the userRegistrationView.
 	 * 
-	 * @param uname 
-	 * @param unamehbox
-	 * @param pname
-	 * @param pnamehbox
-	 * @param pword
-	 * @param pwordhbox
-	 * @param pwordcon
-	 * @param pwordhboxcon
-	 * @param address
-	 * @param addhbox
-	 * @param contactNo
-	 * @param numhbox
-	 * @param email
-	 * @param mailhbox
-	 * @param emptyerrortxt
-	 * @param emptyerrorbox
-	 * @param passerrortxt
-	 * @param passerrorbox
-	 * @param unameerrortxt
-	 * @param unameerrorbox
-	 * @param pnameerrortxt
-	 * @param pnameerrorbox
-	 * @param emailerrortxt
-	 * @param emailerrorbox
-	 * @param phoneerrortxt
-	 * @param phoneerrorbox
-	 * @param streeterrortxt
-	 * @param streeterrorbox
-	 */
+	*/
 	public void validateEntries(
 			TextField uname, HBox unamehbox,
 			TextField pname, HBox pnamehbox,
