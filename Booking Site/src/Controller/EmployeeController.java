@@ -246,7 +246,7 @@ public class EmployeeController
 		}
 
 	}
-
+	
 	public boolean validateEntries(
 			TextField fname, HBox fnamehbox, 
 			TextField sname, HBox snamehbox, 

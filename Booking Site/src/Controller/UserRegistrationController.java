@@ -56,7 +56,7 @@ public class UserRegistrationController {
 		}
 	}
 	
-	/**
+	/**Validates the user registration entries, pass from the userRegistrationView.
 	 * 
 	 * @param uname 
 	 * @param unamehbox
@@ -133,7 +133,6 @@ public class UserRegistrationController {
 			pnameerror = false;
 			pnamehbox.setId("form");
 		}
-		
 		
 		if(pword.getText().trim().equals("")) {
 			pwordhbox.setId("incorrectForm");
