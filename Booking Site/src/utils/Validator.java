@@ -14,6 +14,8 @@ public class Validator {
 	 * @return True if no errors
 	 */
 	public boolean setFormIds(){
+		
+		
 		if (hasEmpty) {
 			if (!emptyerrorbox.getChildren().contains(emptyerrortxt)) {
 				emptyerrorbox.getChildren().add(emptyerrortxt);
