@@ -9,7 +9,119 @@ import javafx.scene.text.Text;
 
 public class Validator {
 	
-	/**Validates the user registration entries, pass from the AddEmployeeView
+	/**
+	 * Set error text's on appropriate hboxes if there are any errors
+	 * @return True if no errors
+	 */
+	public boolean setFormIds(){
+		if (hasEmpty) {
+			if (!emptyerrorbox.getChildren().contains(emptyerrortxt)) {
+				emptyerrorbox.getChildren().add(emptyerrortxt);
+			}
+		} else {
+			//empaddedhbox.getChildren().add(empaddedtxt);
+			if (emptyerrorbox.getChildren().contains(emptyerrortxt)) {
+				emptyerrorbox.getChildren().remove(emptyerrortxt);
+			}
+		}
+
+		// checking if the employee email has been taken
+		if (econt.checkEmployee(emailTrim)) {
+			if (!takenerrorbox.getChildren().contains(takenerrortxt)) {
+				takenerrorbox.getChildren().add(takenerrortxt);
+			}
+		} else {
+			if (takenerrorbox.getChildren().contains(takenerrortxt)) {
+				takenerrorbox.getChildren().remove(takenerrortxt);
+			}
+		}
+
+		//Set error text for incorrect first name
+		if(fnameerror){
+			if(!fnameerrorbox.getChildren().contains(fnameerrortxt)){
+				fnameerrorbox.getChildren().add(fnameerrortxt);
+			}
+		}else{
+			if (fnameerrorbox.getChildren().contains(fnameerrortxt)) {
+				fnameerrorbox.getChildren().remove(fnameerrortxt);
+			}
+		}
+
+		//Set error text for incorrect last name
+		if(snameerror){
+			if(!snameerrorbox.getChildren().contains(snameerrortxt)){
+				snameerrorbox.getChildren().add(snameerrortxt);
+			}
+		}else{
+			if (snameerrorbox.getChildren().contains(snameerrortxt)) {
+				snameerrorbox.getChildren().remove(snameerrortxt);
+			}
+		}
+
+		//check if number is wrong
+		if(numerror){
+			if(!phoneerrorbox.getChildren().contains(phoneerrortxt)){
+				phoneerrorbox.getChildren().add(phoneerrortxt);
+			}
+		}else{
+			if(phoneerrorbox.getChildren().contains(phoneerrortxt)){
+				phoneerrorbox.getChildren().remove(phoneerrortxt);
+			}
+		}
+
+		//check if street address is wrong
+		if(adderror){
+			if(!streeterrorbox.getChildren().contains(streeterrortxt)){
+				streeterrorbox.getChildren().add(streeterrortxt);
+			}
+		}else{
+			if(streeterrorbox.getChildren().contains(streeterrortxt)){
+				streeterrorbox.getChildren().remove(streeterrortxt);
+			}
+		}
+		
+		// Check city error
+		if(cityerror){
+			if(!cityerrorbox.getChildren().contains(cityerrortxt)){
+				cityerrorbox.getChildren().add(cityerrortxt);
+			}
+		} else {
+			if(cityerrorbox.getChildren().contains(cityerrortxt)){
+				cityerrorbox.getChildren().remove(cityerrortxt);
+			}
+		}
+
+		//check if mail is wrong
+		if(emailerror){
+			if(!emailerrorbox.getChildren().contains(emailerrortxt)){
+				emailerrorbox.getChildren().add(emailerrortxt);
+			}
+		}else{
+			if(emailerrorbox.getChildren().contains(emailerrortxt)){
+				emailerrorbox.getChildren().remove(emailerrortxt);
+			}
+		}
+		
+		if(pcodeerror){
+			if(!postcerrorbox.getChildren().contains(postcerrortxt)){
+				postcerrorbox.getChildren().add(postcerrortxt);
+			}
+		} else {
+			if(postcerrorbox.getChildren().contains(postcerrortxt)){
+				postcerrorbox.getChildren().remove(postcerrortxt);
+			}
+		}
+		
+		if(!(numerror || fnameerror || 
+				snameerror || adderror || pcodeerror ||
+				emailerror || cityerror)){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**Validates the user registration entries, passed from the AddEmployeeView
 	 * @param fname
 	 * @param sname
 	 * @param address
@@ -31,7 +143,29 @@ public class Validator {
 		}
 
 	}
-
+	/**Validates the user registration entries, passed from the AddEmployeeView
+	 * 
+	 * @param fname
+	 * @param fnamehbox
+	 * @param sname
+	 * @param snamehbox
+	 * @param address
+	 * @param addresshbox
+	 * @param pcode
+	 * @param pcodehbox
+	 * @param contactno
+	 * @param contactnohbox
+	 * @param email
+	 * @param emailhbox
+	 * @param city
+	 * @param cityhbox
+	 * @param emptyerrortxt
+	 * @param emptyerrorbox
+	 * @param empaddedtxt
+	 * @param empaddedhbox
+	 * @param state
+	 * @return True if no invalid patterns
+	 */
 	public boolean validateEmpValues(
 			TextField fname, HBox fnamehbox, 
 			TextField sname, HBox snamehbox, 
@@ -147,114 +281,13 @@ public class Validator {
 			cityerror = false;
 			cityhbox.setId("form");
 		}
-
-		// checking if any of the fields were empty and if they were add the
-		// "empty error text", else "employee added" text
-		if (hasEmpty) {
-			if (!emptyerrorbox.getChildren().contains(emptyerrortxt)) {
-				emptyerrorbox.getChildren().add(emptyerrortxt);
-			}
-		} else {
-			//empaddedhbox.getChildren().add(empaddedtxt);
-			if (emptyerrorbox.getChildren().contains(emptyerrortxt)) {
-				emptyerrorbox.getChildren().remove(emptyerrortxt);
-			}
-		}
-
-		// checking if the employee email has been taken
-		if (econt.checkEmployee(emailTrim)) {
-			if (!takenerrorbox.getChildren().contains(takenerrortxt)) {
-				takenerrorbox.getChildren().add(takenerrortxt);
-			}
-		} else {
-			if (takenerrorbox.getChildren().contains(takenerrortxt)) {
-				takenerrorbox.getChildren().remove(takenerrortxt);
-			}
-		}
-
-		//Set error text for incorrect first name
-		if(fnameerror){
-			if(!fnameerrorbox.getChildren().contains(fnameerrortxt)){
-				fnameerrorbox.getChildren().add(fnameerrortxt);
-			}
-		}else{
-			if (fnameerrorbox.getChildren().contains(fnameerrortxt)) {
-				fnameerrorbox.getChildren().remove(fnameerrortxt);
-			}
-		}
-
-		//Set error text for incorrect last name
-		if(snameerror){
-			if(!snameerrorbox.getChildren().contains(snameerrortxt)){
-				snameerrorbox.getChildren().add(snameerrortxt);
-			}
-		}else{
-			if (snameerrorbox.getChildren().contains(snameerrortxt)) {
-				snameerrorbox.getChildren().remove(snameerrortxt);
-			}
-		}
-
-		//check if number is wrong
-		if(numerror){
-			if(!phoneerrorbox.getChildren().contains(phoneerrortxt)){
-				phoneerrorbox.getChildren().add(phoneerrortxt);
-			}
-		}else{
-			if(phoneerrorbox.getChildren().contains(phoneerrortxt)){
-				phoneerrorbox.getChildren().remove(phoneerrortxt);
-			}
-		}
-
-		//check if street address is wrong
-		if(adderror){
-			if(!streeterrorbox.getChildren().contains(streeterrortxt)){
-				streeterrorbox.getChildren().add(streeterrortxt);
-			}
-		}else{
-			if(streeterrorbox.getChildren().contains(streeterrortxt)){
-				streeterrorbox.getChildren().remove(streeterrortxt);
-			}
-		}
-		
-		// Check city error
-		if(cityerror){
-			if(!cityerrorbox.getChildren().contains(cityerrortxt)){
-				cityerrorbox.getChildren().add(cityerrortxt);
-			}
-		} else {
-			if(cityerrorbox.getChildren().contains(cityerrortxt)){
-				cityerrorbox.getChildren().remove(cityerrortxt);
-			}
-		}
-
-		//check if mail is wrong
-		if(emailerror){
-			if(!emailerrorbox.getChildren().contains(emailerrortxt)){
-				emailerrorbox.getChildren().add(emailerrortxt);
-			}
-		}else{
-			if(emailerrorbox.getChildren().contains(emailerrortxt)){
-				emailerrorbox.getChildren().remove(emailerrortxt);
-			}
-		}
-		
-		if(pcodeerror){
-			if(!postcerrorbox.getChildren().contains(postcerrortxt)){
-				postcerrorbox.getChildren().add(postcerrortxt);
-			}
-		} else {
-			if(postcerrorbox.getChildren().contains(postcerrortxt)){
-				postcerrorbox.getChildren().remove(postcerrortxt);
-			}
-		}
-		
 		if(!(numerror || fnameerror || 
 				snameerror || adderror || pcodeerror ||
 				emailerror || cityerror)){
 			return true;
+		} else {
+			return false;
 		}
-		
-		return false;
 	}
 	
 	public Boolean checkUserValues(TextField uname, TextField pname, PasswordField pword, PasswordField pwordcon,
