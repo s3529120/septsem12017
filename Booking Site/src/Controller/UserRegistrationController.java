@@ -180,7 +180,7 @@ public class UserRegistrationController {
 		//checking if the password fields are what cause the reject and if it is add the "pass error text"
 		if (!pword.getText().equals(pwordcon.getText())) {
 			if (!hboxMap.get("passerrorbox").getChildren().contains(textMap.get("passerrortxt"))) {
-				passerrorbox.getChildren().add(passerrortxt);
+				hboxMap.get("passerrorbox").add(textMap.get("passerrortxt"));
 			}
 		} else {
 			if (passerrorbox.getChildren().contains(passerrortxt)) {
