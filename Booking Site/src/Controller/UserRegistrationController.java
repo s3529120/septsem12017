@@ -19,9 +19,11 @@ import javafx.stage.Stage;
 import utils.AppData;
 import utils.DataMatcher;
 
+
 public class UserRegistrationController {
 	private UserRegistrationView view;
 	private UserAccountModel model;
+
 
 
 	/**Constructor, sets associated view and assigns self to view.
@@ -186,8 +188,8 @@ public class UserRegistrationController {
 		
 		//checking if the password fields are what cause the reject and if it is add the "pass error text"
 		if (!pword.getText().equals(pwordcon.getText())) {
-			if (!passerrorbox.getChildren().contains(passerrortxt) {
-				passerrorbox.add(passerrortxt);
+			if (!passerrorbox.getChildren().contains(passerrortxt)) {
+				passerrorbox.getChildren().add(passerrortxt);
 			}
 		} else {
 			if (passerrorbox.getChildren().contains(passerrortxt)) {
