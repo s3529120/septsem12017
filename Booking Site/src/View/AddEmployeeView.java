@@ -19,113 +19,120 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import utils.AppData;
 
-public class AddEmployeeView
-{
+public class AddEmployeeView {
 	public Stage stage;
 	private EmployeeController cont;
 
-	/**Constructor, associates stage.
-	 * @param stage Window to manipulate.
+	/**
+	 * Constructor, associates stage.
+	 * 
+	 * @param stage
+	 *            Window to manipulate.
 	 */
-	public AddEmployeeView(Stage stage){
-		this.stage=stage;
+	public AddEmployeeView(Stage stage) {
+		this.stage = stage;
 	}
 
-	/**Sets associated controller.
-	 * @param cont Controller to associate.
+	/**
+	 * Sets associated controller.
+	 * 
+	 * @param cont
+	 *            Controller to associate.
 	 * @return True upon success.
 	 */
-	public Boolean setController(EmployeeController cont){
-		this.cont=cont;
+	public Boolean setController(EmployeeController cont) {
+		this.cont = cont;
 		return true;
 	}
 
 	/**
 	 * Updates display of window.
 	 */
-	public void updateView(){
-		//Header init
+	public void updateView() {
+		// Header init
 		Text heading = new Text("Booking Site");
-		//View Bookings
-				Button viewbookbtn = new Button("View Bookings");
-				viewbookbtn.setUserData(cont);
-				viewbookbtn.setOnAction(new EventHandler<ActionEvent>(){
-					@Override public void handle(ActionEvent e){
-						BookingController bcont = new BookingController();
-						bcont.setView(new BookingsView(stage));
-						bcont.getView().setController(bcont);
-						bcont.updateView();
-					}
-				});
+		// View Bookings
+		Button viewbookbtn = new Button("View Bookings");
+		viewbookbtn.setUserData(cont);
+		viewbookbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				BookingController bcont = new BookingController();
+				bcont.setView(new BookingsView(stage));
+				bcont.getView().setController(bcont);
+				bcont.updateView();
+			}
+		});
 
-				//Edit availability
-				Button editavailbtn = new Button("Edit Employee");
-				editavailbtn.setOnAction(new EventHandler<ActionEvent>(){
-					@Override public void handle(ActionEvent e){
-						AvailabilitiesController acont =  new AvailabilitiesController();
-						acont.setView(new EditAvailabilitiesView(stage));
-						acont.getView().setController(acont);
-						acont.updateView();
-					}
-				});
-				
+		// Edit availability
+		Button editavailbtn = new Button("Edit Employee");
+		editavailbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				AvailabilitiesController acont = new AvailabilitiesController();
+				acont.setView(new EditAvailabilitiesView(stage));
+				acont.getView().setController(acont);
+				acont.updateView();
+			}
+		});
 
-				//Edit type
-				Button edittypebtn = new Button("Edit Type");
-				edittypebtn.setOnAction(new EventHandler<ActionEvent>(){
-					@Override public void handle(ActionEvent e){
-						TypeController tcont=new TypeController();
-						TypeView tview = new TypeView(stage);
-						tcont.setView(tview);
-						tview.setCont(tcont);
-						tview.updateTypeView();
-					}
-				});
-				
-				//Logout button
-				Button logoutbtn = new Button("Logout");
-				logoutbtn.setOnAction(new EventHandler<ActionEvent>(){
-					@Override public void handle(ActionEvent e){
-						MainMenuView mainview = new MainMenuView(stage);
-						DefaultController maincont = new DefaultController(stage,mainview);
-						AppData.CALLER=null;
-						maincont.updateView();
-					}
-				});
-				HBox header = new HBox(heading,viewbookbtn,editavailbtn,edittypebtn,logoutbtn);
+		// Edit type
+		Button edittypebtn = new Button("Edit Type");
+		edittypebtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				TypeController tcont = new TypeController();
+				TypeView tview = new TypeView(stage);
+				tcont.setView(tview);
+				tview.setCont(tcont);
+				tview.updateTypeView();
+			}
+		});
 
+		// Logout button
+		Button logoutbtn = new Button("Logout");
+		logoutbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				MainMenuView mainview = new MainMenuView(stage);
+				DefaultController maincont = new DefaultController(stage, mainview);
+				AppData.CALLER = null;
+				maincont.updateView();
+			}
+		});
+		HBox header = new HBox(heading, viewbookbtn, editavailbtn, edittypebtn, logoutbtn);
 
-		//Confirmation message and heading
+		// Confirmation message and heading
 
 		Text empadded = new Text("");
 
 		Text h1 = new Text("Add Employee");
 		h1.setId("heading");
 
-		//Vertical box 1 - user info
+		// Vertical box 1 - user info
 
-		//First name
+		// First name
 		TextField fnamefield = new TextField();
 		fnamefield.setPromptText("First Name");
 		fnamefield.getStyleClass().add("textField");
 		HBox fnamehbox = new HBox(fnamefield);
 		fnamehbox.setId("form");
 
-		//Surname
+		// Surname
 		TextField snamefield = new TextField();
 		snamefield.setPromptText("Last Name");
 		snamefield.getStyleClass().add("textField");
 		HBox snamehbox = new HBox(snamefield);
 		snamehbox.setId("form");
 
-		//Email address
+		// Email address
 		TextField emailfield = new TextField();
 		emailfield.setPromptText("Email");
 		emailfield.getStyleClass().add("textField");
 		HBox emailhbox = new HBox(emailfield);
 		emailhbox.setId("form");
 
-		//Contact number
+		// Contact number
 		TextField contactnofield = new TextField();
 		contactnofield.setPromptText("Contact no.");
 		contactnofield.getStyleClass().add("textField");
@@ -133,66 +140,66 @@ public class AddEmployeeView
 		contactnohbox.setId("form");
 
 		// Add above elements to vertical box
-		VBox userInfo = new VBox( empadded, h1, fnamehbox, snamehbox, emailhbox, contactnohbox);
+		VBox userInfo = new VBox(empadded, h1, fnamehbox, snamehbox, emailhbox, contactnohbox);
 		userInfo.getStyleClass().add("addEmpVbox");
 
 		// Vertical box 2 - address
 
-		//Street address
+		// Street address
 		TextField streetaddfield = new TextField();
 		streetaddfield.setPromptText("Street Address");
 		streetaddfield.getStyleClass().add("textField");
 		HBox streetaddhbox = new HBox(streetaddfield);
 		streetaddhbox.setId("form");
 
-		//City
+		// City
 		TextField cityfield = new TextField();
 		cityfield.setPromptText("City");
 		cityfield.getStyleClass().add("textField");
 		HBox cityhbox = new HBox(cityfield);
 		cityhbox.setId("form");
 
-		//State
+		// State
 		ComboBox<String> statebox = new ComboBox<String>();
 		statebox.setPromptText("State");
-		statebox.getItems().addAll("A.C.T","N.S.W", "N.T", "Queensland","South Australia",
-				"Tasmania","Victoria","Western Australia");
+		statebox.getItems().addAll("A.C.T", "N.S.W", "N.T", "Queensland", "South Australia", "Tasmania", "Victoria",
+				"Western Australia");
 		statebox.getStyleClass().add("textField");
 		HBox statehbox = new HBox(statebox);
 		statehbox.setId("form");
 
-		//Postcode
+		// Postcode
 		TextField pcodefield = new TextField();
 		pcodefield.setPromptText("Post Code");
 		pcodefield.getStyleClass().add("textField");
 		HBox pcodehbox = new HBox(pcodefield);
 		pcodehbox.setId("form");
 
-		//Error text box
+		// Error text box
 		Text emptyerrortxt = new Text("All fields must be filled.");
 		HBox emptyerrorbox = new HBox();
 
-		//Success box
+		// Success box
 		Text empaddedtxt = new Text("Employee has been successfully added! :)");
 		HBox empaddedhbox = new HBox();
 
-		//Email taken error box
+		// Email taken error box
 		Text takenerrortxt = new Text("Email already in use.");
 		HBox takenerrorbox = new HBox();
 
-		//invalid first name
+		// invalid first name
 		Text fnamerrortxt = new Text("Please enter a first name using only letters, spaces, and hyphens");
 		HBox fnameerrorbox = new HBox();
 
-		//Surname error box
-		Text snamerrortxt = new Text("Please enter a surname using only letters, spaces, and hyphens"); 
+		// Surname error box
+		Text snamerrortxt = new Text("Please enter a surname using only letters, spaces, and hyphens");
 		HBox snameerrorbox = new HBox();
 
-		//Invalid email
+		// Invalid email
 		Text emailerrortxt = new Text("Please enter an email in the correct format");
 		HBox emailerrorbox = new HBox();
 
-		//Phone too long
+		// Phone too long
 		Text phoneerrortxt = new Text("Please enter a valid phone number only 10 digits long");
 		HBox phoneerrorbox = new HBox();
 
@@ -201,44 +208,32 @@ public class AddEmployeeView
 		HBox streeterrorbox = new HBox();
 
 		// City error
-		Text cityerrortxt = new Text("Please enter a valid city"); 
+		Text cityerrortxt = new Text("Please enter a valid city");
 		HBox cityerrorbox = new HBox();
 
-		//Postc error
-		Text postcerrortxt = new Text("Please enter a valid postcode-state combination"); 
+		// Postc error
+		Text postcerrortxt = new Text("Please enter a valid postcode-state combination");
 		HBox postcerrorbox = new HBox();
 
-		//Submit button
+		// Submit button
 		Button subbtn = new Button("Add");
-		subbtn.setOnAction(new EventHandler<ActionEvent>(){
-			@Override public void handle(ActionEvent e){         
+		subbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
 
-				//checking to make sure all fields are filled
-				if(cont.checkValues(fnamefield, snamefield, streetaddfield, pcodefield,
-						contactnofield, emailfield, cityfield)){ //cont.empAddedMessage(empaddedhbox, empaddedtxt);
-					if(cont.validateEntries(
-							fnamefield, fnamehbox, 
-							snamefield, snamehbox, 
-							streetaddfield, streetaddhbox, 
-							pcodefield, pcodehbox, 
-							contactnofield, contactnohbox, 
-							emailfield, emailhbox,
-							cityfield, cityhbox,
-							emptyerrortxt, emptyerrorbox,
-							empaddedtxt, empaddedhbox,
-							takenerrortxt, takenerrorbox,
-							fnamerrortxt, fnameerrorbox,
-							snamerrortxt, snameerrorbox,
-							emailerrortxt, emailerrorbox,
-							phoneerrortxt, phoneerrorbox,
-							streeterrortxt, streeterrorbox,
-							cityerrortxt, cityerrorbox,
-							postcerrortxt, postcerrorbox,
-							statebox.getValue())){
-						if (cont.addEmployee(fnamefield.getText().concat(" ").concat(snamefield.getText()), 
-								contactnofield.getText(), emailfield.getText(), 
-								streetaddfield.getText(), cityfield.getText(), 
-								statebox.getValue(), pcodefield.getText())) {
+				// checking to make sure all fields are filled
+				if (cont.checkValues(fnamefield, snamefield, streetaddfield, pcodefield, contactnofield, emailfield,
+						cityfield)) { // cont.empAddedMessage(empaddedhbox,
+										// empaddedtxt);
+					if (cont.validateEntries(fnamefield, fnamehbox, snamefield, snamehbox, streetaddfield,
+							streetaddhbox, pcodefield, pcodehbox, contactnofield, contactnohbox, emailfield, emailhbox,
+							cityfield, cityhbox, emptyerrortxt, emptyerrorbox, empaddedtxt, empaddedhbox, takenerrortxt,
+							takenerrorbox, fnamerrortxt, fnameerrorbox, snamerrortxt, snameerrorbox, emailerrortxt,
+							emailerrorbox, phoneerrortxt, phoneerrorbox, streeterrortxt, streeterrorbox, cityerrortxt,
+							cityerrorbox, postcerrortxt, postcerrorbox, statebox.getValue())) {
+						if (cont.addEmployee(fnamefield.getText().concat(" ").concat(snamefield.getText()),
+								contactnofield.getText(), emailfield.getText(), streetaddfield.getText(),
+								cityfield.getText(), statebox.getValue(), pcodefield.getText())) {
 							if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
 								empaddedhbox.getChildren().add(empaddedtxt);
 							}
@@ -248,48 +243,32 @@ public class AddEmployeeView
 							}
 						}
 					}
-				}else{
-					//Perform validation if not empty
-					cont.validateEntries(
-							fnamefield, fnamehbox, 
-							snamefield, snamehbox, 
-							streetaddfield, streetaddhbox, 
-							pcodefield, pcodehbox, 
-							contactnofield, contactnohbox, 
-							emailfield, emailhbox,
-							cityfield, cityhbox,
-							emptyerrortxt, emptyerrorbox,
-							empaddedtxt, empaddedhbox,
-							takenerrortxt, takenerrorbox,
-							fnamerrortxt, fnameerrorbox,
-							snamerrortxt, snameerrorbox,
-							emailerrortxt, emailerrorbox,
-							phoneerrortxt, phoneerrorbox,
-							streeterrortxt, streeterrorbox,
-							cityerrortxt, cityerrorbox,
-							postcerrortxt, postcerrorbox,
-							statebox.getValue());
+				} else {
+					// Perform validation if not empty
+					cont.validateEntries(fnamefield, fnamehbox, snamefield, snamehbox, streetaddfield, streetaddhbox,
+							pcodefield, pcodehbox, contactnofield, contactnohbox, emailfield, emailhbox, cityfield,
+							cityhbox, emptyerrortxt, emptyerrorbox, empaddedtxt, empaddedhbox, takenerrortxt,
+							takenerrorbox, fnamerrortxt, fnameerrorbox, snamerrortxt, snameerrorbox, emailerrortxt,
+							emailerrorbox, phoneerrortxt, phoneerrorbox, streeterrortxt, streeterrorbox, cityerrortxt,
+							cityerrorbox, postcerrortxt, postcerrorbox, statebox.getValue());
 					if (empaddedhbox.getChildren().contains(empaddedtxt)) {
 						empaddedhbox.getChildren().remove(empaddedtxt);
 					}
 				}
 			}
 
-
 		});
 		subbtn.getStyleClass().add("bluebtn");
 
 		// Add above elements to vertical box
-		VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, 
-				subbtn, empaddedhbox, emptyerrorbox, takenerrorbox, fnameerrorbox, 
-				snameerrorbox,emailerrorbox, phoneerrorbox, streeterrorbox, 
-				cityerrorbox, postcerrorbox);
+		VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, subbtn, empaddedhbox, emptyerrorbox,
+				takenerrorbox, fnameerrorbox, snameerrorbox, emailerrorbox, phoneerrorbox, streeterrorbox, cityerrorbox,
+				postcerrorbox);
 		addressInfo.setId("empAddressVbox");
-
 
 		// Set scene
 		HBox addEmployeeBox = new HBox(userInfo, addressInfo);
-		VBox addEmployeePage = new VBox(header,addEmployeeBox);
+		VBox addEmployeePage = new VBox(header, addEmployeeBox);
 		addEmployeeBox.setId("addEmpPageBox");
 
 		StackPane pane = new StackPane(addEmployeePage);
@@ -301,6 +280,5 @@ public class AddEmployeeView
 		stage.show();
 
 	}
-
 
 }
