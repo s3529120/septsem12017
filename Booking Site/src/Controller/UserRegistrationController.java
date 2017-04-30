@@ -1,8 +1,9 @@
 package Controller;
 
 import java.sql.ResultSet;
-import java.util.regex.*;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import Model.AccountModel;
 import Model.DatabaseModel;
@@ -16,11 +17,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import utils.AppData;
-import utils.dataMatcher;
+import utils.DataMatcher;
 
 public class UserRegistrationController {
 	private UserRegistrationView view;
 	private UserAccountModel model;
+
 
 	/**Constructor, sets associated view and assigns self to view.
 	 * @param view View to associate.
@@ -54,7 +56,10 @@ public class UserRegistrationController {
 			return true;
 		}
 	}
-
+	
+	/**Validates the user registration entries, pass from the userRegistrationView.
+	 * 
+	*/
 	public void validateEntries(
 			TextField uname, HBox unamehbox,
 			TextField pname, HBox pnamehbox,
@@ -72,6 +77,7 @@ public class UserRegistrationController {
 			Text streeterrortxt, HBox streeterrorbox
 			){
 
+
 		// Create bool vars to store state of entered data matching
 		boolean hasEmpty = false, numerror = false, unameerror = false, 
 				pnameerror = false, passerror = false, passconerror = false, 
@@ -82,7 +88,7 @@ public class UserRegistrationController {
 			unamehbox.setId("incorrectForm");
 			hasEmpty = true;
 			unameerror = true;
-		} else if(!dataMatcher.unameMatcher(uname.getText().trim())) { 
+		} else if(!DataMatcher.unameMatcher(uname.getText().trim())) { 
 			unamehbox.setId("incorrectForm");
 			unameerror = true;
 		} else {
@@ -94,7 +100,7 @@ public class UserRegistrationController {
 			pnamehbox.setId("incorrectForm");
 			hasEmpty = true;
 			pnameerror = true;
-		} else if(!dataMatcher.nameMatcher(pname.getText().trim())) {
+		} else if(!DataMatcher.nameMatcher(pname.getText().trim())) {
 			pnamehbox.setId("incorrectForm");
 			pnameerror = true;
 		} else {
@@ -102,13 +108,12 @@ public class UserRegistrationController {
 			pnamehbox.setId("form");
 		}
 		
-		
 		if(pword.getText().trim().equals("")) {
 			pwordhbox.setId("incorrectForm");
 			hasEmpty = true;
 			passerror = true;
 			passconerror = true;
-		} else if(!dataMatcher.passMatcher(pword.getText().trim())) {
+		} else if(!DataMatcher.passMatcher(pword.getText().trim())) {
 			pwordhbox.setId("incorrectForm");
 			passerror = true;
 			passconerror = true;
@@ -127,7 +132,7 @@ public class UserRegistrationController {
 			passconerror = true;
 			pwordhboxcon.setId("incorrectForm");
 			pwordhbox.setId("incorrectForm");
-		} else if(!dataMatcher.passMatcher(pwordcon.getText().trim())) {
+		} else if(!DataMatcher.passMatcher(pwordcon.getText().trim())) {
 			pwordhboxcon.setId("incorrectForm");
 			pwordhbox.setId("incorrectForm");
 			passerror = true;
@@ -140,7 +145,7 @@ public class UserRegistrationController {
 			numhbox.setId("incorrectForm");
 			hasEmpty = true;
 			numerror = true;
-		} else if(!dataMatcher.phoneMatcher(contactNo.getText().trim())) {
+		} else if(!DataMatcher.phoneMatcher(contactNo.getText().trim())) {
 			numhbox.setId("incorrectForm");
 			numerror = true;
 			//Check for length of phone num
@@ -158,7 +163,7 @@ public class UserRegistrationController {
 			addhbox.setId("incorrectForm");
 			hasEmpty = true;
 			adderror = true;
-		} else if(!dataMatcher.addMatcher(address.getText().trim())) {
+		} else if(!DataMatcher.addMatcher(address.getText().trim())) {
 			addhbox.setId("incorrectForm");
 			adderror = true;
 		} else {
@@ -170,7 +175,7 @@ public class UserRegistrationController {
 			mailhbox.setId("incorrectForm");
 			hasEmpty = true;
 			emailerror = true;
-		} else if(!dataMatcher.emailMatcher(email.getText().trim())) {
+		} else if(!DataMatcher.emailMatcher(email.getText().trim())) {
 			mailhbox.setId("incorrectForm");
 			emailerror = true;
 		} else {
@@ -178,20 +183,11 @@ public class UserRegistrationController {
 			mailhbox.setId("form");
 		}
 		
-		//Basic debugging text
-//		System.out.println("Are any empty:   "+hasEmpty);
-//		System.out.println("Phone num error: "+numerror);
-//		System.out.println("Uname error:     "+unameerror); 
-//		System.out.println("Real name:       "+pnameerror);
-//		System.out.println("pass error:      "+passerror);
-//		System.out.println("pass con error:  "+passconerror);
-//		System.out.println("street error:    "+streeterror);
-//		System.out.println("mail error:      "+mailerror + "\n");
-
+		
 		//checking if the password fields are what cause the reject and if it is add the "pass error text"
 		if (!pword.getText().equals(pwordcon.getText())) {
-			if (!passerrorbox.getChildren().contains(passerrortxt)) {
-				passerrorbox.getChildren().add(passerrortxt);
+			if (!passerrorbox.getChildren().contains(passerrortxt) {
+				passerrorbox.add(passerrortxt);
 			}
 		} else {
 			if (passerrorbox.getChildren().contains(passerrortxt)) {

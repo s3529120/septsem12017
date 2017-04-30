@@ -1,5 +1,8 @@
 package View;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.sun.glass.ui.Screen;
 
 import Controller.DefaultController;
@@ -21,6 +24,7 @@ public class UserRegistrationView {
 	public Stage stage;
 	private UserRegistrationController cont;
 
+
 	/**Constructor, sets stage.
     * @param stage Window to manipulate.
     */
@@ -40,7 +44,7 @@ public class UserRegistrationView {
 	/**Updates associated window.
     */
 	public void updateView(){
-
+		
 		//Heading
 		Text logtxt = new Text("Already have an account?");
 		
@@ -115,15 +119,16 @@ public class UserRegistrationView {
 		//Unfilled box
 		Text emptyerrortxt = new Text("All fields must be filled");
 		HBox emptyerrorbox = new HBox();
+	
 		
 		//Password mismatch
 		Text passerrortxt = new Text("Entered passwords do not match");
 		HBox passerrorbox = new HBox();
-		
+				
 		//Username taken
 		Text unameerrortxt = new Text("That username is unavailable");
 		HBox unameerrorbox = new HBox();
-		
+	
 		//invalid name
 		Text pnamerrortxt = new Text("Please enter a name using only letters, spaces, and hyphens");
 		HBox pnameerrorbox = new HBox();
@@ -131,7 +136,7 @@ public class UserRegistrationView {
 		//Invalid email
 		Text emailerrortxt = new Text("Please enter an email in the correct format");
 		HBox emailerrorbox = new HBox();
-				
+		
 		//Phone too long
 		Text phoneerrortxt = new Text("Please enter a valid phone number only 10 digits long");
 		HBox phoneerrorbox = new HBox();
@@ -155,7 +160,7 @@ public class UserRegistrationView {
 			   }else{
 			      //checking for empty
 				   cont.validateEntries(
-							usertxtfield, unamehbox, 
+						   usertxtfield, unamehbox, 
 							pnametxtfield, pnamehbox, 
 							pwordfield, pwordhbox, 
 							pwordfieldcon, pwordhboxcon, 

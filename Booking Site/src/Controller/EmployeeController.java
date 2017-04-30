@@ -16,7 +16,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import utils.dataMatcher;
+import utils.DataMatcher;
 
 
 public class EmployeeController
@@ -168,7 +168,7 @@ public class EmployeeController
 	}
 
 	/**Returns array of employee emails.
-	 * @return List of all employees email address'.
+	 * @return List of all employees email addresses.
 	 */
 	public String[] getEmployeeEmails(){
 		String sql="";
@@ -206,6 +206,11 @@ public class EmployeeController
 	}
 
 	//Returns employee email given their name
+	/**
+	 * Get the employee's email address
+	 * @param name
+	 * @return the email address of an employee with name
+	 */
 	public String getEmail(String name){
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		String sql="",email;
@@ -246,7 +251,46 @@ public class EmployeeController
 		}
 
 	}
-
+	
+	/**
+	 * Set error text's on appropriate hboxes if there are any errors (This desperately needs abstraction, WIP)
+	 * @param fname Firstname
+	 * @param fnamehbox hbox for firstname
+	 * @param sname
+	 * @param snamehbox
+	 * @param address
+	 * @param addresshbox
+	 * @param pcode
+	 * @param pcodehbox
+	 * @param contactno
+	 * @param contactnohbox
+	 * @param email
+	 * @param emailhbox
+	 * @param city
+	 * @param cityhbox
+	 * @param emptyerrortxt
+	 * @param emptyerrorbox
+	 * @param empaddedtxt
+	 * @param empaddedhbox
+	 * @param takenerrortxt
+	 * @param takenerrorbox
+	 * @param fnameerrortxt
+	 * @param fnameerrorbox
+	 * @param snameerrortxt
+	 * @param snameerrorbox
+	 * @param emailerrortxt
+	 * @param emailerrorbox
+	 * @param phoneerrortxt
+	 * @param phoneerrorbox
+	 * @param streeterrortxt
+	 * @param streeterrorbox
+	 * @param cityerrortxt
+	 * @param cityerrorbox
+	 * @param postcerrortxt
+	 * @param postcerrorbox
+	 * @param state
+	 * @return true if no errors
+	 */
 	public boolean validateEntries(
 			TextField fname, HBox fnamehbox, 
 			TextField sname, HBox snamehbox, 
@@ -282,7 +326,7 @@ public class EmployeeController
 			fnamehbox.setId("incorrectForm");
 			hasEmpty = true;
 			fnameerror = true;
-		} else if(!dataMatcher.fnameMatcher(fnameTrim)){
+		} else if(!DataMatcher.fnameMatcher(fnameTrim)){
 			fnamehbox.setId("incorrectForm");
 			fnameerror = true;
 		} else {
@@ -294,7 +338,7 @@ public class EmployeeController
 			snamehbox.setId("incorrectForm");
 			hasEmpty = true;
 			snameerror = true;
-		} else if(!dataMatcher.snameMatcher(snameTrim)){
+		} else if(!DataMatcher.snameMatcher(snameTrim)){
 			snamehbox.setId("incorrectForm");
 			snameerror = true;
 		} else {
@@ -306,7 +350,7 @@ public class EmployeeController
 			addresshbox.setId("incorrectForm");
 			hasEmpty = true;
 			adderror = true;
-		} else if(!dataMatcher.addMatcher(addTrim)) {
+		} else if(!DataMatcher.addMatcher(addTrim)) {
 			addresshbox.setId("incorrectForm");
 			adderror = true;
 		} else {
@@ -318,7 +362,7 @@ public class EmployeeController
 			pcodehbox.setId("incorrectForm");
 			hasEmpty = true;
 			pcodeerror = true;
-		} else if(!dataMatcher.postcMatcher(pcodeTrim, state)){
+		} else if(!DataMatcher.postcMatcher(pcodeTrim, state)){
 			pcodehbox.setId("incorrectForm");
 			pcodeerror = true;
 		} else {
@@ -330,7 +374,7 @@ public class EmployeeController
 			contactnohbox.setId("incorrectForm");
 			hasEmpty = true;
 			numerror = true;
-		} else if(!dataMatcher.phoneMatcher(contactnoTrim)){
+		} else if(!DataMatcher.phoneMatcher(contactnoTrim)){
 			contactnohbox.setId("incorrectForm");
 			numerror = true;
 		}else{
@@ -342,7 +386,7 @@ public class EmployeeController
 			emailhbox.setId("incorrectForm");
 			hasEmpty = true;
 			emailerror = true;
-		} else if(!dataMatcher.emailMatcher(emailTrim)){
+		} else if(!DataMatcher.emailMatcher(emailTrim)){
 			emailhbox.setId("incorrectForm");
 			emailerror = true;
 		}else{
@@ -354,7 +398,7 @@ public class EmployeeController
 			cityhbox.setId("incorrectForm");
 			hasEmpty = true;
 			cityerror = true;
-		} else if(!dataMatcher.cityMatcher(cityTrim)){
+		} else if(!DataMatcher.cityMatcher(cityTrim)){
 			cityhbox.setId("incorrectForm");
 			cityerror = true;
 		} else {
