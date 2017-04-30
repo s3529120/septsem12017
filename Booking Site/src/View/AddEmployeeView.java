@@ -40,7 +40,8 @@ public class AddEmployeeView
 		return true;
 	}
 
-	/**Updates display of window.
+	/**
+	 * Updates display of window.
 	 */
 	public void updateView(){
 		//Header init
@@ -80,6 +81,7 @@ public class AddEmployeeView
 						tview.updateTypeView();
 					}
 				});
+				
 				//Logout button
 				Button logoutbtn = new Button("Logout");
 				logoutbtn.setOnAction(new EventHandler<ActionEvent>(){
@@ -285,8 +287,7 @@ public class AddEmployeeView
 		addressInfo.setId("empAddressVbox");
 
 
-		//Layout
-
+		// Set scene
 		HBox addEmployeeBox = new HBox(userInfo, addressInfo);
 		VBox addEmployeePage = new VBox(header,addEmployeeBox);
 		addEmployeeBox.setId("addEmpPageBox");
