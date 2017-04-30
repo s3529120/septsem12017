@@ -2,6 +2,7 @@ package Controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import Model.AccountModel;
@@ -68,8 +69,7 @@ public class UserRegistrationController {
 			TextField address, HBox addhbox,
 			TextField contactNo, HBox numhbox,
 			TextField email, HBox mailhbox,
-			Map hboxMap, Map textMap
-			){
+			Map hboxMap, Map textMap){
 
 		// Create bool vars to store state of entered data matching
 		boolean hasEmpty = false, numerror = false, unameerror = false, 
@@ -176,19 +176,10 @@ public class UserRegistrationController {
 			mailhbox.setId("form");
 		}
 		
-		//Basic debugging text
-//		System.out.println("Are any empty:   "+hasEmpty);
-//		System.out.println("Phone num error: "+numerror);
-//		System.out.println("Uname error:     "+unameerror); 
-//		System.out.println("Real name:       "+pnameerror);
-//		System.out.println("pass error:      "+passerror);
-//		System.out.println("pass con error:  "+passconerror);
-//		System.out.println("street error:    "+streeterror);
-//		System.out.println("mail error:      "+mailerror + "\n");
-
+		
 		//checking if the password fields are what cause the reject and if it is add the "pass error text"
 		if (!pword.getText().equals(pwordcon.getText())) {
-			if (!hboxMap.get("passerrorbox").getChildren().contains(passerrortxt)) {
+			if (!hboxMap.get("passerrorbox").getChildren().contains(textMap.get("passerrortxt"))) {
 				passerrorbox.getChildren().add(passerrortxt);
 			}
 		} else {
