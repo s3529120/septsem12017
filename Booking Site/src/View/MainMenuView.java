@@ -93,7 +93,7 @@ public class MainMenuView {
 
 		// Adding layout to scene
 		Scene scene = new Scene(border);
-		scene.getStylesheets().add(getClass().getResource("/view/css/styles.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/View/css/styles.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
 	}
