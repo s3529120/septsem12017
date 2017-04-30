@@ -1,4 +1,4 @@
-# SEPT Assignment Part A
+# SEPT Assignment Part B
 
 ## Team Members
 - Thomas Higgins - s3529120
