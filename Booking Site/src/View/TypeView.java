@@ -80,9 +80,17 @@ public class TypeView
 			}
 		});
 
+		//current specialisations
+		String specString = "Currently consists of";
+		for (TypeModel type: known) {
+			specString += " " + type.getName() + ",";
+		}
+		specString = specString.substring(0, specString.length() - 1) + ".";
+		Text specText = new Text(specString);
+
 		//Layout
 		StackPane pane = new StackPane();
-		VBox all = new VBox(h1,addVbox,remVbox,done);
+		VBox all = new VBox(h1,specText,addVbox,remVbox,done);
 		pane.getChildren().addAll(all);
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
@@ -116,7 +124,7 @@ public class TypeView
 		});
 
 
-		
+
 
 		//View Bookings
 		Button viewbookbtn = new Button("View Bookings");
@@ -140,13 +148,13 @@ public class TypeView
 			}
 		});
 		HBox header = new HBox(heading,viewbookbtn,addempbtn,editavailbtn,logoutbtn);
-		Text h1 = new Text("Edit Types");
+		Text h1 = new Text("Edit Services");
 
 		//Add
-		Text h2 = new Text("Add type");
-		Label typelbl = new Label("Type name: ");
+		Text h2 = new Text("Add service");
+		Label typelbl = new Label("Service name: ");
 		TextField typefield = new TextField();
-		Label numlbl = new Label("Duration: ");
+		Label numlbl = new Label("Duration in minutes: ");
 		TextField numfield = new TextField();
 		Button addbtn = new Button("Add");
 		addbtn.setOnAction(new EventHandler<ActionEvent>(){
@@ -161,7 +169,7 @@ public class TypeView
 
 		//Remove
 		List<TypeModel> known = TypeController.getAllTypes();
-		Label remlbl = new Label("Type to remove");
+		Label remlbl = new Label("Service to remove");
 		ComboBox<String> rembox = new ComboBox<String>();
 		known.forEach(x->{
 			rembox.getItems().add(x.getName());
@@ -175,10 +183,17 @@ public class TypeView
 		});
 		VBox remVbox = new VBox(remlbl,rembox,rembtn);
 
+		//current types
+		String servicesString = "The current avaialable services are";
+		for (TypeModel type: known) {
+			servicesString += " " + type.getName() + ",";
+		}
+		servicesString = servicesString.substring(0, servicesString.length() - 1) + ".";
+		Text servicesText = new Text(servicesString);
 
 		//Layout
 		StackPane pane = new StackPane();
-		VBox all = new VBox(header,h1,addVbox,remVbox);
+		VBox all = new VBox(header,h1,servicesText,addVbox,remVbox);
 		pane.getChildren().addAll(all);
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
