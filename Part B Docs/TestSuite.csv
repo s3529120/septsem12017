@@ -1,0 +1,226 @@
+﻿Component,"User Action",Precondition,"Expected Results",Priority,"Require File",Steps
+,,,,,,
+Login,"Valid Login as Customer","- User is not logged in.
+- User has an account.
+- System displays a 'Login' link","- Login page renders.
+- Customer successfully logs in.
+- Customer is forwarded to View Bookings page",High,no,"Click ""Login"" link || Enter valid customer username and password || Click 'Login' button"
+Login,"Non matching credentials","- User is not logged in.
+- System displays a 'Login' link","- Login page renders.
+- User is not logged in
+- User is informed that the password and username did not match
+- Remains on the login entry page
+- Login fields are cleared",High,no,"Click the ""login"" link || Enter a username that is registered in the database || Enter a password that is registered to an account other than that of the username used || Click the ""login"" button"
+Login,"Leaving empty fields","- User is not logged in.
+- System displays a 'Login' link","- Login page renders.
+- User is not logged in
+- User is informed that the password and username did not match
+- Remains on the login entry page
+- Login fields are cleared",Medium,no,"Click the ""login"" link || Enter some login credentials, registered or not, leaving one or both fields blank || Click the ""login"" button"
+Login,"Overloading fields","- User is not logged in.
+- System displays a 'Login' link","- Login page renders.
+- User is not logged in
+- User is informed that the password and username did not match
+- Remains on the login entry page
+- Login fields are cleared",Medium,no,"Click the ""login"" link || Enter at least more than 100 characters into one or both of the fields || Click the ""login"" button"
+Login,"Valid Login as Business Owner","- User is not logged in.
+- User has an account.
+- System displays a 'Login' link","- Login page renders.
+- Owner successfully logs in.
+- Owner is forwarded to View Bookings page
+- Owner can see both available and filled bookings
+- ""Preview bookings"" button renders",High,no,"Click ""Login"" link || Enter valid business owner username and password || Click ""Login"" button"
+,,,,,,
+Registration,"Valid Registration","- User is not logged in
+- System is currently displaying a ""register"" link","- An account for the user is created
+- The user is now logged in with said account
+- User is forwarded to the View Bookings",,no,"Click the ""register"" link || Enter name ""Foo Bar"" || Enter username ""cus100"" || Enter address ""123 Some St"" || Phone number: 1234567890 || Email: foobar@example.com || Password: abc123 || Confirm password: abc123 || Click the ""register"" button"
+Registration,"Leaving Empty Fields","- User is not logged in
+- System is currently displaying a ""register"" link","- The user will not be logged in
+- Registration page re-renders
+- Error message appears that says ""All fields must be filled""
+- Fields that were left blank have a red border around them
+- The information in the fields of the register page is cleared",Medium,no,"Click the ""register"" link || Enter valid information leaving between one and all fields blank || Click the ""register"" button"
+Registration,"User matches an existing account","- User is not logged in
+- System is currently displaying a ""register"" link","- The user will not be logged in
+- Registration page re-renders
+- Error message appears saying ""That username is unavailable""
+- Username field has red border around it",High,no,"Click the ""register"" link || Enter username ""cus001"" || Click ""Register"""
+Registration,"Passwords do not match","- User is not logged in
+- System is currently displaying a ""register"" link","- The user will not be logged in
+- The user remains on the register page
+- Error message appears: ""Entered passwords do not match""
+- Red border appears around password fields",High,no,"Click the ""register"" link || Enter all valid information except in the password fields || Enter two different passwords in the ""password"" and ""confirm password"" fields || Click the ""register"" button"
+Registration,"Invalid email","- User is not logged in
+- System is currently displaying a ""register"" link","- The user will not be logged in
+- The user remains on the register page
+- Error message appears: ""Please enter an email in the correct format""
+- Red border appears around email field",High,no,"Click the ""register"" link || In email field, enter ""foo@invalid"" || Click the ""register"" button"
+Registration,"Invalid username","- User is not logged in
+- System is currently displaying a ""register"" link","- The user will not be logged in
+- The user remains on the register page
+- Error message appears: ""Please enter a name using only letters, spaces, and hyphens""
+- Red border appears around name field",High,no,"Click the ""register"" link || Enter ""abc123"" into name field || Click the ""register"" button"
+Registration,"Phone number that is less than 10 digits","- User is not logged in
+- System is currently displaying a ""register"" link","- The user will not be logged in
+- The user remains on the register page
+- Error message appears: ""Please enter valid phone number only 10 digits long""
+- Red border appears around phone number field",Medium,no,"Click the ""register"" link || Enter 123456789 into phone number field || Click the ""register"" button"
+Registration,"Phone number that is more than 10 digits","- User is not logged in
+- System is currently displaying a ""register"" link","- The user will not be logged in
+- The user remains on the register page
+- Error message appears: ""Please enter valid phone number only 10 digits long""
+- Red border appears around phone number field",Medium,no,"Click the ""register"" link || Enter 12345678910 into phone number field || Click the ""register"" button"
+Registration,"Invalid address","- User is not logged in
+- System is currently displaying a ""register"" link","- The user will not be logged in
+- The user remains on the register page
+- Error message appears: ""Enter a street number followed by a street name""
+- Red border appears around address field",Medium,no,"Click the ""register"" link || Enter 123street into address field || Click the ""register"" button"
+,,,,,,
+"Edit employee","Add availablity","- User is logged in as a business owner
+- User is on the ""Edit Employee"" page","- Message appears that says ""Times saved for all days""
+- On 'View Bookings' page, the times for John Doe on Monday are gone.",Medium,no,"Select ""John Doe"" from dropdown || For monday, choose ""0:00"" for both start and finish || Click the ""save"" button"
+"Edit employee","Add specialisation","- User is logged in as a business owner
+- User is on the ""Edit Employee"" page","- The page re-renders
+- Drop down menus are blank
+- Message at top of page now lists Nails as a specialisation for Jane.
+- When making a booking with Jane, ""Nails"" booking appointments can be made.",Medium,no,"Select ""Jane Oliver"" from employee drop down || Click ""Edit Specialization"" button || Select ""Nails"" from specialization drop down || Click ""Add' button"
+"Edit employee","Remove availablity","- User is logged in as a business owner
+- User is on the ""Edit Employee"" page","- Message appears that says ""Times saved for all days""
+- On 'View Bookings' page, the times for John Doe on Friday have been added to list.",Medium,no,"Select ""John Doe"" from dropdown || For Friday, choose ""10:00"" for start and ""11:00"" for finish || Click the ""save"" button"
+"Edit employee","Remove specialisation","- User is logged in as a business owner
+- User is on the ""Edit Employee"" page","- The page re-renders
+- Drop down menus are blank
+- Message at top of page no longer lists ""Cut"" as a specialization for Jane.
+- User can no longer book dog hair cuts with Jane.",Medium,no,"Select ""Jane Oliver"" from employee drop down || Click ""Edit Specialization"" button || Select ""Cut"" from Remove Specialization drop down || Click ""Add' button"
+,,,,,,
+"Add Employee","Add employee without first name","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter in an employee but leave first name blank || Click submission button"
+"Add Employee","Add employee with a first name that is too long","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter a first name that is more than 50 characters || Click submission button"
+"Add Employee","Add employee without a last name","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter in an employee but leave last name blank || Click submission button"
+"Add Employee","Add employee with a last name that is too long","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter last name that is more than 50 characters || Click submission button"
+"Add Employee","Add employee without an email address","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter in an employee but leave email blank || Click submission button"
+"Add Employee","Add employee with a valid email address","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Able to submit
+- User is redirected to main menu
+- A message appears informing them that employee was added.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter valid employee information || Enter valid email foo.bar57@example.rmit.edu.au || Click submission button"
+"Add Employee","Add employee with an email address that is too long","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter an email that is more than 250 characters long || Click submission button"
+"Add Employee","Add employee with an email address that is invalid","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter employee info || Enter invalid email foo@invalid || Click ""Submit"""
+"Add Employee","Add employee with valid first name","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Able to submit
+- User is redirected to main menu
+- A message appears informing them that employee was added.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter in an employee info || Enter valid first name ""Foo"" || Click submit"
+"Add Employee","Add employee with valid last name","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Able to submit
+- User is redirected to main menu
+- A message appears informing them that employee was added.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter in an employee but leave email blank || Click submission button"
+"Add Employee","Add employee without a contact no.","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter in an employee but leave contact no. blank || Click submission button"
+"Add Employee","Add employee with a contact no. that is too long","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter contact no. that is more than 50 characters || Click submission button"
+"Add Employee","Add employee with an invalid contact no.","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter employee info || Enter invalid contact no. ""abc"" || Click ""Submit"""
+"Add Employee","Add employee with a valid conact no.","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Able to submit
+- User is redirected to main menu
+- A message appears informing them that employee was added.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter in an employee info || Enter valid contact no. ""0455555555"" || Click submit"
+"Add Employee","Add employee without a street address","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter in an employee but address name blank || Click submission button"
+"Add Employee","Add employee with a street address that is too long","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter last name that is more than 250 characters || Click submission button"
+"Add Employee","Add employee with a valid street address","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Able to submit
+- User is redirected to main menu
+- A message appears informing them that employee was added.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter in an employee info || Enter valid address ""123 Some St"" || Click submit"
+"Add Employee","Add employee without a city","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter in an employee but leave city blank || Click submission button"
+"Add Employee","Add employee with a city that is too long","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter a city that is more than 250 characters || Click submission button"
+"Add Employee","Add employee with an invalid city name","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter employee info || Enter invalid city ""$^y7&*"" || Click ""Submit"""
+"Add Employee","Add employee with a valid city","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Able to submit
+- User is redirected to main menu
+- A message appears informing them that employee was added.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter in an employee info || Enter valid city ""Melbourne"" || Click submit"
+"Add Employee","Add employee without a state","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter in an employee but leave state blank || Click submission button"
+"Add Employee","Add employee without a post code","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter in an employee but leave post code blank || Click submission button"
+"Add Employee","Add employee with an invalid post code","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter employee info || Enter invalid post code ""&^*()&"" || Click ""Submit"""
+"Add Employee","Add employee with a post code that is too long","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Unable to submit
+- An error message appears explaining why the input was invalid.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter a post code that is more than 50 characters || Click submission button"
+"Add Employee","Add employee with a valid post code","- User is logged in as a business owner
+- User is on ""Add Employee"" page","- Able to submit
+- User is redirected to main menu
+- A message appears informing them that employee was added.",High,no,"Sign is as business owner || Select ""Add Employee"" from main menu || Enter in an employee info || Enter valid post code ""3000"" || Click submit"
+,,,,,,
+"View available bookings","View available bookings as a customer","- User is logged in as a customer","- All upcoming bookings are visible.
+- Customer cannot see ""Past Bookings"" button
+- Customer cannot see bookings that have been filled by other customers.",High,no,
+"View available bookings","View bookings as a business owner","- User is logged in as a business owner","- All upcoming bookings are visible.
+- Owner can see ""Past Bookings"" button
+- Owner can see bookings that have been filled by other customers. Customer username and type are displayed.",High,no,
+"View available bookings","View past bookings","- User is logged in as a business owner
+- User is on View Bookings page","- Past bookings with customer from week prior to today's date are displayed.",Medium,no,"Click ""Past bookings"" link"
+,,,,,,
+"Make a booking","Make a valid booking as a customer","- Logged in as a customer","- A confirmation message appears informing customer their appointment has been booked
+- Booking time they seleected is no longer on list of available times.",High,no,"Click booking time || Select booking type from menu || Click 'Make booking' button"
+"Make a booking","Make booking as customer without indicating booking type","- Logged in as a customer
+- On ""Make a booking"" page","- Booking is not submitted
+- An error message appears telling customer they need to select booking type",High,no,"Select a booking time || Leave booking type blank || Click 'Submit'"
+"Make a booking","Make a valid booking as a business owner","- Logged in as a business owner
+- On View Bookings page","- A confirmation message appears informing owner that a booking has been made
+- Booking time they seleected is now filled and displays customer username and appointment type",High,no,"Click booking time || Select customer from drop down || Select booking type from menu || Click 'Submit'"
+"Make a booking","Make a booking as a business owner without a customer","- Logged in as a business owner
+- On View Bookings page","- Booking is not made",Medium,no,"Click booking time || Leave customer from drop down blank || Select booking type from menu || Click 'Submit'"
+"Make a booking","Make a booking as a business owner without a type","- Logged in as a business owner
+- On View Bookings page","- Booking is not made",Medium,no,"Click booking time || Select customer from drop down || Leave 'booking type' blank || Click 'Submit'"
+,,,,,,
+"Edit Service","Add new service","- Logged in as business owner
+- On ""Edit Service"" page","- Service appears in above list of available services
+- Service can be seen in ""Service to remove"" drop down.
+- On ""Edit Employee"" page, newly created service can be added as a specialisation",Medium,no,"Add valid service ""Bath"" to service name field || For duration, enter ""30"" || Click ""add"""
+"Edit Service","Remove service","- Logged in as business owner
+- On ""Edit Service"" page","- Page re-renders
+- ""Cut"" is no longer in the list of services above
+- ""Cut"" is no longer in the drop down list of services than can be removed
+- On ""edit employee"" page, ""Cut"" can longer be added as an employee specialisaiton
+- Bookings of type ""Cut"" can no longer be made",Low,no,"In ""Service to remove"" drop down, select ""Cut"" || Click ""Remove"" button"
+"Edit Service","Add a time without a service name","- Logged in as business owner
+- On ""Edit Service"" page","- New service is not created
+- An error message appears telling the user they can't leave the Service Name field blank",Medium,no,"For duration, enter ""30"" || Leave 'Service name' blank || Click ""add"""
+"Edit Service","Add a service without a time","- Logged in as business owner
+- On ""Edit Service"" page","- New service is not created
+- An error message appears telling the user they can't leave the duration field blank",Medium,no,"Leave duration blank || Enter something into ""Service"" field such as bath || Click ""add"""
+"Edit Service","Add a service that already exists","- Logged in as business owner
+- On ""Edit Service"" page","- New service is not created
+- An error message appears telling the user that the service name already exists",Low,no,"Enter ""Nails"" into service name field || Enter a valid time || Click ""add"""
+"Edit Service","Add a time with non-numeric characters","- Logged in as business owner
+- On ""Edit Service"" page","- New service is not created
+- An error message appears telling the user they can only use numerical characters when entering a durating",Low,no,"Enter a valid service such as ""Bath"" || In duration field enter ""abc"" || Click ""add"""
