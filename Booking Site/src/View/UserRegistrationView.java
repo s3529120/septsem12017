@@ -45,11 +45,6 @@ public class UserRegistrationView {
     */
 	public void updateView(){
 		
-		// Pass these HashMaps to checkEntries or validate entries where necessary
-		Map<String,Boolean> errorMap = new HashMap<String,Boolean>();
-		Map<String,Text> textMap = new HashMap<String,Text>();
-		Map<String,HBox> hboxMap = new HashMap<String,HBox>();
-		
 		//Heading
 		Text logtxt = new Text("Already have an account?");
 		
@@ -124,46 +119,31 @@ public class UserRegistrationView {
 		//Unfilled box
 		Text emptyerrortxt = new Text("All fields must be filled");
 		HBox emptyerrorbox = new HBox();
-		// Put the error text and hbox in a corresponding map
-		textMap.put("emptyerrortxt",new Text("All fields must be filled"));
-		hboxMap.put("emptyerrorbox",new HBox());
+	
 		
 		//Password mismatch
 		Text passerrortxt = new Text("Entered passwords do not match");
 		HBox passerrorbox = new HBox();
-		// Put the error text and hbox in a corresponding map
-		textMap.put("passerrortxt",new Text("Entered passwords do not match"));
-		hboxMap.put("passerrorbox",new HBox());
 				
 		//Username taken
 		Text unameerrortxt = new Text("That username is unavailable");
 		HBox unameerrorbox = new HBox();
-		textMap.put("unameerrortxt",new Text("That username is unavailable"));
-		hboxMap.put("unameerrorbox",new HBox());
-		
+	
 		//invalid name
 		Text pnamerrortxt = new Text("Please enter a name using only letters, spaces, and hyphens");
 		HBox pnameerrorbox = new HBox();
-		textMap.put("pnamerrortxt",new Text("Please enter a name using only letters, spaces, and hyphens"));
-		hboxMap.put("pnameerrorbox",new HBox());
 		
 		//Invalid email
 		Text emailerrortxt = new Text("Please enter an email in the correct format");
 		HBox emailerrorbox = new HBox();
-		textMap.put("emailerrortxt",new Text("Please enter an email in the correct format"));
-		hboxMap.put("emailerrorbox",new HBox());
 		
 		//Phone too long
 		Text phoneerrortxt = new Text("Please enter a valid phone number only 10 digits long");
 		HBox phoneerrorbox = new HBox();
-		textMap.put("phoneerrortxt",new Text("Please enter a valid phone number only 10 digits long"));
-		hboxMap.put("phoneerrorbox",new HBox());
 		
 		// Street address invalid
 		Text streeterrortxt = new Text("Please enter a street number followed by a street name");
 		HBox streeterrorbox = new HBox();
-		textMap.put("streeterrortxt",new Text("Please enter a street number followed by a street name"));
-		hboxMap.put("streeterrorbox",new HBox());
 		
 		//Register button
 		Button registerbtn = new Button("Register");
@@ -180,14 +160,20 @@ public class UserRegistrationView {
 			   }else{
 			      //checking for empty
 				   cont.validateEntries(
-							usertxtfield, unamehbox, 
+						   usertxtfield, unamehbox, 
 							pnametxtfield, pnamehbox, 
 							pwordfield, pwordhbox, 
 							pwordfieldcon, pwordhboxcon, 
 							addtxtfield, addhbox, 
 							numtxtfield, numhbox, 
 							mailtxtfield, mailhbox, 
-							hboxMap, textMap);
+							emptyerrortxt, emptyerrorbox,
+							passerrortxt, passerrorbox,
+							unameerrortxt, unameerrorbox,
+							pnamerrortxt, pnameerrorbox,
+							emailerrortxt, emailerrorbox,
+							phoneerrortxt, phoneerrorbox,
+							streeterrortxt, streeterrorbox);
 			   }
 			}
 		});

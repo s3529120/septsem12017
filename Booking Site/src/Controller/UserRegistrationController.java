@@ -69,7 +69,15 @@ public class UserRegistrationController {
 			TextField address, HBox addhbox,
 			TextField contactNo, HBox numhbox,
 			TextField email, HBox mailhbox,
-			Map hboxMap, Map textMap){
+			Text emptyerrortxt, HBox emptyerrorbox,
+			Text passerrortxt, HBox passerrorbox,
+			Text unameerrortxt, HBox unameerrorbox,
+			Text pnameerrortxt, HBox pnameerrorbox,
+			Text emailerrortxt, HBox emailerrorbox,
+			Text phoneerrortxt, HBox phoneerrorbox,
+			Text streeterrortxt, HBox streeterrorbox
+			){
+
 
 		// Create bool vars to store state of entered data matching
 		boolean hasEmpty = false, numerror = false, unameerror = false, 
@@ -179,8 +187,8 @@ public class UserRegistrationController {
 		
 		//checking if the password fields are what cause the reject and if it is add the "pass error text"
 		if (!pword.getText().equals(pwordcon.getText())) {
-			if (!hboxMap.get("passerrorbox").getChildren().contains(textMap.get("passerrortxt"))) {
-				hboxMap.get("passerrorbox").add(textMap.get("passerrortxt"));
+			if (!passerrorbox.getChildren().contains(passerrortxt) {
+				passerrorbox.add(passerrortxt);
 			}
 		} else {
 			if (passerrorbox.getChildren().contains(passerrortxt)) {
