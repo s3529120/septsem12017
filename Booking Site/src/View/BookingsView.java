@@ -6,7 +6,6 @@ import Controller.BookingController;
 import Controller.DefaultController;
 import Controller.EmployeeController;
 import Controller.TypeController;
-import Model.AccountModel;
 import Model.BookingModel;
 import Model.BusinessAccountModel;
 import Model.TypeModel;
@@ -21,11 +20,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import utils.AppData;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -369,6 +368,8 @@ public class BookingsView {
 
 	public void assignToBooking(BookingModel book,BookingController parcont){
 		Stage popup = new Stage();
+      popup.initModality(Modality.WINDOW_MODAL);
+      popup.initOwner(parcont.getView().stage);
 		StackPane pane=new StackPane();
 		if(AppData.CALLER instanceof BusinessAccountModel){
 			//Heading

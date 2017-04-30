@@ -103,42 +103,41 @@ public class BookingController
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		String sql="";
 		int numBooks;
-		LocalTime incTime;
 
 		//Assign to model
 		booking.setUser(uname);
+		booking.setType(type.getName());
 
-		//Insert into database
+		//Connect to database
 		dbcont.createConnection();
-		sql="UPDATE Booking SET Username=? WHERE Date=? AND StartTime=? ";
 
-		//Determine number of booking slots required and alter sql
+		//Determine number of booking slots required
 		numBooks=type.getDuration()/15;
-		for(int i=1;i<numBooks;i++){
-			sql=sql.concat("OR StartTime=? ");
-		}
-
-		sql=sql.concat("AND EmployeeEmail=?;");
-		dbcont.prepareStatement(sql);
+		//Set values
 		try
 		{
-			dbcont.getState().setString(1, uname);
-			dbcont.getState().setString(2, booking.getDate().toString());
-			dbcont.getState().setString(3, booking.getStartTime().toString());
-			incTime=booking.getStartTime();
-			for(int i=1;i<numBooks;i++){
-				incTime=incTime.plusMinutes(15);
-				dbcont.getState().setString(3+i, incTime.toString());
-			}
-
-			dbcont.getState().setString(3+numBooks, booking.getEmployee());
-			dbcont.runSQLUpdate();
+		   LocalTime startTime=booking.getStartTime();
+		   //Loop through bookings assigning user and type
+	      for(int i=0;i<numBooks;i++){
+	         sql="UPDATE Booking SET Username=?, Type=? WHERE Date=? AND StartTime=? AND EmployeeEmail=?;";
+	         dbcont.prepareStatement(sql);
+	         dbcont.getState().setString(1, uname);
+	         dbcont.getState().setString(2, type.getName());
+	         dbcont.getState().setString(3, booking.getDate().toString());
+	         dbcont.getState().setString(4, startTime.toString());
+	         dbcont.getState().setString(5, booking.getEmployee());
+	         dbcont.runSQLUpdate();
+	         startTime=startTime.plusMinutes(15);
+	      }
 		}
+		//Catch error return false
 		catch (SQLException e)
 		{
+		   e.printStackTrace();
 			dbcont.closeConnection();
 			return false;
 		}
+		//Return true to indicate success
 		return true;
 
 	}
@@ -193,13 +192,14 @@ public class BookingController
 
 					//Availability loop
 					while(focustime.isBefore(finish)){
-						sql="INSERT INTO Booking(Date,StartTime,FinishTime,EmployeeEmail) " +
-								"Values(?,?,?,?);";
+						sql="INSERT INTO Booking(Date,StartTime,FinishTime,EmployeeEmail,Type) " +
+								"Values(?,?,?,?,?);";
 						dbcont.prepareStatement(sql);
 						dbcont.getState().setString(1, focus.toString());
 						dbcont.getState().setString(2, focustime.toString());
 						dbcont.getState().setString(3, focustime.plusMinutes(15).toString());
 						dbcont.getState().setString(4, emp);
+						dbcont.getState().setString(5, "None");
 						dbcont.runSQLUpdate();
 
 						//Increment appointment time
@@ -417,6 +417,7 @@ public class BookingController
 						LocalTime.parse(res.getString("StartTime")),
 						LocalTime.parse(res.getString("FinishTime")));
 				mod.setEmployee(res.getString("EmployeeEmail"));
+				mod.setType(res.getString("Type"));
 				//Check if filled
 				try{
 					mod.setUser(res.getString("User"));

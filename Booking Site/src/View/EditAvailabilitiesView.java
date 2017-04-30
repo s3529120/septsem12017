@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import utils.AppData;
 
@@ -93,7 +94,10 @@ public class EditAvailabilitiesView
 		specbtn.setOnAction(new EventHandler<ActionEvent>(){
          @Override public void handle(ActionEvent e){
             TypeController tcont=new TypeController();
-            TypeView tview=new TypeView(new Stage());
+            Stage nstage = new Stage();
+            nstage.initModality(Modality.WINDOW_MODAL);
+            nstage.initOwner(stage);
+            TypeView tview=new TypeView(nstage);
             tview.setCont(tcont);
             tcont.setView(tview);
             tcont.setEmpname(employee.getSelectionModel().getSelectedItem());
