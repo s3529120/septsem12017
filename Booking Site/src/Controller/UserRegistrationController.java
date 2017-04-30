@@ -2,6 +2,8 @@ package Controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
+
 import Model.AccountModel;
 import Model.DatabaseModel;
 import Model.UserAccountModel;
@@ -66,13 +68,7 @@ public class UserRegistrationController {
 			TextField address, HBox addhbox,
 			TextField contactNo, HBox numhbox,
 			TextField email, HBox mailhbox,
-			Text emptyerrortxt, HBox emptyerrorbox,
-			Text passerrortxt, HBox passerrorbox,
-			Text unameerrortxt, HBox unameerrorbox,
-			Text pnameerrortxt, HBox pnameerrorbox,
-			Text emailerrortxt, HBox emailerrorbox,
-			Text phoneerrortxt, HBox phoneerrorbox,
-			Text streeterrortxt, HBox streeterrorbox
+			Map hboxMap, Map textMap
 			){
 
 		// Create bool vars to store state of entered data matching
@@ -192,7 +188,7 @@ public class UserRegistrationController {
 
 		//checking if the password fields are what cause the reject and if it is add the "pass error text"
 		if (!pword.getText().equals(pwordcon.getText())) {
-			if (!passerrorbox.getChildren().contains(passerrortxt)) {
+			if (!hboxMap.get("passerrorbox").getChildren().contains(passerrortxt)) {
 				passerrorbox.getChildren().add(passerrortxt);
 			}
 		} else {

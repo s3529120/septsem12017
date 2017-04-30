@@ -187,13 +187,7 @@ public class UserRegistrationView {
 							addtxtfield, addhbox, 
 							numtxtfield, numhbox, 
 							mailtxtfield, mailhbox, 
-							emptyerrortxt, emptyerrorbox,
-							passerrortxt, passerrorbox,
-							unameerrortxt, unameerrorbox,
-							pnamerrortxt, pnameerrorbox,
-							emailerrortxt, emailerrorbox,
-							phoneerrortxt, phoneerrorbox,
-							streeterrortxt, streeterrorbox);
+							hboxMap, textMap);
 			   }
 			}
 		});
