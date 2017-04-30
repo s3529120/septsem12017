@@ -17,87 +17,96 @@ import javafx.stage.Stage;
 public class MainMenuView {
 	private Stage stage;
 	private DefaultController cont;
-	
-	/**Constructor, sets stage.
-	 * @param stage Window to manipulate.
+
+	/**
+	 * Constructor, sets stage.
+	 * 
+	 * @param stage
+	 *            Window to manipulate.
 	 */
-	public MainMenuView(Stage stage){
-		this.stage=stage;
+	public MainMenuView(Stage stage) {
+		this.stage = stage;
 	}
-	
-	/**Updates associated window.
+
+	/**
+	 * Updates associated window.
 	 */
-	public void updateView(){
-		
+	public void updateView() {
+
 		BorderPane border = new BorderPane();
-		
-	   //Headings
+
+		// Headings
 		Text txt = new Text("Dog Groomer");
 		HBox heading = new HBox(txt);
 		heading.setAlignment(Pos.CENTER);
-		
-		//Login button
+
+		// Login button
 		Button loginbtn = new Button("Login");
-		loginbtn.setOnAction(new EventHandler<ActionEvent>(){
-			@Override public void handle(ActionEvent e){
+		loginbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
 				cont.loginEvent();
 			}
 		});
-		
-		//Register button
+
+		// Register button
 		Button registerbtn = new Button("Register");
-		registerbtn.setOnAction(new EventHandler<ActionEvent>(){
-			@Override public void handle(ActionEvent e){
+		registerbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
 				UserRegistrationView view = new UserRegistrationView(stage);
 				UserRegistrationController cont = new UserRegistrationController(view);
 				cont.updateView();
 			}
 		});
-		
-		//Layout
-		
+
+		// Layout
+
 		VBox vbox = new VBox(15, heading, registerbtn, loginbtn);
-		
-	    BorderPane.setAlignment(vbox, Pos.CENTER);
-	    BorderPane.setMargin(vbox, new Insets(12,12,12,12));
+
+		BorderPane.setAlignment(vbox, Pos.CENTER);
+		BorderPane.setMargin(vbox, new Insets(12, 12, 12, 12));
 		border.setCenter(vbox);
-		
+
 		HBox tophbox = new HBox();
 		tophbox.setPadding(new Insets(100, 12, 15, 12));
 		border.setTop(tophbox);
-		
+
 		VBox leftvbox = new VBox();
 		leftvbox.setPadding(new Insets(15, 400, 15, 12));
 		border.setLeft(leftvbox);
-		
+
 		VBox rightvbox = new VBox();
 		rightvbox.setPadding(new Insets(15, 400, 15, 12));
 		border.setRight(rightvbox);
-		
+
 		HBox bottomhbox = new HBox();
 		bottomhbox.setPadding(new Insets(100, 12, 15, 12));
 		border.setBottom(bottomhbox);
-		
-		//Styles
-	    vbox.setId("mainMenuVBox");
-	    border.setId("border");
+
+		// Styles
+		vbox.setId("mainMenuVBox");
+		border.setId("border");
 		registerbtn.getStyleClass().add("orangebtn");
 		loginbtn.getStyleClass().add("orangebtn");
 		heading.getStyleClass().add("main-heading");
-		
-		//Adding layout to scene
+
+		// Adding layout to scene
 		Scene scene = new Scene(border);
 		scene.getStylesheets().add(getClass().getResource("/view/css/styles.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
 	}
 
-	/**Sets associated controller
-	 * @param cont Controller to associate.
+	/**
+	 * Sets associated controller
+	 * 
+	 * @param cont
+	 *            Controller to associate.
 	 * @return True upon success.
 	 */
-	public Boolean setController(DefaultController cont){
-		this.cont=cont;
+	public Boolean setController(DefaultController cont) {
+		this.cont = cont;
 		return true;
 	}
 }
