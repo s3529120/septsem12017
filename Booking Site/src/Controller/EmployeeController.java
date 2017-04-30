@@ -168,7 +168,7 @@ public class EmployeeController
 	}
 
 	/**Returns array of employee emails.
-	 * @return List of all employees email address'.
+	 * @return List of all employees email addresses.
 	 */
 	public String[] getEmployeeEmails(){
 		String sql="";
@@ -206,6 +206,11 @@ public class EmployeeController
 	}
 
 	//Returns employee email given their name
+	/**
+	 * Get the employee's email address
+	 * @param name
+	 * @return the email address of an employee with name
+	 */
 	public String getEmail(String name){
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		String sql="",email;
@@ -248,7 +253,7 @@ public class EmployeeController
 	}
 	
 	/**
-	 * Set error text's on appropriate hboxes if there are any errors
+	 * Set error text's on appropriate hboxes if there are any errors (This desperately needs abstraction, WIP)
 	 * @param fname Firstname
 	 * @param fnamehbox hbox for firstname
 	 * @param sname
