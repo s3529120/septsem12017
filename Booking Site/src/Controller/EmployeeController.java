@@ -247,6 +247,45 @@ public class EmployeeController
 
 	}
 	
+	/**
+	 * Set error text's on appropriate hboxes if there are any errors
+	 * @param fname Firstname
+	 * @param fnamehbox hbox for firstname
+	 * @param sname
+	 * @param snamehbox
+	 * @param address
+	 * @param addresshbox
+	 * @param pcode
+	 * @param pcodehbox
+	 * @param contactno
+	 * @param contactnohbox
+	 * @param email
+	 * @param emailhbox
+	 * @param city
+	 * @param cityhbox
+	 * @param emptyerrortxt
+	 * @param emptyerrorbox
+	 * @param empaddedtxt
+	 * @param empaddedhbox
+	 * @param takenerrortxt
+	 * @param takenerrorbox
+	 * @param fnameerrortxt
+	 * @param fnameerrorbox
+	 * @param snameerrortxt
+	 * @param snameerrorbox
+	 * @param emailerrortxt
+	 * @param emailerrorbox
+	 * @param phoneerrortxt
+	 * @param phoneerrorbox
+	 * @param streeterrortxt
+	 * @param streeterrorbox
+	 * @param cityerrortxt
+	 * @param cityerrorbox
+	 * @param postcerrortxt
+	 * @param postcerrorbox
+	 * @param state
+	 * @return true if no errors
+	 */
 	public boolean validateEntries(
 			TextField fname, HBox fnamehbox, 
 			TextField sname, HBox snamehbox, 
