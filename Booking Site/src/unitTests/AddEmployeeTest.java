@@ -16,7 +16,6 @@ import org.sqlite.core.DB;
 import Controller.DatabaseController;
 import Controller.EmployeeController;
 import Model.DatabaseModel;
-import Model.EmployeeModel;
 import View.UserRegistrationView;
 
 public class AddEmployeeTest {

@@ -8,7 +8,6 @@ import Model.AccountModel;
 import Model.DatabaseModel;
 import Model.UserAccountModel;
 import View.BookingsView;
-import View.UserAccountMenuView;
 import View.UserRegistrationView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
