@@ -3,21 +3,15 @@ package Controller;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
-import Model.AccountModel;
 import Model.BookingModel;
-
 import Model.DatabaseModel;
 import Model.TypeModel;
 import View.BookingsView;
-import javafx.scene.control.ProgressBar;
 
 public class BookingController
 {

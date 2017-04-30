@@ -7,7 +7,6 @@ import View.BookingsView;
 import View.LoginView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import utils.AppData;
 import javafx.scene.control.TextField;
 
