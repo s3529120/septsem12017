@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.*;
 import Controller.*;
 import Model.*;
 
-public class ViewBookingsTest {
+public class BookingsTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	{
