@@ -52,20 +52,6 @@
     -fx-spacing: 10;
 }
 
-#incorrectForm {
-  	-fx-text-box-border: red ;
- 	-fx-focus-color: red ;
-	-fx-padding: 10 0 10 0;
-    -fx-border-insets: 5px;
-    -fx-background-insets: 5px;
-}
-
-#form {
-	-fx-padding: 10 0 10 0;
-    -fx-border-insets: 5px;
-    -fx-background-insets: 5px;
-}
-
 #registerbtn {
 	-fx-padding: 25 25 25 25;
 	-fx-background-insets: 15 0 15 0;
@@ -210,17 +196,77 @@ buttonbox {
     -fx-background-repeat: repeat;   
 }
 
+#headerBox {
+    -fx-padding: 20;
+    -fx-border-color: #ff8833;
+    -fx-border-width: 10;
+}
+
+.pageheading {
+	-fx-font-size: 35px;
+	-fx-padding: 0 0 25 0;
+	-fx-max-width: 300px;
+}
+
+#mainPageVBox {
+    -fx-padding: 10;
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
+    -fx-border-width: 10;
+    -fx-font-size: 15pt;
+}
+
 /* MAIN MENU */
 
 #mainMenuVBox {
     -fx-alignment: center;
     -fx-padding: 10;
-    -fx-background-color: #e0dfc8;
+    -fx-background-color: #E0E4CC;
     -fx-border-color: #ff8833;
     -fx-border-width: 10;
+    -fx-font-size: 15pt;
+}
+
+#mainRegisterVBox {
+	-fx-alignment: center;
+    -fx-padding: 7;
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
+    -fx-border-width: 10;
+    -fx-font-size: 15pt;
+}
+
+.main-heading {
+	-fx-text-align: center;
+	-fx-font-size: 35px;
+	-fx-padding: 0 0 25 0;
+	-fx-max-width: 300px;
 }
 
 /* FORM */
+
+#form {
+	-fx-boder-radius: 0;
+    -fx-border-insets: 2px;
+    -fx-background-insets: 2px;
+    -fx-background-color: white;
+	-fx-font-size: 22px;
+	-fx-border-color: #F38630;
+    -fx-border-width: 3;
+    -fx-pref-width: 300px;
+}
+
+#incorrectForm {
+    
+    -fx-boder-radius: 0;
+    -fx-border-insets: 2px;
+    -fx-background-insets: 2px;
+    -fx-background-color: white;
+	-fx-font-size: 22px;
+	-fx-border-color: red;
+    -fx-border-width: 3;
+    -fx-pref-width: 300px;
+}
 
 .orangebtn {
 	-fx-background-color: #ff8833;
@@ -231,11 +277,13 @@ buttonbox {
     -fx-pref-width: 300px;
 }
 
-.main-heading {
-	-fx-text-align: center;
-	-fx-font-size: 35px;
-	-fx-padding: 0 0 25 0;
-	-fx-max-width: 300px;
+.linkbtn {
+	-fx-font-size: 15;
+    -fx-underline: true;
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-border: false;
+    -fx-text-stroke: #0000FF;
+    -fx-text-fill: #0000FF;
 }
 
 /* BOOKINGS VIEW */
