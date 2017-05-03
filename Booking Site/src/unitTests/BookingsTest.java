@@ -22,6 +22,10 @@ public class BookingsTest {
 		String sql="";
 		DatabaseModel dataMod = new DatabaseModel();
 		DatabaseController dataCont = new DatabaseController(dataMod);
+		
+		EmployeeController econt = new EmployeeController();
+		econt.addEmployee("John Smith", "0123456789", 
+				"empemail@email.com", "77 Fake st", "Melbourne", "Victoria", "3000");
 
 		//Drop tables
 		sql="DROP TABLE IF EXISTS Accounts; ";
@@ -129,8 +133,7 @@ public class BookingsTest {
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, LocalDate.now().toString());
 			dataCont.runSQLUpdate();   
-			
-			
+		
 		} catch (Exception e) {
 			dataCont.closeConnection();
 			e.printStackTrace();
@@ -192,34 +195,47 @@ public class BookingsTest {
 	public void testGetBooking(){
 		BookingController bcont = new BookingController();
 		LocalDate focusdate=LocalDate.now();
-		DayOfWeek dow = focusdate.getDayOfWeek();
+		DayOfWeek dow = focusdate.getDayOfWeek().plus(1);
 		String empemail = "newemail@email.com";
 		LocalTime start=LocalTime.of(14, 00),finish=LocalTime.of(15, 00);
 		
 		bcont.addBookings(dow, start, finish, empemail);
 		
-		try{
-			assertTrue(bcont.getBookings().contains(dow));
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		assertTrue(bcont.getBookings().contains(dow));
 	}
 	
 	@Test
-	public void testForBooking(){
+	public void addEmpBooking(){
 		BookingController bcont = new BookingController();
+		AvailabilitiesController acont = new AvailabilitiesController();
 		LocalDate focusdate=LocalDate.now();
-		DayOfWeek dow = focusdate.getDayOfWeek();
-		String empemail = "newemail@email.com";
+		DayOfWeek dow = focusdate.getDayOfWeek().plus(1);
+		String empemail = "empemail@email.com";
 		LocalTime start=LocalTime.of(16, 00),finish=LocalTime.of(18, 00);
+		String startstring = start.toString(), finishstring = finish.toString();
 		
+		acont.addAvailability(empemail, dow, startstring, finishstring);
 		bcont.addBookings(dow, start, finish, empemail);
 		
-		try{
-			assertFalse(bcont.getBookings().isEmpty());
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		assertFalse(bcont.getBookings().isEmpty());
+		
+	}
+	
+	@Test
+	public void makeBookingCustomer(){
+		BookingController bcont = new BookingController();
+		AvailabilitiesController avcont = new AvailabilitiesController();
+		LocalDate focusdate=LocalDate.now();
+		DayOfWeek dow = focusdate.getDayOfWeek().plus(1);
+		String empemail = "empemail@email.com";
+		LocalTime start=LocalTime.of(16, 00),finish=LocalTime.of(18, 00);
+		String startstring = start.toString(), finishstring = finish.toString();
+		
+		avcont.addAvailability(empemail, dow, startstring, finishstring);
+		bcont.addBookings(dow, start, finish, empemail);
+		
+//		assertThat();
+		
 	}
 	
 }
