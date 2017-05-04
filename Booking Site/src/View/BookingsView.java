@@ -336,7 +336,7 @@ public class BookingsView {
 
 		VBox bookingsList = new VBox();
 
-		// Iterate through past bookings
+		// Iterate through bookings and add them to bookingsList
 		bookings.forEach(booking -> {
 
 			String newdate = booking.getDate().toString();
@@ -384,11 +384,13 @@ public class BookingsView {
 
 		});
 		HBox bookingscontainer = new HBox(bookingsList);
-		bookingscontainer.setId("bookingscontainer");
+		
 		// Layout
-
-		VBox main = new VBox(header, head, bookingscontainer);
-		main.setId("bookingsMain");
+		Text test = new Text("Testing changes");
+		VBox main = new VBox(header, head, test, bookingscontainer);
+		bookingscontainer.setId("mainPageVBox");
+		main.setId("border");
+		//main.setId("mainPageVBox");
 
 		// Set scene for past bookings
 		sp.setVmax(440);
@@ -559,10 +561,15 @@ public class BookingsView {
 				}
 			});
 			// Add to pane
-			VBox all = new VBox(h1, dets, typeselect, cancel, submit);
-			pane.getChildren().addAll(all);
+			VBox body = new VBox(h1, dets, typeselect, cancel, submit);
+			pane.getChildren().addAll(body);
 		}
+		
+		// Styling
+		
+		
 		// Set scene for making booking
+		pane.setId("border");
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 		popup.setScene(scene);
