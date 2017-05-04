@@ -516,8 +516,11 @@ public class BookingsView {
 								popup.close();
 							}
 						});
+						close.getStyleClass().add("orangebtn-small");
 						VBox vbox = new VBox(conftxt, close);
+						vbox.setId("pop-up");
 						Scene confscene = new Scene(vbox);
+						confscene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 						popup.setScene(confscene);
 						parcont.updateView();
 					} else {
@@ -584,6 +587,7 @@ public class BookingsView {
 						Text conftxt = new Text("Booking Confirmed!");
 						// Close button
 						Button close = new Button("Close");
+						close.getStyleClass().add("orangebtn-small");
 						close.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent e) {
@@ -591,7 +595,9 @@ public class BookingsView {
 							}
 						});
 						VBox vbox = new VBox(conftxt, close);
+						vbox.setId("pop-up");
 						Scene confscene = new Scene(vbox);
+						confscene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 						popup.setScene(confscene);
 						parcont.updateView();
 					} else {
