@@ -141,53 +141,6 @@ buttonbox {
     -fx-spacing: 5;
 }
 
-/** View Bookings **/
-
-#bookingBox {
-	-fx-border-color: #000;
-    -fx-border-width: 1px;
-    -fx-padding: 20;
-    -fx-spacing: 8;
-    -fx-pref-width: 600px;
-    -fx-border-insets: 5px;
-    -fx-background-insets: 5px;
-}
-
-#bookingDate {
-	-fx-font-size: 20pt;
-}
-
-#datebox {
-	-fx-padding: 20 0;
-}
-
-#bookingscontainer {
-	-fx-padding: 15 0;
-	-fx-pref-width: 500px;
-}
-
-.bookingcol {
-	-fx-padding: 0 50 0 0;
-}
-
-#bookingsHeader {
-	-fx-padding: 15 0;
-    -fx-spacing: 10;
-}
-
-#bookingsMain {
-	-fx-padding: 25 45;
-}
-
-#bookingsh1 {
-	-fx-font-size: 25pt;
-	-fx-padding-left: 45;
-}
-
-#bookingstitle {
-	-fx-pref-width: 500px;
-}
-
 /* MAIN */
 
 #border {
@@ -200,6 +153,7 @@ buttonbox {
     -fx-padding: 20;
     -fx-border-color: #ff8833;
     -fx-border-width: 10;
+    -fx-background-color: red;
 }
 
 .pageheading {
@@ -290,4 +244,61 @@ buttonbox {
 
 #switchbtn {
 	-fx-min-width: 200px;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #74d1e1;
+	-fx-background-image: url("/view/images/stripes.png");
+    -fx-background-repeat: repeat;
+}
+
+#bookings-main {
+	-fx-padding: 20px 50px;
+	-fx-pref-width: 1900px;
+}
+
+#bookingBox {
+	-fx-border-color: #000;
+    -fx-border-width: 1px;
+    -fx-padding: 20;
+    -fx-spacing: 8;
+    -fx-max-width: 700px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
+
+#bookingDate {
+	-fx-font-size: 20pt;
+}
+
+#datebox {
+	-fx-padding: 20 0;
+}
+
+.bookingcol {
+	-fx-padding: 0 50 0 0;
+}
+
+#bookingsHeader {
+	-fx-padding: 15 0;
+    -fx-spacing: 10;
+}
+
+#bookingsh1 {
+	-fx-font-size: 25pt;
+	-fx-padding-left: 45;
+}
+
+#bookingstitle {
+	-fx-pref-width: 500px;
+}
+
+#bookings-container {
+	-fx-border-insets: 10px 0px;
+    -fx-background-insets: 10px 0px;
+	-fx-padding: 10 50;
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
+    -fx-border-width: 10;
+    -fx-font-size: 15pt;
 }

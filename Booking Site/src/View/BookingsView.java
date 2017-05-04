@@ -12,6 +12,7 @@ import Model.TypeModel;
 import Model.UserAccountModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -25,6 +26,8 @@ import javafx.stage.Stage;
 import utils.AppData;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
+
+import java.awt.Insets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +63,8 @@ public class BookingsView {
 		sp = new ScrollPane();
 		// Header init
 		Text heading = new Text("Booking Site");
+		heading.getStyleClass().add("main-heading");
+		
 		// Add employee
 		Button addempbtn = new Button("Add Employee");
 		addempbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -71,6 +76,7 @@ public class BookingsView {
 				empcont.updateView();
 			}
 		});
+		addempbtn.getStyleClass().add("orangebtn");
 
 		// Edit availability
 		Button editavailbtn = new Button("Edit Employee");
@@ -83,6 +89,7 @@ public class BookingsView {
 				acont.updateView();
 			}
 		});
+		editavailbtn.getStyleClass().add("orangebtn");
 
 		// Edit type
 		Button edittypebtn = new Button("Edit Type");
@@ -96,6 +103,7 @@ public class BookingsView {
 				tview.updateTypeView();
 			}
 		});
+		edittypebtn.getStyleClass().add("orangebtn");
 
 		// View Bookings
 		Button viewbookbtn = new Button("View Bookings");
@@ -109,6 +117,8 @@ public class BookingsView {
 				bcont.updateView();
 			}
 		});
+		viewbookbtn.getStyleClass().add("orangebtn");
+		
 		// Logout button
 		Button logoutbtn = new Button("Logout");
 		logoutbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -120,6 +130,9 @@ public class BookingsView {
 				maincont.updateView();
 			}
 		});
+		logoutbtn.setAlignment(Pos.TOP_RIGHT);
+		logoutbtn.getStyleClass().add("linkbtn");
+		
 		HBox header = new HBox(heading, addempbtn, editavailbtn, edittypebtn, logoutbtn);
 
 		// Past bookings switch
@@ -133,6 +146,7 @@ public class BookingsView {
 				}
 			});
 		}
+		switchbtn.getStyleClass().add("orangebtn");
 
 		// Heading
 		Text h1;
@@ -217,8 +231,10 @@ public class BookingsView {
 			bookingsList.getChildren().add(bookingBox);
 
 		});
+		
 		HBox bookingscontainer = new HBox(bookingsList);
-		bookingscontainer.setId("bookingscontainer");
+		bookingscontainer.setId("bookings-container");
+		//bookingscontainer.setId("mainPageVBox");
 
 		VBox main;
 
@@ -228,13 +244,14 @@ public class BookingsView {
 		} else {
 			main = new VBox(heading, logoutbtn, bookingscontainer);
 		}
-		main.setId("bookingsMain");
+		sp.getStyleClass().add("scroll-pane");
+		main.setId("bookings-main");
 
 		// Set scene
-		sp.setVmax(440);
-		sp.setPrefSize(115, 150);
+		//sp.setVmax(440);
+		//sp.setPrefSize(115, 150);
 		sp.setContent(main);
-		Scene scene = new Scene(sp, 750, 500);
+		Scene scene = new Scene(sp);
 		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
@@ -249,6 +266,8 @@ public class BookingsView {
 		// Header init
 		sp = new ScrollPane();
 		Text heading = new Text("Booking Site");
+		heading.getStyleClass().add("main-heading");
+		
 		// Add employee
 		Button addempbtn = new Button("Add Employee");
 		addempbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -260,6 +279,7 @@ public class BookingsView {
 				empcont.updateView();
 			}
 		});
+		addempbtn.getStyleClass().add("orangebtn");
 
 		// Edit availability
 		Button editavailbtn = new Button("Edit Employee");
@@ -272,9 +292,10 @@ public class BookingsView {
 				acont.updateView();
 			}
 		});
+		editavailbtn.getStyleClass().add("orangebtn");
 
 		// Edit type
-		Button edittypebtn = new Button("Edit Type");
+		Button edittypebtn = new Button("Edit Service");
 		edittypebtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -285,6 +306,7 @@ public class BookingsView {
 				tview.updateTypeView();
 			}
 		});
+		edittypebtn.getStyleClass().add("orangebtn");
 
 		// View Bookings
 		Button viewbookbtn = new Button("View Bookings");
@@ -298,6 +320,8 @@ public class BookingsView {
 				bcont.updateView();
 			}
 		});
+		viewbookbtn.getStyleClass().add("orangebtn");
+		
 		// Logout button
 		Button logoutbtn = new Button("Logout");
 		logoutbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -309,7 +333,12 @@ public class BookingsView {
 				maincont.updateView();
 			}
 		});
+		logoutbtn.setAlignment(Pos.TOP_RIGHT);
+		logoutbtn.getStyleClass().add("linkbtn");
+		
+		
 		HBox header = new HBox(heading, addempbtn, editavailbtn, edittypebtn, logoutbtn);
+		header.setId("headerbox");
 
 		// Back to the future... bookings
 		Button switchbtn = new Button("Future Bookings");
@@ -319,6 +348,7 @@ public class BookingsView {
 				updateView();
 			}
 		});
+		switchbtn.getStyleClass().add("orangebtn");
 
 		// Heading
 		Text h1 = new Text("Past Bookings");
@@ -336,7 +366,7 @@ public class BookingsView {
 
 		VBox bookingsList = new VBox();
 
-		// Iterate through bookings and add them to bookingsList
+		// Iterate through past bookings and add them to bookingsList
 		bookings.forEach(booking -> {
 
 			String newdate = booking.getDate().toString();
@@ -383,18 +413,15 @@ public class BookingsView {
 			bookingsList.getChildren().add(bookingBox);
 
 		});
-		HBox bookingscontainer = new HBox(bookingsList);
 		
 		// Layout
-		Text test = new Text("Testing changes");
-		VBox main = new VBox(header, head, test, bookingscontainer);
-		bookingscontainer.setId("mainPageVBox");
-		main.setId("border");
-		//main.setId("mainPageVBox");
+		HBox bookingscontainer = new HBox(head, bookingsList);
+		bookingscontainer.setId("bookings-container");
+		VBox main = new VBox(header, bookingscontainer);
 
-		// Set scene for past bookings
-		sp.setVmax(440);
-		sp.setPrefSize(115, 150);
+		sp.getStyleClass().add("scroll-pane");
+		main.setId("bookings-main");
+		
 		sp.setContent(main);
 		Scene scene = new Scene(sp, 750, 500);
 		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
