@@ -278,7 +278,7 @@ public class AddEmployeeView {
 
 		pane.getChildren().addAll();
 		Scene scene = new Scene(pane, 850, 450);
-		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
 

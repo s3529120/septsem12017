@@ -228,7 +228,7 @@ public class UserRegistrationView {
 		//StackPane pane = new StackPane(body);
 
 		Scene scene = new Scene(border);
-		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		stage.setScene(scene);
 	}
 }

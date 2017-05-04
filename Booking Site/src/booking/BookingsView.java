@@ -238,7 +238,7 @@ public class BookingsView {
 		sp.setPrefSize(115, 150);
 		sp.setContent(main);
 		Scene scene = new Scene(sp, 750, 500);
-		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
 
@@ -398,7 +398,7 @@ public class BookingsView {
 		sp.setPrefSize(115, 150);
 		sp.setContent(main);
 		Scene scene = new Scene(sp, 750, 500);
-		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
 
@@ -567,7 +567,7 @@ public class BookingsView {
 		}
 		// Set scene for making booking
 		Scene scene = new Scene(pane);
-		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		popup.setScene(scene);
 		popup.show();
 	}

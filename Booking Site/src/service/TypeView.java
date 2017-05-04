@@ -105,7 +105,7 @@ public class TypeView {
 		VBox all = new VBox(h1, specText, addVbox, remVbox, done);
 		pane.getChildren().addAll(all);
 		Scene scene = new Scene(pane);
-		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -248,7 +248,7 @@ public class TypeView {
 		pane.getChildren().addAll(page);
 		
 		Scene scene = new Scene(pane);
-		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
 	}

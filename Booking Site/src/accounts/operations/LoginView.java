@@ -139,7 +139,7 @@ public class LoginView {
 		StackPane pane = new StackPane(loginpageBox);
 
 		Scene scene = new Scene(pane);
-		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		stage.setScene(scene);
 	}
 
