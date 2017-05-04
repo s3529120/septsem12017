@@ -8,6 +8,8 @@ import Controller.TypeController;
 import Model.BusinessAccountModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -49,9 +51,12 @@ public class AddEmployeeView {
 	 * Updates display of window.
 	 */
 	public void updateView() {
+		
 		// Header init
 		Text heading = new Text("Booking Site");
-		// View Bookings
+		
+		
+		// View Bookings button
 		Button viewbookbtn = new Button("View Bookings");
 		viewbookbtn.setUserData(cont);
 		viewbookbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -63,6 +68,7 @@ public class AddEmployeeView {
 				bcont.updateView();
 			}
 		});
+		viewbookbtn.getStyleClass().add("orangebtn");
 
 		// Edit availability
 		Button editavailbtn = new Button("Edit Employee");
@@ -75,9 +81,10 @@ public class AddEmployeeView {
 				acont.updateView();
 			}
 		});
+		editavailbtn.getStyleClass().add("orangebtn");
 
-		// Edit type
-		Button edittypebtn = new Button("Edit Type");
+		// Manage services button
+		Button edittypebtn = new Button("Manage Services");
 		edittypebtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -88,6 +95,7 @@ public class AddEmployeeView {
 				tview.updateTypeView();
 			}
 		});
+		edittypebtn.getStyleClass().add("orangebtn");
 
 		// Logout button
 		Button logoutbtn = new Button("Logout");
@@ -100,14 +108,18 @@ public class AddEmployeeView {
 				maincont.updateView();
 			}
 		});
-		HBox header = new HBox(heading, viewbookbtn, editavailbtn, edittypebtn, logoutbtn);
+		logoutbtn.setAlignment(Pos.TOP_RIGHT);
+		logoutbtn.getStyleClass().add("linkbtn");
+		
+		
+		HBox header = new HBox(10, heading, viewbookbtn, editavailbtn, edittypebtn, logoutbtn);
 
 		// Confirmation message and heading
 
 		Text empadded = new Text("");
 
 		Text h1 = new Text("Add Employee");
-		h1.setId("heading");
+		h1.setId("bookingsh1");
 
 		// Vertical box 1 - user info
 
@@ -116,32 +128,31 @@ public class AddEmployeeView {
 		fnamefield.setPromptText("First Name");
 		fnamefield.getStyleClass().add("textField");
 		HBox fnamehbox = new HBox(fnamefield);
-		fnamehbox.setId("form");
+		fnamefield.setId("form");
 
 		// Surname
 		TextField snamefield = new TextField();
 		snamefield.setPromptText("Last Name");
 		snamefield.getStyleClass().add("textField");
 		HBox snamehbox = new HBox(snamefield);
-		snamehbox.setId("form");
+		snamefield.setId("form");
 
 		// Email address
 		TextField emailfield = new TextField();
 		emailfield.setPromptText("Email");
 		emailfield.getStyleClass().add("textField");
 		HBox emailhbox = new HBox(emailfield);
-		emailhbox.setId("form");
+		emailfield.setId("form");
 
 		// Contact number
 		TextField contactnofield = new TextField();
 		contactnofield.setPromptText("Contact no.");
 		contactnofield.getStyleClass().add("textField");
 		HBox contactnohbox = new HBox(contactnofield);
-		contactnohbox.setId("form");
+		contactnofield.setId("form");
 
 		// Add above elements to vertical box
-		VBox userInfo = new VBox(empadded, h1, fnamehbox, snamehbox, emailhbox, contactnohbox);
-		userInfo.getStyleClass().add("addEmpVbox");
+		VBox userInfo = new VBox(15, fnamehbox, snamehbox, emailhbox, contactnohbox, empadded);
 
 		// Vertical box 2 - address
 
@@ -150,14 +161,14 @@ public class AddEmployeeView {
 		streetaddfield.setPromptText("Street Address");
 		streetaddfield.getStyleClass().add("textField");
 		HBox streetaddhbox = new HBox(streetaddfield);
-		streetaddhbox.setId("form");
+		streetaddfield.setId("form");
 
 		// City
 		TextField cityfield = new TextField();
 		cityfield.setPromptText("City");
 		cityfield.getStyleClass().add("textField");
 		HBox cityhbox = new HBox(cityfield);
-		cityhbox.setId("form");
+		cityfield.setId("form");
 
 		// State
 		ComboBox<String> statebox = new ComboBox<String>();
@@ -166,14 +177,16 @@ public class AddEmployeeView {
 				"Western Australia");
 		statebox.getStyleClass().add("textField");
 		HBox statehbox = new HBox(statebox);
-		statehbox.setId("form");
+		statebox.setId("form");
 
 		// Postcode
 		TextField pcodefield = new TextField();
 		pcodefield.setPromptText("Post Code");
 		pcodefield.getStyleClass().add("textField");
 		HBox pcodehbox = new HBox(pcodefield);
-		pcodehbox.setId("form");
+		pcodefield.setId("form");
+		
+		// ERROR MESSAGES
 
 		// Error text box
 		Text emptyerrortxt = new Text("All fields must be filled.");
@@ -211,7 +224,7 @@ public class AddEmployeeView {
 		Text cityerrortxt = new Text("Please enter a valid city");
 		HBox cityerrorbox = new HBox();
 
-		// Postc error
+		// Postcode error
 		Text postcerrortxt = new Text("Please enter a valid postcode-state combination");
 		HBox postcerrorbox = new HBox();
 
@@ -258,23 +271,31 @@ public class AddEmployeeView {
 			}
 
 		});
-		subbtn.getStyleClass().add("bluebtn");
+		subbtn.getStyleClass().add("orangebtn");
 
 		// Add above elements to vertical box
-		VBox addressInfo = new VBox(streetaddhbox, cityhbox, pcodehbox, statehbox, subbtn, empaddedhbox, emptyerrorbox,
+		VBox addressInfo = new VBox(15, streetaddhbox, cityhbox, pcodehbox, statehbox, empaddedhbox);
+		
+		VBox errors = new VBox(10, emptyerrorbox,
 				takenerrorbox, fnameerrorbox, snameerrorbox, emailerrorbox, phoneerrorbox, streeterrorbox, cityerrorbox,
 				postcerrorbox);
-		addressInfo.setId("empAddressVbox");
+		
+		
+
+		// Layout and styling
+		heading.getStyleClass().add("main-heading");
+		HBox form = new HBox(10, userInfo, addressInfo, errors);
+		VBox body = new VBox(10, h1, form, subbtn);
+		header.setId("headerbox");
+		body.setId("mainPageVBox");
+		VBox page = new VBox(header, body);
+		page.setId("border");
+		page.getStyleClass().add("loginpageBox");
+		StackPane pane = new StackPane(page);
 
 		// Set scene
-		HBox addEmployeeBox = new HBox(userInfo, addressInfo);
-		VBox addEmployeePage = new VBox(header, addEmployeeBox);
-		addEmployeeBox.setId("addEmpPageBox");
-
-		StackPane pane = new StackPane(addEmployeePage);
-
 		pane.getChildren().addAll();
-		Scene scene = new Scene(pane, 850, 450);
+		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
