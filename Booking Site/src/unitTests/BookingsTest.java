@@ -15,6 +15,10 @@ import static org.hamcrest.CoreMatchers.*;
 import Controller.*;
 import Model.*;
 
+/**
+ * Contains Tests related to making and checking for bookings
+ */
+
 public class BookingsTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
@@ -197,27 +201,29 @@ public class BookingsTest {
 		LocalDate focusdate=LocalDate.now();
 		DayOfWeek dow = focusdate.getDayOfWeek().plus(1);
 		String empemail = "newemail@email.com";
-		LocalTime start=LocalTime.of(14, 00),finish=LocalTime.of(15, 00);
+		LocalTime start=LocalTime.now(),finish=LocalTime.now().plusHours(2);
 		
 		bcont.addBookings(dow, start, finish, empemail);
 		
 		assertTrue(bcont.getBookings().contains(dow));
+		assertTrue(bcont.getPastBookings().contains(focusdate.getDayOfWeek().minus(1)));
 	}
 	
 	@Test
-	public void addEmpBooking(){
+	public void makeEmpBooking(){
 		BookingController bcont = new BookingController();
 		AvailabilitiesController acont = new AvailabilitiesController();
 		LocalDate focusdate=LocalDate.now();
 		DayOfWeek dow = focusdate.getDayOfWeek().plus(1);
 		String empemail = "empemail@email.com";
-		LocalTime start=LocalTime.of(16, 00),finish=LocalTime.of(18, 00);
+		LocalTime start=LocalTime.now(),finish=LocalTime.now().plusHours(2);
 		String startstring = start.toString(), finishstring = finish.toString();
 		
 		acont.addAvailability(empemail, dow, startstring, finishstring);
 		bcont.addBookings(dow, start, finish, empemail);
 		
 		assertFalse(bcont.getBookings().isEmpty());
+		assertTrue(bcont.getBookings().contains(dow));
 		
 	}
 	
@@ -228,13 +234,14 @@ public class BookingsTest {
 		LocalDate focusdate=LocalDate.now();
 		DayOfWeek dow = focusdate.getDayOfWeek().plus(1);
 		String empemail = "empemail@email.com";
-		LocalTime start=LocalTime.of(16, 00),finish=LocalTime.of(18, 00);
+		LocalTime start=LocalTime.now(),finish=LocalTime.now().plusHours(2);
 		String startstring = start.toString(), finishstring = finish.toString();
 		
 		avcont.addAvailability(empemail, dow, startstring, finishstring);
 		bcont.addBookings(dow, start, finish, empemail);
 		
-//		assertThat();
+		assertFalse(bcont.getBookings().isEmpty());
+		assertTrue(bcont.getBookings().contains(dow));
 		
 	}
 	
