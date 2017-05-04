@@ -1,5 +1,5 @@
 .root {
-	-fx-font-size: 11pt;
+	-fx-font-size: 12pt;
 }
 
 .button {
@@ -231,6 +231,15 @@ buttonbox {
     -fx-pref-width: 300px;
 }
 
+.orangebtn-small {
+	-fx-background-color: #ff8833;
+	-fx-padding: 10 15 10 15;
+	-fx-font-size: 25px;
+	-fx-border-color: #ffb580;
+    -fx-border-width: 3;
+    -fx-pref-width: 150px;
+}
+
 .linkbtn {
 	-fx-font-size: 15;
     -fx-underline: true;
@@ -253,7 +262,7 @@ buttonbox {
 }
 
 #bookings-main {
-	-fx-padding: 20px 50px;
+	-fx-padding: 15px 50px;
 	-fx-pref-width: 1900px;
 }
 
@@ -300,5 +309,17 @@ buttonbox {
     -fx-background-color: #E0E4CC;
     -fx-border-color: #ff8833;
     -fx-border-width: 10;
+    -fx-font-size: 15pt;
+}
+
+/* MAKE A BOOKING */
+
+.booking-label {
+	-fx-font-size: 20pt;
+}
+
+#pop-up {
+	-fx-padding: 10;
+    -fx-background-color: #E0E4CC;
     -fx-font-size: 15pt;
 }
