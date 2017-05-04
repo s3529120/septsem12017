@@ -11,6 +11,7 @@ import Controller.UserRegistrationController;
 import Model.TypeModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -114,6 +115,8 @@ public class TypeView {
 	public void updateTypeView() {
 		// Header init
 		Text heading = new Text("Booking Site");
+		heading.getStyleClass().add("main-heading");
+		
 		// Add employee
 		Button addempbtn = new Button("Add Employee");
 		addempbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -125,9 +128,10 @@ public class TypeView {
 				empcont.updateView();
 			}
 		});
+		addempbtn.getStyleClass().add("orangebtn");
 
 		// Edit availability
-		Button editavailbtn = new Button("Edit Employee");
+		Button editavailbtn = new Button("Manage Employees");
 		editavailbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -137,6 +141,7 @@ public class TypeView {
 				acont.updateView();
 			}
 		});
+		editavailbtn.getStyleClass().add("orangebtn");
 
 		// View Bookings
 		Button viewbookbtn = new Button("View Bookings");
@@ -150,6 +155,8 @@ public class TypeView {
 				bcont.updateView();
 			}
 		});
+		viewbookbtn.getStyleClass().add("orangebtn");
+		
 		// Logout button
 		Button logoutbtn = new Button("Logout");
 		logoutbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -161,15 +168,25 @@ public class TypeView {
 				maincont.updateView();
 			}
 		});
+		logoutbtn.setAlignment(Pos.TOP_RIGHT);
+		logoutbtn.getStyleClass().add("linkbtn");
+		
 		HBox header = new HBox(heading, viewbookbtn, addempbtn, editavailbtn, logoutbtn);
+		header.setId("headerbox");
+		heading.getStyleClass().add("main-heading");
 		Text h1 = new Text("Edit Services");
+		h1.getStyleClass().add("pageheading");
 
-		// Add
+		// Add (LEFT)
 		Text h2 = new Text("Add service");
 		Label typelbl = new Label("Service name: ");
 		TextField typefield = new TextField();
+		typefield.setId("form");
+		
 		Label numlbl = new Label("Duration in minutes: ");
 		TextField numfield = new TextField();
+		numfield.setId("form");
+		
 		Button addbtn = new Button("Add");
 		addbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -178,17 +195,23 @@ public class TypeView {
 				updateTypeView();
 			}
 		});
+		addbtn.getStyleClass().add("orangebtn");
+		addbtn.setAlignment(Pos.BOTTOM_CENTER);
+		
 		HBox row1 = new HBox(typelbl, typefield);
 		HBox row2 = new HBox(numlbl, numfield);
 		VBox addVbox = new VBox(h2, row1, row2, addbtn);
+		addVbox.getStyleClass().add("loginpageBox");
 
-		// Remove
+		// Remove (RIGHT)
+		Text h3 = new Text("Remove service");
 		List<TypeModel> known = TypeController.getAllTypes();
 		Label remlbl = new Label("Service to remove");
 		ComboBox<String> rembox = new ComboBox<String>();
 		known.forEach(x -> {
 			rembox.getItems().add(x.getName());
 		});
+		rembox.setId("form");
 		Button rembtn = new Button("Remove");
 		rembtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -197,7 +220,11 @@ public class TypeView {
 				updateTypeView();
 			}
 		});
-		VBox remVbox = new VBox(remlbl, rembox, rembtn);
+		rembtn.getStyleClass().add("orangebtn");
+		rembtn.setAlignment(Pos.BOTTOM_CENTER);
+		
+		VBox remVbox = new VBox(h3, remlbl, rembox, rembtn);
+		remVbox.getStyleClass().add("loginpageBox");
 
 		// current types
 		String servicesString = "The current avaialable services are";
@@ -208,9 +235,17 @@ public class TypeView {
 		Text servicesText = new Text(servicesString);
 
 		// Set scene for update type view
+		HBox functions = new HBox(addVbox, remVbox);
+		VBox body = new VBox(h1, servicesText, functions);
+		VBox page = new VBox(header, body);
+		body.setId("mainPageVBox");
+		header.setId("headerbox");
+		page.setId("border");
+		page.getStyleClass().add("loginpageBox");
+		
 		StackPane pane = new StackPane();
-		VBox all = new VBox(header, h1, servicesText, addVbox, remVbox);
-		pane.getChildren().addAll(all);
+		pane.getChildren().addAll(page);
+		
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 		stage.setScene(scene);

@@ -73,68 +73,69 @@ public class UserRegistrationController {
 
 		// checking for empty as well as if the pattern is matched
 		if (uname.getText().trim().equals("")) {
-			unamehbox.setId("incorrectForm");
+			uname.setId("incorrectForm");
 			hasEmpty = true;
 			unameerror = true;
 		} else if (!DataMatcher.unameMatcher(uname.getText().trim())) {
-			unamehbox.setId("incorrectForm");
+			uname.setId("incorrectForm");
 			unameerror = true;
 		} else {
 			unameerror = false;
-			unamehbox.setId("form");
+			uname.setId("form");
 		}
 
 		if (pname.getText().trim().equals("")) {
-			pnamehbox.setId("incorrectForm");
+			pname.setId("incorrectForm");
 			hasEmpty = true;
 			pnameerror = true;
 		} else if (!DataMatcher.nameMatcher(pname.getText().trim())) {
-			pnamehbox.setId("incorrectForm");
+			pname.setId("incorrectForm");
 			pnameerror = true;
 		} else {
 			pnameerror = false;
-			pnamehbox.setId("form");
+			pname.setId("form");
 		}
 
 		if (pword.getText().trim().equals("")) {
-			pwordhbox.setId("incorrectForm");
+			pword.setId("incorrectForm");
 			hasEmpty = true;
 			passerror = true;
 			passconerror = true;
 		} else if (!DataMatcher.passMatcher(pword.getText().trim())) {
-			pwordhbox.setId("incorrectForm");
+			pword.setId("incorrectForm");
 			passerror = true;
 			passconerror = true;
 		} else {
 			passerror = false;
-			pwordhbox.setId("form");
+			pword.setId("form");
 		}
 
 		if (pwordcon.getText().trim().equals("")) {
-			pwordhboxcon.setId("incorrectForm");
+			pwordcon.setId("incorrectForm");
 			hasEmpty = true;
 			passconerror = true;
 			passerror = true;
 		} else if (pword.getText().trim().compareTo(pwordcon.getText().trim()) != 0) {
 			passerror = true;
 			passconerror = true;
-			pwordhboxcon.setId("incorrectForm");
-			pwordhbox.setId("incorrectForm");
+			pwordcon.setId("incorrectForm");
+			pword.setId("incorrectForm");
 		} else if (!DataMatcher.passMatcher(pwordcon.getText().trim())) {
-			pwordhboxcon.setId("incorrectForm");
-			pwordhbox.setId("incorrectForm");
+			pwordcon.setId("incorrectForm");
+			pword.setId("incorrectForm");
 			passerror = true;
 			passconerror = true;
 		} else {
 			passconerror = false;
-			pwordhboxcon.setId("form");
+			pword.setId("form");
+			pwordcon.setId("form");
 		}
 		if (contactNo.getText().trim().equals("")) {
-			numhbox.setId("incorrectForm");
+			contactNo.setId("incorrectForm");
 			hasEmpty = true;
 			numerror = true;
 		} else if (!DataMatcher.phoneMatcher(contactNo.getText().trim())) {
-			numhbox.setId("incorrectForm");
+			contactNo.setId("incorrectForm");
 			numerror = true;
 			// Check for length of phone num
 			// } else if(contactNo.getText().replaceAll("\\s","").length() >
@@ -145,31 +146,31 @@ public class UserRegistrationController {
 			// numerror = true;
 		} else {
 			numerror = false;
-			numhbox.setId("form");
+			contactNo.setId("form");
 		}
 
 		if (address.getText().trim().equals("")) {
-			addhbox.setId("incorrectForm");
+			address.setId("incorrectForm");
 			hasEmpty = true;
 			adderror = true;
 		} else if (!DataMatcher.addMatcher(address.getText().trim())) {
-			addhbox.setId("incorrectForm");
+			address.setId("incorrectForm");
 			adderror = true;
 		} else {
 			adderror = false;
-			addhbox.setId("form");
+			address.setId("form");
 		}
 
 		if (email.getText().trim().equals("")) {
-			mailhbox.setId("incorrectForm");
+			email.setId("incorrectForm");
 			hasEmpty = true;
 			emailerror = true;
 		} else if (!DataMatcher.emailMatcher(email.getText().trim())) {
-			mailhbox.setId("incorrectForm");
+			email.setId("incorrectForm");
 			emailerror = true;
 		} else {
 			emailerror = false;
-			mailhbox.setId("form");
+			email.setId("form");
 		}
 
 		// checking if the password fields are what cause the reject and if it

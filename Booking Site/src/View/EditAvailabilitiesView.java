@@ -7,6 +7,7 @@ import Controller.EmployeeController;
 import Controller.TypeController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -65,8 +66,8 @@ public class EditAvailabilitiesView {
 		Text insertconfirm = new Text("");
 
 		// Title
-		Text pageTitle = new Text("Manage Availabilities");
-		pageTitle.setId("heading");
+		Text pageTitle = new Text("Manage Employees");
+		pageTitle.getStyleClass().add("main-heading");
 
 		// Select Employee
 		Label selectEmployeeText = new Label("Select an employ");
@@ -107,9 +108,10 @@ public class EditAvailabilitiesView {
 				tcont.updateView();
 			}
 		});
+		specbtn.getStyleClass().add("orangebtn");
 
 		HBox employeebox = new HBox(selectEmployeeText, employee, employeeerrorbox);
-		employeebox.setId("form");
+		employee.setId("form");
 
 		// Header init
 		Text heading = new Text("Booking Site");
@@ -124,9 +126,10 @@ public class EditAvailabilitiesView {
 				empcont.updateView();
 			}
 		});
+		addempbtn.getStyleClass().add("orangebtn");
 
 		// Edit type
-		Button edittypebtn = new Button("Edit Type");
+		Button edittypebtn = new Button("Manage Services");
 		edittypebtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -137,6 +140,7 @@ public class EditAvailabilitiesView {
 				tview.updateTypeView();
 			}
 		});
+		edittypebtn.getStyleClass().add("orangebtn");
 
 		// View Bookings
 		Button viewbookbtn = new Button("View Bookings");
@@ -150,6 +154,8 @@ public class EditAvailabilitiesView {
 				bcont.updateView();
 			}
 		});
+		viewbookbtn.getStyleClass().add("orangebtn");
+		
 		// Logout button
 		Button logoutbtn = new Button("Logout");
 		logoutbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -161,11 +167,18 @@ public class EditAvailabilitiesView {
 				maincont.updateView();
 			}
 		});
+		logoutbtn.setAlignment(Pos.TOP_RIGHT);
+		logoutbtn.getStyleClass().add("linkbtn");
+		
+		
 		HBox header = new HBox(heading, viewbookbtn, addempbtn, edittypebtn, logoutbtn);
+		header.setId("headerbox");
+		heading.getStyleClass().add("main-heading");
 		HBox backbox = new HBox(specbtn);
 
 		// top box construction
 		VBox titleAndEmployee = new VBox(pageTitle, employeebox, instructions);
+		pageTitle.getStyleClass().add("main-heading");
 		HBox topBox = new HBox(titleAndEmployee, backbox);
 
 		// Lots of text, because apparently i cant reuse the same ones
@@ -209,7 +222,23 @@ public class EditAvailabilitiesView {
 		ComboBox<String> fridayEndTime = new ComboBox<String>();
 		ComboBox<String> saturdayStartTime = new ComboBox<String>();
 		ComboBox<String> saturdayEndTime = new ComboBox<String>();
-
+		
+		//applying CSS
+		 sundayStartTime.setId("form");
+		 sundayEndTime.setId("form");
+		 mondayStartTime.setId("form");
+		 mondayEndTime.setId("form");
+		 tuesdayStartTime.setId("form");
+		 tuesdayEndTime.setId("form");
+		 wednesdayStartTime.setId("form");
+		 wednesdayEndTime.setId("form");
+		 thursdayStartTime.setId("form");
+		 thursdayEndTime.setId("form");
+		 fridayStartTime.setId("form");
+		 fridayEndTime.setId("form");
+		 saturdayStartTime.setId("form");
+		 saturdayEndTime.setId("form");
+		
 		// creating labels
 		Label sundayText = new Label("Sunday");
 		Label mondayText = new Label("Monday");
@@ -346,14 +375,16 @@ public class EditAvailabilitiesView {
 				}
 			}
 		});
-
+		savebtn.getStyleClass().add("orangebtn");
+		
 		// box Construction
 		HBox bottom = new HBox(savebtn, donebox);
-		VBox page = new VBox(header, topBox, dayBox, bottom);
-
+		VBox body = new VBox(topBox, dayBox, bottom);
+		body.setId("mainPageVBox");
+		header.setId("headerbox");
+		VBox page = new VBox(header, body);
+		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
-		savebtn.setId("largebtn");
-		backbox.setId("logoutbox");
 
 		StackPane pane = new StackPane(page, insertconfirm);
 
