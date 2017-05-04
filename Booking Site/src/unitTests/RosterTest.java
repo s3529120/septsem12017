@@ -12,9 +12,9 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import Controller.AvailabilitiesController;
-import Controller.DatabaseController;
-import Model.DatabaseModel;
+import employee.roster.AvailabilitiesController;
+import utils.database.DatabaseController;
+import utils.database.DatabaseModel;
 
 public class RosterTest {
 

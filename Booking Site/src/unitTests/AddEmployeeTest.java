@@ -5,18 +5,16 @@ import static org.junit.Assert.*;
 import java.awt.TextField;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sqlite.core.DB;
-
-import Controller.DatabaseController;
-import Controller.EmployeeController;
-import Model.DatabaseModel;
-import View.UserRegistrationView;
+import accounts.operations.UserRegistrationView;
+import employee.EmployeeController;
+import utils.database.DatabaseController;
+import utils.database.DatabaseModel;
 
 public class AddEmployeeTest {
 
