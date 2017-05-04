@@ -133,7 +133,7 @@ public class BookingsView {
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
 		
-		HBox header = new HBox(heading, addempbtn, editavailbtn, edittypebtn, logoutbtn);
+		HBox header = new HBox(10, heading, addempbtn, editavailbtn, edittypebtn, logoutbtn);
 		header.setId("headerbox");
 
 		// Past bookings switch
