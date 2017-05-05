@@ -99,8 +99,8 @@ public class BookingController
 		int numBooks;
 
 		//Assign to model
-		booking.setUser(uname);
-		booking.setType(type.getName());
+		//booking.setUser(uname);
+		//booking.setType(type.getName());
 
 		//Connect to database
 		dbcont.createConnection();
@@ -186,14 +186,15 @@ public class BookingController
 
 					//Availability loop
 					while(focustime.isBefore(finish)){
-						sql="INSERT INTO Booking(Date,StartTime,FinishTime,EmployeeEmail,Type) " +
-								"Values(?,?,?,?,?);";
+						sql="INSERT INTO Booking(Date,StartTime,FinishTime,EmployeeEmail,Type,Username) " +
+								"Values(?,?,?,?,?,?);";
 						dbcont.prepareStatement(sql);
 						dbcont.getState().setString(1, focus.toString());
 						dbcont.getState().setString(2, focustime.toString());
 						dbcont.getState().setString(3, focustime.plusMinutes(15).toString());
 						dbcont.getState().setString(4, emp);
 						dbcont.getState().setString(5, "None");
+						dbcont.getState().setString(6, "Unfilled");
 						dbcont.runSQLUpdate();
 
 						//Increment appointment time
@@ -414,9 +415,9 @@ public class BookingController
 				mod.setType(res.getString("Type"));
 				//Check if filled
 				try{
-					mod.setUser(res.getString("User"));
+					mod.setUser(res.getString("Username"));
 				}catch(SQLException e1){
-					mod.setUser("Unfilled");
+					e1.printStackTrace();;
 				}
 				//If date has not passed add to list to be returned
 				if(!mod.getDate().isBefore(LocalDate.now())){
