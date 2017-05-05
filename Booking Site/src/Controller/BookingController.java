@@ -387,9 +387,9 @@ public class BookingController
 	 * @return List of bookings that have not passed.
 	 */
 	public List<BookingModel> getBookings(){
-		if(allBooks!=null){
+		/*if(allBooks!=null){
 			return allBooks;
-		}
+		}*/
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		String sql;
 		List<BookingModel> bookings = new ArrayList<BookingModel>();
@@ -429,8 +429,8 @@ public class BookingController
 			e.printStackTrace();
 		}
 		dbcont.closeConnection();
-		allBooks=bookings;
-		return allBooks;
+		//allBooks=bookings;
+		return bookings;
 	}
 
 }
