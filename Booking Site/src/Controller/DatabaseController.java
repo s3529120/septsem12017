@@ -54,8 +54,7 @@ public class DatabaseController {
 	 */
 	public Boolean prepareStatement(String sql){
 		try {
-			model.setState(model.getConnection()
-					.prepareStatement(sql));
+			model.setState(model.getConnection().prepareStatement(sql));
 			return true;
 		} catch (SQLException e) {
          e.printStackTrace();
