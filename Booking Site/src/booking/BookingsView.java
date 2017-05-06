@@ -252,13 +252,8 @@ public class BookingsView {
 		main.setId("bookings-main");
 
 		sp.setContent(main);
-<<<<<<< HEAD:Booking Site/src/booking/BookingsView.java
-		Scene scene = new Scene(sp, 750, 500);
-		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
-=======
 		Scene scene = new Scene(sp);
-		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
->>>>>>> master:Booking Site/src/View/BookingsView.java
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
 
