@@ -113,6 +113,19 @@ public class Seed {
 			dataCont.getState().setString(7, "francois@gmail.com");
 			dataCont.runSQLUpdate();
 			
+			// Super User
+			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
+					+ "VALUES(?,?,?,?,?,?,?);";
+			dataCont.prepareStatement(sql);
+			dataCont.getState().setString(1, "super");
+			dataCont.getState().setString(2, "abc123");
+			dataCont.getState().setString(3, "Admin");
+			dataCont.getState().setString(4, "");
+			dataCont.getState().setString(5, "Super");
+			dataCont.getState().setString(6, "");
+			dataCont.getState().setString(7, "admin@operator.owner");
+			dataCont.runSQLUpdate();
+			
 			//Availabilities
 			//Monday
 			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
