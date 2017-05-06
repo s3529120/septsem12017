@@ -4,6 +4,7 @@ package accounts.operations;
 import accounts.AccountController;
 import accounts.AccountModel;
 import accounts.BusinessAccountModel;
+import accounts.SuperAccountModel;
 import accounts.UserAccountModel;
 import booking.BookingController;
 import booking.BookingsView;
@@ -100,6 +101,13 @@ public class LoginController {
 		            bcont.updateView();
 					//Create user account model.
 				}else if(acc instanceof UserAccountModel){
+					BookingController bcont = new BookingController();
+		            bcont.setView(new BookingsView(view.stage));
+		            bcont.getView().setController(bcont);
+		            AppData.CALLER=acc;
+		            bcont.updateView();
+					//Proceed window.
+				}else if(acc instanceof SuperAccountModel){
 					BookingController bcont = new BookingController();
 		            bcont.setView(new BookingsView(view.stage));
 		            bcont.getView().setController(bcont);
