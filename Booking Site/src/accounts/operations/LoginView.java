@@ -64,7 +64,7 @@ public class LoginView {
 		returnbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-			   MainMenuController cont = new MainMenuController(stage, new MainMenuView(stage));
+				MainMenuController cont = new MainMenuController(stage, new MainMenuView(stage));
 				cont.updateView();
 			}
 		});
@@ -128,11 +128,11 @@ public class LoginView {
 		// Layout
 		BorderPane border = new BorderPane();
 		VBox body = new VBox(15, welcometxt, usernameBox, pwordBox, loginbtn, failerrorbox, emptyerrorbox, registerbtn);
-		
+
 		BorderPane.setAlignment(body, Pos.CENTER);
 		BorderPane.setMargin(body, new Insets(12, 12, 12, 12));
 		border.setCenter(body);
-		
+
 		HBox tophbox = new HBox();
 		tophbox.setPadding(new Insets(20, 12, 15, 12));
 		border.setTop(tophbox);
@@ -151,30 +151,31 @@ public class LoginView {
 
 		// Styles
 
-		                         loginpageBox.getStyleClass().add("loginpageBox");
-		                 vbox.getStyleClass().add("vbox");
-		                 returnbtn.setId("loginbtn");
-		                 regbox.getStyleClass().add("regbox");
-	                 usernameBox.setId("form");
-		                 pwordBox.setId("form");
-	                 registerbtn.setId("registerbtn");
-                 regtxt.setId("heading");
-	                 welcometxt.setId("heading");
-		                 loginbtn.setId("loginbtn");
-		 
-		                 StackPane pane = new StackPane(loginpageBox);
-		 
-		                Scene scene = new Scene(pane);
-		                 scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm()
-		                 welcometxt.getStyleClass().add("main-heading");
-		                 body.setId("mainMenuVBox");
-		                 border.setId("border");
-		                 registerbtn.getStyleClass().add("linkbtn");
-		                 loginbtn.getStyleClass().add("orangebtn");
-		 
-		                 Scene scene = new Scene(border);
-		                 
-		
+		//		                         loginpageBox.getStyleClass().add("loginpageBox");
+		//		                 vbox.getStyleClass().add("vbox");
+		returnbtn.setId("loginbtn");
+		//		                 regbox.getStyleClass().add("regbox");
+		usernameBox.setId("form");
+		pwordBox.setId("form");
+		registerbtn.setId("registerbtn");
+		//                 regtxt.setId("heading");
+		welcometxt.setId("heading");
+		loginbtn.setId("loginbtn");
+
+		//		                 StackPane pane = new StackPane(loginpageBox);
+
+		//		                Scene scene = new Scene(pane);
+
+		welcometxt.getStyleClass().add("main-heading");
+		body.setId("mainMenuVBox");
+		border.setId("border");
+		registerbtn.getStyleClass().add("linkbtn");
+		loginbtn.getStyleClass().add("orangebtn");
+
+		Scene scene = new Scene(border);
+		scene.getStylesheets().add(getClass().
+				getResource("/resources/display/css/styles.css").toExternalForm());                
+
 		stage.setScene(scene);
 	}
 
