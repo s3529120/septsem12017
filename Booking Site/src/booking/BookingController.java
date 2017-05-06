@@ -100,11 +100,8 @@ public class BookingController
 		int numBooks;
 
 		//Assign to model
-<<<<<<< HEAD:Booking Site/src/booking/BookingController.java
-=======
 		//booking.setUser(uname);
 		//booking.setType(type.getName());
->>>>>>> master:Booking Site/src/Controller/BookingController.java
 
 		//Connect to database
 		dbcont.createConnection();
@@ -421,11 +418,7 @@ public class BookingController
 				try{
 					mod.setUser(res.getString("Username"));
 				}catch(SQLException e1){
-<<<<<<< HEAD:Booking Site/src/booking/BookingController.java
 					e1.printStackTrace();
-=======
-					e1.printStackTrace();;
->>>>>>> master:Booking Site/src/Controller/BookingController.java
 				}
 				//If date has not passed add to list to be returned
 				if(!mod.getDate().isBefore(LocalDate.now())){
@@ -438,10 +431,7 @@ public class BookingController
 			e.printStackTrace();
 		}
 		dbcont.closeConnection();
-<<<<<<< HEAD:Booking Site/src/booking/BookingController.java
-=======
-		//allBooks=bookings;
->>>>>>> master:Booking Site/src/Controller/BookingController.java
+
 		return bookings;
 	}
 	
