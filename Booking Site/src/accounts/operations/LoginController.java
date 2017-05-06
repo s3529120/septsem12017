@@ -52,16 +52,16 @@ public class LoginController {
 		//checking if empty
 		boolean hasEmpty = false;
 		if(username.getText().trim().equals("")) {
-			usernameBox.setId("incorrectForm");
+			username.setId("incorrectForm");
 			hasEmpty = true;
 		} else {
-			usernameBox.setId("form");
+			username.setId("form");
 		}
 		if(pword.getText().trim().equals("")) {
-			pwordBox.setId("incorrectForm");
+			pword.setId("incorrectForm");
 			hasEmpty = true;
 		} else {
-			pwordBox.setId("form");
+			pword.setId("form");
 		}
 		//checking if any of the fields were empty and if they were add the "empty error text"
 		if (hasEmpty) {

@@ -11,7 +11,7 @@ import org.junit.runners.Suite;
 	   LoginTest.class,
 	   RegistrationTest.class,
 	   RosterTest.class,
-	   ViewBookingsTest.class
+	   BookingsTest.class
 	})
 
 public class TestSuite {		

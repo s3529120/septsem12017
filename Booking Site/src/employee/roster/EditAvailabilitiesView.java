@@ -173,7 +173,7 @@ public class EditAvailabilitiesView {
 		logoutbtn.getStyleClass().add("linkbtn");
 		
 		
-		HBox header = new HBox(heading, viewbookbtn, addempbtn, edittypebtn, logoutbtn);
+		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, edittypebtn, logoutbtn);
 		header.setId("headerbox");
 		heading.getStyleClass().add("main-heading");
 		HBox backbox = new HBox(specbtn);

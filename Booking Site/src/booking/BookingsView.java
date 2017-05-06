@@ -9,6 +9,7 @@ import employee.roster.AvailabilitiesController;
 import employee.roster.EditAvailabilitiesView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -27,6 +28,8 @@ import service.TypeView;
 import utils.AppData;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
+
+import java.awt.Insets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +66,8 @@ public class BookingsView {
 		sp = new ScrollPane();
 		// Header init
 		Text heading = new Text("Booking Site");
+		heading.getStyleClass().add("main-heading");
+		
 		// Add employee
 		Button addempbtn = new Button("Add Employee");
 		addempbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -74,6 +79,7 @@ public class BookingsView {
 				empcont.updateView();
 			}
 		});
+		addempbtn.getStyleClass().add("orangebtn");
 
 		// Edit availability
 		Button editavailbtn = new Button("Edit Employee");
@@ -86,9 +92,10 @@ public class BookingsView {
 				acont.updateView();
 			}
 		});
+		editavailbtn.getStyleClass().add("orangebtn");
 
-		// Edit type
-		Button edittypebtn = new Button("Edit Type");
+		// Manage Services
+		Button edittypebtn = new Button("Manage Services");
 		edittypebtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -99,6 +106,7 @@ public class BookingsView {
 				tview.updateTypeView();
 			}
 		});
+		edittypebtn.getStyleClass().add("orangebtn");
 
 		// View Bookings
 		Button viewbookbtn = new Button("View Bookings");
@@ -112,6 +120,8 @@ public class BookingsView {
 				bcont.updateView();
 			}
 		});
+		viewbookbtn.getStyleClass().add("orangebtn");
+		
 		// Logout button
 		Button logoutbtn = new Button("Logout");
 		logoutbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -123,12 +133,17 @@ public class BookingsView {
 				maincont.updateView();
 			}
 		});
-		HBox header = new HBox(heading, addempbtn, editavailbtn, edittypebtn, logoutbtn);
+		logoutbtn.setAlignment(Pos.TOP_RIGHT);
+		logoutbtn.getStyleClass().add("linkbtn");
+		
+		HBox header = new HBox(10, heading, addempbtn, editavailbtn, edittypebtn, logoutbtn);
+		header.setId("headerbox");
 
 		// Past bookings switch
 		Button switchbtn = null;
 		if (AppData.CALLER instanceof BusinessAccountModel) {
 			switchbtn = new Button("Past Bookings");
+			switchbtn.getStyleClass().add("orangebtn");
 			switchbtn.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
@@ -136,7 +151,7 @@ public class BookingsView {
 				}
 			});
 		}
-
+		
 		// Heading
 		Text h1;
 		if (AppData.CALLER instanceof BusinessAccountModel) {
@@ -156,6 +171,7 @@ public class BookingsView {
 		} else {
 			head = new HBox(bookingstitle);
 		}
+		
 		head.setId("bookingsHeader");
 
 		// Bookings
@@ -220,25 +236,29 @@ public class BookingsView {
 			bookingsList.getChildren().add(bookingBox);
 
 		});
+		
 		HBox bookingscontainer = new HBox(bookingsList);
-		bookingscontainer.setId("bookingscontainer");
+		bookingscontainer.setId("bookings-container");
 
 		VBox main;
 
 		// Change header menu based on account type
 		if (AppData.CALLER instanceof BusinessAccountModel) {
-			main = new VBox(header, heading, bookingscontainer);
+			main = new VBox(header, bookingscontainer);
 		} else {
 			main = new VBox(heading, logoutbtn, bookingscontainer);
 		}
-		main.setId("bookingsMain");
+		sp.getStyleClass().add("scroll-pane");
+		main.setId("bookings-main");
 
-		// Set scene
-		sp.setVmax(440);
-		sp.setPrefSize(115, 150);
 		sp.setContent(main);
+<<<<<<< HEAD:Booking Site/src/booking/BookingsView.java
 		Scene scene = new Scene(sp, 750, 500);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+=======
+		Scene scene = new Scene(sp);
+		scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
+>>>>>>> master:Booking Site/src/View/BookingsView.java
 		stage.setScene(scene);
 		stage.show();
 
@@ -252,6 +272,8 @@ public class BookingsView {
 		// Header init
 		sp = new ScrollPane();
 		Text heading = new Text("Booking Site");
+		heading.getStyleClass().add("main-heading");
+		
 		// Add employee
 		Button addempbtn = new Button("Add Employee");
 		addempbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -263,6 +285,7 @@ public class BookingsView {
 				empcont.updateView();
 			}
 		});
+		addempbtn.getStyleClass().add("orangebtn");
 
 		// Edit availability
 		Button editavailbtn = new Button("Edit Employee");
@@ -275,9 +298,10 @@ public class BookingsView {
 				acont.updateView();
 			}
 		});
+		editavailbtn.getStyleClass().add("orangebtn");
 
-		// Edit type
-		Button edittypebtn = new Button("Edit Type");
+		// Manage Services
+		Button edittypebtn = new Button("Manage Services");
 		edittypebtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -288,6 +312,7 @@ public class BookingsView {
 				tview.updateTypeView();
 			}
 		});
+		edittypebtn.getStyleClass().add("orangebtn");
 
 		// View Bookings
 		Button viewbookbtn = new Button("View Bookings");
@@ -301,6 +326,8 @@ public class BookingsView {
 				bcont.updateView();
 			}
 		});
+		viewbookbtn.getStyleClass().add("orangebtn");
+		
 		// Logout button
 		Button logoutbtn = new Button("Logout");
 		logoutbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -312,7 +339,12 @@ public class BookingsView {
 				maincont.updateView();
 			}
 		});
+		logoutbtn.setAlignment(Pos.TOP_RIGHT);
+		logoutbtn.getStyleClass().add("linkbtn");
+		
+		// Header navigation
 		HBox header = new HBox(heading, addempbtn, editavailbtn, edittypebtn, logoutbtn);
+		header.setId("headerbox");
 
 		// Back to the future... bookings
 		Button switchbtn = new Button("Future Bookings");
@@ -322,6 +354,7 @@ public class BookingsView {
 				updateView();
 			}
 		});
+		switchbtn.getStyleClass().add("orangebtn");
 
 		// Heading
 		Text h1 = new Text("Past Bookings");
@@ -339,7 +372,7 @@ public class BookingsView {
 
 		VBox bookingsList = new VBox();
 
-		// Iterate through past bookings
+		// Iterate through past bookings and add them to bookingsList
 		bookings.forEach(booking -> {
 
 			String newdate = booking.getDate().toString();
@@ -386,16 +419,16 @@ public class BookingsView {
 			bookingsList.getChildren().add(bookingBox);
 
 		});
-		HBox bookingscontainer = new HBox(bookingsList);
-		bookingscontainer.setId("bookingscontainer");
+		
 		// Layout
+		HBox bookingscontainer = new HBox(head, bookingsList);
+		bookingscontainer.setId("bookings-container");
+		
+		VBox main = new VBox(header, bookingscontainer);
 
-		VBox main = new VBox(header, head, bookingscontainer);
-		main.setId("bookingsMain");
-
-		// Set scene for past bookings
-		sp.setVmax(440);
-		sp.setPrefSize(115, 150);
+		sp.getStyleClass().add("scroll-pane");
+		main.setId("bookings-main");
+		
 		sp.setContent(main);
 		Scene scene = new Scene(sp, 750, 500);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
@@ -417,7 +450,8 @@ public class BookingsView {
 		StackPane pane = new StackPane();
 		if (AppData.CALLER instanceof BusinessAccountModel) {
 			// Heading
-			Text h1 = new Text("Assign customer to booking.");
+			Text h1 = new Text("Make a Booking");
+			h1.setId("bookingsh1");
 			AccountController acont = new AccountController();
 
 			// Appointment details
@@ -425,16 +459,16 @@ public class BookingsView {
 			Text dtxt = new Text(book.getDate().toString());
 			HBox dbox = new HBox(dlbl, dtxt);
 			Label stlbl = new Label("Start Time: ");
-			Text sttxt = new Text(book.getDate().toString());
+			Text sttxt = new Text(book.getStartTime().toString());
 			HBox stbox = new HBox(stlbl, sttxt);
 			Label ftlbl = new Label("Finish Time: ");
-			Text fttxt = new Text(book.getDate().toString());
+			Text fttxt = new Text(book.getFinishTime().toString());
 			HBox ftbox = new HBox(ftlbl, fttxt);
 			Label elbl = new Label("Employee: ");
 			Text etxt = new Text(cont.getNameFromEmail(book.getEmployee()));
 			HBox ebox = new HBox(elbl, etxt);
 			VBox dets = new VBox(dbox, stbox, ftbox, ebox);
-
+			
 			// List initialization
 			List<UserAccountModel> customers = acont.getAllCustomers();
 			Map<String, String> map = new HashMap<String, String>();
@@ -443,16 +477,20 @@ public class BookingsView {
 			});
 
 			// Customer selector
-			Label cuslbl = new Label("Please select the customer you wish to assign.");
+			Label cuslbl = new Label("Customer:");
+			cuslbl.getStyleClass().add("booking-label");
 			ComboBox<String> selector = new ComboBox<String>();
+			selector.setId("form");
 			map.forEach((k, v) -> selector.getItems().add(k));
 			VBox select = new VBox(cuslbl, selector);
 
 			// Type selector
 			TypeController tcont = new TypeController();
 			tcont.setEmp(book.getEmployee());
-			Label typelbl = new Label("Please select the appointment type you desire to book.");
+			Label typelbl = new Label("Service:");
+			typelbl.getStyleClass().add("booking-label");
 			ComboBox<String> typeselector = new ComboBox<String>();
+			typeselector.setId("form");
 			List<TypeModel> settypes = tcont.getSetTypes();
 			settypes.forEach(x -> typeselector.getItems().add(x.getName()));
 			VBox typeselect = new VBox(typelbl, typeselector);
@@ -465,6 +503,7 @@ public class BookingsView {
 					popup.close();
 				}
 			});
+			cancel.getStyleClass().add("orangebtn-small");
 
 			// Submit button
 			Button submit = new Button("Submit");
@@ -485,8 +524,11 @@ public class BookingsView {
 								popup.close();
 							}
 						});
+						close.getStyleClass().add("orangebtn-small");
 						VBox vbox = new VBox(conftxt, close);
+						vbox.setId("pop-up");
 						Scene confscene = new Scene(vbox);
+						confscene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 						popup.setScene(confscene);
 						parcont.updateView();
 					} else {
@@ -494,22 +536,27 @@ public class BookingsView {
 					}
 				}
 			});
+			submit.getStyleClass().add("orangebtn-small");
+			
+			HBox buttons = new HBox(10, submit, cancel);
+			
 			// Add to pane
-			VBox all = new VBox(h1, dets, select, typeselect, cancel, submit);
+			VBox all = new VBox(10, h1, dets, select, typeselect, buttons);
 			pane.getChildren().addAll(all);
 		} else {
 			// Heading
-			Text h1 = new Text("Would you like to confirm this Booking?");
+			Text h1 = new Text("Make a Booking");
+			h1.setId("bookingsh1");
 
 			// Appointment details
 			Label dlbl = new Label("Date: ");
 			Text dtxt = new Text(book.getDate().toString());
 			HBox dbox = new HBox(dlbl, dtxt);
 			Label stlbl = new Label("Start Time: ");
-			Text sttxt = new Text(book.getDate().toString());
+			Text sttxt = new Text(book.getStartTime().toString());
 			HBox stbox = new HBox(stlbl, sttxt);
 			Label ftlbl = new Label("Finish Time: ");
-			Text fttxt = new Text(book.getDate().toString());
+			Text fttxt = new Text(book.getFinishTime().toString());
 			HBox ftbox = new HBox(ftlbl, fttxt);
 			Label elbl = new Label("Employee: ");
 			Text etxt = new Text(cont.getNameFromEmail(book.getEmployee()));
@@ -519,8 +566,9 @@ public class BookingsView {
 			// Type selector
 			TypeController tcont = new TypeController();
 			tcont.setEmp(book.getEmployee());
-			Label typelbl = new Label("Please select the appointment type you desire.");
+			Label typelbl = new Label("Service:");
 			ComboBox<String> typeselector = new ComboBox<String>();
+			typeselector.setId("form");
 			List<TypeModel> settypes = tcont.getSetTypes();
 			settypes.forEach(x -> typeselector.getItems().add(x.getName()));
 			VBox typeselect = new VBox(typelbl, typeselector);
@@ -533,6 +581,7 @@ public class BookingsView {
 					popup.close();
 				}
 			});
+			cancel.getStyleClass().add("orangebtn-small");
 
 			// Submit button
 			Button submit = new Button("Submit");
@@ -546,6 +595,7 @@ public class BookingsView {
 						Text conftxt = new Text("Booking Confirmed!");
 						// Close button
 						Button close = new Button("Close");
+						close.getStyleClass().add("orangebtn-small");
 						close.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent e) {
@@ -553,7 +603,9 @@ public class BookingsView {
 							}
 						});
 						VBox vbox = new VBox(conftxt, close);
+						vbox.setId("pop-up");
 						Scene confscene = new Scene(vbox);
+						confscene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 						popup.setScene(confscene);
 						parcont.updateView();
 					} else {
@@ -561,11 +613,20 @@ public class BookingsView {
 					}
 				}
 			});
+			submit.getStyleClass().add("orangebtn-small");
+			
+			HBox buttons = new HBox(10, cancel, submit);
+			
 			// Add to pane
-			VBox all = new VBox(h1, dets, typeselect, cancel, submit);
-			pane.getChildren().addAll(all);
+			VBox body = new VBox(10, h1, dets, typeselect, buttons);
+			pane.getChildren().addAll(body);
 		}
+		
+		// Styling
+		
+		
 		// Set scene for making booking
+		pane.setId("pop-up");
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		popup.setScene(scene);

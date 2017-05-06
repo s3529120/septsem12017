@@ -172,7 +172,7 @@ public class TypeView {
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
 		
-		HBox header = new HBox(heading, viewbookbtn, addempbtn, editavailbtn, logoutbtn);
+		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, logoutbtn);
 		header.setId("headerbox");
 		heading.getStyleClass().add("main-heading");
 		Text h1 = new Text("Edit Services");

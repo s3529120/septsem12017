@@ -320,35 +320,35 @@ public class EmployeeController
 				cityTrim = city.getText().trim();
 
 		if (fnameTrim.equals("")) {
-			fnamehbox.setId("incorrectForm");
+			fname.setId("incorrectForm");
 			hasEmpty = true;
 			fnameerror = true;
 		} else if(!DataMatcher.fnameMatcher(fnameTrim)){
-			fnamehbox.setId("incorrectForm");
+			fname.setId("incorrectForm");
 			fnameerror = true;
 		} else {
 			fnameerror = false;
-			fnamehbox.setId("form");
+			fname.setId("form");
 		}
 
 		if (snameTrim.equals("")) {
-			snamehbox.setId("incorrectForm");
+			sname.setId("incorrectForm");
 			hasEmpty = true;
 			snameerror = true;
 		} else if(!DataMatcher.snameMatcher(snameTrim)){
-			snamehbox.setId("incorrectForm");
+			sname.setId("incorrectForm");
 			snameerror = true;
 		} else {
 			snameerror = false;
-			snamehbox.setId("form");
+			sname.setId("form");
 		}
 
 		if (addTrim.equals("")) {
-			addresshbox.setId("incorrectForm");
+			address.setId("incorrectForm");
 			hasEmpty = true;
 			adderror = true;
 		} else if(!DataMatcher.addMatcher(addTrim)) {
-			addresshbox.setId("incorrectForm");
+			address.setId("incorrectForm");
 			adderror = true;
 		} else {
 			adderror = false;
@@ -356,11 +356,11 @@ public class EmployeeController
 		}
 
 		if (pcodeTrim.equals("")) {
-			pcodehbox.setId("incorrectForm");
+			pcode.setId("incorrectForm");
 			hasEmpty = true;
 			pcodeerror = true;
 		} else if(!DataMatcher.postcMatcher(pcodeTrim, state)){
-			pcodehbox.setId("incorrectForm");
+			pcode.setId("incorrectForm");
 			pcodeerror = true;
 		} else {
 			pcodeerror = false;
@@ -368,11 +368,11 @@ public class EmployeeController
 		}
 
 		if (contactnoTrim.equals("")) {
-			contactnohbox.setId("incorrectForm");
+			contactno.setId("incorrectForm");
 			hasEmpty = true;
 			numerror = true;
 		} else if(!DataMatcher.phoneMatcher(contactnoTrim)){
-			contactnohbox.setId("incorrectForm");
+			contactno.setId("incorrectForm");
 			numerror = true;
 		}else{
 			numerror = false;
@@ -380,27 +380,27 @@ public class EmployeeController
 		}
 
 		if (emailTrim.equals("")) {
-			emailhbox.setId("incorrectForm");
+			email.setId("incorrectForm");
 			hasEmpty = true;
 			emailerror = true;
 		} else if(!DataMatcher.emailMatcher(emailTrim)){
-			emailhbox.setId("incorrectForm");
+			email.setId("incorrectForm");
 			emailerror = true;
 		}else{
 			emailerror = false;
-			emailhbox.setId("form");
+			email.setId("form");
 		}
 
 		if (cityTrim.equals("")) {
-			cityhbox.setId("incorrectForm");
+			city.setId("incorrectForm");
 			hasEmpty = true;
 			cityerror = true;
 		} else if(!DataMatcher.cityMatcher(cityTrim)){
-			cityhbox.setId("incorrectForm");
+			city.setId("incorrectForm");
 			cityerror = true;
 		} else {
 			cityerror = false;
-			cityhbox.setId("form");
+			city.setId("form");
 		}
 
 		// checking if any of the fields were empty and if they were add the
