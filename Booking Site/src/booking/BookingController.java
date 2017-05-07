@@ -436,6 +436,4 @@ public class BookingController
 
 		return bookings;
 	}
-	
-
 }
