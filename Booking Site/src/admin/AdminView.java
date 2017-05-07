@@ -27,4 +27,8 @@ public class AdminView {
 		this.cont = controller;
 		return true;
 	}
+
+	public void updateView() {
+				
+	}
 }

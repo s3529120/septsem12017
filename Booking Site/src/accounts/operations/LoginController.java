@@ -4,8 +4,10 @@ package accounts.operations;
 import accounts.AccountController;
 import accounts.AccountModel;
 import accounts.BusinessAccountModel;
-import accounts.SuperAccountModel;
+import accounts.AdminAccountModel;
 import accounts.UserAccountModel;
+import admin.AdminController;
+import admin.AdminView;
 import booking.BookingController;
 import booking.BookingsView;
 import javafx.scene.layout.HBox;
@@ -107,13 +109,13 @@ public class LoginController {
 		            AppData.CALLER=acc;
 		            bcont.updateView();
 					//Proceed window.
-				}else if(acc instanceof SuperAccountModel){
+				}else if(acc instanceof AdminAccountModel){
 					// Change this out to reflect the super user dash
-					BookingController bcont = new BookingController();
-		            bcont.setView(new BookingsView(view.stage));
-		            bcont.getView().setController(bcont);
+					AdminController acont = new AdminController();
+		            acont.setView(new AdminView(view.stage));
+		            acont.getView().setController(acont);
 		            AppData.CALLER=acc;
-		            bcont.updateView();
+		            acont.updateView();
 					//Proceed window.
 				}
 			}
