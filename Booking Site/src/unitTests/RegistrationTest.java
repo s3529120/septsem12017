@@ -12,12 +12,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import Controller.DatabaseController;
-import Controller.LoginController;
-import Controller.UserRegistrationController;
-import Model.DatabaseModel;
-import View.LoginView;
-import View.UserRegistrationView;
+import accounts.operations.LoginController;
+import accounts.operations.LoginView;
+import accounts.operations.UserRegistrationController;
+import accounts.operations.UserRegistrationView;
+import utils.database.DatabaseController;
+import utils.database.DatabaseModel;
 
 /*
  * Need to separate tests.

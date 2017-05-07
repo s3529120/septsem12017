@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
-import Controller.DatabaseController;
-import Model.DatabaseModel;
+import utils.database.DatabaseController;
+import utils.database.DatabaseModel;
 
 public class Seed {
    
@@ -39,6 +39,9 @@ public class Seed {
          dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
          sql = "DROP TABLE IF EXISTS Spec; ";
+         dataCont.prepareStatement(sql);
+         dataCont.runSQLUpdate();
+         sql = "DROP TABLE IF EXISTS Trading; ";
          dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
 
@@ -89,6 +92,12 @@ public class Seed {
 					+ "FOREIGN KEY (Username) REFERENCES Accounts(Username));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
+		// Trading Hours
+			sql = "CREATE TABLE Trading(" + "Day TEXT NOT NULL, " + "StartTime TEXT NOT NULL, "
+               + "FinishTime TEXT NOT NULL, " + "Username TEXT NOT NULL, " + "PRIMARY KEY (Username,Day,StartTime),"
+               + "FOREIGN KEY (Username) REFERENCES Accounts(Username));";
+         dataCont.prepareStatement(sql);
+         dataCont.runSQLUpdate();
 
 			// Enter dummy data
 			// BusAccount 1
@@ -103,7 +112,72 @@ public class Seed {
 			dataCont.getState().setString(6, "1 Groomer Avenue");
 			dataCont.getState().setString(7, "francois@gmail.com");
 			dataCont.runSQLUpdate();
-
+			
+			//Availabilities
+			//Monday
+			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
+               + "VALUES(?,?,?,?);";
+         dataCont.prepareStatement(sql);
+         dataCont.getState().setString(1, "bus001");
+         dataCont.getState().setString(2, "Monday");
+         dataCont.getState().setString(3, "10:00");
+         dataCont.getState().setString(4, "18:00");
+         dataCont.runSQLUpdate();
+       //Tuesday
+         sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
+               + "VALUES(?,?,?,?);";
+         dataCont.prepareStatement(sql);
+         dataCont.getState().setString(1, "bus001");
+         dataCont.getState().setString(2, "Tuesday");
+         dataCont.getState().setString(3, "10:00");
+         dataCont.getState().setString(4, "18:00");
+         dataCont.runSQLUpdate();
+       //Wednesday
+         sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
+               + "VALUES(?,?,?,?);";
+         dataCont.prepareStatement(sql);
+         dataCont.getState().setString(1, "bus001");
+         dataCont.getState().setString(2, "Wednesday");
+         dataCont.getState().setString(3, "10:00");
+         dataCont.getState().setString(4, "18:00");
+         dataCont.runSQLUpdate();
+       //Thursday
+         sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
+               + "VALUES(?,?,?,?);";
+         dataCont.prepareStatement(sql);
+         dataCont.getState().setString(1, "bus001");
+         dataCont.getState().setString(2, "Thursday");
+         dataCont.getState().setString(3, "10:00");
+         dataCont.getState().setString(4, "18:00");
+         dataCont.runSQLUpdate();
+       //Friday
+         sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
+               + "VALUES(?,?,?,?);";
+         dataCont.prepareStatement(sql);
+         dataCont.getState().setString(1, "bus001");
+         dataCont.getState().setString(2, "Friday");
+         dataCont.getState().setString(3, "10:00");
+         dataCont.getState().setString(4, "18:00");
+         dataCont.runSQLUpdate();
+       //Saturday
+         sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
+               + "VALUES(?,?,?,?);";
+         dataCont.prepareStatement(sql);
+         dataCont.getState().setString(1, "bus001");
+         dataCont.getState().setString(2, "Saturday");
+         dataCont.getState().setString(3, "10:00");
+         dataCont.getState().setString(4, "18:00");
+         dataCont.runSQLUpdate();
+       //Sunday
+         sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
+               + "VALUES(?,?,?,?);";
+         dataCont.prepareStatement(sql);
+         dataCont.getState().setString(1, "bus001");
+         dataCont.getState().setString(2, "Sunday");
+         dataCont.getState().setString(3, "10:00");
+         dataCont.getState().setString(4, "18:00");
+         dataCont.runSQLUpdate();
+         
 			// Booking date
 			sql = "INSERT INTO System(BookingsUntil) " + "VALUES(?);";
 			dataCont.prepareStatement(sql);

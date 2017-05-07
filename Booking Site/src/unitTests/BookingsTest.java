@@ -9,11 +9,15 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-import Controller.*;
-import Model.*;
+import booking.BookingController;
+import employee.EmployeeController;
+import employee.roster.AvailabilitiesController;
+import utils.database.DatabaseController;
+import utils.database.DatabaseModel;
 
 /**
  * Contains Tests related to making and checking for bookings

@@ -9,10 +9,11 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import Controller.AccountController;
-import Controller.DatabaseController;
-import Controller.LoginController;
-import Model.DatabaseModel;
+
+import accounts.AccountController;
+import accounts.operations.LoginController;
+import utils.database.DatabaseController;
+import utils.database.DatabaseModel;
 
 
 public class LoginTest

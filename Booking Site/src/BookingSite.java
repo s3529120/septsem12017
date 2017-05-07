@@ -1,8 +1,8 @@
 import com.sun.glass.ui.Screen;
-import Controller.BookingController;
-import Controller.DefaultController;
-import Model.AccountModel;
-import View.MainMenuView;
+
+import menu.main.*;
+import accounts.AccountModel;
+import booking.BookingController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -33,7 +33,7 @@ public class BookingSite extends Application {
 		
 		//Startup methods
 		//Generate bookings as needed
-		DefaultController cont = new DefaultController(primaryStage, 
+		MainMenuController cont = new MainMenuController(primaryStage, 
 				new MainMenuView(primaryStage));
 		cont.updateView();
 	}
