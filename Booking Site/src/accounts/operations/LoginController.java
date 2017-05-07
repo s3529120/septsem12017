@@ -108,7 +108,7 @@ public class LoginController {
 		            bcont.updateView();
 					//Proceed window.
 				}else if(acc instanceof SuperAccountModel){
-					// CHange this out to reflect the super user dash
+					// Change this out to reflect the super user dash
 					BookingController bcont = new BookingController();
 		            bcont.setView(new BookingsView(view.stage));
 		            bcont.getView().setController(bcont);
