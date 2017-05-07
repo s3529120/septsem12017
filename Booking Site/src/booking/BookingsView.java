@@ -603,7 +603,7 @@ public class BookingsView {
 						VBox vbox = new VBox(conftxt, close);
 						vbox.setId("pop-up");
 						Scene confscene = new Scene(vbox);
-						confscene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
+						confscene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 						popup.setScene(confscene);
 						parcont.updateView();
 					} else {

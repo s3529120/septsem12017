@@ -21,8 +21,7 @@ public class MainMenuView {
 	/**
 	 * Constructor, sets stage.
 	 * 
-	 * @param stage
-	 *            Window to manipulate.
+	 * @param stage Window to manipulate.
 	 */
 	public MainMenuView(Stage stage) {
 		this.stage = stage;

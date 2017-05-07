@@ -117,7 +117,7 @@ public class Seed {
 			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
 					+ "VALUES(?,?,?,?,?,?,?);";
 			dataCont.prepareStatement(sql);
-			dataCont.getState().setString(1, "super");
+			dataCont.getState().setString(1, "sup001");
 			dataCont.getState().setString(2, "abc123");
 			dataCont.getState().setString(3, "Admin");
 			dataCont.getState().setString(4, "");
