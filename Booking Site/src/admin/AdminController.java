@@ -1,7 +1,11 @@
 package admin;
 
 import booking.BookingsView;
-
+/**
+ * Update the view of the admin account landing page, and handle business functions
+ * 
+ *
+ */
 public class AdminController {
 
 	private AdminView view;

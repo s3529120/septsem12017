@@ -18,6 +18,12 @@ public class AccountModel {
 		this.name=name;
 	}
 	
+	public AccountModel(String username2, String name2, String email2) {
+		this.username=username2;
+		this.name=name2;
+		this.email=email2;
+	}
+
 	//Accessors
 	public String getUsername(){
 		return username;

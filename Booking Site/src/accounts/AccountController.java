@@ -160,8 +160,8 @@ public class AccountController {
 
 	/**Creates model from account data.
 	 * @param name Username to assign account.
-	 * @param type Account type, "Business" or "User".
-	 * @return AccountModel representing account just vreated.
+	 * @param type Account type, "Business" or "User" or "Admin".
+	 * @return AccountModel representing account just created.
 	 */
 	public AccountModel createAccountModel(String name, String type){
 		String sql="";
@@ -204,6 +204,7 @@ public class AccountController {
 				busname=res.getString("Name");
 				email=res.getString("Email");
 			}catch(SQLException e){
+				e.printStackTrace();
 				dbCont.closeConnection();
 				return null;
 			}
@@ -248,6 +249,7 @@ public class AccountController {
 				personname=res.getString("Name");
 				email=res.getString("Email");
 			}catch(SQLException e){
+				e.printStackTrace();
 				dbCont.closeConnection();
 				return null;
 			}
@@ -256,9 +258,44 @@ public class AccountController {
 			UserAccountModel acc = new UserAccountModel(name,personname,contactno,address,email);
 			dbCont.closeConnection();
 			return acc;
-		}else{
+		}else if(type.compareToIgnoreCase("Admin")==0){
+			String adminname;
+			String email;
+	
+			//Open database connection
+			dbCont.createConnection();
+
+			//Prepare and run sql
+			sql="SELECT Name, Email "
+					+ "FROM Accounts "
+					+ "WHERE Username=?;";
+			dbCont.prepareStatement(sql);
+			try
+			{
+				dbCont.getState().setString(1, name);
+			}
+			catch (SQLException e2)
+			{
+				e2.printStackTrace();
+			}
+
+			res=dbCont.runSQLRes();
+			
+			try{
+				adminname=res.getString("Name");
+				email=res.getString("Email");
+			}catch(SQLException e){
+				e.printStackTrace();
+				dbCont.closeConnection();
+				return null;
+			}
+			
+			// Create and return the acc model, close connection
+			AdminAccountModel acc = new AdminAccountModel(adminname, name, email);
 			dbCont.closeConnection();
-			return null;
+			return acc;
 		}
+		dbCont.closeConnection();
+		return null;
 	}
 }

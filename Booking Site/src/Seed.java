@@ -121,7 +121,7 @@ public class Seed {
 			dataCont.getState().setString(2, "abc123");
 			dataCont.getState().setString(3, "Admin");
 			dataCont.getState().setString(4, "");
-			dataCont.getState().setString(5, "Super");
+			dataCont.getState().setString(5, "Admin");
 			dataCont.getState().setString(6, "");
 			dataCont.getState().setString(7, "admin@operator.owner");
 			dataCont.runSQLUpdate();
