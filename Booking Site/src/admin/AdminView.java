@@ -1,7 +1,9 @@
 package admin;
 
 import admin.AdminController;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class AdminView {
@@ -29,6 +31,16 @@ public class AdminView {
 	}
 
 	public void updateView() {
-				
+		sp = new ScrollPane();
+
+		// Header init
+		Text heading = new Text("Booking Site");
+		heading.getStyleClass().add("main-heading");
+		
+		Scene scene = new Scene(sp);
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+
+		stage.setScene(scene);
+		stage.show();
 	}
 }
