@@ -1,5 +1,8 @@
 package admin;
 
+import java.util.List;
+
+import accounts.BusinessAccountModel;
 import admin.AdminView;
 /**
  * Update the view of the admin account landing page, and handle business functions
@@ -29,7 +32,7 @@ public class AdminController {
 	// TODO: Add methods for adding and removing a business.
 	
 	/**
-	 * Add a new business login into the database
+	 * Add a new business into the database
 	 * @param busname New business name to login with
 	 * @param Password New Bus Pass
 	 * @param Name New human readable name
@@ -41,8 +44,7 @@ public class AdminController {
 	 */
 	public boolean addBusiness(String Busname,String Password,String Name,String ContactNo,
 			String Type,String Address, String Email){
-		
-		
+		// TODO add business method
 		return false;
 	}
 	
@@ -52,7 +54,16 @@ public class AdminController {
 	 * @return True if successful
 	 */
 	public boolean delBusiness(String Busname){
-		
+		// TODO delete business method
 		return false;
+	}
+	
+	/**
+	 * Method to retrieve the list of current business objects in the database
+	 * @return List of businesses if succesful
+	 */
+	public List<BusinessAccountModel> getBusinesses() {
+		//	TODO get business method
+		return null;
 	}
 }

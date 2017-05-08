@@ -30,6 +30,7 @@ import utils.AppData;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 
+import java.util.EventListener;
 //import java.awt.Insets;
 import java.util.HashMap;
 import java.util.List;
@@ -79,7 +80,7 @@ public class BookingsView {
 				empcont.getView().setController(empcont);
 				empcont.updateView();
 			}
-		});
+		});		
 		addempbtn.getStyleClass().add("orangebtn");
 
 		// Edit availability
