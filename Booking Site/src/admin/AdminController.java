@@ -47,8 +47,8 @@ public class AdminController {
 	}
 	
 	/**
-	 * Delete a business and all associated employees/rostering if any exist
-	 * @param Busname of the business to be reoved from database
+	 * Delete a business and all associated employees/roster if any exist
+	 * @param Busname of the business to be removed from database
 	 * @return True if successful
 	 */
 	public boolean delBusiness(String Busname){
