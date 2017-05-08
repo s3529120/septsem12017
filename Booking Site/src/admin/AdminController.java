@@ -47,7 +47,7 @@ public class AdminController {
 	}
 	
 	/**
-	 * Delete a business and all associated employees/roster if any exist
+	 * Delete a business and all associated employees & roster if any exist
 	 * @param Busname of the business to be removed from database
 	 * @return True if successful
 	 */
