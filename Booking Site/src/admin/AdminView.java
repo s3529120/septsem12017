@@ -47,20 +47,12 @@ public class AdminView {
 	public void updateView() {
 		sp = new ScrollPane();
 
-		// Header init
-		Text heading = new Text("Booking Site");
-		heading.getStyleClass().add("main-heading");
-
 		// Heading
-		Text h1;
-
-		h1 = new Text("Administration Panel");
-
-		h1.setId("bookingsh1");
+		Text h1 = new Text("Administration Panel");
+		h1.getStyleClass().add("main-heading");
 		HBox bookingstitle = new HBox(h1);
 		bookingstitle.setId("bookingstitle");
 		Button addbtn = new Button("Add Business");
-		HBox head;
 
 		addbtn.setId("switchbtn");
 
@@ -80,16 +72,34 @@ public class AdminView {
 		logoutbtn.getStyleClass().add("linkbtn");
 
 		// Header navigation
-		HBox header = new HBox(heading, logoutbtn);
+		HBox header = new HBox(h1, logoutbtn);
 		header.setId("headerbox");
-		
-		VBox businessListVBox = new VBox();
+
 		// Create a list of businesses and pass through each business to list
-		List<BusinessAccountModel> businessList = cont.getBusinesses();
-		// TODO: Set for each business a new HBox and business info
+		List<BusinessAccountModel> busList = cont.getBusinesses();
+		VBox businessList = new VBox();
+		// TODO: admincontroller.getBusinesses(). otherwise null reference error is returned
+		
+		busList.forEach(business -> {
+			// Display business data
+			Text busName = new Text("Business: " + business.getBusinessName().toString());
+			Text contactNo = new Text("Phone No: " + business.getContactNo().toString());
+			Text address = new Text("Address: " + business.getAddress().toString());
+			
+			VBox bus = new VBox(busName, contactNo, address);
+			HBox busBox = new HBox(bus);
+			
+			// Apply styles
+			bus.getStyleClass().add("bookingcol");
+			busBox.setId("bookingBox");
+			
+			// Add this business data to business list
+			businessList.getChildren().add(busBox);
+		});
+
 
 		// Layout
-		HBox bookingscontainer = new HBox(businessListVBox);
+		HBox bookingscontainer = new HBox(businessList);
 		bookingscontainer.setId("bookings-container");
 
 		VBox main = new VBox(header, bookingscontainer);
