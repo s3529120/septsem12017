@@ -1,10 +1,14 @@
 package admin;
 
+import accounts.AdminAccountModel;
 import admin.AdminController;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import utils.AppData;
 
 public class AdminView {
 
@@ -36,7 +40,25 @@ public class AdminView {
 		// Header init
 		Text heading = new Text("Booking Site");
 		heading.getStyleClass().add("main-heading");
+
+		// Heading
+		Text h1;
+	
+		h1 = new Text("Administration Panel");
 		
+		h1.setId("bookingsh1");
+		HBox bookingstitle = new HBox(h1);
+		bookingstitle.setId("bookingstitle");
+		Button switchbtn = new Button();
+		HBox head;
+
+		if (AppData.CALLER instanceof AdminAccountModel){
+			switchbtn.setId("switchbtn");
+			head = new HBox(bookingstitle, switchbtn);
+		}
+
+
+		// Create the stage and apply css
 		Scene scene = new Scene(sp);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 

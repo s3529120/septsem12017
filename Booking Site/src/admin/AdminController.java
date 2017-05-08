@@ -1,6 +1,6 @@
 package admin;
 
-import booking.BookingsView;
+import admin.AdminView;
 /**
  * Update the view of the admin account landing page, and handle business functions
  * 
@@ -26,5 +26,12 @@ public class AdminController {
 		view.updateView();
 	}
 	
-	//TODO: Add methods for adding and removing a business.
+	// TODO: Add methods for adding and removing a business.
+	public boolean addBusiness(String Username,String Password,String Name,String ContactNo,
+			String Type,String Address, String Email){
+		
+		
+		return false;
+	}
+	
 }
