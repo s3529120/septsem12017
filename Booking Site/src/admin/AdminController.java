@@ -59,7 +59,27 @@ public class AdminController {
 	 * @return True if successful
 	 */
 	public boolean delBusiness(String Busname){
-		// TODO Delete business method
+		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+		String sql="";
+		
+		//Create a new conn and set the sql query to busname.
+		dbcont.createConnection();
+		sql="DELETE * FROM accounts WHERE username=?;";
+		dbcont.prepareStatement(sql);
+		try
+		{
+			// Run sql and close conn
+			dbcont.getState().setString(1, Busname);
+			dbcont.runSQLUpdate();
+			dbcont.closeConnection();
+			return true;
+		}
+		catch (SQLException e1)
+		{
+			e1.printStackTrace();
+		}
+		// Run the sql query and remove bus and close conn
+		dbcont.closeConnection();
 		return false;
 	}
 
@@ -68,8 +88,6 @@ public class AdminController {
 	 * @return List of businesses if succesful
 	 */
 	public List<BusinessAccountModel> getBusinesses() {
-		//	TODO Get business method
-
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		String sql="";
 		ResultSet res;
@@ -98,10 +116,5 @@ public class AdminController {
 
 		dbcont.closeConnection();
 		return bussls;
-	}
-
-	private BusinessAccountModel createBusinessModel(String string, String string2) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
