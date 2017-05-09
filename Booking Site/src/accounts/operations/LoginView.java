@@ -150,21 +150,10 @@ public class LoginView {
 		border.setBottom(bottomhbox);
 
 		// Styles
-
-		//		                         loginpageBox.getStyleClass().add("loginpageBox");
-		//		                 vbox.getStyleClass().add("vbox");
 		returnbtn.setId("loginbtn");
-		//		                 regbox.getStyleClass().add("regbox");
-		usernameBox.setId("form");
-		pwordBox.setId("form");
 		registerbtn.setId("registerbtn");
-		//                 regtxt.setId("heading");
 		welcometxt.setId("heading");
-		loginbtn.setId("loginbtn");
-
-		//		                 StackPane pane = new StackPane(loginpageBox);
-
-		//		                Scene scene = new Scene(pane);
+//		loginbtn.setId("loginbtn");
 
 		welcometxt.getStyleClass().add("main-heading");
 		body.setId("mainMenuVBox");
@@ -174,7 +163,7 @@ public class LoginView {
 
 		Scene scene = new Scene(border);
 		scene.getStylesheets().add(getClass().
-				getResource("/resources/display/css/styles.css").toExternalForm());                
+		getResource("/resources/display/css/styles.css").toExternalForm());                
 
 		stage.setScene(scene);
 	}

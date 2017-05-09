@@ -163,7 +163,7 @@ public class AccountController {
 	 * @param type Account type, "Business" or "User" or "Admin".
 	 * @return AccountModel representing account just created.
 	 */
-	public AccountModel createAccountModel(String name, String type){
+	public static AccountModel createAccountModel(String name, String type){
 		String sql="";
 		ResultSet res;
 		DatabaseModel dbmod = new DatabaseModel();
