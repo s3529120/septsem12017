@@ -6,25 +6,23 @@ import accounts.BusinessAccountModel;
 import admin.AdminView;
 /**
  * Update the view of the admin account landing page, and handle business functions
- * 
- *
  */
 public class AdminController {
 
 	private AdminView view;
 
-	//Returns associated view
+	// Returns associated view
 	public AdminView getView(){
 		return this.view;
 	}
 
-	//Sets associated view
+	// Sets associated view
 	public Boolean setView(AdminView view) {
 		this.view=view;
 		return true;
 	}
 
-	//Calls associated view to update window
+	// Calls associated view to update window
 	public void updateView(){
 		view.updateView();
 	}
@@ -44,7 +42,7 @@ public class AdminController {
 	 */
 	public boolean addBusiness(String Busname,String Password,String Name,String ContactNo,
 			String Type,String Address, String Email){
-		// TODO add business method
+		// TODO Add business method
 		return false;
 	}
 	
@@ -54,7 +52,7 @@ public class AdminController {
 	 * @return True if successful
 	 */
 	public boolean delBusiness(String Busname){
-		// TODO delete business method
+		// TODO Delete business method
 		return false;
 	}
 	
@@ -63,7 +61,7 @@ public class AdminController {
 	 * @return List of businesses if succesful
 	 */
 	public List<BusinessAccountModel> getBusinesses() {
-		//	TODO get business method
+		//	TODO Get business method
 		return null;
 	}
 }
