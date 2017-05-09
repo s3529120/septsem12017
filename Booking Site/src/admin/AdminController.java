@@ -50,6 +50,11 @@ public class AdminController {
 	public boolean addBusiness(String Busname,String Password,String Name,String ContactNo,
 			String Type,String Address, String Email){
 		// TODO Add business method
+		AccountController acont = new AccountController();
+		// If acc exists return false,
+		
+		
+		// If acc doesn't exist, add new account and return true, else return false
 		return false;
 	}
 
