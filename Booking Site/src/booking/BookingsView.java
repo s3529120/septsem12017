@@ -255,7 +255,6 @@ public class BookingsView {
 
 		sp.setContent(main);
 
-
 		Scene scene = new Scene(sp);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 
