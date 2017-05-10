@@ -12,10 +12,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import accounts.operations.LoginController;
-import accounts.operations.LoginView;
-import accounts.operations.UserRegistrationController;
-import accounts.operations.UserRegistrationView;
+import accountOperations.LoginController;
+import accountOperations.LoginView;
+import accountOperations.UserRegistrationController;
+import accountOperations.UserRegistrationView;
 import utils.database.DatabaseController;
 import utils.database.DatabaseModel;
 

@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sqlite.core.DB;
-import accounts.operations.UserRegistrationView;
 import employee.EmployeeController;
 import utils.database.DatabaseController;
 import utils.database.DatabaseModel;

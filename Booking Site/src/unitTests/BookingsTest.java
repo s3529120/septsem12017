@@ -14,8 +14,8 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 import booking.BookingController;
+import employee.AvailabilitiesController;
 import employee.EmployeeController;
-import employee.roster.AvailabilitiesController;
 import utils.database.DatabaseController;
 import utils.database.DatabaseModel;
 

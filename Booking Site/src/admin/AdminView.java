@@ -16,8 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import menu.main.MainMenuController;
-import menu.main.MainMenuView;
+import menu.MainMenuController;
+import menu.MainMenuView;
 import utils.AppData;
 
 public class AdminView {

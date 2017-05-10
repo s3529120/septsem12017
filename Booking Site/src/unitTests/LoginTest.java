@@ -11,7 +11,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import accounts.AccountController;
-import accounts.operations.LoginController;
 import utils.database.DatabaseController;
 import utils.database.DatabaseModel;
 

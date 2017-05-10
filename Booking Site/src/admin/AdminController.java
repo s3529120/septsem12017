@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import accounts.AccountController;
+import accounts.AccountFactory;
+import accounts.AccountModel;
+import accounts.AdminAccountModel;
 import accounts.BusinessAccountModel;
 import accounts.UserAccountModel;
 import admin.AdminView;
@@ -33,6 +36,53 @@ public class AdminController {
 	public void updateView(){
 		view.updateView();
 	}
+	
+	/**Creates model from account data.
+    * @param name Username to assign account.
+    * @param type Account type, "Business" or "User" or "Admin".
+    * @return AccountModel representing account just created.
+    */
+   public static AccountModel createAccountModel(String name){
+      String sql="";
+      ResultSet res;
+      DatabaseModel dbmod = new DatabaseModel();
+      DatabaseController dbCont = new DatabaseController(dbmod);
+         String adminname;
+         String email;
+   
+         //Open database connection
+         dbCont.createConnection();
+
+         //Prepare and run sql
+         sql="SELECT Name, Email "
+               + "FROM Accounts "
+               + "WHERE Username=?;";
+         dbCont.prepareStatement(sql);
+         try
+         {
+            dbCont.getState().setString(1, name);
+         }
+         catch (SQLException e2)
+         {
+            e2.printStackTrace();
+         }
+
+         res=dbCont.runSQLRes();
+         
+         try{
+            adminname=res.getString("Name");
+            email=res.getString("Email");
+         }catch(SQLException e){
+            e.printStackTrace();
+            dbCont.closeConnection();
+            return null;
+         }
+         
+         // Create and return the acc model, close connection
+         AdminAccountModel acc = new AdminAccountModel(adminname, name, email);
+         dbCont.closeConnection();
+         return acc;
+   }
 
 	// TODO: Add methods for adding and removing a business.
 
@@ -84,7 +134,7 @@ public class AdminController {
 		try
 		{
 			while(res.next()){
-				bus=(BusinessAccountModel) AccountController.createAccountModel(res.getString("Username"),"Business");
+				bus=(BusinessAccountModel) AccountFactory.createAccountModel(res.getString("Username"),"Business");
 				bus.setName(res.getString("Name"));
 				if(bus!=null){
 					bussls.add(bus);

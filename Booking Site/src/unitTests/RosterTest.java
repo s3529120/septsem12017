@@ -9,7 +9,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import org.junit.Test;
-import employee.roster.AvailabilitiesController;
+
+import employee.AvailabilitiesController;
 import utils.database.DatabaseController;
 import utils.database.DatabaseModel;
 

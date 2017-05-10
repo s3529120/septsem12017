@@ -1,10 +1,11 @@
 import com.sun.glass.ui.Screen;
 
-import menu.main.*;
 import accounts.AccountModel;
 import booking.BookingController;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import menu.MainMenuController;
+import menu.MainMenuView;
 
 @SuppressWarnings("restriction")
 public class BookingSite extends Application {

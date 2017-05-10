@@ -2,13 +2,12 @@ package service;
 
 import java.util.List;
 
-import accounts.operations.UserRegistrationController;
 import booking.BookingController;
 import booking.BookingsView;
 import employee.AddEmployeeView;
+import employee.AvailabilitiesController;
+import employee.EditAvailabilitiesView;
 import employee.EmployeeController;
-import employee.roster.AvailabilitiesController;
-import employee.roster.EditAvailabilitiesView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -22,7 +21,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import menu.main.*;
+import menu.MainMenuController;
+import menu.MainMenuView;
 import utils.AppData;
 
 public class TypeView {
