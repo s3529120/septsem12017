@@ -64,8 +64,6 @@ public class BookingsView {
 	 * Updates display of window
 	 */
 	public void updateView(List<BookingModel> bookings) {
-		// Int scrollpane
-		sp = new ScrollPane();
 		// Header init
 		Text heading = new Text("Booking Site");
 		heading.getStyleClass().add("main-heading");
@@ -138,9 +136,6 @@ public class BookingsView {
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
 		
-		HBox header = new HBox(10, heading, addempbtn, editavailbtn, edittypebtn, logoutbtn);
-		header.setId("headerbox");
-		
 		//Customer header
 		//Available bookings
       Button availbtn = new Button("Available Bookings");
@@ -170,8 +165,7 @@ public class BookingsView {
       });
       mybookbtn.getStyleClass().add("orangebtn");
       
-      HBox cusheader = new HBox(10, heading, availbtn,mybookbtn, logoutbtn);
-      header.setId("headerbox");
+      HBox cusheader = new HBox(10, heading, availbtn, mybookbtn, logoutbtn);
 
 		// Past bookings switch
 		Button switchbtn = null;
@@ -191,8 +185,12 @@ public class BookingsView {
       DatePicker dpick = new DatePicker();
       //StartTime
       AvailabilitiesController acont = new AvailabilitiesController();
+      
       ComboBox<String> spick = new ComboBox<String>();
-      spick.getItems().addAll(acont.getPossibleTimes());
+      //spick.getItems().addAll(acont.getPossibleTimes());
+      TypeController.getAllTypes().forEach(x->{
+          spick.getItems().add(x.getName());
+       });
       //FinishTime
       ComboBox<String> fpick = new ComboBox<String>();
       spick.getItems().addAll(acont.getPossibleTimes());
@@ -312,23 +310,30 @@ public class BookingsView {
 
 		});
 		
-		HBox bookingscontainer = new HBox(bookingsList);
-		bookingscontainer.setId("bookings-container");
+		// Set layout
+		bookingsList.setId("bookings-main");
+		ScrollPane body = new ScrollPane(bookingsList);
+		body.setId("mainPageVBox");
+		body.getStyleClass().add("scroll-pane");
 
-		VBox main;
+		VBox page;
 
 		// Change header menu based on account type
 		if (AppData.CALLER instanceof BusinessAccountModel) {
-			main = new VBox(header, bookingscontainer);
+			HBox header = new HBox(10, heading, addempbtn, editavailbtn, edittypebtn, logoutbtn);
+			header.setId("headerbox");
+			page = new VBox(header, body);
 		} else {
-			main = new VBox(cusheader, bookingscontainer);
+			page = new VBox(cusheader, body);
 		}
-		sp.getStyleClass().add("scroll-pane");
-		main.setId("bookings-main");
+		
+		page.setId("border");
+		page.getStyleClass().add("loginpageBox");
+		
+		StackPane pane = new StackPane(page);
+		pane.getChildren().addAll();
 
-		sp.setContent(main);
-
-		Scene scene = new Scene(sp);
+		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 
 		stage.setScene(scene);
@@ -342,7 +347,6 @@ public class BookingsView {
 	public void updateViewPast(List<BookingModel> bookings) {
 
 		// Header init
-		sp = new ScrollPane();
 		Text heading = new Text("Booking Site");
 		heading.getStyleClass().add("main-heading");
 		
@@ -415,7 +419,7 @@ public class BookingsView {
 		logoutbtn.getStyleClass().add("linkbtn");
 		
 		// Header navigation
-		HBox header = new HBox(heading, addempbtn, editavailbtn, edittypebtn, logoutbtn);
+		HBox header = new HBox(10, heading, addempbtn, editavailbtn, edittypebtn, logoutbtn);
 		header.setId("headerbox");
 
 		// Back to the future... bookings
@@ -441,7 +445,9 @@ public class BookingsView {
       spick.getItems().addAll(acont.getPossibleTimes());
       //Type
       ComboBox<String> tpick = new ComboBox<String>();
-      spick.getItems().addAll((String[]) TypeController.getAllTypes().toArray());
+      TypeController.getAllTypes().forEach(x->{
+          tpick.getItems().add(x.getName());
+       });
       //Employee
       EmployeeController econt = new EmployeeController();
       ComboBox<String> epick = new ComboBox<String>();
@@ -450,7 +456,9 @@ public class BookingsView {
       //User
       AccountController ucont = new AccountController();
       ComboBox<String> upick = new ComboBox<String>();
-      upick.getItems().addAll((String[])ucont.getAllCustomers().toArray());
+      TypeController.getAllTypes().forEach(x->{
+          upick.getItems().add(x.getName());
+       });
       //Submit
       Button filterbtn = new Button("Filter");
       filterbtn.getStyleClass().add("orangebtn");
@@ -528,17 +536,20 @@ public class BookingsView {
 
 		});
 		
-		// Layout
-		HBox bookingscontainer = new HBox(head, bookingsList);
-		bookingscontainer.setId("bookings-container");
+		// Set Layout
+		bookingsList.setId("bookings-main");
+		ScrollPane body = new ScrollPane(bookingsList);
+		body.setId("mainPageVBox");
+		body.getStyleClass().add("scroll-pane");
 		
-		VBox main = new VBox(header, bookingscontainer);
-
-		sp.getStyleClass().add("scroll-pane");
-		main.setId("bookings-main");
+		VBox page = new VBox(header, body);
+		page.setId("border");
+		page.getStyleClass().add("loginpageBox");
 		
-		sp.setContent(main);
-		Scene scene = new Scene(sp, 750, 500);
+		StackPane pane = new StackPane(page);
+		pane.getChildren().addAll();
+		
+		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
@@ -636,7 +647,7 @@ public class BookingsView {
 						VBox vbox = new VBox(conftxt, close);
 						vbox.setId("pop-up");
 						Scene confscene = new Scene(vbox);
-						confscene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
+						confscene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 						popup.setScene(confscene);
 						parcont.updateView();
 					} else {
