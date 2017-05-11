@@ -301,21 +301,17 @@ public class UserRegistrationController {
 			dbcont.getState().setString(5, contactNo);
 			dbcont.getState().setString(6, email);
 			dbcont.getState().setString(7, address);
+			dbcont.runSQLUpdate();
 		} catch (SQLException e) {
 			dbcont.closeConnection();
 			e.printStackTrace();
 		}
-		if (dbcont.runSQLUpdate()) {
-			UserAccountModel acc = (UserAccountModel)AccountFactory.createAccountModel(uname, "User");
-			acc.setAddress(address);
-			acc.setContactNo(contactNo);
-			acc.setName(pname);
-			dbcont.closeConnection();
+		   dbcont.closeConnection();
+			AccountModel acc = AccountFactory.createAccountModel("User",uname);
 			AppData.CALLER = acc;
 			BookingController bcont = new BookingController();
 			bcont.setView(new BookingsView(view.stage));
 			bcont.getView().setController(bcont);
 			bcont.updateView();
-		}
 	}
 }

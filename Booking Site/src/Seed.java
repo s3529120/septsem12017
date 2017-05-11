@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
-import utils.database.DatabaseController;
-import utils.database.DatabaseModel;
+import utils.DatabaseController;
+import utils.DatabaseModel;
 
 public class Seed {
    

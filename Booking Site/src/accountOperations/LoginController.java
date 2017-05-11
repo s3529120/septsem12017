@@ -91,24 +91,13 @@ public class LoginController {
 			//Check for password match
 			if(cont.comparePassword(username, pword)){
 				//Create account model.
-				acc=AccountFactory.createAccountModel(username, 
-						cont.checkAccountType(username));
-				//Create business account model.
-				if(acc instanceof BusinessAccountModel){
+				acc=AccountFactory.createAccountModel(
+				                      cont.checkAccountType(username), username);
 					BookingController bcont = new BookingController();
 		            bcont.setView(new BookingsView(view.stage));
 		            bcont.getView().setController(bcont);
 		            AppData.CALLER=acc;
 		            bcont.updateView();
-					//Create user account model.
-				}else if(acc instanceof UserAccountModel){
-					BookingController bcont = new BookingController();
-		            bcont.setView(new BookingsView(view.stage));
-		            bcont.getView().setController(bcont);
-		            AppData.CALLER=acc;
-		            bcont.updateView();
-					//Proceed window.
-				}
 			}
 		}
 		return false;

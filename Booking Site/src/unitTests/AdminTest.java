@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import org.junit.Test;
 
 import admin.AdminController;
-import utils.database.*;
+import utils.*;
 
 public class AdminTest {
 	

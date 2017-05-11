@@ -16,8 +16,8 @@ import static org.hamcrest.CoreMatchers.*;
 import booking.BookingController;
 import employee.AvailabilitiesController;
 import employee.EmployeeController;
-import utils.database.DatabaseController;
-import utils.database.DatabaseModel;
+import utils.DatabaseController;
+import utils.DatabaseModel;
 
 /**
  * Contains Tests related to making and checking for bookings

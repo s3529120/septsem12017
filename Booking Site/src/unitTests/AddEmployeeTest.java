@@ -12,8 +12,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sqlite.core.DB;
 import employee.EmployeeController;
-import utils.database.DatabaseController;
-import utils.database.DatabaseModel;
+import utils.DatabaseController;
+import utils.DatabaseModel;
 
 public class AddEmployeeTest {
 

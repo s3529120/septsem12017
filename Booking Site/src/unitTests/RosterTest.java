@@ -11,8 +11,8 @@ import java.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 import employee.AvailabilitiesController;
-import utils.database.DatabaseController;
-import utils.database.DatabaseModel;
+import utils.DatabaseController;
+import utils.DatabaseModel;
 
 public class RosterTest {
 

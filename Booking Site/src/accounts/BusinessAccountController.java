@@ -3,8 +3,8 @@ package accounts;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import utils.database.DatabaseController;
-import utils.database.DatabaseModel;
+import utils.DatabaseController;
+import utils.DatabaseModel;
 
 public class BusinessAccountController extends AccountController
 {

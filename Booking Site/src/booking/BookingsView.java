@@ -198,7 +198,9 @@ public class BookingsView {
       spick.getItems().addAll(acont.getPossibleTimes());
       //Type
       ComboBox<String> tpick = new ComboBox<String>();
-      spick.getItems().addAll((String[]) TypeController.getAllTypes().toArray());
+      TypeController.getAllTypes().forEach(x->{
+         tpick.getItems().add(x.getName());
+      });
       //Employee
       EmployeeController econt = new EmployeeController();
       ComboBox<String> epick = new ComboBox<String>();
@@ -207,7 +209,9 @@ public class BookingsView {
       //User
       AccountController ucont = new AccountController();
       ComboBox<String> upick = new ComboBox<String>();
-      upick.getItems().addAll((String[])ucont.getAllCustomers().toArray());
+      ucont.getAllCustomers().forEach(x->{
+         upick.getItems().add(x.getName());
+      });
       //Submit
       Button filterbtn = new Button("Filter");
       filterbtn.getStyleClass().add("orangebtn");

@@ -11,8 +11,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import accounts.AccountController;
-import utils.database.DatabaseController;
-import utils.database.DatabaseModel;
+import utils.DatabaseController;
+import utils.DatabaseModel;
 
 
 public class LoginTest

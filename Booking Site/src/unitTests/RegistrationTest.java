@@ -16,8 +16,8 @@ import accountOperations.LoginController;
 import accountOperations.LoginView;
 import accountOperations.UserRegistrationController;
 import accountOperations.UserRegistrationView;
-import utils.database.DatabaseController;
-import utils.database.DatabaseModel;
+import utils.DatabaseController;
+import utils.DatabaseModel;
 
 /*
  * Need to separate tests.

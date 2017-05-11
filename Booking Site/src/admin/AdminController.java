@@ -12,8 +12,8 @@ import accounts.AdminAccountModel;
 import accounts.BusinessAccountModel;
 import accounts.UserAccountModel;
 import admin.AdminView;
-import utils.database.DatabaseController;
-import utils.database.DatabaseModel;
+import utils.DatabaseController;
+import utils.DatabaseModel;
 /**
  * Update the view of the admin account landing page, and handle business functions
  */

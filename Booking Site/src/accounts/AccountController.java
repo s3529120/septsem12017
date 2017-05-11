@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.database.DatabaseController;
-import utils.database.DatabaseModel;
+import utils.DatabaseController;
+import utils.DatabaseModel;
 
 public class AccountController {
 
@@ -29,7 +29,7 @@ public class AccountController {
       try
       {
          while(res.next()){
-            cus=(UserAccountModel) AccountFactory.createAccountModel(res.getString("Username"),"User");
+            cus=(UserAccountModel) AccountFactory.createAccountModel("User",res.getString("Username"));
             cus.setName(res.getString("Name"));
             if(cus!=null){
                accs.add(cus);
