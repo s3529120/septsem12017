@@ -34,14 +34,21 @@ public class BookingController
 
 	//Calls associated view to update window
 	public void updateView(){
-		view.updateView();
+		view.updateView(getBookings());
+	}
+	public void updateView(List<BookingModel> bookings){
+	   view.updateView(bookings);
+	}
+	
+	public void updateCusView(){
+	   view.updateCusView();
 	}
 
 	/**Filter bookings based on attributes
 	 * 
 	 */
-	public List<BookingModel> filterBookings(LocalDate date,LocalTime startTime,LocalTime finishTime,String employee,String user,String type){
-		List<BookingModel> books=new ArrayList<BookingModel>(getBookings());
+	public List<BookingModel> filterBookings(List<BookingModel> books,LocalDate date,LocalTime startTime,LocalTime finishTime,String employee,String user,String type){
+		
 		//Date
 		if(date!=null){
 			books.forEach(x->{

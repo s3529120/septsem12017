@@ -306,7 +306,7 @@ public class UserRegistrationController {
 			e.printStackTrace();
 		}
 		if (dbcont.runSQLUpdate()) {
-			AccountModel acc = AccountFactory.createAccountModel(uname, "User");
+			UserAccountModel acc = (UserAccountModel)AccountFactory.createAccountModel(uname, "User");
 			acc.setAddress(address);
 			acc.setContactNo(contactNo);
 			acc.setName(pname);

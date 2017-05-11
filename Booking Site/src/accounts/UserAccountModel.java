@@ -7,4 +7,7 @@ public class UserAccountModel extends AccountModel{
 	                        String contactNo,String address,String email){
 		super(username,name,contactNo, address, email);
 	}
+	public Boolean setAddress(String add){
+	   return super.setAddress(add);
+	}
 }
