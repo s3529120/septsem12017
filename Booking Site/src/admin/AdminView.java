@@ -53,9 +53,15 @@ public class AdminView {
 		HBox bookingstitle = new HBox(h1);
 		bookingstitle.setId("bookingstitle");
 		Button addbtn = new Button("Add Business");
+		addbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				// TODO : Implement add bus btn
+			}
+		});
 
 		addbtn.setId("switchbtn");
-
+		
 
 		// Logout button
 		Button logoutbtn = new Button("Logout");
@@ -72,7 +78,7 @@ public class AdminView {
 		logoutbtn.getStyleClass().add("linkbtn");
 
 		// Header navigation
-		HBox header = new HBox(h1, logoutbtn);
+		HBox header = new HBox(h1, addbtn, logoutbtn);
 		header.setId("headerbox");
 
 		// Create a list of businesses and pass through each business to list
@@ -85,6 +91,16 @@ public class AdminView {
 			Text busName = new Text("Business: " + business.getBusinessName().toString());
 			Text contactNo = new Text("Phone No: " + business.getContactNo().toString());
 			Text address = new Text("Address: " + business.getAddress().toString());
+			
+			Button delBusBtn = new Button("Delete Business.");
+			delBusBtn.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent e) {
+					//TODO : Implement delete and add business buttons
+				}
+			});
+			delBusBtn.setAlignment(Pos.TOP_RIGHT);
+			delBusBtn.getStyleClass().add("btn");
 			
 			VBox bus = new VBox(busName, contactNo, address);
 			HBox busBox = new HBox(bus);
