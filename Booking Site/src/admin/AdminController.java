@@ -79,7 +79,7 @@ public class AdminController {
          }
          
          // Create and return the acc model, close connection
-         AdminAccountModel acc = new AdminAccountModel(adminname, name, email);
+         AdminAccountModel acc = new AdminAccountModel(adminname, email);
          dbCont.closeConnection();
          return acc;
    }
@@ -134,7 +134,7 @@ public class AdminController {
 		try
 		{
 			while(res.next()){
-				bus=(BusinessAccountModel) AccountFactory.createAccountModel(res.getString("Username"),"Business");
+				bus=(BusinessAccountModel) AccountFactory.createAccountModel("Business",res.getString("Username"));
 				bus.setName(res.getString("Name"));
 				if(bus!=null){
 					bussls.add(bus);

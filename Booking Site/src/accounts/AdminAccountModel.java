@@ -8,7 +8,7 @@ public class AdminAccountModel extends AccountModel {
 	 * @param email of the user. Can be empty
 	 */
 	public AdminAccountModel(
-			String username, String name,String email){
-		super(username,name,email);
+			String username,String email){
+		super(username,"Admin",email);
 	}
 }
