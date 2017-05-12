@@ -230,6 +230,7 @@ public class UserRegistrationView {
 
 		Scene scene = new Scene(border);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/scheme1.css").toExternalForm());
 		stage.setScene(scene);
 	}
 }

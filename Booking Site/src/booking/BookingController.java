@@ -48,50 +48,56 @@ public class BookingController
 	 * 
 	 */
 	public List<BookingModel> filterBookings(List<BookingModel> books,LocalDate date,LocalTime startTime,LocalTime finishTime,String employee,String user,String type){
-		
+		List<BookingModel> removes = new ArrayList<BookingModel>();
 		//Date
 		if(date!=null){
 			books.forEach(x->{
 				if(!x.getDate().equals(date)){
-					books.remove(x);
+					removes.add(x);
 				}
 			});
 			//StartTime
 		}if(startTime!=null){
 			books.forEach(x->{
 				if(!x.getStartTime().equals(startTime)){
-					books.remove(x);
+					removes.add(x);
 				}
 			});
 			//Finish Time
 		}if(finishTime!=null){
 			books.forEach(x->{
 				if(!x.getFinishTime().equals(finishTime)){
-					books.remove(x);
+					removes.add(x);
 				}
 			});
 			//Employee
 		}if(employee!=null){
 			books.forEach(x->{
 				if(!(x.getEmployee().compareToIgnoreCase(employee)==0)){
-					books.remove(x);
+					removes.add(x);
 				}
 			});
 			//User
 		}if(user!=null){
 			books.forEach(x->{
 				if(!(x.getUser().compareToIgnoreCase(user)==0)){
-					books.remove(x);
+					removes.add(x);
 				}
 			});
 			//Type
 		}if(type!=null){
 			books.forEach(x->{
 				if(!(x.getType().compareToIgnoreCase(type)==0)){
-					books.remove(x);
+					removes.add(x);
 				}
 			});
 		}
+		removes.forEach(x->{
+			if(books.contains(x)){
+				books.remove(x);
+			}
+		});
+		
 		return books;
 	}
 
@@ -388,7 +394,7 @@ public class BookingController
 	 */
 	public String getNameFromEmail(String email){
 		EmployeeController cont = new EmployeeController();
-
+		
 		return cont.getEmployeeName(email);
 	}
 
