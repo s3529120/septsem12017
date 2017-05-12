@@ -43,7 +43,9 @@ public class AdminView {
 		this.cont = controller;
 		return true;
 	}
-
+	/**
+	 * Updates the associated view of the admin dashboard
+	 */
 	public void updateView() {
 		sp = new ScrollPane();
 
@@ -99,11 +101,11 @@ public class AdminView {
 					//TODO : Implement delete and add business buttons
 				}
 			});
-			delBusBtn.setAlignment(Pos.TOP_RIGHT);
-			delBusBtn.getStyleClass().add("btn");
+//			delBusBtn.setAlignment(Pos.TOP_RIGHT);
+//			delBusBtn.getStyleClass().add("btn");
 			
 			VBox bus = new VBox(busName, contactNo, address);
-			HBox busBox = new HBox(bus);
+			HBox busBox = new HBox(bus, delBusBtn);
 			
 			// Apply styles
 			bus.getStyleClass().add("bookingcol");
