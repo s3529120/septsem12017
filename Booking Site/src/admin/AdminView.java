@@ -60,7 +60,7 @@ public class AdminView {
 			}
 		});
 
-		addbtn.setId("switchbtn");
+		// addbtn.setId("switchbtn"); // TODO set appropriate css
 		
 
 		// Logout button
