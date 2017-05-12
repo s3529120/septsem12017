@@ -92,7 +92,7 @@ public class BookingController
 				}
 			});
 		}
-		removes.foreach(x->{
+		removes.forEach(x->{
 			if(books.contains(x)){
 				books.remove(x);
 			}
