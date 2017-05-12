@@ -97,8 +97,8 @@ public class AdminController {
 	 * @param Email of business
 	 * @return True if business added.
 	 */
-	public boolean addBusiness(String Busname,String Password,String Name,String ContactNo,
-			String Type,String Address, String Email){
+	public boolean addBusiness(String Busname,String Password,String Name,
+			String ContactNo,String Address, String Email){
 		// TODO Add business method
 		AccountController acont = new AccountController();
 		String sql="";
@@ -109,6 +109,7 @@ public class AdminController {
 			dbcont.createConnection();
 		} catch(Exception e){
 			e.printStackTrace();
+			dbcont.closeConnection();
 			return false;
 		}
 		if(!acont.checkUsername(Busname)) {
@@ -127,11 +128,13 @@ public class AdminController {
 				dbcont.runSQLUpdate();
 			} catch(Exception e1) {
 				e1.printStackTrace();
+				dbcont.closeConnection();
 				return false;
 			}
 			return true;
 		} else {
 			// If acc doesn't exist, add new account and return true, else return false
+			dbcont.closeConnection();
 			return false;
 		}
 	}
@@ -151,7 +154,7 @@ public class AdminController {
 		dbcont.prepareStatement(sql);
 		try
 		{
-			// Run sql and close conn
+			// Run sql and close connection
 			dbcont.getState().setString(1, Busname);
 			dbcont.runSQLUpdate();
 			dbcont.closeConnection();
@@ -194,6 +197,7 @@ public class AdminController {
 		}
 		catch (SQLException e)
 		{
+			e.printStackTrace();
 		}
 
 		dbcont.closeConnection();

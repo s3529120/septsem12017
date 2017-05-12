@@ -144,7 +144,8 @@ public class AdminView {
 	}
 	
 	private void delBus(Text busName) {
-		// TODO Call AdminController.deleteBusiness(busName.getString());
+		// TODO Create popup and call 
+		//	AdminController.deleteBusiness(busName.getString());
 		
 	}
 }
