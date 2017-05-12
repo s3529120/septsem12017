@@ -388,7 +388,7 @@ public class BookingController
 	 */
 	public String getNameFromEmail(String email){
 		EmployeeController cont = new EmployeeController();
-
+		
 		return cont.getEmployeeName(email);
 	}
 
