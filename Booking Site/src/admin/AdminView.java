@@ -64,7 +64,7 @@ public class AdminView {
 		});
 
 		// addbtn.setId("switchbtn"); // TODO set appropriate css
-		
+
 
 		// Logout button
 		Button logoutbtn = new Button("Logout");
@@ -88,38 +88,37 @@ public class AdminView {
 		List<BusinessAccountModel> busList = cont.getBusinesses();
 		VBox businessList = new VBox();
 		// TODO: admincontroller.getBusinesses(). otherwise null reference error is returned
-		
+
 		busList.forEach(business -> {
 			// Display business data
 			Text busName = new Text("Business: " + business.getBusinessName().toString());
 			Text contactNo = new Text("Phone No: " + business.getContactNo().toString());
 			Text address = new Text("Address: " + business.getAddress().toString());
-			
-			/* Create a confirmation popup window. 
-			*  (in reality all this delete button does is create that popup,
-			*  the business is only deleted when the delete button is pressed there. 
-			*/
-			
-			Button delBusBtn = new Button("Delete Business.");
-			delBusBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-	            @Override
-	            public void handle(MouseEvent e) {
-	            	delBus(busName);
-	               
-	            }
 
-	         });
-			
-//			delBusBtn.setAlignment(Pos.TOP_RIGHT);
-//			delBusBtn.getStyleClass().add("btn");
-			
+			/* Create a confirmation popup window. 
+			 *  (in reality all this delete button does is create that popup,
+			 *  the business is only deleted when the delete button is pressed there. 
+			 */
+
+			Button delBusBtn = new Button("Delete Business");
+			delBusBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent e) {
+					delBus(busName);
+
+				}
+
+			});
+			delBusBtn.setAlignment(Pos.CENTER_RIGHT);
+			delBusBtn.getStyleClass().add("btn");
+
 			VBox bus = new VBox(busName, contactNo, address);
 			HBox busBox = new HBox(bus, delBusBtn);
-			
+
 			// Apply styles
 			bus.getStyleClass().add("bookingcol");
 			busBox.setId("bookingBox");
-			
+
 			// Add this business data to business list
 			businessList.getChildren().add(busBox);
 		});
@@ -142,10 +141,10 @@ public class AdminView {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+
 	private void delBus(Text busName) {
 		// TODO Create popup and call 
 		//	AdminController.deleteBusiness(busName.getString());
-		
+
 	}
 }
