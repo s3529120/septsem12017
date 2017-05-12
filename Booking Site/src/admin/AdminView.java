@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -94,13 +95,21 @@ public class AdminView {
 			Text contactNo = new Text("Phone No: " + business.getContactNo().toString());
 			Text address = new Text("Address: " + business.getAddress().toString());
 			
+			/* Create a confirmation popup window. 
+			*  (in reality all this delete button does is create that popup,
+			*  the business is only deleted when the delete button is pressed there. 
+			*/
+			
 			Button delBusBtn = new Button("Delete Business.");
-			delBusBtn.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent e) {
-					//TODO : Implement delete and add business buttons
-				}
-			});
+			delBusBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+	            @Override
+	            public void handle(MouseEvent e) {
+	            	delBus(busName);
+	               
+	            }
+
+	         });
+			
 //			delBusBtn.setAlignment(Pos.TOP_RIGHT);
 //			delBusBtn.getStyleClass().add("btn");
 			
@@ -132,5 +141,10 @@ public class AdminView {
 
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	private void delBus(Text busName) {
+		// TODO Call AdminController.deleteBusiness(busName.getString());
+		
 	}
 }
