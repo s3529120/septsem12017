@@ -44,6 +44,12 @@ public class Seed {
          sql = "DROP TABLE IF EXISTS Trading; ";
          dataCont.prepareStatement(sql);
          dataCont.runSQLUpdate();
+         sql = "DROP TABLE IF EXISTS Id; ";
+         dataCont.prepareStatement(sql);
+         dataCont.runSQLUpdate();
+         sql = "DROP TABLE IF EXISTS Colour; ";
+         dataCont.prepareStatement(sql);
+         dataCont.runSQLUpdate();
 
 			// Create tables
 			// System
@@ -61,6 +67,16 @@ public class Seed {
 					+ "Email TEXT NOT NULL, " + "PRIMARY KEY (Email));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
+			// Id
+         sql = "CREATE TABLE Id(High INTEGER NOT NULL,PRIMARY KEY (High));";
+         dataCont.prepareStatement(sql);
+         dataCont.runSQLUpdate();
+      // Id
+         sql = "CREATE TABLE Colour(Username TEXT NOT NULL,Colour TEXT NOT NULL," +
+               "PRIMARY KEY (Username)," +
+               "FOREIGN KEY (Username) REFERENCES Account(Username));";
+         dataCont.prepareStatement(sql);
+         dataCont.runSQLUpdate();
 			// Type
          sql = "CREATE TABLE Type(Type TEXT NOT NULL, Duration INTEGER NOT NULL, PRIMARY KEY (Type));";
          dataCont.prepareStatement(sql);
@@ -84,7 +100,7 @@ public class Seed {
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 			// Booking
-			sql = "CREATE TABLE Booking(" + "Date TEXT NOT NULL, " + "StartTime TEXT NOT NULL, "
+			sql = "CREATE TABLE Booking(" + "Date TEXT NOT NULL, " + "StartTime TEXT NOT NULL, Id INTEGER,"
 					+ "FinishTime TEXT NOT NULL, " + "EmployeeEmail TEXT NOT NULL, " + "Username TEXT, " + "Type TEXT, "
 					+ "PRIMARY KEY (Date,StartTime,EmployeeEmail), "
 					+ "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email), "
@@ -100,6 +116,12 @@ public class Seed {
          dataCont.runSQLUpdate();
 
 			// Enter dummy data
+         sql = "INSERT INTO Id(High) "
+               + "VALUES(?);";
+         dataCont.prepareStatement(sql);
+         dataCont.getState().setInt(1, 0);
+         dataCont.runSQLUpdate();
+         
 			// BusAccount 1
 			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
 					+ "VALUES(?,?,?,?,?,?,?);";

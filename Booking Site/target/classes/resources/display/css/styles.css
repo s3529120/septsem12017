@@ -251,19 +251,16 @@ buttonbox {
 
 /* BOOKINGS VIEW */
 
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
 #switchbtn {
 	-fx-min-width: 200px;
 }
 
-.scroll-pane > .viewport {
-    -fx-background-color: #74d1e1;
-	-fx-background-image: url("/view/images/stripes.png");
-    -fx-background-repeat: repeat;
-}
-
 #bookings-main {
-	-fx-padding: 15px 50px;
-	-fx-pref-width: 1900px;
+	-fx-background-color: #E0E4CC;
 }
 
 #bookingBox {
