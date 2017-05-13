@@ -110,11 +110,14 @@ public class BookingController
 	public Boolean setUser(BookingModel booking,String uname,TypeModel type){
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		String sql="";
-		int numBooks;
+		int numBooks,id;
+		
 
 		//Assign to model
 		//booking.setUser(uname);
 		//booking.setType(type.getName());
+		
+		id=getNewId();
 		
 		//Connect to database
 		dbcont.createConnection();
@@ -127,13 +130,14 @@ public class BookingController
 		   LocalTime startTime=booking.getStartTime();
 		   //Loop through bookings assigning user and type
 	      for(int i=0;i<numBooks;i++){
-	         sql="UPDATE Booking SET Username=?, Type=? WHERE Date=? AND StartTime=? AND EmployeeEmail=?;";
+	         sql="UPDATE Booking SET Username=?, Type=?, Id=? WHERE Date=? AND StartTime=? AND EmployeeEmail=?;";
 	         dbcont.prepareStatement(sql);
 	         dbcont.getState().setString(1, uname);
 	         dbcont.getState().setString(2, type.getName());
-	         dbcont.getState().setString(3, booking.getDate().toString());
-	         dbcont.getState().setString(4, startTime.toString());
-	         dbcont.getState().setString(5, booking.getEmployee());
+	         dbcont.getState().setInt(3, id);
+	         dbcont.getState().setString(4, booking.getDate().toString());
+	         dbcont.getState().setString(5, startTime.toString());
+	         dbcont.getState().setString(6, booking.getEmployee());
 	         dbcont.runSQLUpdate();
 	         startTime=startTime.plusMinutes(15);
 	      }
@@ -448,5 +452,33 @@ public class BookingController
 		//allBooks=bookings;
 
 		return bookings;
+	}
+	
+	public int getNewId(){
+	   DatabaseController dbcont = new DatabaseController(new DatabaseModel()); 
+	   String sql="";
+	   ResultSet res;
+	   int old;
+	   
+	   dbcont.createConnection();
+	   sql="SELECT * FROM Id;";
+	   dbcont.prepareStatement(sql);
+	   res=dbcont.runSQLRes();
+	   try
+      {
+         old=res.getInt("High");
+         sql= "UPDATE Id SET High=? WHERE High=?;";
+         dbcont.getState().setInt(1, old);
+         old++;
+         dbcont.getState().setInt(1, old);
+         dbcont.runSQLUpdate();
+      }
+      catch (SQLException e)
+      {
+         dbcont.closeConnection();
+         e.printStackTrace();
+         return 999;
+      }
+	   return old;
 	}
 }
