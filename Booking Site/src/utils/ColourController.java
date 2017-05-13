@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 
 public class ColourController
 {
-   public Boolean setAccountColour(String uname,Colour col){
+   public static Boolean setAccountColour(String uname,Colour col){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       String sql="";
       
@@ -24,10 +24,11 @@ public class ColourController
          return false;
       }
       dbcont.closeConnection();
+      getAccountColour(uname);
       return true;
    }
    
-   public Boolean getAccountColour(String uname){
+   public static Boolean getAccountColour(String uname){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       String sql="";
       ResultSet res;
@@ -50,7 +51,7 @@ public class ColourController
       dbcont.closeConnection();
       return true;
    }
-   public Colour colFromString(String col){
+   public static Colour colFromString(String col){
       switch(col){
          case "RED":
             return Colour.RED;

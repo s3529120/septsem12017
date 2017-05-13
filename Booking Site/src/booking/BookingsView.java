@@ -950,7 +950,7 @@ public class BookingsView {
             @Override
             public void handle(ActionEvent e) {
                BookingController bcont = new BookingController();
-               bcont.setUser(booking, "Unfilled", new TypeModel("None",15));
+               bcont.cancelBooking(booking.getId());
                         popup.close();
             }
         });

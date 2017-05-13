@@ -12,6 +12,7 @@ import booking.BookingsView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import utils.AppData;
+import utils.ColourController;
 import javafx.scene.control.TextField;
 
 
@@ -97,6 +98,7 @@ public class LoginController {
 		            bcont.setView(new BookingsView(view.stage));
 		            bcont.getView().setController(bcont);
 		            AppData.CALLER=acc;
+		            ColourController.getAccountColour(acc.getUsername());
 		            bcont.updateView();
 			}
 		}

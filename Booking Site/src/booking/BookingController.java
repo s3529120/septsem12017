@@ -59,14 +59,14 @@ public class BookingController
 			//StartTime
 		}if(startTime!=null){
 			books.forEach(x->{
-				if(!x.getStartTime().equals(startTime)){
+				if(!x.getStartTime().isAfter(startTime)){
 					removes.add(x);
 				}
 			});
 			//Finish Time
 		}if(finishTime!=null){
 			books.forEach(x->{
-				if(!x.getFinishTime().equals(finishTime)){
+				if(!x.getFinishTime().isBefore(finishTime)){
 					removes.add(x);
 				}
 			});
@@ -431,11 +431,12 @@ public class BookingController
 						LocalTime.parse(res.getString("FinishTime")));
 				mod.setEmployee(res.getString("EmployeeEmail"));
 				mod.setType(res.getString("Type"));
+				mod.setUser(res.getString("Username"));
 				//Check if filled
 				try{
-					mod.setUser(res.getString("Username"));
+				   mod.setId(res.getInt("Id"));
 				}catch(SQLException e1){
-					e1.printStackTrace();
+				   //catching bookings with no id
 				}
 				//If date has not passed add to list to be returned
 				if(!mod.getDate().isBefore(LocalDate.now())){
@@ -470,7 +471,7 @@ public class BookingController
          sql= "UPDATE Id SET High=? WHERE High=?;";
          dbcont.getState().setInt(1, old);
          old++;
-         dbcont.getState().setInt(1, old);
+         dbcont.getState().setInt(2, old);
          dbcont.runSQLUpdate();
       }
       catch (SQLException e)
@@ -479,6 +480,27 @@ public class BookingController
          e.printStackTrace();
          return 999;
       }
+	   dbcont.closeConnection();
 	   return old;
+	}
+	public Boolean cancelBooking(int id){
+	   DatabaseController dbcont = new DatabaseController(new DatabaseModel()); 
+      String sql="";
+      
+      dbcont.createConnection();
+      sql="UPDATE Booking SET Username=?,Type=? WHERE Id=?;";
+      try
+      {
+         dbcont.getState().setString(1, "Unfilled");
+         dbcont.getState().setString(2, "None");
+         dbcont.runSQLUpdate();
+      }
+      catch (SQLException e)
+      {
+         dbcont.closeConnection();
+         return false;
+      }
+      dbcont.closeConnection();
+      return true;
 	}
 }

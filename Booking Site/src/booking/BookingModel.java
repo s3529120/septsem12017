@@ -11,6 +11,7 @@ public class BookingModel {
 	private String employee;
 	private String user;
 	private String type;
+	private int id;
 	
 	//Constructor
 	public BookingModel(LocalDate date, LocalTime start, LocalTime finish){
@@ -63,5 +64,15 @@ public class BookingModel {
    }
    public String getType(){
       return type;
+   }
+
+   public int getId()
+   {
+      return id;
+   }
+
+   public void setId(int id)
+   {
+      this.id = id;
    }
 }

@@ -4,6 +4,8 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.Map;
 
+import accountOperations.UserRegistrationController;
+import accountOperations.UserRegistrationView;
 import booking.BookingController;
 import booking.BookingsView;
 import employee.AddEmployeeView;
@@ -28,6 +30,7 @@ import menu.MainMenuView;
 import service.TypeController;
 import service.TypeView;
 import utils.AppData;
+import utils.ColourController;
 
 public class BusinessHoursView
 {
@@ -57,9 +60,24 @@ public class BusinessHoursView
       Label instructions = new Label("To indicate no openings for a given day, set boths times to 00:00");
 
 
+      //Colour selector
+      ComboBox<String> col = new ComboBox<String>();
+      col.getItems().addAll("BLUE","RED","YELLOW","BLACK","WHITE");
+      
+      Button colsub = new Button("Change Scheme");
+   // Register button
+      Button registerbtn = new Button("Register");
+      registerbtn.setOnAction(new EventHandler<ActionEvent>() {
+         @Override
+         public void handle(ActionEvent e) {
+            ColourController.setAccountColour(AppData.CALLER.getUsername(), 
+                  ColourController.colFromString(col.getSelectionModel().getSelectedItem()));
+         }
+      });
+      HBox colsel = new HBox(col,colsub);
 
       // top box construction
-      VBox titleAndEmployee = new VBox(pageTitle, instructions);
+      VBox titleAndEmployee = new VBox(pageTitle, instructions,colsel);
       pageTitle.getStyleClass().add("main-heading");
       HBox topBox = new HBox(titleAndEmployee);
 
