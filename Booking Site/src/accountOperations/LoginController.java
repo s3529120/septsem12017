@@ -5,8 +5,10 @@ package accountOperations;
 import accounts.AccountController;
 import accounts.AccountFactory;
 import accounts.AccountModel;
+import accounts.AdminAccountModel;
 import accounts.BusinessAccountModel;
 import accounts.UserAccountModel;
+import admin.*;
 import booking.BookingController;
 import booking.BookingsView;
 import javafx.scene.layout.HBox;
@@ -94,12 +96,20 @@ public class LoginController {
 				//Create account model.
 				acc=AccountFactory.createAccountModel(
 				                      cont.checkAccountType(username), username);
+				if(!(acc instanceof AdminAccountModel)){
 					BookingController bcont = new BookingController();
 		            bcont.setView(new BookingsView(view.stage));
 		            bcont.getView().setController(bcont);
 		            AppData.CALLER=acc;
 		            ColourController.getAccountColour(acc.getUsername());
 		            bcont.updateView();
+				}else{
+					AdminController admcont = new AdminController();
+					admcont.setView(new AdminView(view.stage));
+					admcont.getView().setController(admcont);
+					AppData.CALLER=acc;
+					admcont.updateView();
+				}
 			}
 		}
 		return false;

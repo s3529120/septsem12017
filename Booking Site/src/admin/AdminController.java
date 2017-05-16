@@ -79,7 +79,7 @@ public class AdminController {
          }
          
          // Create and return the acc model, close connection
-         AdminAccountModel acc = new AdminAccountModel(adminname, name, email);
+         AdminAccountModel acc = new AdminAccountModel(adminname, email);
          dbCont.closeConnection();
          return acc;
    }
@@ -97,15 +97,46 @@ public class AdminController {
 	 * @param Email of business
 	 * @return True if business added.
 	 */
-	public boolean addBusiness(String Busname,String Password,String Name,String ContactNo,
-			String Type,String Address, String Email){
+	public boolean addBusiness(String Busname,String Password,String Name,
+			String ContactNo,String Address, String Email){
 		// TODO Add business method
 		AccountController acont = new AccountController();
+		String sql="";
+		DatabaseModel dbmod = new DatabaseModel();
+		DatabaseController dbcont = new DatabaseController(dbmod);
 		// If acc exists return false,
-		
-		
-		// If acc doesn't exist, add new account and return true, else return false
-		return false;
+		try{
+			dbcont.createConnection();
+		} catch(Exception e){
+			e.printStackTrace();
+			dbcont.closeConnection();
+			return false;
+		}
+		if(!acont.checkUsername(Busname)) {
+			sql = "INSERT INTO Accounts(Username,Password,Name,Type,ContactNo,Email,Address) " 
+				+ "Values(?,?,?,?,?,?,?,?);";
+
+			dbcont.prepareStatement(sql);
+			try {
+				dbcont.getState().setString(1, Busname);
+				dbcont.getState().setString(2, Password);
+				dbcont.getState().setString(3, Name);
+				dbcont.getState().setString(4, "Business");
+				dbcont.getState().setString(5, ContactNo);
+				dbcont.getState().setString(6, Email);
+				dbcont.getState().setString(7, Address);
+				dbcont.runSQLUpdate();
+			} catch(Exception e1) {
+				e1.printStackTrace();
+				dbcont.closeConnection();
+				return false;
+			}
+			return true;
+		} else {
+			// If acc doesn't exist, add new account and return true, else return false
+			dbcont.closeConnection();
+			return false;
+		}
 	}
 
 	/**
@@ -113,17 +144,18 @@ public class AdminController {
 	 * @param Busname of the business to be removed from database
 	 * @return True if successful
 	 */
-	public boolean delBusiness(String Busname){
+	public static boolean delBusiness(String Busname){
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		String sql="";
 		
 		//Create a new conn and set the sql query to busname.
 		dbcont.createConnection();
-		sql="DELETE * FROM accounts WHERE username=?;";
+		sql="DELETE FROM accounts WHERE username=?;";
 		dbcont.prepareStatement(sql);
+		
 		try
 		{
-			// Run sql and close conn
+			// Run sql and close connection
 			dbcont.getState().setString(1, Busname);
 			dbcont.runSQLUpdate();
 			dbcont.closeConnection();
@@ -138,9 +170,8 @@ public class AdminController {
 		return false;
 	}
 
-	/**
-	 * Method to retrieve the list of current business objects in the database
-	 * @return List of businesses if succesful
+	/** Method to retrieve the list of current business objects in the database
+	 *  @return List of businesses if successful
 	 */
 	public List<BusinessAccountModel> getBusinesses() {
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
@@ -157,7 +188,7 @@ public class AdminController {
 		try
 		{
 			while(res.next()){
-				bus=(BusinessAccountModel) AccountFactory.createAccountModel(res.getString("Username"),"Business");
+				bus=(BusinessAccountModel) AccountFactory.createAccountModel("Business",res.getString("Username"));
 				bus.setName(res.getString("Name"));
 				if(bus!=null){
 					bussls.add(bus);
@@ -167,6 +198,7 @@ public class AdminController {
 		}
 		catch (SQLException e)
 		{
+			e.printStackTrace();
 		}
 
 		dbcont.closeConnection();

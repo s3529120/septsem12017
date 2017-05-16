@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -43,7 +44,9 @@ public class AdminView {
 		this.cont = controller;
 		return true;
 	}
-
+	/**
+	 * Updates the associated view of the admin dashboard
+	 */
 	public void updateView() {
 		sp = new ScrollPane();
 
@@ -53,8 +56,14 @@ public class AdminView {
 		HBox bookingstitle = new HBox(h1);
 		bookingstitle.setId("bookingstitle");
 		Button addbtn = new Button("Add Business");
+		addbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				// TODO : Implement add bus btn
+			}
+		});
 
-		addbtn.setId("switchbtn");
+		// addbtn.setId("switchbtn"); // TODO set appropriate css
 
 
 		// Logout button
@@ -72,27 +81,44 @@ public class AdminView {
 		logoutbtn.getStyleClass().add("linkbtn");
 
 		// Header navigation
-		HBox header = new HBox(h1, logoutbtn);
+		HBox header = new HBox(h1, addbtn, logoutbtn);
 		header.setId("headerbox");
 
 		// Create a list of businesses and pass through each business to list
 		List<BusinessAccountModel> busList = cont.getBusinesses();
 		VBox businessList = new VBox();
 		// TODO: admincontroller.getBusinesses(). otherwise null reference error is returned
-		
+
 		busList.forEach(business -> {
 			// Display business data
 			Text busName = new Text("Business: " + business.getBusinessName().toString());
 			Text contactNo = new Text("Phone No: " + business.getContactNo().toString());
 			Text address = new Text("Address: " + business.getAddress().toString());
-			
+
+			/* Create a confirmation popup window. 
+			 *  (in reality all this delete button does is create that popup,
+			 *  the business is only deleted when the delete button is pressed there. 
+			 */
+
+			Button delBusBtn = new Button("Delete Business");
+			delBusBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent e) {
+					AdminController.delBusiness(business.getUsername().toString());
+					updateView();
+				}
+
+			});
+			delBusBtn.setAlignment(Pos.CENTER_RIGHT);
+			delBusBtn.getStyleClass().add("btn");
+
 			VBox bus = new VBox(busName, contactNo, address);
-			HBox busBox = new HBox(bus);
-			
+			HBox busBox = new HBox(bus, delBusBtn);
+
 			// Apply styles
 			bus.getStyleClass().add("bookingcol");
 			busBox.setId("bookingBox");
-			
+
 			// Add this business data to business list
 			businessList.getChildren().add(busBox);
 		});
@@ -115,4 +141,5 @@ public class AdminView {
 		stage.setScene(scene);
 		stage.show();
 	}
+
 }

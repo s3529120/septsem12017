@@ -14,7 +14,7 @@ public class AccountFactory
          return BusinessAccountController.createAccountModel(name);
          
       case "Admin":
-         return BusinessAccountController.createAccountModel(name);
+         return AdminController.createAccountModel(name);
       
       default:
          return null;
