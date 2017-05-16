@@ -3,6 +3,8 @@ package employee;
 import accounts.BusinessAccountModel;
 import booking.BookingController;
 import booking.BookingsView;
+import businessHours.BusinessHoursController;
+import businessHours.BusinessHoursView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -52,12 +54,12 @@ public class AddEmployeeView {
 	 * Updates display of window.
 	 */
 	public void updateView() {
-		
+
 		// Header init
 		Text heading = new Text("Booking Site");
-		
-		
-		// View Bookings button
+		heading.getStyleClass().add("main-heading");
+
+		// View Bookings
 		Button viewbookbtn = new Button("View Bookings");
 		viewbookbtn.setUserData(cont);
 		viewbookbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -71,8 +73,21 @@ public class AddEmployeeView {
 		});
 		viewbookbtn.getStyleClass().add("orangebtn");
 
+		// Add employee
+		Button addempbtn = new Button("Add Employee");
+		addempbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				EmployeeController empcont = new EmployeeController();
+				empcont.setView(new AddEmployeeView(stage));
+				empcont.getView().setController(empcont);
+				empcont.updateView();
+			}
+		});
+		addempbtn.getStyleClass().add("orangebtn");
+
 		// Edit availability
-		Button editavailbtn = new Button("Edit Employee");
+		Button editavailbtn = new Button("Manage Employees");
 		editavailbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -98,6 +113,20 @@ public class AddEmployeeView {
 		});
 		edittypebtn.getStyleClass().add("orangebtn");
 
+		// Business settings
+		Button bussettingsbtn = new Button("Business Settings");
+		bussettingsbtn.setUserData(cont);
+		bussettingsbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				BusinessHoursController bhcont = new BusinessHoursController();
+				BusinessHoursView bhview = new BusinessHoursView(bhcont);
+				bhcont.setView(bhview);
+				bhview.updateView(stage);
+			}
+		});
+		bussettingsbtn.getStyleClass().add("orangebtn");
+
 		// Logout button
 		Button logoutbtn = new Button("Logout");
 		logoutbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -111,9 +140,10 @@ public class AddEmployeeView {
 		});
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
-		
-		
-		HBox header = new HBox(10, heading, viewbookbtn, editavailbtn, edittypebtn, logoutbtn);
+
+		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
+		header.setId("headerbox");
+		heading.getStyleClass().add("main-heading");
 
 		// Confirmation message and heading
 
@@ -186,7 +216,7 @@ public class AddEmployeeView {
 		pcodefield.getStyleClass().add("textField");
 		HBox pcodehbox = new HBox(pcodefield);
 		pcodefield.setId("form");
-		
+
 		// ERROR MESSAGES
 
 		// Error text box
@@ -238,7 +268,7 @@ public class AddEmployeeView {
 				// checking to make sure all fields are filled
 				if (cont.checkValues(fnamefield, snamefield, streetaddfield, pcodefield, contactnofield, emailfield,
 						cityfield)) { // cont.empAddedMessage(empaddedhbox,
-										// empaddedtxt);
+					// empaddedtxt);
 					if (cont.validateEntries(fnamefield, fnamehbox, snamefield, snamehbox, streetaddfield,
 							streetaddhbox, pcodefield, pcodehbox, contactnofield, contactnohbox, emailfield, emailhbox,
 							cityfield, cityhbox, emptyerrortxt, emptyerrorbox, empaddedtxt, empaddedhbox, takenerrortxt,
@@ -276,12 +306,12 @@ public class AddEmployeeView {
 
 		// Add above elements to vertical box
 		VBox addressInfo = new VBox(15, streetaddhbox, cityhbox, pcodehbox, statehbox, empaddedhbox);
-		
+
 		VBox errors = new VBox(10, emptyerrorbox,
 				takenerrorbox, fnameerrorbox, snameerrorbox, emailerrorbox, phoneerrorbox, streeterrorbox, cityerrorbox,
 				postcerrorbox);
-		
-		
+
+
 
 		// Layout and styling
 		heading.getStyleClass().add("main-heading");

@@ -22,6 +22,8 @@ import java.time.DayOfWeek;
 import java.util.Map;
 import booking.BookingController;
 import booking.BookingsView;
+import businessHours.BusinessHoursController;
+import businessHours.BusinessHoursView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
@@ -113,32 +115,7 @@ public class EditAvailabilitiesView {
 
 		// Header init
 		Text heading = new Text("Booking Site");
-		// Add employee
-		Button addempbtn = new Button("Add Employee");
-		addempbtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				EmployeeController empcont = new EmployeeController();
-				empcont.setView(new AddEmployeeView(stage));
-				empcont.getView().setController(empcont);
-				empcont.updateView();
-			}
-		});
-		addempbtn.getStyleClass().add("orangebtn");
-
-		// Edit type
-		Button edittypebtn = new Button("Manage Services");
-		edittypebtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				TypeController tcont = new TypeController();
-				TypeView tview = new TypeView(stage);
-				tcont.setView(tview);
-				tview.setCont(tcont);
-				tview.updateTypeView();
-			}
-		});
-		edittypebtn.getStyleClass().add("orangebtn");
+		heading.getStyleClass().add("main-heading");
 
 		// View Bookings
 		Button viewbookbtn = new Button("View Bookings");
@@ -153,7 +130,61 @@ public class EditAvailabilitiesView {
 			}
 		});
 		viewbookbtn.getStyleClass().add("orangebtn");
-		
+
+		// Add employee
+		Button addempbtn = new Button("Add Employee");
+		addempbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				EmployeeController empcont = new EmployeeController();
+				empcont.setView(new AddEmployeeView(stage));
+				empcont.getView().setController(empcont);
+				empcont.updateView();
+			}
+		});
+		addempbtn.getStyleClass().add("orangebtn");
+
+		// Edit availability
+		Button editavailbtn = new Button("Manage Employees");
+		editavailbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				AvailabilitiesController acont = new AvailabilitiesController();
+				acont.setView(new EditAvailabilitiesView(stage));
+				acont.getView().setController(acont);
+				acont.updateView();
+			}
+		});
+		editavailbtn.getStyleClass().add("orangebtn");
+
+		// Manage services button
+		Button edittypebtn = new Button("Manage Services");
+		edittypebtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				TypeController tcont = new TypeController();
+				TypeView tview = new TypeView(stage);
+				tcont.setView(tview);
+				tview.setCont(tcont);
+				tview.updateTypeView();
+			}
+		});
+		edittypebtn.getStyleClass().add("orangebtn");
+
+		// Business settings
+		Button bussettingsbtn = new Button("Business Settings");
+		bussettingsbtn.setUserData(cont);
+		bussettingsbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				BusinessHoursController bhcont = new BusinessHoursController();
+				BusinessHoursView bhview = new BusinessHoursView(bhcont);
+				bhcont.setView(bhview);
+				bhview.updateView(stage);
+			}
+		});
+		bussettingsbtn.getStyleClass().add("orangebtn");
+
 		// Logout button
 		Button logoutbtn = new Button("Logout");
 		logoutbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -167,9 +198,8 @@ public class EditAvailabilitiesView {
 		});
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
-		
-		
-		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, edittypebtn, logoutbtn);
+
+		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
 		header.setId("headerbox");
 		heading.getStyleClass().add("main-heading");
 		HBox backbox = new HBox(specbtn);
@@ -220,23 +250,23 @@ public class EditAvailabilitiesView {
 		ComboBox<String> fridayEndTime = new ComboBox<String>();
 		ComboBox<String> saturdayStartTime = new ComboBox<String>();
 		ComboBox<String> saturdayEndTime = new ComboBox<String>();
-		
+
 		//applying CSS
-		 sundayStartTime.setId("form");
-		 sundayEndTime.setId("form");
-		 mondayStartTime.setId("form");
-		 mondayEndTime.setId("form");
-		 tuesdayStartTime.setId("form");
-		 tuesdayEndTime.setId("form");
-		 wednesdayStartTime.setId("form");
-		 wednesdayEndTime.setId("form");
-		 thursdayStartTime.setId("form");
-		 thursdayEndTime.setId("form");
-		 fridayStartTime.setId("form");
-		 fridayEndTime.setId("form");
-		 saturdayStartTime.setId("form");
-		 saturdayEndTime.setId("form");
-		
+		sundayStartTime.setId("form");
+		sundayEndTime.setId("form");
+		mondayStartTime.setId("form");
+		mondayEndTime.setId("form");
+		tuesdayStartTime.setId("form");
+		tuesdayEndTime.setId("form");
+		wednesdayStartTime.setId("form");
+		wednesdayEndTime.setId("form");
+		thursdayStartTime.setId("form");
+		thursdayEndTime.setId("form");
+		fridayStartTime.setId("form");
+		fridayEndTime.setId("form");
+		saturdayStartTime.setId("form");
+		saturdayEndTime.setId("form");
+
 		// creating labels
 		Label sundayText = new Label("Sunday");
 		Label mondayText = new Label("Monday");
@@ -374,7 +404,7 @@ public class EditAvailabilitiesView {
 			}
 		});
 		savebtn.getStyleClass().add("orangebtn");
-		
+
 		// box Construction
 		HBox bottom = new HBox(savebtn, donebox);
 		VBox body = new VBox(topBox, dayBox, bottom);

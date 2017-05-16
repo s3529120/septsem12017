@@ -8,6 +8,8 @@ import employee.AddEmployeeView;
 import employee.AvailabilitiesController;
 import employee.EditAvailabilitiesView;
 import employee.EmployeeController;
+import businessHours.BusinessHoursController;
+import businessHours.BusinessHoursView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -117,7 +119,21 @@ public class TypeView {
 		// Header init
 		Text heading = new Text("Booking Site");
 		heading.getStyleClass().add("main-heading");
-		
+
+		// View Bookings
+		Button viewbookbtn = new Button("View Bookings");
+		viewbookbtn.setUserData(cont);
+		viewbookbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				BookingController bcont = new BookingController();
+				bcont.setView(new BookingsView(stage));
+				bcont.getView().setController(bcont);
+				bcont.updateView();
+			}
+		});
+		viewbookbtn.getStyleClass().add("orangebtn");
+
 		// Add employee
 		Button addempbtn = new Button("Add Employee");
 		addempbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -144,20 +160,34 @@ public class TypeView {
 		});
 		editavailbtn.getStyleClass().add("orangebtn");
 
-		// View Bookings
-		Button viewbookbtn = new Button("View Bookings");
-		viewbookbtn.setUserData(cont);
-		viewbookbtn.setOnAction(new EventHandler<ActionEvent>() {
+		// Manage services button
+		Button edittypebtn = new Button("Manage Services");
+		edittypebtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				BookingController bcont = new BookingController();
-				bcont.setView(new BookingsView(stage));
-				bcont.getView().setController(bcont);
-				bcont.updateView();
+				TypeController tcont = new TypeController();
+				TypeView tview = new TypeView(stage);
+				tcont.setView(tview);
+				tview.setCont(tcont);
+				tview.updateTypeView();
 			}
 		});
-		viewbookbtn.getStyleClass().add("orangebtn");
-		
+		edittypebtn.getStyleClass().add("orangebtn");
+
+		// Business settings
+		Button bussettingsbtn = new Button("Business Settings");
+		bussettingsbtn.setUserData(cont);
+		bussettingsbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				BusinessHoursController bhcont = new BusinessHoursController();
+				BusinessHoursView bhview = new BusinessHoursView(bhcont);
+				bhcont.setView(bhview);
+				bhview.updateView(stage);
+			}
+		});
+		bussettingsbtn.getStyleClass().add("orangebtn");
+
 		// Logout button
 		Button logoutbtn = new Button("Logout");
 		logoutbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -171,10 +201,12 @@ public class TypeView {
 		});
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
-		
-		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, logoutbtn);
+
+		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
 		header.setId("headerbox");
 		heading.getStyleClass().add("main-heading");
+		
+		
 		Text h1 = new Text("Edit Services");
 		h1.getStyleClass().add("pageheading");
 
@@ -183,11 +215,11 @@ public class TypeView {
 		Label typelbl = new Label("Service name: ");
 		TextField typefield = new TextField();
 		typefield.setId("form");
-		
+
 		Label numlbl = new Label("Duration in minutes: ");
 		TextField numfield = new TextField();
 		numfield.setId("form");
-		
+
 		Button addbtn = new Button("Add");
 		addbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -198,7 +230,7 @@ public class TypeView {
 		});
 		addbtn.getStyleClass().add("orangebtn");
 		addbtn.setAlignment(Pos.BOTTOM_CENTER);
-		
+
 		HBox row1 = new HBox(typelbl, typefield);
 		HBox row2 = new HBox(numlbl, numfield);
 		VBox addVbox = new VBox(h2, row1, row2, addbtn);
@@ -223,7 +255,7 @@ public class TypeView {
 		});
 		rembtn.getStyleClass().add("orangebtn");
 		rembtn.setAlignment(Pos.BOTTOM_CENTER);
-		
+
 		VBox remVbox = new VBox(h3, remlbl, rembox, rembtn);
 		remVbox.getStyleClass().add("loginpageBox");
 
@@ -243,10 +275,10 @@ public class TypeView {
 		header.setId("headerbox");
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
-		
+
 		StackPane pane = new StackPane();
 		pane.getChildren().addAll(page);
-		
+
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		stage.setScene(scene);

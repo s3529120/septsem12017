@@ -3,6 +3,8 @@ package booking;
 import accounts.AccountController;
 import accounts.BusinessAccountModel;
 import accounts.UserAccountModel;
+import businessHours.BusinessHoursController;
+import businessHours.BusinessHoursView;
 import employee.AddEmployeeView;
 import employee.AvailabilitiesController;
 import employee.EditAvailabilitiesView;
@@ -67,46 +69,6 @@ public class BookingsView {
 		// Header init
 		Text heading = new Text("Booking Site");
 		heading.getStyleClass().add("main-heading");
-		
-		// Add employee
-		Button addempbtn = new Button("Add Employee");
-		addempbtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				EmployeeController empcont = new EmployeeController();
-				empcont.setView(new AddEmployeeView(stage));
-				empcont.getView().setController(empcont);
-				empcont.updateView();
-			}
-		});		
-		addempbtn.getStyleClass().add("orangebtn");
-
-		// Edit availability
-		Button editavailbtn = new Button("Edit Employee");
-		editavailbtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				AvailabilitiesController acont = new AvailabilitiesController();
-				acont.setView(new EditAvailabilitiesView(stage));
-				acont.getView().setController(acont);
-				acont.updateView();
-			}
-		});
-		editavailbtn.getStyleClass().add("orangebtn");
-
-		// Manage Services
-		Button edittypebtn = new Button("Manage Services");
-		edittypebtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				TypeController tcont = new TypeController();
-				TypeView tview = new TypeView(stage);
-				tcont.setView(tview);
-				tview.setCont(tcont);
-				tview.updateTypeView();
-			}
-		});
-		edittypebtn.getStyleClass().add("orangebtn");
 
 		// View Bookings
 		Button viewbookbtn = new Button("View Bookings");
@@ -121,7 +83,61 @@ public class BookingsView {
 			}
 		});
 		viewbookbtn.getStyleClass().add("orangebtn");
-		
+
+		// Add employee
+		Button addempbtn = new Button("Add Employee");
+		addempbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				EmployeeController empcont = new EmployeeController();
+				empcont.setView(new AddEmployeeView(stage));
+				empcont.getView().setController(empcont);
+				empcont.updateView();
+			}
+		});
+		addempbtn.getStyleClass().add("orangebtn");
+
+		// Edit availability
+		Button editavailbtn = new Button("Manage Employees");
+		editavailbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				AvailabilitiesController acont = new AvailabilitiesController();
+				acont.setView(new EditAvailabilitiesView(stage));
+				acont.getView().setController(acont);
+				acont.updateView();
+			}
+		});
+		editavailbtn.getStyleClass().add("orangebtn");
+
+		// Manage services button
+		Button edittypebtn = new Button("Manage Services");
+		edittypebtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				TypeController tcont = new TypeController();
+				TypeView tview = new TypeView(stage);
+				tcont.setView(tview);
+				tview.setCont(tcont);
+				tview.updateTypeView();
+			}
+		});
+		edittypebtn.getStyleClass().add("orangebtn");
+
+		// Business settings
+		Button bussettingsbtn = new Button("Business Settings");
+		bussettingsbtn.setUserData(cont);
+		bussettingsbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				BusinessHoursController bhcont = new BusinessHoursController();
+				BusinessHoursView bhview = new BusinessHoursView(bhcont);
+				bhcont.setView(bhview);
+				bhview.updateView(stage);
+			}
+		});
+		bussettingsbtn.getStyleClass().add("orangebtn");
+
 		// Logout button
 		Button logoutbtn = new Button("Logout");
 		logoutbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -135,37 +151,41 @@ public class BookingsView {
 		});
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
-		
+
+		HBox busheader = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
+		busheader.setId("headerbox");
+		heading.getStyleClass().add("main-heading");
+
 		//Customer header
 		//Available bookings
-      Button availbtn = new Button("Available Bookings");
-      availbtn.setUserData(cont);
-      availbtn.setOnAction(new EventHandler<ActionEvent>() {
-         @Override
-         public void handle(ActionEvent e) {
-            BookingController bcont = new BookingController();
-            bcont.setView(new BookingsView(stage));
-            bcont.getView().setController(bcont);
-            bcont.updateView();
-         }
-      });
-      availbtn.getStyleClass().add("orangebtn");
-      
-      //My bookings
-      Button mybookbtn = new Button("My Bookings");
-      mybookbtn.setUserData(cont);
-      mybookbtn.setOnAction(new EventHandler<ActionEvent>() {
-         @Override
-         public void handle(ActionEvent e) {
-            BookingController bcont = new BookingController();
-            bcont.setView(new BookingsView(stage));
-            bcont.getView().setController(bcont);
-            bcont.updateCusView();
-         }
-      });
-      mybookbtn.getStyleClass().add("orangebtn");
-      
-      HBox cusheader = new HBox(10, heading, availbtn, mybookbtn, logoutbtn);
+		Button availbtn = new Button("Available Bookings");
+		availbtn.setUserData(cont);
+		availbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				BookingController bcont = new BookingController();
+				bcont.setView(new BookingsView(stage));
+				bcont.getView().setController(bcont);
+				bcont.updateView();
+			}
+		});
+		availbtn.getStyleClass().add("orangebtn");
+
+		//My bookings
+		Button mybookbtn = new Button("My Bookings");
+		mybookbtn.setUserData(cont);
+		mybookbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				BookingController bcont = new BookingController();
+				bcont.setView(new BookingsView(stage));
+				bcont.getView().setController(bcont);
+				bcont.updateCusView();
+			}
+		});
+		mybookbtn.getStyleClass().add("orangebtn");
+
+		HBox cusheader = new HBox(10, heading, availbtn, mybookbtn, logoutbtn);
 
 		// Past bookings switch
 		Button switchbtn = null;
@@ -179,54 +199,54 @@ public class BookingsView {
 				}
 			});
 		}
-		
+
 		//Filters
-      //Date
-      DatePicker dpick = new DatePicker();
-      //StartTime
-      AvailabilitiesController acont = new AvailabilitiesController();
-      
-      ComboBox<String> spick = new ComboBox<String>();
-      //spick.getItems().addAll(acont.getPossibleTimes());
-      TypeController.getAllTypes().forEach(x->{
-          spick.getItems().add(x.getName());
-       });
-      //FinishTime
-      ComboBox<String> fpick = new ComboBox<String>();
-      spick.getItems().addAll(acont.getPossibleTimes());
-      //Type
-      ComboBox<String> tpick = new ComboBox<String>();
-      TypeController.getAllTypes().forEach(x->{
-         tpick.getItems().add(x.getName());
-      });
-      //Employee
-      EmployeeController econt = new EmployeeController();
-      ComboBox<String> epick = new ComboBox<String>();
-      Map<String,String> empmap = econt.getEmployees();
-      epick.getItems().addAll(empmap.keySet());
-      //User
-      AccountController ucont = new AccountController();
-      ComboBox<String> upick = new ComboBox<String>();
-      ucont.getAllCustomers().forEach(x->{
-         upick.getItems().add(x.getName());
-      });
-      //Submit
-      Button filterbtn = new Button("Filter");
-      filterbtn.getStyleClass().add("orangebtn");
-      filterbtn.setOnAction(new EventHandler<ActionEvent>() {
-         @Override
-         public void handle(ActionEvent e) {
-            updateView(cont.filterBookings(cont.getBookings(),dpick.getValue(), 
-                        LocalTime.parse(spick.getSelectionModel().getSelectedItem()), 
-                        LocalTime.parse(fpick.getSelectionModel().getSelectedItem()), 
-                        epick.getSelectionModel().getSelectedItem(), 
-                        upick.getSelectionModel().getSelectedItem(), 
-                        tpick.getSelectionModel().getSelectedItem()));
-         }
-      });
-      
-      HBox filters = new HBox(dpick,spick,fpick,tpick,epick,upick,filterbtn);
-		
+		//Date
+		DatePicker dpick = new DatePicker();
+		//StartTime
+		AvailabilitiesController acont = new AvailabilitiesController();
+
+		ComboBox<String> spick = new ComboBox<String>();
+		//spick.getItems().addAll(acont.getPossibleTimes());
+		TypeController.getAllTypes().forEach(x->{
+			spick.getItems().add(x.getName());
+		});
+		//FinishTime
+		ComboBox<String> fpick = new ComboBox<String>();
+		spick.getItems().addAll(acont.getPossibleTimes());
+		//Type
+		ComboBox<String> tpick = new ComboBox<String>();
+		TypeController.getAllTypes().forEach(x->{
+			tpick.getItems().add(x.getName());
+		});
+		//Employee
+		EmployeeController econt = new EmployeeController();
+		ComboBox<String> epick = new ComboBox<String>();
+		Map<String,String> empmap = econt.getEmployees();
+		epick.getItems().addAll(empmap.keySet());
+		//User
+		AccountController ucont = new AccountController();
+		ComboBox<String> upick = new ComboBox<String>();
+		ucont.getAllCustomers().forEach(x->{
+			upick.getItems().add(x.getName());
+		});
+		//Submit
+		Button filterbtn = new Button("Filter");
+		filterbtn.getStyleClass().add("orangebtn");
+		filterbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				updateView(cont.filterBookings(cont.getBookings(),dpick.getValue(), 
+						LocalTime.parse(spick.getSelectionModel().getSelectedItem()), 
+						LocalTime.parse(fpick.getSelectionModel().getSelectedItem()), 
+						epick.getSelectionModel().getSelectedItem(), 
+						upick.getSelectionModel().getSelectedItem(), 
+						tpick.getSelectionModel().getSelectedItem()));
+			}
+		});
+
+		HBox filters = new HBox(dpick,spick,fpick,tpick,epick,upick,filterbtn);
+
 		// Heading
 		Text h1;
 		if (AppData.CALLER instanceof BusinessAccountModel) {
@@ -246,7 +266,7 @@ public class BookingsView {
 		} else {
 			head = new HBox(bookingstitle);
 		}
-		
+
 		head.setId("bookingsHeader");
 
 		// Bookings
@@ -309,7 +329,7 @@ public class BookingsView {
 			bookingsList.getChildren().add(bookingBox);
 
 		});
-		
+
 		// Set layout
 		bookingsList.setId("bookings-main");
 		ScrollPane body = new ScrollPane(bookingsList);
@@ -320,16 +340,14 @@ public class BookingsView {
 
 		// Change header menu based on account type
 		if (AppData.CALLER instanceof BusinessAccountModel) {
-			HBox header = new HBox(10, heading, addempbtn, editavailbtn, edittypebtn, logoutbtn);
-			header.setId("headerbox");
-			page = new VBox(header, body);
+			page = new VBox(busheader, body);
 		} else {
 			page = new VBox(cusheader, body);
 		}
-		
+
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
-		
+
 		StackPane pane = new StackPane(page);
 		pane.getChildren().addAll();
 
@@ -349,7 +367,21 @@ public class BookingsView {
 		// Header init
 		Text heading = new Text("Booking Site");
 		heading.getStyleClass().add("main-heading");
-		
+
+		// View Bookings
+		Button viewbookbtn = new Button("View Bookings");
+		viewbookbtn.setUserData(cont);
+		viewbookbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				BookingController bcont = new BookingController();
+				bcont.setView(new BookingsView(stage));
+				bcont.getView().setController(bcont);
+				bcont.updateView();
+			}
+		});
+		viewbookbtn.getStyleClass().add("orangebtn");
+
 		// Add employee
 		Button addempbtn = new Button("Add Employee");
 		addempbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -364,7 +396,7 @@ public class BookingsView {
 		addempbtn.getStyleClass().add("orangebtn");
 
 		// Edit availability
-		Button editavailbtn = new Button("Edit Employee");
+		Button editavailbtn = new Button("Manage Employees");
 		editavailbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -376,7 +408,7 @@ public class BookingsView {
 		});
 		editavailbtn.getStyleClass().add("orangebtn");
 
-		// Manage Services
+		// Manage services button
 		Button edittypebtn = new Button("Manage Services");
 		edittypebtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -390,20 +422,20 @@ public class BookingsView {
 		});
 		edittypebtn.getStyleClass().add("orangebtn");
 
-		// View Bookings
-		Button viewbookbtn = new Button("View Bookings");
-		viewbookbtn.setUserData(cont);
-		viewbookbtn.setOnAction(new EventHandler<ActionEvent>() {
+		// Business settings
+		Button bussettingsbtn = new Button("Business Settings");
+		bussettingsbtn.setUserData(cont);
+		bussettingsbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				BookingController bcont = new BookingController();
-				bcont.setView(new BookingsView(new Stage()));
-				bcont.getView().setController(bcont);
-				bcont.updateView();
+				BusinessHoursController bhcont = new BusinessHoursController();
+				BusinessHoursView bhview = new BusinessHoursView(bhcont);
+				bhcont.setView(bhview);
+				bhview.updateView(stage);
 			}
 		});
-		viewbookbtn.getStyleClass().add("orangebtn");
-		
+		bussettingsbtn.getStyleClass().add("orangebtn");
+
 		// Logout button
 		Button logoutbtn = new Button("Logout");
 		logoutbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -417,10 +449,10 @@ public class BookingsView {
 		});
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
-		
-		// Header navigation
-		HBox header = new HBox(10, heading, addempbtn, editavailbtn, edittypebtn, logoutbtn);
+
+		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
 		header.setId("headerbox");
+		heading.getStyleClass().add("main-heading");
 
 		// Back to the future... bookings
 		Button switchbtn = new Button("Future Bookings");
@@ -432,50 +464,50 @@ public class BookingsView {
 		});
 		switchbtn.getStyleClass().add("orangebtn");
 
-		
+
 		//Filters
-      //Date
-      DatePicker dpick = new DatePicker();
-      //StartTime
-      AvailabilitiesController acont = new AvailabilitiesController();
-      ComboBox<String> spick = new ComboBox<String>();
-      spick.getItems().addAll(acont.getPossibleTimes());
-      //FinishTime
-      ComboBox<String> fpick = new ComboBox<String>();
-      spick.getItems().addAll(acont.getPossibleTimes());
-      //Type
-      ComboBox<String> tpick = new ComboBox<String>();
-      TypeController.getAllTypes().forEach(x->{
-          tpick.getItems().add(x.getName());
-       });
-      //Employee
-      EmployeeController econt = new EmployeeController();
-      ComboBox<String> epick = new ComboBox<String>();
-      Map<String,String> empmap = econt.getEmployees();
-      epick.getItems().addAll(empmap.keySet());
-      //User
-      AccountController ucont = new AccountController();
-      ComboBox<String> upick = new ComboBox<String>();
-      TypeController.getAllTypes().forEach(x->{
-          upick.getItems().add(x.getName());
-       });
-      //Submit
-      Button filterbtn = new Button("Filter");
-      filterbtn.getStyleClass().add("orangebtn");
-      filterbtn.setOnAction(new EventHandler<ActionEvent>() {
-         @Override
-         public void handle(ActionEvent e) {
-            updateView(cont.filterBookings(cont.getBookings(),dpick.getValue(), 
-                        LocalTime.parse(spick.getSelectionModel().getSelectedItem()), 
-                        LocalTime.parse(fpick.getSelectionModel().getSelectedItem()), 
-                        epick.getSelectionModel().getSelectedItem(), 
-                        upick.getSelectionModel().getSelectedItem(), 
-                        tpick.getSelectionModel().getSelectedItem()));
-         }
-      });
-      
-      HBox filters = new HBox(dpick,spick,fpick,tpick,epick,upick,filterbtn);
-		
+		//Date
+		DatePicker dpick = new DatePicker();
+		//StartTime
+		AvailabilitiesController acont = new AvailabilitiesController();
+		ComboBox<String> spick = new ComboBox<String>();
+		spick.getItems().addAll(acont.getPossibleTimes());
+		//FinishTime
+		ComboBox<String> fpick = new ComboBox<String>();
+		spick.getItems().addAll(acont.getPossibleTimes());
+		//Type
+		ComboBox<String> tpick = new ComboBox<String>();
+		TypeController.getAllTypes().forEach(x->{
+			tpick.getItems().add(x.getName());
+		});
+		//Employee
+		EmployeeController econt = new EmployeeController();
+		ComboBox<String> epick = new ComboBox<String>();
+		Map<String,String> empmap = econt.getEmployees();
+		epick.getItems().addAll(empmap.keySet());
+		//User
+		AccountController ucont = new AccountController();
+		ComboBox<String> upick = new ComboBox<String>();
+		TypeController.getAllTypes().forEach(x->{
+			upick.getItems().add(x.getName());
+		});
+		//Submit
+		Button filterbtn = new Button("Filter");
+		filterbtn.getStyleClass().add("orangebtn");
+		filterbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				updateView(cont.filterBookings(cont.getBookings(),dpick.getValue(), 
+						LocalTime.parse(spick.getSelectionModel().getSelectedItem()), 
+						LocalTime.parse(fpick.getSelectionModel().getSelectedItem()), 
+						epick.getSelectionModel().getSelectedItem(), 
+						upick.getSelectionModel().getSelectedItem(), 
+						tpick.getSelectionModel().getSelectedItem()));
+			}
+		});
+
+		HBox filters = new HBox(dpick,spick,fpick,tpick,epick,upick,filterbtn);
+
 		// Heading
 		Text h1 = new Text("Past Bookings");
 		h1.setId("bookingsh1");
@@ -535,20 +567,20 @@ public class BookingsView {
 			bookingsList.getChildren().add(bookingBox);
 
 		});
-		
+
 		// Set Layout
 		bookingsList.setId("bookings-main");
 		ScrollPane body = new ScrollPane(bookingsList);
 		body.setId("mainPageVBox");
 		body.getStyleClass().add("scroll-pane");
-		
+
 		VBox page = new VBox(header, body);
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
-		
+
 		StackPane pane = new StackPane(page);
 		pane.getChildren().addAll();
-		
+
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		stage.setScene(scene);
@@ -587,7 +619,7 @@ public class BookingsView {
 			Text etxt = new Text(cont.getNameFromEmail(book.getEmployee()));
 			HBox ebox = new HBox(elbl, etxt);
 			VBox dets = new VBox(dbox, stbox, ftbox, ebox);
-			
+
 			// List initialization
 			List<UserAccountModel> customers = acont.getAllCustomers();
 			Map<String, String> map = new HashMap<String, String>();
@@ -626,7 +658,7 @@ public class BookingsView {
 
 			// Submit button
 			Button submit = new Button("Submit");
-			
+
 			submit.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
@@ -656,9 +688,9 @@ public class BookingsView {
 				}
 			});
 			submit.getStyleClass().add("orangebtn-small");
-			
+
 			HBox buttons = new HBox(10, submit, cancel);
-			
+
 			// Add to pane
 			VBox all = new VBox(10, h1, dets, select, typeselect, buttons);
 			pane.getChildren().addAll(all);
@@ -733,17 +765,17 @@ public class BookingsView {
 				}
 			});
 			submit.getStyleClass().add("orangebtn-small");
-			
+
 			HBox buttons = new HBox(10, cancel, submit);
-			
+
 			// Add to pane
 			VBox body = new VBox(10, h1, dets, typeselect, buttons);
 			pane.getChildren().addAll(body);
 		}
-		
+
 		// Styling
-		
-		
+
+
 		// Set scene for making booking
 		pane.setId("pop-up");
 		Scene scene = new Scene(pane);
@@ -751,221 +783,221 @@ public class BookingsView {
 		popup.setScene(scene);
 		popup.show();
 	}
-	
+
 	/**
-    * Updates display of window
-    */
-   public void updateCusView() {
-      // Int scrollpane
-      sp = new ScrollPane();
+	 * Updates display of window
+	 */
+	public void updateCusView() {
+		// Int scrollpane
+		sp = new ScrollPane();
 
-      // Header init
-      Text heading = new Text("Booking Site");
-      heading.getStyleClass().add("main-heading");
-      // Logout button
-      Button logoutbtn = new Button("Logout");
-      logoutbtn.setOnAction(new EventHandler<ActionEvent>() {
-         @Override
-         public void handle(ActionEvent e) {
-            MainMenuView mainview = new MainMenuView(stage);
-            MainMenuController maincont = new MainMenuController(stage, mainview);
-            AppData.CALLER = null;
-            maincont.updateView();
-         }
-      });
-      logoutbtn.setAlignment(Pos.TOP_RIGHT);
-      logoutbtn.getStyleClass().add("linkbtn");
-      
-      //Customer header
-      //Available bookings
-      Button availbtn = new Button("Available Bookings");
-      availbtn.setUserData(cont);
-      availbtn.setOnAction(new EventHandler<ActionEvent>() {
-         @Override
-         public void handle(ActionEvent e) {
-            BookingController bcont = new BookingController();
-            bcont.setView(new BookingsView(stage));
-            bcont.getView().setController(bcont);
-            bcont.updateView();
-         }
-      });
-      availbtn.getStyleClass().add("orangebtn");
-      
-      //My bookings
-      Button mybookbtn = new Button("My Bookings");
-      mybookbtn.setUserData(cont);
-      mybookbtn.setOnAction(new EventHandler<ActionEvent>() {
-         @Override
-         public void handle(ActionEvent e) {
-            BookingController bcont = new BookingController();
-            bcont.setView(new BookingsView(stage));
-            bcont.getView().setController(bcont);
-            bcont.updateCusView();
-         }
-      });
-      mybookbtn.getStyleClass().add("orangebtn");
-      
-      HBox cusheader = new HBox(10, heading, availbtn,mybookbtn, logoutbtn);
-      cusheader.setId("headerbox");
-      
-      // Heading
-         Text h1 = new Text("Available Appoinments");
+		// Header init
+		Text heading = new Text("Booking Site");
+		heading.getStyleClass().add("main-heading");
+		// Logout button
+		Button logoutbtn = new Button("Logout");
+		logoutbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				MainMenuView mainview = new MainMenuView(stage);
+				MainMenuController maincont = new MainMenuController(stage, mainview);
+				AppData.CALLER = null;
+				maincont.updateView();
+			}
+		});
+		logoutbtn.setAlignment(Pos.TOP_RIGHT);
+		logoutbtn.getStyleClass().add("linkbtn");
 
-      h1.setId("bookingsh1");
-      HBox bookingstitle = new HBox(h1);
-      bookingstitle.setId("bookingstitle");
+		//Customer header
+		//Available bookings
+		Button availbtn = new Button("Available Bookings");
+		availbtn.setUserData(cont);
+		availbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				BookingController bcont = new BookingController();
+				bcont.setView(new BookingsView(stage));
+				bcont.getView().setController(bcont);
+				bcont.updateView();
+			}
+		});
+		availbtn.getStyleClass().add("orangebtn");
 
-      HBox head;
-         head = new HBox(bookingstitle);
-      
-      head.setId("bookingsHeader");
+		//My bookings
+		Button mybookbtn = new Button("My Bookings");
+		mybookbtn.setUserData(cont);
+		mybookbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				BookingController bcont = new BookingController();
+				bcont.setView(new BookingsView(stage));
+				bcont.getView().setController(bcont);
+				bcont.updateCusView();
+			}
+		});
+		mybookbtn.getStyleClass().add("orangebtn");
 
-      // Bookings
+		HBox cusheader = new HBox(10, heading, availbtn,mybookbtn, logoutbtn);
+		cusheader.setId("headerbox");
 
-      VBox bookingsList = new VBox(head);
+		// Heading
+		Text h1 = new Text("Available Appoinments");
 
-      List<BookingModel> bookings = cont.filterBookings(cont.getBookings(),
-                                           null, null, null, null, 
-                                           AppData.CALLER.toString(), null);
+		h1.setId("bookingsh1");
+		HBox bookingstitle = new HBox(h1);
+		bookingstitle.setId("bookingstitle");
 
-      // Iterates through bookings
-      bookings.forEach(booking -> {
-         // If user is of type customer and booking is filled, skip this
-         // iteration
-         if (booking.getUser().compareToIgnoreCase("Unfilled") != 0 && AppData.CALLER instanceof UserAccountModel) {
-            return;
-         }
-         String newdate = booking.getDate().toString();
-         if (currentdate == null || !currentdate.equals(newdate)) {
-            currentdate = newdate;
-            Text date = new Text(currentdate);
-            date.setId("bookingDate");
-            HBox datebox = new HBox(date);
-            datebox.setId("datebox");
-            bookingsList.getChildren().add(datebox);
-         }
+		HBox head;
+		head = new HBox(bookingstitle);
 
-         // Available Booking data
-         Text startTime = new Text("Start: " + booking.getStartTime().toString());
-         Text finishTime = new Text("End: " + booking.getFinishTime().toString());
-         Text employee = new Text("Employee: " + cont.getNameFromEmail(booking.getEmployee()));
+		head.setId("bookingsHeader");
 
-         VBox who = new VBox(employee);
-         VBox bookingType = new VBox();
+		// Bookings
 
-         // Checks if booking is filled and displays customer and type if it
-         // is
-         if (booking.getUser() != "Unfilled") {
-            Text customer = new Text("Customer: " + booking.getUser());
-            Text type = new Text("Type: " + booking.getType());
-            who.getChildren().add(customer);
-            bookingType.getChildren().add(type);
-         }
+		VBox bookingsList = new VBox(head);
 
-         VBox when = new VBox(startTime, finishTime);
+		List<BookingModel> bookings = cont.filterBookings(cont.getBookings(),
+				null, null, null, null, 
+				AppData.CALLER.toString(), null);
 
-         who.getStyleClass().add("bookingcol");
-         when.getStyleClass().add("bookingcol");
-         bookingType.getStyleClass().add("bookingcol");
+		// Iterates through bookings
+		bookings.forEach(booking -> {
+			// If user is of type customer and booking is filled, skip this
+			// iteration
+			if (booking.getUser().compareToIgnoreCase("Unfilled") != 0 && AppData.CALLER instanceof UserAccountModel) {
+				return;
+			}
+			String newdate = booking.getDate().toString();
+			if (currentdate == null || !currentdate.equals(newdate)) {
+				currentdate = newdate;
+				Text date = new Text(currentdate);
+				date.setId("bookingDate");
+				HBox datebox = new HBox(date);
+				datebox.setId("datebox");
+				bookingsList.getChildren().add(datebox);
+			}
 
-         HBox bookingBox = new HBox(who, when, bookingType);
-         bookingBox.setId("bookingBox");
+			// Available Booking data
+			Text startTime = new Text("Start: " + booking.getStartTime().toString());
+			Text finishTime = new Text("End: " + booking.getFinishTime().toString());
+			Text employee = new Text("Employee: " + cont.getNameFromEmail(booking.getEmployee()));
 
-         // Add "Make a booking" link to booking box
-         bookingBox.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-               Stage popup = new Stage();
-               cancelBooking(cont,booking);
-            }
-         });
+			VBox who = new VBox(employee);
+			VBox bookingType = new VBox();
 
-         // Add current booking to bookings list
-         bookingsList.getChildren().add(bookingBox);
+			// Checks if booking is filled and displays customer and type if it
+			// is
+			if (booking.getUser() != "Unfilled") {
+				Text customer = new Text("Customer: " + booking.getUser());
+				Text type = new Text("Type: " + booking.getType());
+				who.getChildren().add(customer);
+				bookingType.getChildren().add(type);
+			}
 
-      });
-      
-      HBox bookingscontainer = new HBox(bookingsList);
-      bookingscontainer.setId("bookings-container");
+			VBox when = new VBox(startTime, finishTime);
 
-      VBox main;
+			who.getStyleClass().add("bookingcol");
+			when.getStyleClass().add("bookingcol");
+			bookingType.getStyleClass().add("bookingcol");
 
-      // Change header menu based on account type
-         main = new VBox(cusheader, logoutbtn, bookingscontainer);
-      sp.getStyleClass().add("scroll-pane");
-      main.setId("bookings-main");
+			HBox bookingBox = new HBox(who, when, bookingType);
+			bookingBox.setId("bookingBox");
 
-      sp.setContent(main);
+			// Add "Make a booking" link to booking box
+			bookingBox.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent e) {
+					Stage popup = new Stage();
+					cancelBooking(cont,booking);
+				}
+			});
 
-      Scene scene = new Scene(sp);
-      scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+			// Add current booking to bookings list
+			bookingsList.getChildren().add(bookingBox);
 
-      stage.setScene(scene);
-      stage.show();
+		});
 
-   }
-   
-   public void cancelBooking(BookingController parcont,BookingModel booking){
-      Stage popup = new Stage();
-      popup.initModality(Modality.WINDOW_MODAL);
-      popup.initOwner(parcont.getView().stage);
-      Text heading = new Text("Cancel your booking?");
-      
-   // Available Booking data
-      Text startTime = new Text("Start: " + booking.getStartTime().toString());
-      Text finishTime = new Text("End: " + booking.getFinishTime().toString());
-      Text employee = new Text("Employee: " + cont.getNameFromEmail(booking.getEmployee()));
+		HBox bookingscontainer = new HBox(bookingsList);
+		bookingscontainer.setId("bookings-container");
 
-      VBox who = new VBox(employee);
-      VBox bookingType = new VBox();
+		VBox main;
 
-      // Checks if booking is filled and displays customer and type if it
-      // is
-         Text customer = new Text("Customer: " + booking.getUser());
-         Text type = new Text("Type: " + booking.getType());
-         who.getChildren().add(customer);
-         bookingType.getChildren().add(type);
-         VBox when = new VBox(startTime, finishTime);
+		// Change header menu based on account type
+		main = new VBox(cusheader, logoutbtn, bookingscontainer);
+		sp.getStyleClass().add("scroll-pane");
+		main.setId("bookings-main");
 
-         who.getStyleClass().add("bookingcol");
-         when.getStyleClass().add("bookingcol");
-         bookingType.getStyleClass().add("bookingcol");
+		sp.setContent(main);
 
-         HBox bookingBox = new HBox(who, when, bookingType);
-         bookingBox.setId("bookingBox");
+		Scene scene = new Scene(sp);
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 
-      // Cancel button
-         Button close = new Button("Keep booking");
-         close.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-               popup.close();
-            }
-         });
-         close.getStyleClass().add("orangebtn-small");
+		stage.setScene(scene);
+		stage.show();
 
-         // Submit button
-         Button cancel = new Button("Cancel booking");
-         cancel.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-               BookingController bcont = new BookingController();
-               bcont.cancelBooking(booking.getId());
-                        popup.close();
-            }
-        });
+	}
 
-         cancel.getStyleClass().add("orangebtn-small");
-         
-         
-         HBox buttons= new HBox(close,cancel);
-         VBox vbox = new VBox(heading,bookingBox,buttons);
-         
-         Scene scene = new Scene(vbox);
-         scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+	public void cancelBooking(BookingController parcont,BookingModel booking){
+		Stage popup = new Stage();
+		popup.initModality(Modality.WINDOW_MODAL);
+		popup.initOwner(parcont.getView().stage);
+		Text heading = new Text("Cancel your booking?");
 
-         stage.setScene(scene);
-         stage.show();
-   }
+		// Available Booking data
+		Text startTime = new Text("Start: " + booking.getStartTime().toString());
+		Text finishTime = new Text("End: " + booking.getFinishTime().toString());
+		Text employee = new Text("Employee: " + cont.getNameFromEmail(booking.getEmployee()));
+
+		VBox who = new VBox(employee);
+		VBox bookingType = new VBox();
+
+		// Checks if booking is filled and displays customer and type if it
+		// is
+		Text customer = new Text("Customer: " + booking.getUser());
+		Text type = new Text("Type: " + booking.getType());
+		who.getChildren().add(customer);
+		bookingType.getChildren().add(type);
+		VBox when = new VBox(startTime, finishTime);
+
+		who.getStyleClass().add("bookingcol");
+		when.getStyleClass().add("bookingcol");
+		bookingType.getStyleClass().add("bookingcol");
+
+		HBox bookingBox = new HBox(who, when, bookingType);
+		bookingBox.setId("bookingBox");
+
+		// Cancel button
+		Button close = new Button("Keep booking");
+		close.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				popup.close();
+			}
+		});
+		close.getStyleClass().add("orangebtn-small");
+
+		// Submit button
+		Button cancel = new Button("Cancel booking");
+		cancel.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				BookingController bcont = new BookingController();
+				bcont.cancelBooking(booking.getId());
+				popup.close();
+			}
+		});
+
+		cancel.getStyleClass().add("orangebtn-small");
+
+
+		HBox buttons= new HBox(close,cancel);
+		VBox vbox = new VBox(heading,bookingBox,buttons);
+
+		Scene scene = new Scene(vbox);
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+
+		stage.setScene(scene);
+		stage.show();
+	}
 
 }
