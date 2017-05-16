@@ -152,8 +152,7 @@ public class BookingsView {
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
 
-		HBox busheader = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
-		busheader.setId("headerbox");
+
 		heading.getStyleClass().add("main-heading");
 
 		//Customer header
@@ -201,35 +200,58 @@ public class BookingsView {
 		}
 
 		//Filters
+		Text filterHeading = new Text("Filters");
+		filterHeading.setId("bookingsh1");
+
 		//Date
 		DatePicker dpick = new DatePicker();
+		dpick.setId("form");
+		Text dText = new Text("Date");
+		VBox dBox = new VBox(dText,dpick);
+
 		//StartTime
 		AvailabilitiesController acont = new AvailabilitiesController();
-
 		ComboBox<String> spick = new ComboBox<String>();
-		//spick.getItems().addAll(acont.getPossibleTimes());
-		TypeController.getAllTypes().forEach(x->{
-			spick.getItems().add(x.getName());
-		});
+		spick.getItems().addAll(acont.getPossibleTimes());
+		spick.setId("form");
+		Text sText = new Text("Start Time");
+		VBox sBox = new VBox(sText,spick);
+
 		//FinishTime
 		ComboBox<String> fpick = new ComboBox<String>();
 		spick.getItems().addAll(acont.getPossibleTimes());
+		fpick.setId("form");
+		Text fText = new Text("Finish Time");
+		VBox fBox = new VBox(fText,fpick);
+
 		//Type
 		ComboBox<String> tpick = new ComboBox<String>();
 		TypeController.getAllTypes().forEach(x->{
 			tpick.getItems().add(x.getName());
 		});
+		tpick.setId("form");
+		Text tText = new Text("Service");
+		VBox tBox = new VBox(tText,tpick);
+
 		//Employee
 		EmployeeController econt = new EmployeeController();
 		ComboBox<String> epick = new ComboBox<String>();
 		Map<String,String> empmap = econt.getEmployees();
 		epick.getItems().addAll(empmap.keySet());
+		epick.setId("form");
+		Text eText = new Text("Employee");
+		VBox eBox = new VBox(eText,epick);
+
 		//User
 		AccountController ucont = new AccountController();
 		ComboBox<String> upick = new ComboBox<String>();
 		ucont.getAllCustomers().forEach(x->{
 			upick.getItems().add(x.getName());
 		});
+		upick.setId("form");
+		Text uText = new Text("Customer");
+		VBox uBox = new VBox(uText,upick);
+
 		//Submit
 		Button filterbtn = new Button("Filter");
 		filterbtn.getStyleClass().add("orangebtn");
@@ -245,7 +267,8 @@ public class BookingsView {
 			}
 		});
 
-		HBox filters = new HBox(dpick,spick,fpick,tpick,epick,upick,filterbtn);
+		HBox filterFields = new HBox(dBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+		VBox filters = new VBox(filterHeading,filterFields,filterbtn);
 
 		// Heading
 		Text h1;
@@ -259,12 +282,13 @@ public class BookingsView {
 		HBox bookingstitle = new HBox(h1);
 		bookingstitle.setId("bookingstitle");
 
-		HBox head;
+		VBox head;
 		if (AppData.CALLER instanceof BusinessAccountModel) {
 			switchbtn.setId("switchbtn");
-			head = new HBox(bookingstitle, switchbtn);
+			HBox head1 = new HBox(bookingstitle, switchbtn);
+			head = new VBox(filters,head1);
 		} else {
-			head = new HBox(bookingstitle);
+			head = new VBox(bookingstitle);
 		}
 
 		head.setId("bookingsHeader");
@@ -340,6 +364,8 @@ public class BookingsView {
 
 		// Change header menu based on account type
 		if (AppData.CALLER instanceof BusinessAccountModel) {
+			HBox busheader = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
+			busheader.setId("headerbox");
 			page = new VBox(busheader, body);
 		} else {
 			page = new VBox(cusheader, body);
@@ -466,31 +492,58 @@ public class BookingsView {
 
 
 		//Filters
+		Text filterHeading = new Text("Filters");
+		filterHeading.setId("bookingsh1");
+
 		//Date
 		DatePicker dpick = new DatePicker();
+		dpick.setId("form");
+		Text dText = new Text("Date");
+		VBox dBox = new VBox(dText,dpick);
+
 		//StartTime
 		AvailabilitiesController acont = new AvailabilitiesController();
 		ComboBox<String> spick = new ComboBox<String>();
 		spick.getItems().addAll(acont.getPossibleTimes());
+		spick.setId("form");
+		Text sText = new Text("Start Time");
+		VBox sBox = new VBox(sText,spick);
+
 		//FinishTime
 		ComboBox<String> fpick = new ComboBox<String>();
 		spick.getItems().addAll(acont.getPossibleTimes());
+		fpick.setId("form");
+		Text fText = new Text("Finish Time");
+		VBox fBox = new VBox(fText,fpick);
+
 		//Type
 		ComboBox<String> tpick = new ComboBox<String>();
 		TypeController.getAllTypes().forEach(x->{
 			tpick.getItems().add(x.getName());
 		});
+		tpick.setId("form");
+		Text tText = new Text("Service");
+		VBox tBox = new VBox(tText,tpick);
+
 		//Employee
 		EmployeeController econt = new EmployeeController();
 		ComboBox<String> epick = new ComboBox<String>();
 		Map<String,String> empmap = econt.getEmployees();
 		epick.getItems().addAll(empmap.keySet());
+		epick.setId("form");
+		Text eText = new Text("Employee");
+		VBox eBox = new VBox(eText,epick);
+
 		//User
 		AccountController ucont = new AccountController();
 		ComboBox<String> upick = new ComboBox<String>();
-		TypeController.getAllTypes().forEach(x->{
+		ucont.getAllCustomers().forEach(x->{
 			upick.getItems().add(x.getName());
 		});
+		upick.setId("form");
+		Text uText = new Text("Customer");
+		VBox uBox = new VBox(uText,upick);
+
 		//Submit
 		Button filterbtn = new Button("Filter");
 		filterbtn.getStyleClass().add("orangebtn");
@@ -506,7 +559,8 @@ public class BookingsView {
 			}
 		});
 
-		HBox filters = new HBox(dpick,spick,fpick,tpick,epick,upick,filterbtn);
+		HBox filterFields = new HBox(dBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+		VBox filters = new VBox(filterHeading,filterFields,filterbtn);
 
 		// Heading
 		Text h1 = new Text("Past Bookings");
@@ -518,7 +572,7 @@ public class BookingsView {
 		head.setId("bookingsHeader");
 
 
-		VBox bookingsList = new VBox();
+		VBox bookingsList = new VBox(filters, head);
 
 		// Iterate through past bookings and add them to bookingsList
 		bookings.forEach(booking -> {

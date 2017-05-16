@@ -346,7 +346,7 @@ public class BusinessHoursView
 		HBox bottom = new HBox(savebtn, donebox);
 		VBox body = new VBox(topBox, dayBox, bottom);
 		body.setId("mainPageVBox");
-		VBox page = new VBox(body);
+		VBox page = new VBox(header, body);
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
 
