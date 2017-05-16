@@ -104,8 +104,8 @@ public class AdminView {
 			delBusBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent e) {
-					delBus(busName);
-
+					AdminController.delBusiness(business.getUsername().toString());
+					updateView();
 				}
 
 			});
@@ -142,9 +142,4 @@ public class AdminView {
 		stage.show();
 	}
 
-	private void delBus(Text busName) {
-		// TODO Create popup and call 
-		//	AdminController.deleteBusiness(busName.getString());
-
-	}
 }

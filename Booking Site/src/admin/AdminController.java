@@ -150,8 +150,9 @@ public class AdminController {
 		
 		//Create a new conn and set the sql query to busname.
 		dbcont.createConnection();
-		sql="DELETE * FROM accounts WHERE username=?;";
+		sql="DELETE FROM accounts WHERE username=?;";
 		dbcont.prepareStatement(sql);
+		
 		try
 		{
 			// Run sql and close connection
