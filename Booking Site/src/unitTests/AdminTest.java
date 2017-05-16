@@ -28,10 +28,10 @@ public class AdminTest {
 		String sql;
 		ResultSet res;
 		String Busname="bus002",Password="abc123",Name="John's Garage",
-				ContactNo="0123456789",Type="Business",Address="123 Fake St",
+				ContactNo="0123456789",Address="123 Fake St",
 				Email="bus002@gmail.com";
 		
-		admcont.addBusiness(Busname, Password, Name, ContactNo, Type, Address, Email);
+		admcont.addBusiness(Busname, Password, Name, ContactNo, Address, Email);
 		sql = "SELECT * FROM ACCOUNTS WHERE NAME = 'bus002';";
 		
 		dcont.prepareStatement(sql);
