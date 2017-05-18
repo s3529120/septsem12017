@@ -340,3 +340,10 @@ buttonbox {
     -fx-border-width: 3;
     -fx-pref-width: 150px;	
 }
+
+/* EDIT SPECIALIZATION */
+
+.form-section {
+	-fx-background-color: #E0E4CC;
+	-fx-padding: 10px;
+}
