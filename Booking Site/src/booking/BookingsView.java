@@ -891,7 +891,7 @@ public class BookingsView {
 		});
 		mybookbtn.getStyleClass().add("orangebtn");
 
-		HBox cusheader = new HBox(10, heading, availbtn,mybookbtn, logoutbtn);
+		HBox cusheader = new HBox(10, heading, availbtn, mybookbtn, logoutbtn);
 		cusheader.setId("headerbox");
 
 		// Heading
@@ -970,20 +970,23 @@ public class BookingsView {
 			bookingsList.getChildren().add(bookingBox);
 
 		});
+		
+		// Set layout
+		bookingsList.setId("bookings-main");
+		
+		ScrollPane body = new ScrollPane(bookingsList);
+		body.setId("mainPageVBox");
+		body.getStyleClass().add("scroll-pane");
 
-		HBox bookingscontainer = new HBox(bookingsList);
-		bookingscontainer.setId("bookings-container");
+		VBox page = new VBox(cusheader, body);
+		
+		page.setId("border");
+		page.getStyleClass().add("loginpageBox");
 
-		VBox main;
+		StackPane pane = new StackPane(page);
+		pane.getChildren().addAll();
 
-		// Change header menu based on account type
-		main = new VBox(cusheader, logoutbtn, bookingscontainer);
-		sp.getStyleClass().add("scroll-pane");
-		main.setId("bookings-main");
-
-		sp.setContent(main);
-
-		Scene scene = new Scene(sp);
+		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 
 		stage.setScene(scene);
