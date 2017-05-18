@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -52,9 +53,10 @@ public class AdminView {
 
 		// Heading
 		Text h1 = new Text("Administration Panel");
-		h1.getStyleClass().add("main-heading");
+
 		HBox bookingstitle = new HBox(h1);
 		bookingstitle.setId("bookingstitle");
+		
 		Button addbtn = new Button("Add Business");
 		addbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -62,9 +64,7 @@ public class AdminView {
 				// TODO : Implement add bus btn
 			}
 		});
-
-		// addbtn.setId("switchbtn"); // TODO set appropriate css
-
+		addbtn.getStyleClass().add("orangebtn");
 
 		// Logout button
 		Button logoutbtn = new Button("Logout");
@@ -110,7 +110,7 @@ public class AdminView {
 
 			});
 			delBusBtn.setAlignment(Pos.CENTER_RIGHT);
-			delBusBtn.getStyleClass().add("btn");
+			delBusBtn.getStyleClass().add("delete-btn");
 
 			VBox bus = new VBox(busName, contactNo, address);
 			HBox busBox = new HBox(bus, delBusBtn);
@@ -125,17 +125,25 @@ public class AdminView {
 
 
 		// Layout
-		HBox bookingscontainer = new HBox(businessList);
-		bookingscontainer.setId("bookings-container");
+		h1.getStyleClass().add("main-heading");
+		header.setId("headerbox");
+		businessList.setId("bookings-main");
+		
+		ScrollPane body = new ScrollPane(businessList);
+		// Border not showing up, no idea why
+		body.setId("mainPageVBox");
+		body.getStyleClass().add("scroll-pane");
+		body.setStyle("-fx-border-width: 10; -fx-border-color: #ff8833;");
 
-		VBox main = new VBox(header, bookingscontainer);
+		VBox page = new VBox(header, businessList);
+		
+		page.setId("border");
+		page.getStyleClass().add("loginpageBox");
 
-		// Create the stage and apply css
-		sp.getStyleClass().add("scroll-pane");
-		main.setId("bookings-main");
+		StackPane pane = new StackPane(page);
+		pane.getChildren().addAll();
 
-		sp.setContent(main);
-		Scene scene = new Scene(sp);
+		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 
 		stage.setScene(scene);
