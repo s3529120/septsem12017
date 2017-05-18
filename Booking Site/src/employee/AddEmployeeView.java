@@ -23,6 +23,8 @@ import menu.MainMenuView;
 import service.TypeController;
 import service.TypeView;
 import utils.AppData;
+import utils.ColourController;
+import utils.Colour;
 
 public class AddEmployeeView {
 	public Stage stage;
@@ -328,6 +330,21 @@ public class AddEmployeeView {
 		pane.getChildren().addAll();
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+		//if (ColourController.getAccountColour(AppData.CALLER.getUsername())) {
+		/*
+			System.out.println("The theme color is");
+			System.out.println(AppData.colour);
+			String themeLocal = "/resources/display/css/" + AppData.colour + ".css";
+			scene.getStylesheets().add(getClass().getResource(themeLocal).toExternalForm());
+			*/
+		//}
+		System.out.println("The theme color is");
+		System.out.println(AppData.colour);
+		if (AppData.colour == Colour.BLUE) {
+			scene.getStylesheets().add(getClass().getResource("/resources/display/css/scheme1.css").toExternalForm());
+		} else if (AppData.colour == Colour.RED) {
+			scene.getStylesheets().add(getClass().getResource("/resources/display/css/scheme2.css").toExternalForm());
+		}
 		stage.setScene(scene);
 		stage.show();
 

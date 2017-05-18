@@ -51,6 +51,7 @@ public class ColourController
       dbcont.closeConnection();
       return true;
    }
+   
    public static Colour colFromString(String col){
       switch(col){
          case "RED":

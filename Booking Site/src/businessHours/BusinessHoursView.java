@@ -354,6 +354,12 @@ public class BusinessHoursView
 
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+		if (ColourController.getAccountColour(AppData.CALLER.getUsername())) {
+			System.out.println("The theme color is");
+			System.out.println(AppData.colour);
+			String themeLocal = "/resources/display/css/" + AppData.colour + ".css";
+			scene.getStylesheets().add(getClass().getResource(themeLocal).toExternalForm());
+		}
 		stage.setScene(scene);
 		stage.show();
 	}
