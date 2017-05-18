@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -73,7 +74,7 @@ public class AdminView {
 		addbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				// TODO : Implement add bus btn
+				addBusiness(cont);
 			}
 		});
 		addbtn.getStyleClass().add("orangebtn");
@@ -107,12 +108,6 @@ public class AdminView {
 			Text contactNo = new Text("Phone No: " + business.getContactNo().toString());
 			Text address = new Text("Address: " + business.getAddress().toString());
 
-			/* Create a confirmation popup window. 
-			 *  (in reality all this delete button does is create that popup,
-			 *  the business is only deleted when the delete button is pressed there. 
-			 */
-			
-			
 			// Delete business button
 			Button delBusBtn = new Button("Delete Business");
 			delBusBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -204,6 +199,38 @@ public class AdminView {
 		buttons.setAlignment(Pos.CENTER);
 		message.setTextAlignment(TextAlignment.CENTER);
 		pane.getChildren().addAll(all);
+
+		// Set scene for making booking
+		pane.setId("pop-up");
+		Scene scene = new Scene(pane);
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+		popup.setScene(scene);
+		popup.show();
+	}
+	
+	public void addBusiness(AdminController cont) {
+		Stage popup = new Stage();
+		popup.initModality(Modality.WINDOW_MODAL);
+		popup.initOwner(cont.getView().stage);
+		StackPane pane = new StackPane();
+		
+		Text h1 = new Text("Add a Business");
+		
+		// Add business form
+//		String Busname,String Password,String Name,
+//		String ContactNo,String Address, String Email
+		
+		// Business name
+		TextField busnametxtfield = new TextField();
+		busnametxtfield.setPromptText("Business name");
+		busnametxtfield.setId("form");
+		busnametxtfield.setAlignment(Pos.CENTER);
+		
+		// Add to pane
+		//VBox all = new VBox(20, message, buttons);
+		//buttons.setAlignment(Pos.CENTER);
+		//message.setTextAlignment(TextAlignment.CENTER);
+		//pane.getChildren().addAll(all);
 
 		// Set scene for making booking
 		pane.setId("pop-up");
