@@ -130,10 +130,8 @@ public class AdminView {
 		businessList.setId("bookings-main");
 		
 		ScrollPane body = new ScrollPane(businessList);
-		// Border not showing up, no idea why
-		body.setId("mainPageVBox");
 		body.getStyleClass().add("scroll-pane");
-		body.setStyle("-fx-border-width: 10; -fx-border-color: #ff8833;");
+		body.setId("mainPageVBox");
 
 		VBox page = new VBox(header, businessList);
 		
