@@ -106,7 +106,8 @@ public class AdminView {
 
 		busList.forEach(business -> {
 			// Display business data
-			Text busName = new Text("Business: " + business.getBusinessName().toString());
+			Text busName = new Text(business.getBusinessName().toString());
+			busName.setStyle("-fx-font-weight: bold;");
 			Text contactNo = new Text("Phone No: " + business.getContactNo().toString());
 			Text address = new Text("Address: " + business.getAddress().toString());
 
@@ -210,6 +211,11 @@ public class AdminView {
 		popup.show();
 	}
 
+	/**
+	 * Pop up for adding a new business
+	 * 
+	 * @param cont
+	 */
 	public void addBusiness(AdminController cont) {
 		Stage popup = new Stage();
 		popup.initModality(Modality.WINDOW_MODAL);
@@ -278,8 +284,9 @@ public class AdminView {
 				popup.close();
 			}
 		});
-		cancel.getStyleClass().add("orangebtn-small");
+		cancel.getStyleClass().add("redbtn-small");
 
+		// Submit button
 		Button submit = new Button("Submit");
 		submit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -287,7 +294,7 @@ public class AdminView {
 				if (cont.addBusiness(usertxtfield.getText().toString(), pwordfield.getText().toString(),
 						pnametxtfield.getText().toString(), numtxtfield.getText().toString(),
 						addtxtfield.getText().toString(), mailtxtfield.getText().toString())) {
-					
+
 					// Confirm text
 					Text conftxt = new Text("Add business Confirmed!");
 					// Close button
@@ -314,11 +321,10 @@ public class AdminView {
 		});
 		submit.getStyleClass().add("orangebtn-small");
 
-		HBox buttons = new HBox(10, submit, cancel);
-
-		VBox all = new VBox(15, h1, dets, buttons);
-
 		// Set scene for add business
+		h1.setId("bookingsh1");
+		HBox buttons = new HBox(10, submit, cancel);
+		VBox all = new VBox(15, h1, dets, buttons);
 		pane.getChildren().addAll(all);
 		pane.setId("pop-up");
 		Scene scene = new Scene(pane);
