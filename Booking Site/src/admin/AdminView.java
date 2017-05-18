@@ -1,25 +1,37 @@
 package admin;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import accounts.AccountController;
 import accounts.AdminAccountModel;
 import accounts.BusinessAccountModel;
+import accounts.UserAccountModel;
 import admin.AdminController;
+import booking.BookingController;
 import booking.BookingModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import menu.MainMenuController;
 import menu.MainMenuView;
+import service.TypeController;
+import service.TypeModel;
+import service.TypeView;
 import utils.AppData;
 
 public class AdminView {
@@ -99,16 +111,17 @@ public class AdminView {
 			 *  (in reality all this delete button does is create that popup,
 			 *  the business is only deleted when the delete button is pressed there. 
 			 */
-
+			
+			
+			// Delete business button
 			Button delBusBtn = new Button("Delete Business");
-			delBusBtn.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			delBusBtn.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
-				public void handle(MouseEvent e) {
-					AdminController.delBusiness(business.getUsername().toString());
-					updateView();
+				public void handle(ActionEvent e) {
+					confirmDelete(business, cont);
 				}
-
 			});
+			
 			delBusBtn.setAlignment(Pos.CENTER_RIGHT);
 			delBusBtn.getStyleClass().add("delete-btn");
 
@@ -146,6 +159,58 @@ public class AdminView {
 
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	/**
+	 * Delete business confirmation pop up
+	 * @param business
+	 * @param adcont
+	 */
+	public void confirmDelete(BusinessAccountModel business, AdminController adcont) {
+		Stage popup = new Stage();
+		popup.initModality(Modality.WINDOW_MODAL);
+		popup.initOwner(adcont.getView().stage);
+		StackPane pane = new StackPane();
+
+		String busname = business.getBusinessName().toString();
+		
+		Text message = new Text("You are about to delete " + busname + ".\n Are you sure?");
+		
+		Button confirm = new Button("Confirm");
+		confirm.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				AdminController.delBusiness(business.getUsername().toString());
+				popup.close();
+				cont.updateView();
+			}
+		});
+		confirm.getStyleClass().add("orangebtn-small");
+
+		// Cancel button
+		Button cancel = new Button("Cancel");
+		cancel.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				popup.close();
+			}
+		});
+		cancel.getStyleClass().add("redbtn-small");
+
+		HBox buttons = new HBox(10, confirm, cancel);
+
+		// Add to pane
+		VBox all = new VBox(20, message, buttons);
+		buttons.setAlignment(Pos.CENTER);
+		message.setTextAlignment(TextAlignment.CENTER);
+		pane.getChildren().addAll(all);
+
+		// Set scene for making booking
+		pane.setId("pop-up");
+		Scene scene = new Scene(pane);
+		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+		popup.setScene(scene);
+		popup.show();
 	}
 
 }
