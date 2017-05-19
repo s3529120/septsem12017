@@ -11,6 +11,7 @@ import java.util.Map;
 
 import booking.BookingController;
 import javafx.scene.text.Text;
+import utils.AppData;
 import utils.DatabaseController;
 import utils.DatabaseModel;
 import javafx.scene.layout.HBox;
@@ -85,7 +86,7 @@ public class AvailabilitiesController
 	 */
 	public Map<String,String> getEmployees(){
 		EmployeeController empcont = new EmployeeController();
-		return empcont.getEmployees();
+		return empcont.getEmployees(AppData.CALLER.getUsername());
 	}
 
 	/**Call validateEntries to check that the fields for editing a roster are correct

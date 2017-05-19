@@ -2,6 +2,8 @@ package accounts;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import utils.DatabaseController;
 import utils.DatabaseModel;
@@ -64,4 +66,41 @@ public class BusinessAccountController extends AccountController
             dbCont.closeConnection();
             return acc;
    }
+   
+   /**Returns list of businesses
+    * @return Map<Name, Username>
+    */
+ public Map<String,String> getBusinesses(){
+    String sql="";
+    DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+    ResultSet res;
+    Map<String,String> bus = new HashMap<String,String>();
+
+    //Create database connection
+    dbcont.createConnection();
+    //Prepare and run sql
+    sql="SELECT * FROM Accounts WHERE Type='Business';";
+    dbcont.prepareStatement(sql);
+    res=dbcont.runSQLRes();
+
+    try
+    {
+       while(res.next()){
+          //Add returned businesses to list
+          bus.put(res.getString("Name"),res.getString("Username"));
+       }
+    }
+    catch (SQLException e)
+    {
+       return null;
+    }
+
+    //Close database connection
+    dbcont.closeConnection();
+    if (bus.isEmpty()) {
+       return null;
+    }
+    //Convert list of employees to array and return
+    return bus;
+ }
 }

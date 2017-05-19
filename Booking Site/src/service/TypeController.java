@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import utils.AppData;
 import utils.DatabaseController;
 import utils.DatabaseModel;
 
@@ -110,11 +111,12 @@ public class TypeController
 	   //Open database
 	   dbcont.createConnection();
 	   //Prepare statement
-	   sql="INSERT INTO Type(Type, Duration) Values(?,?);";
+	   sql="INSERT INTO Type(Type, Duration, Business) Values(?,?,?);";
 	   dbcont.prepareStatement(sql);
 	   try {
 		dbcont.getState().setString(1, typename);
 		dbcont.getState().setInt(2, duration);
+		dbcont.getState().setString(3, AppData.CALLER.getUsername());
 		//Run query
 		dbcont.runSQLUpdate();
 		//Return false on error
@@ -232,7 +234,8 @@ public class TypeController
       try
       {
          while(res.next()){
-            list.add(new TypeModel(res.getString("Type"),res.getInt("Duration")));
+            list.add(new TypeModel(res.getString("Type"),
+                                   res.getInt("Duration"),res.getString("Business")));
          }
       }
       //Catch errors
@@ -287,7 +290,7 @@ public class TypeController
       catch (SQLException e1)
       {
          dbcont.closeConnection();
-         list.add(new TypeModel("None",15));
+         list.add(new TypeModel("None",15,AppData.CALLER.getUsername()));
          e1.printStackTrace();
       }
       res=dbcont.runSQLRes();
@@ -296,14 +299,14 @@ public class TypeController
       try
       {
          while(res.next()){
-            list.add(new TypeModel(res.getString("Type"),res.getInt("Duration")));
+            list.add(new TypeModel(res.getString("Type"),res.getInt("Duration"),res.getString("Business")));
          }
       }
     //If error occurs return default "None" type
       catch (SQLException e)
       {
          dbcont.closeConnection();
-         list.add(new TypeModel("None",15));
+         list.add(new TypeModel("None",15,AppData.CALLER.getUsername()));
          e.printStackTrace();
       }
       

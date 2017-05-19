@@ -10,8 +10,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import accounts.UserAccountModel;
 import employee.EmployeeController;
 import service.TypeModel;
+import utils.AppData;
 import utils.DatabaseController;
 import utils.DatabaseModel;
 
@@ -34,7 +36,11 @@ public class BookingController
 
 	//Calls associated view to update window
 	public void updateView(){
-		view.updateView(getBookings());
+	   if(AppData.CALLER instanceof UserAccountModel){
+	      view.updateView(getBookings());
+	   }else{
+	      view.updateView(filterBookings(getBookings(), AppData.CALLER.getUsername(),null, null, null, null, null, null));
+	   }
 	}
 	public void updateView(List<BookingModel> bookings){
 	   view.updateView(bookings);
@@ -44,13 +50,30 @@ public class BookingController
 	   view.updateCusView();
 	}
 
-	/**Filter bookings based on attributes
+	/**Filter bookings based on given params
 	 * 
+	 * @param books
+	 * @param business
+	 * @param date
+	 * @param startTime
+	 * @param finishTime
+	 * @param employee
+	 * @param user
+	 * @param type
+	 * @return
 	 */
-	public List<BookingModel> filterBookings(List<BookingModel> books,LocalDate date,LocalTime startTime,LocalTime finishTime,String employee,String user,String type){
+	public List<BookingModel> filterBookings(List<BookingModel> books,String business,LocalDate date,
+	                 LocalTime startTime,LocalTime finishTime,String employee,String user,String type){
 		List<BookingModel> removes = new ArrayList<BookingModel>();
+		//Business
+      if(business!=null){
+         books.forEach(x->{
+            if(!(x.getBusiness().compareToIgnoreCase(business)==0)){
+               removes.add(x);
+            }
+         });
 		//Date
-		if(date!=null){
+      }if(date!=null){
 			books.forEach(x->{
 				if(!x.getDate().equals(date)){
 					removes.add(x);
@@ -163,7 +186,7 @@ public class BookingController
 		ResultSet res;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
 		LocalTime start,finish,focustime;
-		String emp;
+		String emp,bus;
 
 		//Open database connection
 		dbcont.createConnection();
@@ -187,7 +210,9 @@ public class BookingController
 		focus=booksCurrent;
 		//Date loop
 		while(focus.isAfter(booksUntil)==false){
-			sql="SELECT * FROM Availability WHERE Day=?;";
+			sql="SELECT Availability.StartTime AS StartTime, Availability.FinishTime AS FinishTime, " +
+			      "Availability.Email AS Email, Employee.Business AS Business FROM Availability INNER JOIN Employee " +
+			      "ON Availability.Email=Employee.Email WHERE Availability.Day=?;";
 			dbcont.prepareStatement(sql);
 
 			try
@@ -200,12 +225,13 @@ public class BookingController
 					start=LocalTime.parse(res.getString("StartTime"));
 					finish=LocalTime.parse(res.getString("FinishTime"));
 					emp=res.getString("Email");
+					bus=res.getString("Business");
 					focustime=start;
 
 					//Availability loop
 					while(focustime.isBefore(finish)){
-						sql="INSERT INTO Booking(Date,StartTime,FinishTime,EmployeeEmail,Type,Username) " +
-								"Values(?,?,?,?,?,?);";
+						sql="INSERT INTO Booking(Date,StartTime,FinishTime,EmployeeEmail,Type,Username,Business) " +
+								"Values(?,?,?,?,?,?,?);";
 						dbcont.prepareStatement(sql);
 						dbcont.getState().setString(1, focus.toString());
 						dbcont.getState().setString(2, focustime.toString());
@@ -213,6 +239,7 @@ public class BookingController
 						dbcont.getState().setString(4, emp);
 						dbcont.getState().setString(5, "None");
 						dbcont.getState().setString(6, "Unfilled");
+						dbcont.getState().setString(7, bus);
 						dbcont.runSQLUpdate();
 
 						//Increment appointment time
@@ -290,11 +317,12 @@ public class BookingController
 
 		days.forEach(x ->{
 			//Prepare and run sql
-			dbcont.prepareStatement("DELETE FROM Booking WHERE Date=? AND EmployeeEmail=?;");
+			dbcont.prepareStatement("DELETE FROM Booking WHERE Date=? AND EmployeeEmail=? AND Business=?;");
 			try
 			{
 				dbcont.getState().setString(1, x.toString());
 				dbcont.getState().setString(2, empemail);
+				dbcont.getState().setString(3, AppData.CALLER.getUsername());
 				dbcont.runSQLUpdate();
 			}
 			catch (SQLException e)
@@ -327,8 +355,8 @@ public class BookingController
 				//Loop through available hours creating bookings
 				while(focus.isBefore(finish)){
 					//Prepare and run sql
-					sql="INSERT INTO Booking(Date, StartTime, FinishTime, EmployeeEmail) " +
-							"Values(?,?,?,?);";
+					sql="INSERT INTO Booking(Date, StartTime, FinishTime, EmployeeEmail,Business) " +
+							"Values(?,?,?,?,?);";
 					dbcont.prepareStatement(sql);
 					try
 					{
@@ -336,6 +364,7 @@ public class BookingController
 						dbcont.getState().setString(2, focus.toString());
 						dbcont.getState().setString(3, focus.plusMinutes(15).toString());
 						dbcont.getState().setString(4, empemail.toString());
+						dbcont.getState().setString(5, AppData.CALLER.getUsername());
 						dbcont.runSQLUpdate();
 					}
 					catch (SQLException e) {}
@@ -432,6 +461,7 @@ public class BookingController
 				mod.setEmployee(res.getString("EmployeeEmail"));
 				mod.setType(res.getString("Type"));
 				mod.setUser(res.getString("Username"));
+				mod.setBusiness(res.getString("Business"));
 				//Check if filled
 				try{
 				   mod.setId(res.getInt("Id"));

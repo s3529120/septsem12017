@@ -128,9 +128,10 @@ public class EmployeeController
 		}
 		return false;
 	}
+	
 
 	//Returns array of employees
-	public Map<String,String> getEmployees(){
+	public Map<String,String> getAllEmployees(){
 		String sql="";
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		ResultSet res;
@@ -163,6 +164,49 @@ public class EmployeeController
 		//Convert list of employees to array and return
 		return emps;
 	}
+	
+	  //Returns array of employees
+   public Map<String,String> getEmployees(String bus){
+      String sql="";
+      DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+      ResultSet res;
+      Map<String,String> emps = new HashMap<String,String>();
+
+      //Create database connection
+      dbcont.createConnection();
+      //Prepare and run sql
+      sql="SELECT * FROM Employee WHERE Business=?;";
+      dbcont.prepareStatement(sql);
+      try
+      {
+         dbcont.getState().setString(1, bus);
+      }
+      catch (SQLException e1)
+      {
+         e1.printStackTrace();
+      }
+      res=dbcont.runSQLRes();
+
+      try
+      {
+         while(res.next()){
+            //Add returned employees to list
+            emps.put(res.getString("Name"),res.getString("Email"));
+         }
+      }
+      catch (SQLException e)
+      {
+         return null;
+      }
+
+      //Close database connection
+      dbcont.closeConnection();
+      if (emps.isEmpty()) {
+         return null;
+      }
+      //Convert list of employees to array and return
+      return emps;
+   }
 
 	/**Returns array of employee emails.
 	 * @return List of all employees email addresses.

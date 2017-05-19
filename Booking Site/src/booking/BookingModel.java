@@ -12,6 +12,7 @@ public class BookingModel {
 	private String user;
 	private String type;
 	private int id;
+	private String bus;
 	
 	//Constructor
 	public BookingModel(LocalDate date, LocalTime start, LocalTime finish){
@@ -74,5 +75,15 @@ public class BookingModel {
    public void setId(int id)
    {
       this.id = id;
+   }
+
+   public String getBusiness()
+   {
+      return bus;
+   }
+
+   public void setBusiness(String bus)
+   {
+      this.bus = bus;
    }
 }
