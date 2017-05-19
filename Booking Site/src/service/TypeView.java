@@ -60,6 +60,8 @@ public class TypeView {
 		unknown.forEach(x -> {
 			addbox.getItems().add(x.getName());
 		});
+		addbox.setId("form");
+		
 		Button addbtn = new Button("Add");
 		addbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -67,7 +69,9 @@ public class TypeView {
 				cont.addSpec(addbox.getSelectionModel().getSelectedItem());
 			}
 		});
-		VBox addVbox = new VBox(addlbl, addbox, addbtn);
+		addbtn.getStyleClass().add("orangebtn-small");
+		HBox addForm = new HBox(10, addbox, addbtn);
+		VBox addVbox = new VBox(addlbl, addForm);
 
 		// Remove
 		List<TypeModel> known = cont.getSetTypes();
@@ -76,6 +80,8 @@ public class TypeView {
 		known.forEach(x -> {
 			rembox.getItems().add(x.getName());
 		});
+		rembox.setId("form");
+		
 		Button rembtn = new Button("Remove");
 		rembtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -83,16 +89,20 @@ public class TypeView {
 				cont.removeSpec(rembox.getSelectionModel().getSelectedItem());
 			}
 		});
-		VBox remVbox = new VBox(remlbl, rembox, rembtn);
+		rembtn.getStyleClass().add("orangebtn-small");
+		HBox remForm = new HBox(10, rembox, rembtn);
+		VBox remVbox = new VBox(remlbl, remForm);
+		remVbox.getStyleClass().add("form-section");
 
 		// Done
-		Button done = new Button("Done");
+		Button done = new Button("Close");
 		done.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				stage.close();
 			}
 		});
+		done.getStyleClass().add("redbtn-small");
 
 		// Current specialisations list
 		String specString = "Currently consists of";
@@ -103,9 +113,11 @@ public class TypeView {
 		Text specText = new Text(specString);
 
 		// Set scene for type view
+		h1.setId("bookingsh1");
 		StackPane pane = new StackPane();
-		VBox all = new VBox(h1, specText, addVbox, remVbox, done);
+		VBox all = new VBox(20, h1, specText, addVbox, remVbox, done);
 		pane.getChildren().addAll(all);
+		pane.setId("pop-up");
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		stage.setScene(scene);

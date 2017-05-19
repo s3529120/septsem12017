@@ -114,7 +114,7 @@ public class AdminController {
 		}
 		if(!acont.checkUsername(Busname)) {
 			sql = "INSERT INTO Accounts(Username,Password,Name,Type,ContactNo,Email,Address) " 
-				+ "Values(?,?,?,?,?,?,?,?);";
+				+ "Values(?,?,?,?,?,?,?);";
 
 			dbcont.prepareStatement(sql);
 			try {

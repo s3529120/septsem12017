@@ -57,10 +57,10 @@ public class BusinessHoursController
          dbcont.getState().setString(2, dow.toString());
          res=dbcont.runSQLRes();
          //Get times and add to map
-         res.next();
+         while(res.next()){
          map.put("StartTime", res.getString("StartTime"));
          map.put("FinishTime", res.getString("FinishTime"));
-         
+         }
       }
       catch (SQLException e)
       {
