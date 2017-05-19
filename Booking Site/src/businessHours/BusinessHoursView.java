@@ -158,14 +158,13 @@ public class BusinessHoursView
 
 		Button colsub = new Button("Change Scheme");
 		// Register button
-		Button registerbtn = new Button("Register");
-		registerbtn.setOnAction(new EventHandler<ActionEvent>() {
+		colsub.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				ColourController.setAccountColour(AppData.CALLER.getUsername(), 
 						ColourController.colFromString(col.getSelectionModel().getSelectedItem()));
 				updateView(stage);
-				System.out.print(AppData.colour.toString());
+
 			}
 		});
 		HBox colsel = new HBox(col,colsub);
