@@ -164,6 +164,8 @@ public class BusinessHoursView
 			public void handle(ActionEvent e) {
 				ColourController.setAccountColour(AppData.CALLER.getUsername(), 
 						ColourController.colFromString(col.getSelectionModel().getSelectedItem()));
+				updateView(stage);
+				System.out.print(AppData.colour.toString());
 			}
 		});
 		HBox colsel = new HBox(col,colsub);
