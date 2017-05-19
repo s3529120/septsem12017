@@ -1,6 +1,7 @@
 package booking;
 
 import accounts.AccountController;
+import accounts.BusinessAccountController;
 import accounts.BusinessAccountModel;
 import accounts.UserAccountModel;
 import businessHours.BusinessHoursController;
@@ -209,6 +210,16 @@ public class BookingsView {
 		Text dText = new Text("Date");
 		VBox dBox = new VBox(dText,dpick);
 
+		//Business
+      BusinessAccountController bcont = new BusinessAccountController();
+      ComboBox<String> bpick = new ComboBox<String>();
+      Map<String,String> busmap;
+      busmap = bcont.getBusinesses();
+      bpick.getItems().addAll(busmap.keySet());
+      bpick.setId("form");
+      Text bText = new Text("Business");
+      VBox bBox = new VBox(bText,bpick);
+		
 		//StartTime
 		AvailabilitiesController acont = new AvailabilitiesController();
 		ComboBox<String> spick = new ComboBox<String>();
@@ -236,7 +247,12 @@ public class BookingsView {
 		//Employee
 		EmployeeController econt = new EmployeeController();
 		ComboBox<String> epick = new ComboBox<String>();
-		Map<String,String> empmap = econt.getEmployees();
+		Map<String,String> empmap;
+      if(AppData.CALLER instanceof UserAccountModel){
+         empmap = econt.getAllEmployees();
+      }else{
+         empmap = econt.getEmployees(AppData.CALLER.getUsername());
+      }
 		epick.getItems().addAll(empmap.keySet());
 		epick.setId("form");
 		Text eText = new Text("Employee");
@@ -253,22 +269,35 @@ public class BookingsView {
 		VBox uBox = new VBox(uText,upick);
 
 		//Submit
-		Button filterbtn = new Button("Filter");
-		filterbtn.getStyleClass().add("orangebtn");
-		filterbtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				updateView(cont.filterBookings(cont.getBookings(),dpick.getValue(), 
-						LocalTime.parse(spick.getSelectionModel().getSelectedItem()), 
-						LocalTime.parse(fpick.getSelectionModel().getSelectedItem()), 
-						epick.getSelectionModel().getSelectedItem(), 
-						upick.getSelectionModel().getSelectedItem(), 
-						tpick.getSelectionModel().getSelectedItem()));
-			}
-		});
-
-		HBox filterFields = new HBox(dBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
-		VBox filters = new VBox(filterHeading,filterFields,filterbtn);
+      Button filterbtn = new Button("Filter");
+      filterbtn.getStyleClass().add("orangebtn");
+      filterbtn.setOnAction(new EventHandler<ActionEvent>() {
+         @Override
+         public void handle(ActionEvent e) {
+            if(AppData.CALLER instanceof UserAccountModel){
+            updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(), 
+                  LocalTime.parse(spick.getSelectionModel().getSelectedItem()), 
+                  LocalTime.parse(fpick.getSelectionModel().getSelectedItem()), 
+                  epick.getSelectionModel().getSelectedItem(), 
+                  upick.getSelectionModel().getSelectedItem(), 
+                  tpick.getSelectionModel().getSelectedItem()));
+            }else{
+               updateView(cont.filterBookings(cont.getBookings(),null,dpick.getValue(), 
+                     LocalTime.parse(spick.getSelectionModel().getSelectedItem()), 
+                     LocalTime.parse(fpick.getSelectionModel().getSelectedItem()), 
+                     epick.getSelectionModel().getSelectedItem(), 
+                     upick.getSelectionModel().getSelectedItem(), 
+                     tpick.getSelectionModel().getSelectedItem()));
+            }
+         }
+      });
+      HBox filterFields;
+      if(AppData.CALLER instanceof UserAccountModel){
+         filterFields = new HBox(dBox,bBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+      }else{
+         filterFields = new HBox(dBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+      }
+      VBox filters = new VBox(filterHeading,filterFields,filterbtn);
 
 		// Heading
 		Text h1;
@@ -500,6 +529,16 @@ public class BookingsView {
 		dpick.setId("form");
 		Text dText = new Text("Date");
 		VBox dBox = new VBox(dText,dpick);
+		
+		//Business
+		   BusinessAccountController bcont = new BusinessAccountController();
+         ComboBox<String> bpick = new ComboBox<String>();
+         Map<String,String> busmap;
+         busmap = bcont.getBusinesses();
+         bpick.getItems().addAll(busmap.keySet());
+         bpick.setId("form");
+         Text bText = new Text("Business");
+         VBox bBox = new VBox(bText,bpick);
 
 		//StartTime
 		AvailabilitiesController acont = new AvailabilitiesController();
@@ -528,7 +567,12 @@ public class BookingsView {
 		//Employee
 		EmployeeController econt = new EmployeeController();
 		ComboBox<String> epick = new ComboBox<String>();
-		Map<String,String> empmap = econt.getEmployees();
+		Map<String,String> empmap;
+		if(AppData.CALLER instanceof UserAccountModel){
+		   empmap = econt.getAllEmployees();
+		}else{
+		   empmap = econt.getEmployees(AppData.CALLER.getUsername());
+		}
 		epick.getItems().addAll(empmap.keySet());
 		epick.setId("form");
 		Text eText = new Text("Employee");
@@ -550,16 +594,29 @@ public class BookingsView {
 		filterbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				updateView(cont.filterBookings(cont.getBookings(),dpick.getValue(), 
+			   if(AppData.CALLER instanceof UserAccountModel){
+				updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(), 
 						LocalTime.parse(spick.getSelectionModel().getSelectedItem()), 
 						LocalTime.parse(fpick.getSelectionModel().getSelectedItem()), 
 						epick.getSelectionModel().getSelectedItem(), 
 						upick.getSelectionModel().getSelectedItem(), 
 						tpick.getSelectionModel().getSelectedItem()));
+			   }else{
+			      updateView(cont.filterBookings(cont.getBookings(),null,dpick.getValue(), 
+			            LocalTime.parse(spick.getSelectionModel().getSelectedItem()), 
+			            LocalTime.parse(fpick.getSelectionModel().getSelectedItem()), 
+			            epick.getSelectionModel().getSelectedItem(), 
+			            upick.getSelectionModel().getSelectedItem(), 
+			            tpick.getSelectionModel().getSelectedItem()));
+			   }
 			}
 		});
-
-		HBox filterFields = new HBox(dBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+		HBox filterFields;
+		if(AppData.CALLER instanceof UserAccountModel){
+		   filterFields = new HBox(dBox,bBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+		}else{
+		   filterFields = new HBox(dBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+		}
 		VBox filters = new VBox(filterHeading,filterFields,filterbtn);
 
 		// Heading
@@ -910,7 +967,7 @@ public class BookingsView {
 
 		VBox bookingsList = new VBox(head);
 
-		List<BookingModel> bookings = cont.filterBookings(cont.getBookings(),
+		List<BookingModel> bookings = cont.filterBookings(cont.getBookings(),null,
 				null, null, null, null, 
 				AppData.CALLER.toString(), null);
 
