@@ -250,6 +250,7 @@ public class Seed {
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "None");
 			dataCont.getState().setInt(2, 15);
+			dataCont.getState().setString(3, "bus001");
          dataCont.runSQLUpdate();
          sql="INSERT INTO Type(Type,Duration,Business) Values(?,?,?);";
 			dataCont.prepareStatement(sql);
@@ -337,13 +338,13 @@ public class Seed {
 			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Cut','janeoliver@example.com');";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
-			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('None','johndoe@example.com');";
+			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('None','janeoliver@example.com');";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
-			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Style','johndoe@example.com');";
+			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Style','janeoliver@example.com');";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
-			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Cut and Style','johndoe@example.com');";
+			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Cut and Style','janeoliver@example.com');";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 
