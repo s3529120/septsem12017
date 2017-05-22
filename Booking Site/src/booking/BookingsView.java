@@ -33,6 +33,7 @@ import utils.AppData;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 //import java.awt.Insets;
 import java.util.HashMap;
@@ -205,7 +206,7 @@ public class BookingsView {
 		filterHeading.setId("bookingsh1");
 
 		//Date
-		DatePicker dpick = new DatePicker();
+		DatePicker dpick = new DatePicker(null);
 		dpick.setId("form");
 		Text dText = new Text("Date");
 		VBox dBox = new VBox(dText,dpick);
@@ -223,6 +224,7 @@ public class BookingsView {
 		//StartTime
 		AvailabilitiesController acont = new AvailabilitiesController();
 		ComboBox<String> spick = new ComboBox<String>();
+		spick.getItems().add("none");
 		spick.getItems().addAll(acont.getPossibleTimes());
 		spick.setId("form");
 		Text sText = new Text("Start Time");
@@ -230,6 +232,7 @@ public class BookingsView {
 
 		//FinishTime
 		ComboBox<String> fpick = new ComboBox<String>();
+		spick.getItems().add("none");
 		spick.getItems().addAll(acont.getPossibleTimes());
 		fpick.setId("form");
 		Text fText = new Text("Finish Time");
@@ -237,6 +240,7 @@ public class BookingsView {
 
 		//Type
 		ComboBox<String> tpick = new ComboBox<String>();
+		tpick.getItems().add("none");
 		TypeController.getAllTypes().forEach(x->{
 			tpick.getItems().add(x.getName());
 		});
@@ -247,6 +251,7 @@ public class BookingsView {
 		//Employee
 		EmployeeController econt = new EmployeeController();
 		ComboBox<String> epick = new ComboBox<String>();
+		epick.getItems().add("none");
 		Map<String,String> empmap;
       if(AppData.CALLER instanceof UserAccountModel){
          empmap = econt.getAllEmployees();
@@ -261,6 +266,7 @@ public class BookingsView {
 		//User
 		AccountController ucont = new AccountController();
 		ComboBox<String> upick = new ComboBox<String>();
+		upick.getItems().add("none");
 		ucont.getAllCustomers().forEach(x->{
 			upick.getItems().add(x.getName());
 		});
@@ -276,15 +282,15 @@ public class BookingsView {
          public void handle(ActionEvent e) {
             if(AppData.CALLER instanceof UserAccountModel){
             updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(), 
-                  LocalTime.parse(spick.getSelectionModel().getSelectedItem()), 
-                  LocalTime.parse(fpick.getSelectionModel().getSelectedItem()), 
+                  spick.getSelectionModel().getSelectedItem(), 
+                  fpick.getSelectionModel().getSelectedItem(), 
                   epick.getSelectionModel().getSelectedItem(), 
                   upick.getSelectionModel().getSelectedItem(), 
                   tpick.getSelectionModel().getSelectedItem()));
             }else{
                updateView(cont.filterBookings(cont.getBookings(),null,dpick.getValue(), 
-                     LocalTime.parse(spick.getSelectionModel().getSelectedItem()), 
-                     LocalTime.parse(fpick.getSelectionModel().getSelectedItem()), 
+                     spick.getSelectionModel().getSelectedItem(), 
+                     fpick.getSelectionModel().getSelectedItem(), 
                      epick.getSelectionModel().getSelectedItem(), 
                      upick.getSelectionModel().getSelectedItem(), 
                      tpick.getSelectionModel().getSelectedItem()));
@@ -596,15 +602,15 @@ public class BookingsView {
 			public void handle(ActionEvent e) {
 			   if(AppData.CALLER instanceof UserAccountModel){
 				updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(), 
-						LocalTime.parse(spick.getSelectionModel().getSelectedItem()), 
-						LocalTime.parse(fpick.getSelectionModel().getSelectedItem()), 
+						spick.getSelectionModel().getSelectedItem(), 
+						fpick.getSelectionModel().getSelectedItem(), 
 						epick.getSelectionModel().getSelectedItem(), 
 						upick.getSelectionModel().getSelectedItem(), 
 						tpick.getSelectionModel().getSelectedItem()));
 			   }else{
 			      updateView(cont.filterBookings(cont.getBookings(),null,dpick.getValue(), 
-			            LocalTime.parse(spick.getSelectionModel().getSelectedItem()), 
-			            LocalTime.parse(fpick.getSelectionModel().getSelectedItem()), 
+			            spick.getSelectionModel().getSelectedItem(), 
+			            fpick.getSelectionModel().getSelectedItem(), 
 			            epick.getSelectionModel().getSelectedItem(), 
 			            upick.getSelectionModel().getSelectedItem(), 
 			            tpick.getSelectionModel().getSelectedItem()));
@@ -948,7 +954,7 @@ public class BookingsView {
 		});
 		mybookbtn.getStyleClass().add("orangebtn");
 
-		HBox cusheader = new HBox(10, heading, availbtn,mybookbtn, logoutbtn);
+		HBox cusheader = new HBox(10, heading, availbtn, mybookbtn, logoutbtn);
 		cusheader.setId("headerbox");
 
 		// Heading
@@ -1027,20 +1033,23 @@ public class BookingsView {
 			bookingsList.getChildren().add(bookingBox);
 
 		});
+		
+		// Set layout
+		bookingsList.setId("bookings-main");
+		
+		ScrollPane body = new ScrollPane(bookingsList);
+		body.setId("mainPageVBox");
+		body.getStyleClass().add("scroll-pane");
 
-		HBox bookingscontainer = new HBox(bookingsList);
-		bookingscontainer.setId("bookings-container");
+		VBox page = new VBox(cusheader, body);
+		
+		page.setId("border");
+		page.getStyleClass().add("loginpageBox");
 
-		VBox main;
+		StackPane pane = new StackPane(page);
+		pane.getChildren().addAll();
 
-		// Change header menu based on account type
-		main = new VBox(cusheader, logoutbtn, bookingscontainer);
-		sp.getStyleClass().add("scroll-pane");
-		main.setId("bookings-main");
-
-		sp.setContent(main);
-
-		Scene scene = new Scene(sp);
+		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 
 		stage.setScene(scene);

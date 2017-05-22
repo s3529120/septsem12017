@@ -158,12 +158,13 @@ public class BusinessHoursView
 
 		Button colsub = new Button("Change Scheme");
 		// Register button
-		Button registerbtn = new Button("Register");
-		registerbtn.setOnAction(new EventHandler<ActionEvent>() {
+		colsub.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				ColourController.setAccountColour(AppData.CALLER.getUsername(), 
 						ColourController.colFromString(col.getSelectionModel().getSelectedItem()));
+				updateView(stage);
+
 			}
 		});
 		HBox colsel = new HBox(col,colsub);
@@ -354,6 +355,12 @@ public class BusinessHoursView
 
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+		if (ColourController.getAccountColour(AppData.CALLER.getUsername())) {
+			System.out.println("The theme color is");
+			System.out.println(AppData.colour);
+			String themeLocal = "/resources/display/css/" + AppData.colour + ".css";
+			scene.getStylesheets().add(getClass().getResource(themeLocal).toExternalForm());
+		}
 		stage.setScene(scene);
 		stage.show();
 	}

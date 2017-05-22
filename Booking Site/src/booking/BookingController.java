@@ -63,10 +63,11 @@ public class BookingController
 	 * @return
 	 */
 	public List<BookingModel> filterBookings(List<BookingModel> books,String business,LocalDate date,
-	                 LocalTime startTime,LocalTime finishTime,String employee,String user,String type){
+	                 String starttime,String finishtime,String employee,String user,String type){
 		List<BookingModel> removes = new ArrayList<BookingModel>();
+		LocalTime startTime,finishTime;
 		//Business
-      if(business!=null){
+      if(business!=null && business.compareToIgnoreCase("none")!=0){
          books.forEach(x->{
             if(!(x.getBusiness().compareToIgnoreCase(business)==0)){
                removes.add(x);
@@ -80,35 +81,47 @@ public class BookingController
 				}
 			});
 			//StartTime
-		}if(startTime!=null){
+      }try{
+         startTime=LocalTime.parse(starttime);
+		if(startTime!=null && starttime.compareToIgnoreCase("none")!=0){
 			books.forEach(x->{
 				if(!x.getStartTime().isAfter(startTime)){
 					removes.add(x);
 				}
 			});
+		}
+		}catch(Exception e){
+		   
+		}
 			//Finish Time
-		}if(finishTime!=null){
+      try{
+         finishTime=LocalTime.parse(finishtime);
+		if(finishTime!=null && finishtime.compareToIgnoreCase("none")!=0){
 			books.forEach(x->{
 				if(!x.getFinishTime().isBefore(finishTime)){
 					removes.add(x);
 				}
 			});
+		}}catch(Exception e){
+		   
+		}
 			//Employee
-		}if(employee!=null){
+		   if(employee!=null && employee.compareToIgnoreCase("none")!=0){
+		
 			books.forEach(x->{
 				if(!(x.getEmployee().compareToIgnoreCase(employee)==0)){
 					removes.add(x);
 				}
 			});
 			//User
-		}if(user!=null){
+		}if(user!=null && user.compareToIgnoreCase("none")!=0){
 			books.forEach(x->{
 				if(!(x.getUser().compareToIgnoreCase(user)==0)){
 					removes.add(x);
 				}
 			});
 			//Type
-		}if(type!=null){
+		}if(type!=null && type.compareToIgnoreCase("none")!=0){
 			books.forEach(x->{
 				if(!(x.getType().compareToIgnoreCase(type)==0)){
 					removes.add(x);

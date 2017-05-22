@@ -264,4 +264,29 @@ public class AvailabilitiesController
 			endBox.getSelectionModel().selectFirst();
 		}
 	}
+	
+	public Map<String,String> getTradingHours(DayOfWeek dow){
+	   DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+	   String sql="";
+	   ResultSet res;
+	   Map<String,String> map=new HashMap<String,String>();
+	   
+	   dbcont.createConnection();
+	   sql="SELECT StartTime, FinishTime FROM Trading WHERE Business=? AND Day=?";
+	   try
+      {
+         dbcont.getState().setString(1, AppData.CALLER.getUsername());
+         dbcont.getState().setString(2, dow.toString());
+         res=dbcont.runSQLRes();
+         map.put("StartTime", res.getString("StartTime"));
+         map.put("FinishTime", res.getString("FinishTime"));
+      }
+      catch (SQLException e)
+      {
+         // TODO Auto-generated catch block
+         map.put("StartTime", "00;00");
+         map.put("FinishTime", "00;00");
+      }
+	   return map;
+	}
 }
