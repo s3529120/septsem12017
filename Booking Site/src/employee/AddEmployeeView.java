@@ -55,7 +55,7 @@ public class AddEmployeeView {
 	public void updateView() {
 
 		// Header init
-		Text heading = new Text("Booking Site");
+		Text heading = new Text(AppData.CALLER.getName());
 		heading.getStyleClass().add("main-heading");
 
 		// View Bookings

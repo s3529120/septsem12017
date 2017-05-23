@@ -45,6 +45,9 @@ public class BookingController
 	public void updateView(List<BookingModel> bookings){
 	   view.updateView(bookings);
 	}
+	public void updateView(String busname){
+		view.updateView(getBookings());
+	}
 	
 	public void updateCusView(){
 	   view.updateCusView();
