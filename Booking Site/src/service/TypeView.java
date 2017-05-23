@@ -129,7 +129,7 @@ public class TypeView {
 	 */
 	public void updateTypeView() {
 		// Header init
-		Text heading = new Text("Booking Site");
+		Text heading = new Text(AppData.CALLER.getName());
 		heading.getStyleClass().add("main-heading");
 
 		// View Bookings

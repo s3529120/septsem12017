@@ -392,7 +392,7 @@ public class BookingsView {
 	public void updateViewPast(List<BookingModel> bookings) {
 
 		// Header init
-		Text heading = new Text("Booking Site");
+		Text heading = new Text(AppData.CALLER.getName());
 		heading.getStyleClass().add("main-heading");
 
 		// View Bookings
@@ -847,7 +847,7 @@ public class BookingsView {
 		sp = new ScrollPane();
 
 		// Header init
-		Text heading = new Text("Booking Site");
+		Text heading = new Text(AppData.CALLER.getName());
 		heading.getStyleClass().add("main-heading");
 		// Logout button
 		Button logoutbtn = new Button("Logout");
