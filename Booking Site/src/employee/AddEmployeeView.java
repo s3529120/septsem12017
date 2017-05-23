@@ -1,13 +1,11 @@
 package employee;
 
-import accounts.BusinessAccountModel;
 import booking.BookingController;
 import booking.BookingsView;
 import businessHours.BusinessHoursController;
 import businessHours.BusinessHoursView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,7 +21,6 @@ import menu.MainMenuView;
 import service.TypeController;
 import service.TypeView;
 import utils.AppData;
-import utils.ColourController;
 import utils.Colour;
 
 public class AddEmployeeView {

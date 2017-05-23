@@ -252,7 +252,7 @@ buttonbox {
 /* BOOKINGS VIEW */
 
 .scroll-pane > .viewport {
-   -fx-background-color: transparent;
+	-fx-background-color: transparent;
 }
 
 #switchbtn {
@@ -319,4 +319,31 @@ buttonbox {
 	-fx-padding: 10;
     -fx-background-color: #E0E4CC;
     -fx-font-size: 15pt;
+}
+
+/* ADMIN VIEW */
+
+.delete-btn {
+	-fx-background-color: #ff8833;
+	-fx-padding: 10 15 10 15;
+	-fx-font-size: 15px;
+	-fx-border-color: #ffb580;
+    -fx-border-width: 3;
+    -fx-pref-width: 150px;
+}
+
+.redbtn-small {	
+	-fx-background-color: #ff4d4d;
+	-fx-padding: 10 15 10 15;
+	-fx-font-size: 25px;
+	-fx-border-color: #ff9999;
+    -fx-border-width: 3;
+    -fx-pref-width: 150px;	
+}
+
+/* EDIT SPECIALIZATION */
+
+.form-section {
+	-fx-background-color: #E0E4CC;
+	-fx-padding: 10px;
 }

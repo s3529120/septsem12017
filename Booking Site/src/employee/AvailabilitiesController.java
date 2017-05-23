@@ -11,6 +11,7 @@ import java.util.Map;
 
 import booking.BookingController;
 import javafx.scene.text.Text;
+import utils.AppData;
 import utils.DatabaseController;
 import utils.DatabaseModel;
 import javafx.scene.layout.HBox;
@@ -85,7 +86,7 @@ public class AvailabilitiesController
 	 */
 	public Map<String,String> getEmployees(){
 		EmployeeController empcont = new EmployeeController();
-		return empcont.getEmployees();
+		return empcont.getEmployees(AppData.CALLER.getUsername());
 	}
 
 	/**Call validateEntries to check that the fields for editing a roster are correct
@@ -262,5 +263,30 @@ public class AvailabilitiesController
 		} else {
 			endBox.getSelectionModel().selectFirst();
 		}
+	}
+	
+	public Map<String,String> getTradingHours(DayOfWeek dow){
+	   DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+	   String sql="";
+	   ResultSet res;
+	   Map<String,String> map=new HashMap<String,String>();
+	   
+	   dbcont.createConnection();
+	   sql="SELECT StartTime, FinishTime FROM Trading WHERE Business=? AND Day=?";
+	   try
+      {
+         dbcont.getState().setString(1, AppData.CALLER.getUsername());
+         dbcont.getState().setString(2, dow.toString());
+         res=dbcont.runSQLRes();
+         map.put("StartTime", res.getString("StartTime"));
+         map.put("FinishTime", res.getString("FinishTime"));
+      }
+      catch (SQLException e)
+      {
+         // TODO Auto-generated catch block
+         map.put("StartTime", "00;00");
+         map.put("FinishTime", "00;00");
+      }
+	   return map;
 	}
 }
