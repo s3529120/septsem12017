@@ -1,0 +1,97 @@
+.button-blue {
+	-fx-background-color: #7CAFC2;
+	-fx-text-fill: #FFF;
+}
+
+.regbox {
+    -fx-border-color: red black green yellow;
+}
+
+
+/* Add Employee */
+
+.redbtn {
+	-fx-background-color: #FF674E;
+}
+
+.bluebtn {
+	-fx-background-color: #3BF1FF;
+}
+
+/* MAIN */
+
+#border {
+	-fx-background-color: #74d1e1;
+	-fx-background-image: url("/resources/display/images/stripes1.png");
+}
+
+#headerBox {
+    -fx-border-color: #ff8833;
+    -fx-background-color: red;
+}
+
+#mainPageVBox {
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
+}
+
+/* MAIN MENU */
+
+#mainMenuVBox {
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
+}
+
+#mainRegisterVBox {
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
+}
+
+/* FORM */
+
+#form {
+    -fx-background-color: white;
+	-fx-border-color: #F38630;
+}
+
+#incorrectForm {
+    -fx-background-color: white;
+	-fx-border-color: red;
+}
+
+.orangebtn {
+	-fx-background-color: #ff8833;
+	-fx-border-color: #ffb580;
+}
+
+.orangebtn-small {
+	-fx-background-color: #ff8833;
+	-fx-border-color: #ffb580;
+}
+
+.linkbtn {
+    -fx-text-stroke: #0000FF;
+    -fx-text-fill: #0000FF;
+}
+
+/* BOOKINGS VIEW */
+
+.scroll-pane > .viewport {
+    -fx-background-color: #74d1e1;
+	-fx-background-image: url("/view/images/stripes.png");
+}
+
+#bookingBox {
+	-fx-border-color: #000;
+}
+
+#bookings-container {
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
+}
+
+/* MAKE A BOOKING */
+
+#pop-up {
+    -fx-background-color: #E0E4CC;
+}
