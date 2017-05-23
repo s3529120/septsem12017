@@ -102,7 +102,7 @@ public class LoginController {
 		            bcont.getView().setController(bcont);
 		            AppData.CALLER=acc;
 		            ColourController.getAccountColour(acc.getUsername());
-		            bcont.updateView();
+		            bcont.updateView(acc.getName());
 				}else{
 					AdminController admcont = new AdminController();
 					admcont.setView(new AdminView(view.stage));
