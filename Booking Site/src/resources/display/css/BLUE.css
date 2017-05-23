@@ -1,0 +1,349 @@
+.root {
+	-fx-font-size: 12pt;
+}
+
+.button {
+	-fx-background-radius: 5;
+}
+
+.button-blue {
+	-fx-background-radius: 0;
+	-fx-background-color: #7CAFC2;
+	-fx-text-fill: #FFF;
+}
+
+.vbox {
+	-fx-padding: 25 20 20 50;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    -fx-pref-width: 400;
+    -fx-pref-width: 200;
+	-fx-max-height: 200;
+}
+
+.daybox {
+	-fx-padding: 5 5 5 5;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    -fx-pref-width: 400;
+    -fx-pref-width: 200;
+	-fx-max-height: 200;
+}
+
+.regbox {
+	-fx-padding: 20px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+	-fx-pref-width: 240;
+	-fx-max-height: 240;
+	-fx-border-width: 0 2 0 0; 
+    -fx-border-color: red black green yellow;
+}
+
+.loginpageBox {
+	-fx-padding: 15 35 0 50;
+    -fx-spacing: 10;
+}
+
+.editavailBox {
+	-fx-pref-width: 380;
+	-fx-pref-height: 400;
+	-fx-padding: 15 35 0 50;
+    -fx-spacing: 10;
+}
+
+#registerbtn {
+	-fx-padding: 25 25 25 25;
+	-fx-background-insets: 15 0 15 0;
+}
+
+#largebtn {
+	-fx-padding: 25 25 25 25;
+	-fx-background-insets: 15 0 15 0;
+}
+
+#menubtn {
+	-fx-padding: 25 25 25 25;
+	-fx-background-insets: 15 10 15 10;
+}
+
+#logoutbtn {
+	-fx-padding: 25 25 25 25;
+	-fx-background-insets: 15 10 15 10;
+    -fx-border-insets: 15 500 15 0;
+}
+
+#heading {
+	-fx-font-size: 15pt;
+}
+
+#loginbtn {
+	-fx-padding: 15;
+	-fx-background-insets: 10 0 10 0;	
+}
+
+#errorLabel {
+	-fx-padding: 15 35 0 50;
+	-fx-font-size: 11pt;
+}
+
+#menubox {
+	-fx-padding: 25 20 20 250;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
+#logoutbox {
+	-fx-padding: 0 0 0 250;
+}
+buttonbox {
+}
+
+
+/* Add Employee */
+
+.redbtn {
+	-fx-padding: 15;
+	-fx-background-insets: 10 0 10 0;
+	-fx-background-color: #FF674E;
+}
+
+.bluebtn {
+	-fx-padding: 15;
+	-fx-background-insets: 10 0 10 0;
+	-fx-background-color: #3BF1FF;
+}
+
+.textField {
+	-fix-pref-width: 200;
+}
+
+.addEmpVbox {
+	-fx-padding: 25 20 20 50;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    -fx-pref-width: 400;
+    -fx-pref-width: 400;
+	-fx-max-height: 400;
+}
+
+#empAddressVbox {
+	
+	-fx-padding: 120 20 20 50;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    -fx-pref-width: 400;
+    -fx-pref-width: 400;
+	-fx-max-height: 400;
+}
+
+#addEmpPageBox {
+	-fx-padding: 5;
+    -fx-spacing: 5;
+}
+
+/* MAIN */
+
+#border {
+	-fx-background-color: #74d1e1;
+	-fx-background-image: url("/view/images/stripes.png");
+    -fx-background-repeat: repeat;   
+}
+
+#headerBox {
+    -fx-padding: 20;
+    -fx-border-color: #ff8833;
+    -fx-border-width: 10;
+    -fx-background-color: red;
+}
+
+.pageheading {
+	-fx-font-size: 35px;
+	-fx-padding: 0 0 25 0;
+	-fx-max-width: 300px;
+}
+
+#mainPageVBox {
+    -fx-padding: 10;
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
+    -fx-border-width: 10;
+    -fx-font-size: 15pt;
+}
+
+/* MAIN MENU */
+
+#mainMenuVBox {
+    -fx-alignment: center;
+    -fx-padding: 10;
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
+    -fx-border-width: 10;
+    -fx-font-size: 15pt;
+}
+
+#mainRegisterVBox {
+	-fx-alignment: center;
+    -fx-padding: 7;
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
+    -fx-border-width: 10;
+    -fx-font-size: 15pt;
+}
+
+.main-heading {
+	-fx-text-align: center;
+	-fx-font-size: 35px;
+	-fx-padding: 0 0 25 0;
+	-fx-max-width: 300px;
+}
+
+/* FORM */
+
+#form {
+	-fx-boder-radius: 0;
+    -fx-border-insets: 2px;
+    -fx-background-insets: 2px;
+    -fx-background-color: white;
+	-fx-font-size: 22px;
+	-fx-border-color: #F38630;
+    -fx-border-width: 3;
+    -fx-pref-width: 300px;
+}
+
+#incorrectForm {
+    
+    -fx-boder-radius: 0;
+    -fx-border-insets: 2px;
+    -fx-background-insets: 2px;
+    -fx-background-color: white;
+	-fx-font-size: 22px;
+	-fx-border-color: red;
+    -fx-border-width: 3;
+    -fx-pref-width: 300px;
+}
+
+.orangebtn {
+	-fx-background-color: #ff8833;
+	-fx-padding: 15 20 15 20;
+	-fx-font-size: 25px;
+	-fx-border-color: #ffb580;
+    -fx-border-width: 3;
+    -fx-pref-width: 300px;
+}
+
+.orangebtn-small {
+	-fx-background-color: #ff8833;
+	-fx-padding: 10 15 10 15;
+	-fx-font-size: 25px;
+	-fx-border-color: #ffb580;
+    -fx-border-width: 3;
+    -fx-pref-width: 150px;
+}
+
+.linkbtn {
+	-fx-font-size: 15;
+    -fx-underline: true;
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-border: false;
+    -fx-text-stroke: #0000FF;
+    -fx-text-fill: #0000FF;
+}
+
+/* BOOKINGS VIEW */
+
+.scroll-pane > .viewport {
+	-fx-background-color: transparent;
+}
+
+#switchbtn {
+	-fx-min-width: 200px;
+}
+
+#bookings-main {
+	-fx-background-color: #E0E4CC;
+}
+
+#bookingBox {
+	-fx-border-color: #000;
+    -fx-border-width: 1px;
+    -fx-padding: 20;
+    -fx-spacing: 8;
+    -fx-max-width: 700px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
+
+#bookingDate {
+	-fx-font-size: 20pt;
+}
+
+#datebox {
+	-fx-padding: 20 0;
+}
+
+.bookingcol {
+	-fx-padding: 0 50 0 0;
+}
+
+#bookingsHeader {
+	-fx-padding: 15 0;
+    -fx-spacing: 10;
+}
+
+#bookingsh1 {
+	-fx-font-size: 25pt;
+	-fx-padding-left: 45;
+}
+
+#bookingstitle {
+	-fx-pref-width: 500px;
+}
+
+#bookings-container {
+	-fx-border-insets: 10px 0px;
+    -fx-background-insets: 10px 0px;
+	-fx-padding: 10 50;
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
+    -fx-border-width: 10;
+    -fx-font-size: 15pt;
+}
+
+/* MAKE A BOOKING */
+
+.booking-label {
+	-fx-font-size: 20pt;
+}
+
+#pop-up {
+	-fx-padding: 10;
+    -fx-background-color: #E0E4CC;
+    -fx-font-size: 15pt;
+}
+
+/* ADMIN VIEW */
+
+.delete-btn {
+	-fx-background-color: #ff8833;
+	-fx-padding: 10 15 10 15;
+	-fx-font-size: 15px;
+	-fx-border-color: #ffb580;
+    -fx-border-width: 3;
+    -fx-pref-width: 150px;
+}
+
+.redbtn-small {	
+	-fx-background-color: #ff4d4d;
+	-fx-padding: 10 15 10 15;
+	-fx-font-size: 25px;
+	-fx-border-color: #ff9999;
+    -fx-border-width: 3;
+    -fx-pref-width: 150px;	
+}
+
+/* EDIT SPECIALIZATION */
+
+.form-section {
+	-fx-background-color: #E0E4CC;
+	-fx-padding: 10px;
+}
