@@ -7,13 +7,16 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-	   AddEmployeeTest.class,
-	   LoginTest.class,
-	   RegistrationTest.class,
-	   RosterTest.class,
-	   BookingsTest.class,
-	   AdminTest.class
-	})
+	AdminTest.class,
+	AddEmployeeTest.class,
+	BookingsTest.class,
+	EditAvailabilityTest.class,
+	LoginTest.class,
+	RegistrationTest.class,
+	RosterTest.class,
+	BookingsTest.class,
+	ViewBookingsTest.class
+})
 
 public class TestSuite {		
 }
