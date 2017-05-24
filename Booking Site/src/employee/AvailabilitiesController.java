@@ -283,7 +283,7 @@ public class AvailabilitiesController
       }
       catch (SQLException e)
       {
-         // TODO Auto-generated catch block
+         e.printStackTrace();
          map.put("StartTime", "00;00");
          map.put("FinishTime", "00;00");
       }
