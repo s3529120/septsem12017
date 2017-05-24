@@ -272,11 +272,11 @@ public class AvailabilitiesController
 	   Map<String,String> map=new HashMap<String,String>();
 	   
 	   dbcont.createConnection();
-	   sql="SELECT StartTime, FinishTime FROM Trading WHERE Username=? AND Day=?";
+	   sql="SELECT StartTime, FinishTime FROM Trading WHERE username=? AND Day=?";
 	   dbcont.prepareStatement(sql);
 	   try
-      {
-         dbcont.getState().setString(1, AppData.CALLER.getUsername().toString());
+      {	 
+         dbcont.getState().setString(1, AppData.CALLER.getUsername());
          dbcont.getState().setString(2, dow.toString());
          res=dbcont.runSQLRes();
          map.put("StartTime", res.getString("StartTime"));
@@ -284,7 +284,7 @@ public class AvailabilitiesController
       }
       catch (SQLException e)
       {
-         // TODO Auto-generated catch block
+         e.printStackTrace();
          map.put("StartTime", "00;00");
          map.put("FinishTime", "00;00");
       }
