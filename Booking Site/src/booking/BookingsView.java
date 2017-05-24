@@ -35,6 +35,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 //import java.awt.Insets;
 import java.util.HashMap;
@@ -988,7 +989,7 @@ public class BookingsView {
 		cusheader.setId("headerbox");
 
 		// Heading
-		Text h1 = new Text("Available Appoinments");
+		Text h1 = new Text("My Appoinments");
 
 		h1.setId("bookingsh1");
 		HBox bookingstitle = new HBox(h1);
@@ -1005,15 +1006,12 @@ public class BookingsView {
 
 		List<BookingModel> bookings = cont.filterBookings(cont.getBookings(),null,
 				null, null, null, null, 
-				AppData.CALLER.toString(), null);
+				AppData.CALLER.getUsername().toString(), null);
 
 		// Iterates through bookings
 		bookings.forEach(booking -> {
 			// If user is of type customer and booking is filled, skip this
 			// iteration
-			if (booking.getUser().compareToIgnoreCase("Unfilled") != 0 && AppData.CALLER instanceof UserAccountModel) {
-				return;
-			}
 			String newdate = booking.getDate().toString();
 			if (currentdate == null || !currentdate.equals(newdate)) {
 				currentdate = newdate;
@@ -1027,7 +1025,7 @@ public class BookingsView {
 			// Available Booking data
 			Text startTime = new Text("Start: " + booking.getStartTime().toString());
 			Text finishTime = new Text("End: " + booking.getFinishTime().toString());
-			Text employee = new Text("Employee: " + cont.getNameFromEmail(booking.getEmployee()));
+			Text employee = new Text("Employee: " + cont.getNameFromEmail(booking.getEmployee()).toString());
 
 			VBox who = new VBox(employee);
 			VBox bookingType = new VBox();
