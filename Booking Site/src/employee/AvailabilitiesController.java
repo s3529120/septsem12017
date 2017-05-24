@@ -272,10 +272,11 @@ public class AvailabilitiesController
 	   Map<String,String> map=new HashMap<String,String>();
 	   
 	   dbcont.createConnection();
-	   sql="SELECT StartTime, FinishTime FROM Trading WHERE Business=? AND Day=?";
+	   sql="SELECT StartTime, FinishTime FROM Trading WHERE Username=? AND Day=?";
+	   dbcont.prepareStatement(sql);
 	   try
       {
-         dbcont.getState().setString(1, AppData.CALLER.getUsername());
+         dbcont.getState().setString(1, AppData.CALLER.getUsername().toString());
          dbcont.getState().setString(2, dow.toString());
          res=dbcont.runSQLRes();
          map.put("StartTime", res.getString("StartTime"));
