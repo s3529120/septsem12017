@@ -277,6 +277,7 @@ public class AvailabilitiesController
       {
          dbcont.getState().setString(1, AppData.CALLER.getUsername());
          dbcont.getState().setString(2, dow.toString());
+         dbcont.prepareStatement(sql);
          res=dbcont.runSQLRes();
          map.put("StartTime", res.getString("StartTime"));
          map.put("FinishTime", res.getString("FinishTime"));
