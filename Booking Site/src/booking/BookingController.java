@@ -533,6 +533,7 @@ public class BookingController
 	public Boolean cancelBooking(int id){
 	   DatabaseController dbcont = new DatabaseController(new DatabaseModel()); 
       String sql="";
+      dbcont.prepareStatement(sql);
       
       dbcont.createConnection();
       sql="UPDATE Booking SET Username=?,Type=? WHERE Id=?;";
