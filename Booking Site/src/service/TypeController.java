@@ -280,7 +280,7 @@ public class TypeController
       
       //Retrieve all types from database
       dbcont.createConnection();
-      sql="SELECT Spec.Type AS Type, Type.Duration as Duration FROM Spec INNER JOIN Type ON Spec.Type=Type.Type WHERE EmployeeEmail=?;";
+      sql="SELECT Spec.Type AS Type, Type.Duration as Duration, Type.Business AS Business FROM Spec INNER JOIN Type ON Spec.Type=Type.Type WHERE EmployeeEmail=?;";
       dbcont.prepareStatement(sql);
       try
       {
