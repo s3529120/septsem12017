@@ -155,8 +155,9 @@ public class BusinessHoursView
 		//Colour selector
 		ComboBox<String> col = new ComboBox<String>();
 		col.getItems().addAll("BLUE","RED","YELLOW","BLACK","WHITE");
+		col.setId("form");
 
-		Button colsub = new Button("Change Scheme");
+		Button colsub = new Button("Change Theme");
 		// Register button
 		colsub.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -167,6 +168,7 @@ public class BusinessHoursView
 
 			}
 		});
+		colsub.getStyleClass().add("orangebtn");
 		HBox colsel = new HBox(col,colsub);
 
 		// top box construction
