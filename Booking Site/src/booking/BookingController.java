@@ -531,15 +531,18 @@ public class BookingController
 	   return old;
 	}
 	public Boolean cancelBooking(int id){
+		System.out.println("ID: " +id);
 	   DatabaseController dbcont = new DatabaseController(new DatabaseModel()); 
       String sql;
       
       dbcont.createConnection();
       sql="UPDATE Booking SET Username=?,Type=? WHERE Id=?;";
+      dbcont.prepareStatement(sql);
       try
       {
          dbcont.getState().setString(1, "Unfilled");
          dbcont.getState().setString(2, "None");
+         dbcont.getState().setString(3, Integer.toString(id));
          dbcont.prepareStatement(sql);
          dbcont.runSQLUpdate();
       }
