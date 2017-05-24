@@ -36,7 +36,7 @@ public class MainMenuView {
 		BorderPane border = new BorderPane();
 
 		// Headings
-		Text txt = new Text("Dog Groomer");
+		Text txt = new Text("Booking App");
 		HBox heading = new HBox(txt);
 		heading.setAlignment(Pos.CENTER);
 
