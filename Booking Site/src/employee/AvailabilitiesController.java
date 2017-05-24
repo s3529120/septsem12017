@@ -280,8 +280,10 @@ public class AvailabilitiesController
          dbcont.getState().setString(1, AppData.CALLER.getUsername());
          dbcont.getState().setString(2, dow.toString());
          res=dbcont.runSQLRes();
-         map.put("StartTime", res.getString("StartTime"));
-         map.put("FinishTime", res.getString("FinishTime"));
+         while(res.next()){
+        	 map.put("StartTime", res.getString("StartTime"));
+        	 map.put("FinishTime", res.getString("FinishTime"));
+         }
       }
       catch (SQLException e)
       {
