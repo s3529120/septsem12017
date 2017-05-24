@@ -540,8 +540,7 @@ public class BookingController
       dbcont.prepareStatement(sql);
       try
       {
-         dbcont.getState().setString(1, Integer.toString(id));
-         dbcont.prepareStatement(sql);
+         dbcont.getState().setInt(1, id);
          dbcont.runSQLUpdate();
       }
       catch (SQLException e)
