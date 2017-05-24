@@ -30,6 +30,7 @@ import service.TypeController;
 import service.TypeModel;
 import service.TypeView;
 import utils.AppData;
+import utils.ColourController;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 
@@ -414,7 +415,12 @@ public class BookingsView {
 
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
-
+		if (ColourController.getAccountColour(AppData.CALLER.getUsername())) {
+			System.out.println("The theme color is");
+			System.out.println(AppData.colour);
+			String themeLocal = "/resources/display/css/" + AppData.colour + ".css";
+			scene.getStylesheets().add(getClass().getResource(themeLocal).toExternalForm());
+		}
 		stage.setScene(scene);
 		stage.show();
 
@@ -700,6 +706,12 @@ public class BookingsView {
 
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+		if (ColourController.getAccountColour(AppData.CALLER.getUsername())) {
+			System.out.println("The theme color is");
+			System.out.println(AppData.colour);
+			String themeLocal = "/resources/display/css/" + AppData.colour + ".css";
+			scene.getStylesheets().add(getClass().getResource(themeLocal).toExternalForm());
+		}
 		stage.setScene(scene);
 		stage.show();
 
@@ -797,6 +809,12 @@ public class BookingsView {
 						vbox.setId("pop-up");
 						Scene confscene = new Scene(vbox);
 						confscene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+						if (ColourController.getAccountColour(AppData.CALLER.getUsername())) {
+							System.out.println("The theme color is");
+							System.out.println(AppData.colour);
+							String themeLocal = "/resources/display/css/" + AppData.colour + ".css";
+							confscene.getStylesheets().add(getClass().getResource(themeLocal).toExternalForm());
+						}
 						popup.setScene(confscene);
 						parcont.updateView();
 					} else {
@@ -874,6 +892,12 @@ public class BookingsView {
 						vbox.setId("pop-up");
 						Scene confscene = new Scene(vbox);
 						confscene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+						if (ColourController.getAccountColour(AppData.CALLER.getUsername())) {
+							System.out.println("The theme color is");
+							System.out.println(AppData.colour);
+							String themeLocal = "/resources/display/css/" + AppData.colour + ".css";
+							confscene.getStylesheets().add(getClass().getResource(themeLocal).toExternalForm());
+						}
 						popup.setScene(confscene);
 						parcont.updateView();
 					} else {
@@ -897,6 +921,12 @@ public class BookingsView {
 		pane.setId("pop-up");
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+		if (ColourController.getAccountColour(AppData.CALLER.getUsername())) {
+			System.out.println("The theme color is");
+			System.out.println(AppData.colour);
+			String themeLocal = "/resources/display/css/" + AppData.colour + ".css";
+			scene.getStylesheets().add(getClass().getResource(themeLocal).toExternalForm());
+		}
 		popup.setScene(scene);
 		popup.show();
 	}
@@ -1051,7 +1081,12 @@ public class BookingsView {
 
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
-
+		if (ColourController.getAccountColour(AppData.CALLER.getUsername())) {
+			System.out.println("The theme color is");
+			System.out.println(AppData.colour);
+			String themeLocal = "/resources/display/css/" + AppData.colour + ".css";
+			scene.getStylesheets().add(getClass().getResource(themeLocal).toExternalForm());
+		}
 		stage.setScene(scene);
 		stage.show();
 
@@ -1115,7 +1150,12 @@ public class BookingsView {
 
 		Scene scene = new Scene(vbox);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
-
+		if (ColourController.getAccountColour(AppData.CALLER.getUsername())) {
+			System.out.println("The theme color is");
+			System.out.println(AppData.colour);
+			String themeLocal = "/resources/display/css/" + AppData.colour + ".css";
+			scene.getStylesheets().add(getClass().getResource(themeLocal).toExternalForm());
+		}
 		stage.setScene(scene);
 		stage.show();
 	}
