@@ -22,6 +22,7 @@ import service.TypeController;
 import service.TypeView;
 import utils.AppData;
 import utils.Colour;
+import utils.ColourController;
 
 public class AddEmployeeView {
 	public Stage stage;
