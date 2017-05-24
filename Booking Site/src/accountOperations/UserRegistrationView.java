@@ -2,13 +2,20 @@ package accountOperations;
 
 
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -192,6 +199,9 @@ public class UserRegistrationView {
 		BorderPane border = new BorderPane();
 		VBox body = new VBox(15, regtxt, unamehbox, unameerrorbox, pnamehbox, pnameerrorbox, addhbox, streeterrorbox, numhbox, phoneerrorbox, mailhbox, emailerrorbox, pwordhbox,
 				pwordhboxcon, passerrorbox, btnbox, emptyerrorbox, loginbtn);
+		
+		body.setId("mainMenuVBox");
+		body.setStyle("-fx-padding: 50px 200px");
 
 		BorderPane.setAlignment(body, Pos.CENTER);
 		BorderPane.setMargin(body, new Insets(12, 12, 12, 12));
@@ -202,33 +212,28 @@ public class UserRegistrationView {
 		border.setTop(tophbox);
 
 		VBox leftvbox = new VBox();
-		leftvbox.setPadding(new Insets(15, 400, 15, 12));
+		leftvbox.setPadding(new Insets(15, 550, 15, 12));
 		border.setLeft(leftvbox);
 
 		VBox rightvbox = new VBox();
-		rightvbox.setPadding(new Insets(15, 400, 15, 12));
+		rightvbox.setPadding(new Insets(15, 100, 15, 12));
 		border.setRight(rightvbox);
 
 		HBox bottomhbox = new HBox();
 		bottomhbox.setPadding(new Insets(100, 12, 15, 12));
 		border.setBottom(bottomhbox);
-		
-		
-
-		//HBox regmenubox = new HBox(vbox, logbox);
 
 		// Styles
-		body.setId("mainMenuVBox");
+
 		border.setId("border");
+		ScrollPane pane = new ScrollPane(border);
+		
 		registerbtn.getStyleClass().add("orangebtn");
 		returnbtn.setId("largebtn");
 		loginbtn.getStyleClass().add("linkbtn");
 		regtxt.getStyleClass().add("main-heading");
 		logtxt.setId("heading");
-
-		//StackPane pane = new StackPane(body);
-
-		Scene scene = new Scene(border);
+		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/scheme1.css").toExternalForm());
 		stage.setScene(scene);
