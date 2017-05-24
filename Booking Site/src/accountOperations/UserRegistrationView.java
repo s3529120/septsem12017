@@ -227,6 +227,7 @@ public class UserRegistrationView {
 
 		border.setId("border");
 		ScrollPane pane = new ScrollPane(border);
+		pane.setId("reg-pane");
 		
 		registerbtn.getStyleClass().add("orangebtn");
 		returnbtn.setId("largebtn");
@@ -235,7 +236,7 @@ public class UserRegistrationView {
 		logtxt.setId("heading");
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
-		scene.getStylesheets().add(getClass().getResource("/resources/display/css/scheme1.css").toExternalForm());
+		//scene.getStylesheets().add(getClass().getResource("/resources/display/css/scheme1.css").toExternalForm());
 		stage.setScene(scene);
 	}
 }

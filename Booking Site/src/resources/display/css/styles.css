@@ -350,9 +350,6 @@ buttonbox {
 
 /* EDIT SPECIALIZATION */
 
-.reg-pane {
-	-fx-border-width: 0;
-	-fx-padding: 0;
-	-fx-border-insets: 0;
-    -fx-background-insets: 0;
+#reg-pane {
+    -fx-background-color: #74d1e1;
 }
