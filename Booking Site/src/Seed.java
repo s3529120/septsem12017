@@ -117,7 +117,7 @@ public class Seed {
 			dataCont.runSQLUpdate();
 			// Trading Hours
 			sql = "CREATE TABLE Trading(" + "Day TEXT NOT NULL, " + "StartTime TEXT NOT NULL, "
-					+ "FinishTime TEXT NOT NULL, " + "Username TEXT NOT NULL, " + "PRIMARY KEY (Username,Day,StartTime),"
+					+ "FinishTime TEXT NOT NULL, " + "Username TEXT NOT NULL, " + "PRIMARY KEY (Username,Day)"
 					+ "FOREIGN KEY (Username) REFERENCES Accounts(Username));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
