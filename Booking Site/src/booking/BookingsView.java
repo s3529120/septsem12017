@@ -284,7 +284,13 @@ public class BookingsView {
 			@Override
 			public void handle(ActionEvent e) {
 				EmployeeController econt = new EmployeeController();
-				String employeeMail = econt.getEmployeeMail(epick.getSelectionModel().getSelectedItem());
+				String employeeName = epick.getSelectionModel().getSelectedItem();
+				String employeeMail;
+				if(employeeName != null) {
+					employeeMail = econt.getEmployeeMail(epick.getSelectionModel().getSelectedItem());
+				} else {
+					employeeMail = null;
+				}
 				if(AppData.CALLER instanceof UserAccountModel){
 					String busName = bpick.getSelectionModel().getSelectedItem();
 					String busUsername;
