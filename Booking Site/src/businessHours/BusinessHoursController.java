@@ -101,6 +101,20 @@ public class BusinessHoursController
 
         //Open database connection
         dbcont.createConnection();
+        
+      //Prepare and run sql
+        sql="DELETE FROM Trading(Username,Day,StartTime) " +
+            "Values(?,?,?,?);";
+        dbcont.prepareStatement(sql);
+        try{
+            dbcont.getState().setString(1, AppData.CALLER.getUsername());
+            dbcont.getState().setString(2, dow.toString());
+            dbcont.getState().setString(3, start.toString());
+       }catch(SQLException e){
+              dbcont.closeConnection();
+              return false;
+       }
+       dbcont.runSQLUpdate();
 
         //Prepare and run sql
         sql="INSERT INTO Trading(Username,Day,StartTime,FinishTime) " +
