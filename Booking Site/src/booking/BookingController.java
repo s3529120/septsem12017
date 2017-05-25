@@ -507,32 +507,34 @@ public class BookingController {
 
 		return bookings;
 	}
-
-	public int getNewId() {
-		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
-		String sql = "";
-		ResultSet res;
-		int old;
-
-		dbcont.createConnection();
-		sql = "SELECT * FROM Id;";
-		dbcont.prepareStatement(sql);
-		res = dbcont.runSQLRes();
-		try {
-			old = res.getInt("High");
-			sql = "UPDATE Id SET High=? WHERE High=?;";
-			dbcont.prepareStatement(sql);
-			dbcont.getState().setInt(1, old);
-			old++;
-			dbcont.getState().setInt(2, old);
-			dbcont.runSQLUpdate();
-		} catch (SQLException e) {
-			dbcont.closeConnection();
-			e.printStackTrace();
-			return 999;
-		}
-		dbcont.closeConnection();
-		return old;
+	
+	public int getNewId(){
+	   DatabaseController dbcont = new DatabaseController(new DatabaseModel()); 
+	   String sql="";
+	   ResultSet res;
+	   int old;
+	   
+	   dbcont.createConnection();
+	   sql="SELECT * FROM Id;";
+	   dbcont.prepareStatement(sql);
+	   res=dbcont.runSQLRes();
+	   try
+      {
+         old=res.getInt("High");
+         sql= "UPDATE Id SET High=? WHERE High=?;";
+         dbcont.prepareStatement(sql);
+         dbcont.getState().setInt(1, old+1);
+         dbcont.getState().setInt(2, old);
+         dbcont.runSQLUpdate();
+      }
+      catch (SQLException e)
+      {
+         dbcont.closeConnection();
+         e.printStackTrace();
+         return 999;
+      }
+	   dbcont.closeConnection();
+	   return old;
 	}
 
 	public Boolean cancelBooking(int id) {
