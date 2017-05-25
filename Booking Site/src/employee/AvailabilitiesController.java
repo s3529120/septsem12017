@@ -222,7 +222,7 @@ public class AvailabilitiesController
 		dbcont.createConnection();
 
 		//Remove existing
-      sql="DELETE FROM Availability WHERE Email=?, AND Day=?, AND StartTime=?;";
+      sql="DELETE FROM Availability WHERE Email=? AND Day=? AND StartTime=?;";
       dbcont.prepareStatement(sql);
       try{
          dbcont.getState().setString(1, email);
