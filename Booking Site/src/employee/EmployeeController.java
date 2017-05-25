@@ -66,7 +66,7 @@ public class EmployeeController
 	 * @return True if successfully added, false if and error occurs.
 	 */
 	public Boolean addEmployee(String name,String contactno,String email,
-			String streetadd,String city,String state,String postcode){
+			String streetadd,String city,String state,String postcode, String business){
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		String sql;
 
@@ -80,14 +80,15 @@ public class EmployeeController
 		dbcont.createConnection();
 
 		//Prepare and run employee sql statement
-		sql="INSERT INTO Employee(Name,ContactNo,Email) " +
-				"Values(?,?,?);";
+		sql="INSERT INTO Employee(Name,ContactNo,Email,Business) " +
+				"Values(?,?,?,?);";
 		dbcont.prepareStatement(sql);
 		try
 		{
 			dbcont.getState().setString(1, name);
 			dbcont.getState().setString(2, contactno);
 			dbcont.getState().setString(3, email);
+			dbcont.getState().setString(4, business);
 
 		}
 		catch (SQLException e)

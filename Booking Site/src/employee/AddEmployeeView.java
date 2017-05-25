@@ -275,9 +275,10 @@ public class AddEmployeeView {
 							takenerrorbox, fnamerrortxt, fnameerrorbox, snamerrortxt, snameerrorbox, emailerrortxt,
 							emailerrorbox, phoneerrortxt, phoneerrorbox, streeterrortxt, streeterrorbox, cityerrortxt,
 							cityerrorbox, postcerrortxt, postcerrorbox, statebox.getValue())) {
+						String business = AppData.CALLER.getUsername();
 						if (cont.addEmployee(fnamefield.getText().concat(" ").concat(snamefield.getText()),
 								contactnofield.getText(), emailfield.getText(), streetaddfield.getText(),
-								cityfield.getText(), statebox.getValue(), pcodefield.getText())) {
+								cityfield.getText(), statebox.getValue(), pcodefield.getText(), business)) {
 							if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
 								empaddedhbox.getChildren().add(empaddedtxt);
 							}
