@@ -238,7 +238,7 @@ public class AdminController {
 	 * @param Busname of the business to be removed from database
 	 * @return True if successful
 	 */
-	public static boolean delBusiness(String Busname){
+	public boolean delBusiness(String Busname){
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		String sql="";
 
