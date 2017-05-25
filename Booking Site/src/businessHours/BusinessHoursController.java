@@ -103,13 +103,11 @@ public class BusinessHoursController
         dbcont.createConnection();
         
       //Prepare and run sql
-        sql="DELETE FROM Trading(Username,Day,StartTime) " +
-            "Values(?,?,?,?);";
+        sql="DELETE FROM Trading WHERE Username=? AND day=?;";
         dbcont.prepareStatement(sql);
         try{
             dbcont.getState().setString(1, AppData.CALLER.getUsername());
             dbcont.getState().setString(2, dow.toString());
-            dbcont.getState().setString(3, start.toString());
        }catch(SQLException e){
               dbcont.closeConnection();
               return false;
