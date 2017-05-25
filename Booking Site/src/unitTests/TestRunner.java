@@ -5,13 +5,14 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
 public class TestRunner {
-   public static void main(String[] args) {
-      Result result = JUnitCore.runClasses(TestSuite.class);
+	public static void main(String[] args) {
 
-      for (Failure failure : result.getFailures()) {
-         System.out.println(failure.toString());
-      }
-		
-      System.out.println(result.wasSuccessful());
-   }
+		Result result = JUnitCore.runClasses(TestSuite.class);
+
+		for (Failure failure : result.getFailures()) {
+			System.out.println(failure.toString());
+		}
+
+		System.out.println(result.wasSuccessful());
+	}
 }  	

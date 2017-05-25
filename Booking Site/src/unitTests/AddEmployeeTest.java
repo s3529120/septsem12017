@@ -2,15 +2,12 @@ package unitTests;
 
 import static org.junit.Assert.*;
 
-import java.awt.TextField;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.sqlite.core.DB;
 import employee.EmployeeController;
 import utils.DatabaseController;
 import utils.DatabaseModel;
@@ -19,7 +16,6 @@ public class AddEmployeeTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass(){
-
 		//Employee fields
 		//String name,String contactno,String email,
 		//String streetadd,String city,String state,String postcode
