@@ -51,7 +51,7 @@ public class BookingsView {
 
 	private BookingController cont;
 	public Stage stage;
-	
+
 	public BookingsView(Stage stage) {
 		this.stage = stage;
 	}
@@ -215,15 +215,15 @@ public class BookingsView {
 		VBox dBox = new VBox(dText,dpick);
 
 		//Business
-      BusinessAccountController bcont = new BusinessAccountController();
-      ComboBox<String> bpick = new ComboBox<String>();
-      Map<String,String> busmap;
-      busmap = bcont.getBusinesses();
-      bpick.getItems().addAll(busmap.keySet());
-      bpick.setId("form");
-      Text bText = new Text("Business");
-      VBox bBox = new VBox(bText,bpick);
-		
+		BusinessAccountController bcont = new BusinessAccountController();
+		ComboBox<String> bpick = new ComboBox<String>();
+		Map<String,String> busmap;
+		busmap = bcont.getBusinesses();
+		bpick.getItems().addAll(busmap.keySet());
+		bpick.setId("form");
+		Text bText = new Text("Business");
+		VBox bBox = new VBox(bText,bpick);
+
 		//StartTime
 		AvailabilitiesController acont = new AvailabilitiesController();
 		ComboBox<String> spick = new ComboBox<String>();
@@ -256,11 +256,11 @@ public class BookingsView {
 		ComboBox<String> epick = new ComboBox<String>();
 		epick.getItems().add("none");
 		Map<String,String> empmap;
-      if(AppData.CALLER instanceof UserAccountModel){
-         empmap = econt.getAllEmployees();
-      }else{
-         empmap = econt.getEmployees(AppData.CALLER.getUsername());
-      }
+		if(AppData.CALLER instanceof UserAccountModel){
+			empmap = econt.getAllEmployees();
+		}else{
+			empmap = econt.getEmployees(AppData.CALLER.getUsername());
+		}
 		epick.getItems().addAll(empmap.keySet());
 		epick.setId("form");
 		Text eText = new Text("Employee");
@@ -278,35 +278,35 @@ public class BookingsView {
 		VBox uBox = new VBox(uText,upick);
 
 		//Submit
-      Button filterbtn = new Button("Filter");
-      filterbtn.getStyleClass().add("orangebtn");
-      filterbtn.setOnAction(new EventHandler<ActionEvent>() {
-         @Override
-         public void handle(ActionEvent e) {
-            if(AppData.CALLER instanceof UserAccountModel){
-            updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(), 
-                  spick.getSelectionModel().getSelectedItem(), 
-                  fpick.getSelectionModel().getSelectedItem(), 
-                  epick.getSelectionModel().getSelectedItem(), 
-                  upick.getSelectionModel().getSelectedItem(), 
-                  tpick.getSelectionModel().getSelectedItem()));
-            }else{
-               updateView(cont.filterBookings(cont.getBookings(),null,dpick.getValue(), 
-                     spick.getSelectionModel().getSelectedItem(), 
-                     fpick.getSelectionModel().getSelectedItem(), 
-                     epick.getSelectionModel().getSelectedItem(), 
-                     upick.getSelectionModel().getSelectedItem(), 
-                     tpick.getSelectionModel().getSelectedItem()));
-            }
-         }
-      });
-      HBox filterFields;
-      if(AppData.CALLER instanceof UserAccountModel){
-         filterFields = new HBox(dBox,bBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
-      }else{
-         filterFields = new HBox(dBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
-      }
-      VBox filters = new VBox(filterHeading,filterFields,filterbtn);
+		Button filterbtn = new Button("Filter");
+		filterbtn.getStyleClass().add("orangebtn");
+		filterbtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				if(AppData.CALLER instanceof UserAccountModel){
+					updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(), 
+							spick.getSelectionModel().getSelectedItem(), 
+							fpick.getSelectionModel().getSelectedItem(), 
+							epick.getSelectionModel().getSelectedItem(), 
+							upick.getSelectionModel().getSelectedItem(), 
+							tpick.getSelectionModel().getSelectedItem()));
+				}else{
+					updateView(cont.filterBookings(cont.getBookings(),null,dpick.getValue(), 
+							spick.getSelectionModel().getSelectedItem(), 
+							fpick.getSelectionModel().getSelectedItem(), 
+							epick.getSelectionModel().getSelectedItem(), 
+							upick.getSelectionModel().getSelectedItem(), 
+							tpick.getSelectionModel().getSelectedItem()));
+				}
+			}
+		});
+		HBox filterFields;
+		if(AppData.CALLER instanceof UserAccountModel){
+			filterFields = new HBox(dBox,bBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+		}else{
+			filterFields = new HBox(dBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+		}
+		VBox filters = new VBox(filterHeading,filterFields,filterbtn);
 
 		// Heading
 		Text h1;
@@ -340,7 +340,7 @@ public class BookingsView {
 		bookings.forEach(booking -> {
 			// If user is of type customer and booking is filled, skip this
 			// iteration
-			booking.getUser();
+
 			if(AppData.CALLER instanceof UserAccountModel){
 				if (booking.getUser().compareTo("Unfilled") != 0) {
 					return;
@@ -546,16 +546,16 @@ public class BookingsView {
 		dpick.setId("form");
 		Text dText = new Text("Date");
 		VBox dBox = new VBox(dText,dpick);
-		
+
 		//Business
-		   BusinessAccountController bcont = new BusinessAccountController();
-         ComboBox<String> bpick = new ComboBox<String>();
-         Map<String,String> busmap;
-         busmap = bcont.getBusinesses();
-         bpick.getItems().addAll(busmap.keySet());
-         bpick.setId("form");
-         Text bText = new Text("Business");
-         VBox bBox = new VBox(bText,bpick);
+		BusinessAccountController bcont = new BusinessAccountController();
+		ComboBox<String> bpick = new ComboBox<String>();
+		Map<String,String> busmap;
+		busmap = bcont.getBusinesses();
+		bpick.getItems().addAll(busmap.keySet());
+		bpick.setId("form");
+		Text bText = new Text("Business");
+		VBox bBox = new VBox(bText,bpick);
 
 		//StartTime
 		AvailabilitiesController acont = new AvailabilitiesController();
@@ -586,9 +586,9 @@ public class BookingsView {
 		ComboBox<String> epick = new ComboBox<String>();
 		Map<String,String> empmap;
 		if(AppData.CALLER instanceof UserAccountModel){
-		   empmap = econt.getAllEmployees();
+			empmap = econt.getAllEmployees();
 		}else{
-		   empmap = econt.getEmployees(AppData.CALLER.getUsername());
+			empmap = econt.getEmployees(AppData.CALLER.getUsername());
 		}
 		epick.getItems().addAll(empmap.keySet());
 		epick.setId("form");
@@ -611,28 +611,28 @@ public class BookingsView {
 		filterbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-			   if(AppData.CALLER instanceof UserAccountModel){
-				updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(), 
-						spick.getSelectionModel().getSelectedItem(), 
-						fpick.getSelectionModel().getSelectedItem(), 
-						epick.getSelectionModel().getSelectedItem(), 
-						upick.getSelectionModel().getSelectedItem(), 
-						tpick.getSelectionModel().getSelectedItem()));
-			   }else{
-			      updateView(cont.filterBookings(cont.getBookings(),null,dpick.getValue(), 
-			            spick.getSelectionModel().getSelectedItem(), 
-			            fpick.getSelectionModel().getSelectedItem(), 
-			            epick.getSelectionModel().getSelectedItem(), 
-			            upick.getSelectionModel().getSelectedItem(), 
-			            tpick.getSelectionModel().getSelectedItem()));
-			   }
+				if(AppData.CALLER instanceof UserAccountModel){
+					updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(), 
+							spick.getSelectionModel().getSelectedItem(), 
+							fpick.getSelectionModel().getSelectedItem(), 
+							epick.getSelectionModel().getSelectedItem(), 
+							upick.getSelectionModel().getSelectedItem(), 
+							tpick.getSelectionModel().getSelectedItem()));
+				}else{
+					updateView(cont.filterBookings(cont.getBookings(),null,dpick.getValue(), 
+							spick.getSelectionModel().getSelectedItem(), 
+							fpick.getSelectionModel().getSelectedItem(), 
+							epick.getSelectionModel().getSelectedItem(), 
+							upick.getSelectionModel().getSelectedItem(), 
+							tpick.getSelectionModel().getSelectedItem()));
+				}
 			}
 		});
 		HBox filterFields;
 		if(AppData.CALLER instanceof UserAccountModel){
-		   filterFields = new HBox(dBox,bBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+			filterFields = new HBox(dBox,bBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
 		}else{
-		   filterFields = new HBox(dBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+			filterFields = new HBox(dBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
 		}
 		VBox filters = new VBox(filterHeading,filterFields,filterbtn);
 
@@ -1064,16 +1064,16 @@ public class BookingsView {
 			bookingsList.getChildren().add(bookingBox);
 
 		});
-		
+
 		// Set layout
 		bookingsList.setId("bookings-main");
-		
+
 		ScrollPane body = new ScrollPane(bookingsList);
 		body.setId("mainPageVBox");
 		body.getStyleClass().add("scroll-pane");
 
 		VBox page = new VBox(cusheader, body);
-		
+
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
 
@@ -1101,7 +1101,7 @@ public class BookingsView {
 		String type = booking.getType();
 		String date = booking.getDate().toString();
 		String startTime = booking.getStartTime().toString();
-		
+
 		Text message = new Text("You are about to cancel booking for " +  type + " on " + date + " at " + startTime + ". \n Are you sure?");
 
 		// Cancel button
@@ -1128,7 +1128,7 @@ public class BookingsView {
 
 		confirm_cancel.getStyleClass().add("orangebtn-small");
 
-		
+
 		// Set layout
 
 		HBox buttons= new HBox(10, confirm_cancel, close);
@@ -1140,9 +1140,9 @@ public class BookingsView {
 
 		// Set scene for cancel booking
 		pane.setId("pop-up");
-		
+
 		Scene scene = new Scene(pane);
-		
+
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		if (ColourController.getAccountColour(AppData.CALLER.getUsername())) {
 			System.out.println("The theme color is");
@@ -1150,7 +1150,7 @@ public class BookingsView {
 			String themeLocal = "/resources/display/css/" + AppData.colour + ".css";
 			scene.getStylesheets().add(getClass().getResource(themeLocal).toExternalForm());
 		}
-		
+
 		popup.setScene(scene);
 		popup.show();
 	}
