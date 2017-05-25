@@ -1118,6 +1118,7 @@ public class BookingsView {
 			public void handle(ActionEvent e) {
 				BookingController bcont = new BookingController();
 				bcont.cancelBooking(booking.getId());
+				popup.close();
 				updateCusView();
 			}
 		});
