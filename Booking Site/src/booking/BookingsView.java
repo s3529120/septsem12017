@@ -189,7 +189,7 @@ public class BookingsView {
 		});
 		mybookbtn.getStyleClass().add("orangebtn");
 
-		HBox cusheader = new HBox(10, heading, availbtn, mybookbtn, logoutbtn);
+		HBox cusheader = new HBox(10, availbtn, mybookbtn, logoutbtn);
 
 		// Past bookings switch
 		Button switchbtn = null;
@@ -209,7 +209,7 @@ public class BookingsView {
 		filterHeading.setId("bookingsh1");
 
 		//Date
-		DatePicker dpick = new DatePicker(LocalDate.of(2000, 01, 01));
+		DatePicker dpick = new DatePicker(LocalDate.now());
 		dpick.setId("form");
 		Text dText = new Text("Date");
 		VBox dBox = new VBox(dText,dpick);
@@ -284,7 +284,11 @@ public class BookingsView {
 			@Override
 			public void handle(ActionEvent e) {
 				if(AppData.CALLER instanceof UserAccountModel){
-					updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(), 
+					String busName = bpick.getSelectionModel().getSelectedItem();
+					String busUsername = cont.getUsername(busName);
+					updateView(cont.filterBookings(cont.getBookings(),
+							busUsername,
+							dpick.getValue(), 
 							spick.getSelectionModel().getSelectedItem(), 
 							fpick.getSelectionModel().getSelectedItem(), 
 							epick.getSelectionModel().getSelectedItem(), 
@@ -300,13 +304,16 @@ public class BookingsView {
 				}
 			}
 		});
-		HBox filterFields;
+		HBox filterFields1;
+		HBox filterFields2;
 		if(AppData.CALLER instanceof UserAccountModel){
-			filterFields = new HBox(dBox,bBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+			filterFields1 = new HBox(10, dBox,sBox,fBox);
+			filterFields2 = new HBox(10, tBox,eBox, bBox);
 		}else{
-			filterFields = new HBox(dBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+			filterFields1 = new HBox(10, dBox,sBox,fBox);
+			filterFields2 = new HBox(10, tBox, eBox,uBox);
 		}
-		VBox filters = new VBox(filterHeading,filterFields,filterbtn);
+		VBox filters = new VBox(10, filterHeading,filterFields1,filterFields2, filterbtn);
 
 		// Heading
 		Text h1;
@@ -324,9 +331,9 @@ public class BookingsView {
 		if (AppData.CALLER instanceof BusinessAccountModel) {
 			switchbtn.setId("switchbtn");
 			HBox head1 = new HBox(bookingstitle, switchbtn);
-			head = new VBox(filters,head1);
+			head = new VBox(filters, head1);
 		} else {
-			head = new VBox(bookingstitle);
+			head = new VBox(filters, bookingstitle);
 		}
 
 		head.setId("bookingsHeader");
@@ -413,9 +420,9 @@ public class BookingsView {
 		if (AppData.CALLER instanceof BusinessAccountModel) {
 			HBox busheader = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
 			busheader.setId("headerbox");
-			page = new VBox(busheader, body);
+			page = new VBox(heading, busheader, body);
 		} else {
-			page = new VBox(cusheader, body);
+			page = new VBox(heading, cusheader, body);
 		}
 
 		page.setId("border");
@@ -528,7 +535,7 @@ public class BookingsView {
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
 
-		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
+		HBox header = new HBox(10, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
 		header.setId("headerbox");
 		heading.getStyleClass().add("main-heading");
 
@@ -708,7 +715,7 @@ public class BookingsView {
 		body.setId("mainPageVBox");
 		body.getStyleClass().add("scroll-pane");
 
-		VBox page = new VBox(header, body);
+		VBox page = new VBox(heading, header, body);
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
 
@@ -859,6 +866,10 @@ public class BookingsView {
 			Text etxt = new Text(cont.getNameFromEmail(book.getEmployee()));
 			HBox ebox = new HBox(elbl, etxt);
 			VBox dets = new VBox(dbox, stbox, ftbox, ebox);
+			Label busNameLabel = new Label("Business: ");
+			Text busNameText = new Text(cont.getName(book.getBusiness()));
+			HBox busNameHBox = new HBox(busNameLabel, busNameText);
+			dets.getChildren().add(busNameHBox);
 
 			// Type selector
 			TypeController tcont = new TypeController();
@@ -995,7 +1006,7 @@ public class BookingsView {
 		});
 		mybookbtn.getStyleClass().add("orangebtn");
 
-		HBox cusheader = new HBox(10, heading, availbtn, mybookbtn, logoutbtn);
+		HBox cusheader = new HBox(10, availbtn, mybookbtn, logoutbtn);
 		cusheader.setId("headerbox");
 
 		// Heading
@@ -1048,6 +1059,10 @@ public class BookingsView {
 				who.getChildren().add(customer);
 				bookingType.getChildren().add(type);
 			}
+							
+			String busName = cont.getName(booking.getBusiness());
+			Text business = new Text("Business: " + busName);
+			bookingType.getChildren().add(business);
 
 			VBox when = new VBox(startTime, finishTime);
 
@@ -1078,7 +1093,7 @@ public class BookingsView {
 		body.setId("mainPageVBox");
 		body.getStyleClass().add("scroll-pane");
 
-		VBox page = new VBox(cusheader, body);
+		VBox page = new VBox(heading, cusheader, body);
 
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
@@ -1104,18 +1119,30 @@ public class BookingsView {
 		popup.initModality(Modality.WINDOW_MODAL);
 		popup.initOwner(parcont.getView().stage);
 
-		String type = booking.getType();
-		String date = booking.getDate().toString();
-		String startTime = booking.getStartTime().toString();
-
-		Text message = new Text("You are about to cancel booking for " +  type + " on " + date + " at " + startTime + ". \n Are you sure?");
+		// Appointment details
+		Label dlbl = new Label("Date: ");
+		Text dtxt = new Text(booking.getDate().toString());
+		HBox dbox = new HBox(dlbl, dtxt);
+		Label stlbl = new Label("Start Time: ");
+		Text sttxt = new Text(booking.getStartTime().toString());
+		HBox stbox = new HBox(stlbl, sttxt);
+		Label elbl = new Label("Employee: ");
+		Text etxt = new Text(cont.getNameFromEmail(booking.getEmployee()));
+		HBox ebox = new HBox(elbl, etxt);
+		Label busNameLabel = new Label("Business: ");
+		Text busNameText = new Text(cont.getName(booking.getBusiness()));
+		HBox busNameHBox = new HBox(busNameLabel, busNameText);
+		
+		VBox dets = new VBox(dbox, stbox, ebox, busNameHBox);
+		Text h1 = new Text("Confirm cancellation of: ");
+		h1.setId("bookingsh1");
 
 		// Cancel button
 		Button close = new Button("Close");
 		close.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				updateCusView();
+				popup.close();
 			}
 		});
 		close.getStyleClass().add("redbtn-small");
@@ -1138,9 +1165,9 @@ public class BookingsView {
 		// Set layout
 
 		HBox buttons= new HBox(10, confirm_cancel, close);
-		VBox all = new VBox(20, message, buttons);
+		VBox all = new VBox(20, h1, dets, buttons);
 		buttons.setAlignment(Pos.CENTER);
-		message.setTextAlignment(TextAlignment.CENTER);
+		dets.setAlignment(Pos.CENTER);
 		StackPane pane = new StackPane();
 		pane.getChildren().addAll(all);
 
