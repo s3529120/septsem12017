@@ -214,6 +214,11 @@ public class AdminController {
 				dbcont.getState().setString(3, Busname+"DefEmp@"+Busname+".com");
 				dbcont.getState().setString(4, Busname);
 				dbcont.runSQLUpdate();
+
+				sql = "INSERT INTO Spec(Type,EmployeeEmail) Values('None','"+Busname+"DefEmp@"+Busname+".com');";
+				dbcont.prepareStatement(sql);
+				dbcont.runSQLUpdate();
+
 			} catch(Exception e1) {
 				e1.printStackTrace();
 				dbcont.closeConnection();
