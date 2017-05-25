@@ -307,8 +307,8 @@ public class BookingsView {
 		HBox filterFields1;
 		HBox filterFields2;
 		if(AppData.CALLER instanceof UserAccountModel){
-			filterFields1 = new HBox(10, dBox,bBox,sBox,fBox);
-			filterFields2 = new HBox(10, tBox,eBox,uBox);
+			filterFields1 = new HBox(10, dBox,sBox,fBox);
+			filterFields2 = new HBox(10, tBox,eBox, bBox);
 		}else{
 			filterFields1 = new HBox(10, dBox,sBox,fBox);
 			filterFields2 = new HBox(10, tBox, eBox,uBox);
