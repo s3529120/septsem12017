@@ -211,7 +211,7 @@ public class AdminController {
 				dbcont.prepareStatement(sql);
 				dbcont.getState().setString(1, "John Doe");
 				dbcont.getState().setString(2, "0455555555");
-				dbcont.getState().setString(3, "johndoe@example.com");
+				dbcont.getState().setString(3, "johndoe@"+Busname+".com");
 				dbcont.getState().setString(4, Busname);
 				dbcont.runSQLUpdate();
 			} catch(Exception e1) {
