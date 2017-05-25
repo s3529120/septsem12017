@@ -205,6 +205,15 @@ public class AdminController {
 				dbcont.getState().setInt(2, 15);
 				dbcont.getState().setString(3, Busname);
 				dbcont.runSQLUpdate();
+
+				// A default employee
+				sql = "INSERT INTO Employee(Name, ContactNo, Email,Business) " + "VALUES(?,?,?,?)";
+				dbcont.prepareStatement(sql);
+				dbcont.getState().setString(1, "John Doe");
+				dbcont.getState().setString(2, "0455555555");
+				dbcont.getState().setString(3, "johndoe@example.com");
+				dbcont.getState().setString(4, Busname);
+				dbcont.runSQLUpdate();
 			} catch(Exception e1) {
 				e1.printStackTrace();
 				dbcont.closeConnection();
