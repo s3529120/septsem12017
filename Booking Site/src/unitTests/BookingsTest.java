@@ -29,8 +29,7 @@ public class BookingsTest {
 		DatabaseController dataCont = new DatabaseController(dataMod);
 		
 		EmployeeController econt = new EmployeeController();
-		econt.addEmployee("John Smith", "0123456789", 
-				"empemail@email.com", "77 Fake st", "Melbourne", "Victoria", "3000", "bus001");
+		
 
 		//Drop tables
 		sql="DROP TABLE IF EXISTS Accounts; ";
@@ -138,7 +137,8 @@ public class BookingsTest {
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, LocalDate.now().toString());
 			dataCont.runSQLUpdate();   
-		
+			econt.addEmployee("John Smith", "0123456789", 
+					"empemail@email.com", "77 Fake st", "Melbourne", "Victoria", "3000", "bus001");
 		} catch (Exception e) {
 			dataCont.closeConnection();
 			e.printStackTrace();
