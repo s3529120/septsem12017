@@ -284,7 +284,11 @@ public class BookingsView {
 			@Override
 			public void handle(ActionEvent e) {
 				if(AppData.CALLER instanceof UserAccountModel){
-					updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(), 
+					String busName = bpick.getSelectionModel().getSelectedItem();
+					String busUsername = cont.getUsername(busName);
+					updateView(cont.filterBookings(cont.getBookings(),
+							busUsername,
+							dpick.getValue(), 
 							spick.getSelectionModel().getSelectedItem(), 
 							fpick.getSelectionModel().getSelectedItem(), 
 							epick.getSelectionModel().getSelectedItem(), 

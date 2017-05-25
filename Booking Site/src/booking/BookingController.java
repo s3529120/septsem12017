@@ -555,23 +555,48 @@ public class BookingController {
 		return true;
 	}
 
+	// Get business name
 	public String getName(String username) {
-		String sql="";
-	    DatabaseController dbCont = new DatabaseController(new DatabaseModel());
-	    ResultSet res;
-	    String name = new String();
-	    
-	    // Create database connection
-	    dbCont.createConnection();
+		String sql = "";
+		DatabaseController dbCont = new DatabaseController(new DatabaseModel());
+		ResultSet res;
+		String name = new String();
+
+		// Create database connection
+		dbCont.createConnection();
 		// Prepare and run sql
 		sql = "SELECT Name FROM Accounts WHERE Username='" + username + "';";
 		dbCont.createConnection();
 		dbCont.prepareStatement(sql);
-		res=dbCont.runSQLRes();
+		res = dbCont.runSQLRes();
 		try {
 			name = res.getString("Name");
 			dbCont.closeConnection();
 			return name;
+		} catch (SQLException e) {
+			dbCont.closeConnection();
+			return "";
+		}
+	}
+
+	// Get business username
+	public String getUsername(String name) {
+		String sql = "";
+		DatabaseController dbCont = new DatabaseController(new DatabaseModel());
+		ResultSet res;
+		String username = new String();
+
+		// Create database connection
+		dbCont.createConnection();
+		// Prepare and run sql
+		sql = "SELECT Username FROM Accounts WHERE Name='" + name + "';";
+		dbCont.createConnection();
+		dbCont.prepareStatement(sql);
+		res = dbCont.runSQLRes();
+		try {
+			username = res.getString("Username");
+			dbCont.closeConnection();
+			return username;
 		} catch (SQLException e) {
 			dbCont.closeConnection();
 			return "";
