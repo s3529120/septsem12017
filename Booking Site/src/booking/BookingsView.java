@@ -22,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import menu.MainMenuController;
@@ -868,7 +869,7 @@ public class BookingsView {
 					popup.close();
 				}
 			});
-			cancel.getStyleClass().add("orangebtn-small");
+			cancel.getStyleClass().add("redbtn-small");
 
 			// Submit button
 			Button submit = new Button("Submit");
@@ -908,7 +909,7 @@ public class BookingsView {
 			});
 			submit.getStyleClass().add("orangebtn-small");
 
-			HBox buttons = new HBox(10, cancel, submit);
+			HBox buttons = new HBox(10, submit, cancel);
 
 			// Add to pane
 			VBox body = new VBox(10, h1, dets, typeselect, buttons);
@@ -1052,7 +1053,6 @@ public class BookingsView {
 			bookingBox.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent e) {
-					Stage popup = new Stage();
 					cancelBooking(cont,booking);
 				}
 			});
@@ -1090,48 +1090,29 @@ public class BookingsView {
 
 	}
 
-	public void cancelBooking(BookingController parcont,BookingModel booking){
+	public void cancelBooking(BookingController parcont, BookingModel booking){
 		Stage popup = new Stage();
 		popup.initModality(Modality.WINDOW_MODAL);
 		popup.initOwner(parcont.getView().stage);
-		Text heading = new Text("Cancel your booking?");
 
-		// Available Booking data
-		Text startTime = new Text("Start: " + booking.getStartTime().toString());
-		Text finishTime = new Text("End: " + booking.getFinishTime().toString());
-		Text employee = new Text("Employee: " + cont.getNameFromEmail(booking.getEmployee()));
-
-		VBox who = new VBox(employee);
-		VBox bookingType = new VBox();
-
-		// Checks if booking is filled and displays customer and type if it
-		// is
-		Text customer = new Text("Customer: " + booking.getUser());
-		Text type = new Text("Type: " + booking.getType());
-		who.getChildren().add(customer);
-		bookingType.getChildren().add(type);
-		VBox when = new VBox(startTime, finishTime);
-
-		who.getStyleClass().add("bookingcol");
-		when.getStyleClass().add("bookingcol");
-		bookingType.getStyleClass().add("bookingcol");
-
-		HBox bookingBox = new HBox(who, when, bookingType);
-		bookingBox.setId("bookingBox");
+		String type = booking.getType();
+		String date = booking.getDate().toString();
+		
+		Text message = new Text("Are you sure you want to cancel your booking for " +  type + " on " + date + "?");
 
 		// Cancel button
-		Button close = new Button("Keep booking");
+		Button close = new Button("Close");
 		close.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				popup.close();
 			}
 		});
-		close.getStyleClass().add("orangebtn-small");
+		close.getStyleClass().add("redbtn-small");
 
 		// Submit button
-		Button cancel = new Button("Cancel booking");
-		cancel.setOnAction(new EventHandler<ActionEvent>() {
+		Button confirm_cancel = new Button("Confirm");
+		confirm_cancel.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				BookingController bcont = new BookingController();
@@ -1140,13 +1121,23 @@ public class BookingsView {
 			}
 		});
 
-		cancel.getStyleClass().add("orangebtn-small");
+		confirm_cancel.getStyleClass().add("orangebtn-small");
 
+		
+		// Set layout
 
-		HBox buttons= new HBox(close,cancel);
-		VBox vbox = new VBox(heading,bookingBox,buttons);
+		HBox buttons= new HBox(10, confirm_cancel, close);
+		VBox all = new VBox(20, message, buttons);
+		buttons.setAlignment(Pos.CENTER);
+		message.setTextAlignment(TextAlignment.CENTER);
+		StackPane pane = new StackPane();
+		pane.getChildren().addAll(all);
 
-		Scene scene = new Scene(vbox);
+		// Set scene for cancel booking
+		pane.setId("pop-up");
+		
+		Scene scene = new Scene(pane);
+		
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		if (ColourController.getAccountColour(AppData.CALLER.getUsername())) {
 			System.out.println("The theme color is");
@@ -1154,8 +1145,9 @@ public class BookingsView {
 			String themeLocal = "/resources/display/css/" + AppData.colour + ".css";
 			scene.getStylesheets().add(getClass().getResource(themeLocal).toExternalForm());
 		}
-		stage.setScene(scene);
-		stage.show();
+		
+		popup.setScene(scene);
+		popup.show();
 	}
 
 }
