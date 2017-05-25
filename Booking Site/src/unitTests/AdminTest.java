@@ -3,6 +3,7 @@ package unitTests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -20,43 +21,11 @@ public class AdminTest {
 		String sql = "";
 		DatabaseModel dataMod = new DatabaseModel();
 		DatabaseController dataCont = new DatabaseController(dataMod);
-
+		File f = new File("data.db");
+		f.delete();
+		dataCont.createConnection();
 		// Drop tables
-		sql = "DROP TABLE IF EXISTS Accounts; ";
-		try {
-			dataCont.createConnection();
-			dataCont.prepareStatement(sql);
-			dataCont.runSQLUpdate();
-			sql = "DROP TABLE IF EXISTS Employee; ";
-			dataCont.prepareStatement(sql);
-			dataCont.runSQLUpdate();
-			sql = "DROP TABLE IF EXISTS Address; ";
-			dataCont.prepareStatement(sql);
-			dataCont.runSQLUpdate();
-			sql = "DROP TABLE IF EXISTS Availability; ";
-			dataCont.prepareStatement(sql);
-			dataCont.runSQLUpdate();
-			sql = "DROP TABLE IF EXISTS Booking; ";
-			dataCont.prepareStatement(sql);
-			dataCont.runSQLUpdate();
-			sql = "DROP TABLE IF EXISTS System; ";
-			dataCont.prepareStatement(sql);
-			dataCont.runSQLUpdate();
-			sql = "DROP TABLE IF EXISTS Type; ";
-			dataCont.prepareStatement(sql);
-			dataCont.runSQLUpdate();
-			sql = "DROP TABLE IF EXISTS Spec; ";
-			dataCont.prepareStatement(sql);
-			dataCont.runSQLUpdate();
-			sql = "DROP TABLE IF EXISTS Trading; ";
-			dataCont.prepareStatement(sql);
-			dataCont.runSQLUpdate();
-			sql = "DROP TABLE IF EXISTS Id; ";
-			dataCont.prepareStatement(sql);
-			dataCont.runSQLUpdate();
-			sql = "DROP TABLE IF EXISTS Colour; ";
-			dataCont.prepareStatement(sql);
-			dataCont.runSQLUpdate();
+		try{
 
 			// Create tables
 			// System
@@ -72,7 +41,7 @@ public class AdminTest {
 			// Employee
 			sql = "CREATE TABLE Employee(Business TEXT NOT NULL, Name TEXT NOT NULL, ContactNo TEXT NOT NULL, "
 					+ "Email TEXT NOT NULL, " + "PRIMARY KEY (Email),"
-					+ "FOREIGN KEY (Business) REFERENCES Account(Username));";
+					+ "FOREIGN KEY (Business) REFERENCES Accounts(Username));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 			// Id
@@ -81,13 +50,13 @@ public class AdminTest {
 			dataCont.runSQLUpdate();
 			// Id
 			sql = "CREATE TABLE Colour(Username TEXT NOT NULL,Colour TEXT NOT NULL," + "PRIMARY KEY (Username),"
-					+ "FOREIGN KEY (Username) REFERENCES Account(Username));";
+					+ "FOREIGN KEY (Username) REFERENCES Accounts(Username));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 			// Type
 			sql = "CREATE TABLE Type(Business TEXT NOT NULL,Type TEXT NOT NULL, "
 					+ "Duration INTEGER NOT NULL, PRIMARY KEY (Type,Business),"
-					+ "FOREIGN KEY (Business) REFERENCES Account(Username)); ";
+					+ "FOREIGN KEY (Business) REFERENCES Accounts(Username)); ";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 			// Spec
@@ -115,7 +84,7 @@ public class AdminTest {
 					+ "EmployeeEmail TEXT NOT NULL, " + "Username TEXT, " + "Type TEXT, "
 					+ "PRIMARY KEY (Date,StartTime,EmployeeEmail), "
 					+ "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email), "
-					+ "FOREIGN KEY (Business) REFERENCES Account(Username), "
+					+ "FOREIGN KEY (Business) REFERENCES Accounts(Username), "
 					+ "FOREIGN KEY (Type) REFERENCES Type(Type), "
 					+ "FOREIGN KEY (Username) REFERENCES Accounts(Username));";
 			dataCont.prepareStatement(sql);
@@ -133,7 +102,7 @@ public class AdminTest {
 			dataCont.getState().setInt(1, 0);
 			dataCont.runSQLUpdate();
 
-			// BusAccount 1
+			// BusAccounts 1
 			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
 					+ "VALUES(?,?,?,?,?,?,?);";
 			dataCont.prepareStatement(sql);

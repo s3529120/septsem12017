@@ -65,7 +65,7 @@ public class Seed {
 			// Employee
 			sql = "CREATE TABLE Employee(Business TEXT NOT NULL, Name TEXT NOT NULL, ContactNo TEXT NOT NULL, "
 					+ "Email TEXT NOT NULL, " + "PRIMARY KEY (Email),"
-					+ "FOREIGN KEY (Business) REFERENCES Account(Username));";
+					+ "FOREIGN KEY (Business) REFERENCES Accounts(Username));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 			// Id
@@ -74,13 +74,13 @@ public class Seed {
 			dataCont.runSQLUpdate();
 			// Id
 			sql = "CREATE TABLE Colour(Username TEXT NOT NULL,Colour TEXT NOT NULL," + "PRIMARY KEY (Username),"
-					+ "FOREIGN KEY (Username) REFERENCES Account(Username));";
+					+ "FOREIGN KEY (Username) REFERENCES Accounts(Username));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 			// Type
 			sql = "CREATE TABLE Type(Business TEXT NOT NULL,Type TEXT NOT NULL, "
 					+ "Duration INTEGER NOT NULL, PRIMARY KEY (Type,Business),"
-					+ "FOREIGN KEY (Business) REFERENCES Account(Username)); ";
+					+ "FOREIGN KEY (Business) REFERENCES Accounts(Username)); ";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 			// Spec
@@ -108,7 +108,7 @@ public class Seed {
 					+ "EmployeeEmail TEXT NOT NULL, " + "Username TEXT, " + "Type TEXT, "
 					+ "PRIMARY KEY (Date,StartTime,EmployeeEmail), "
 					+ "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email), "
-					+ "FOREIGN KEY (Business) REFERENCES Account(Username), "
+					+ "FOREIGN KEY (Business) REFERENCES Accounts(Username), "
 					+ "FOREIGN KEY (Type) REFERENCES Type(Type), "
 					+ "FOREIGN KEY (Username) REFERENCES Accounts(Username));";
 			dataCont.prepareStatement(sql);
