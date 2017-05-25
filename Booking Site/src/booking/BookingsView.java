@@ -189,7 +189,7 @@ public class BookingsView {
 		});
 		mybookbtn.getStyleClass().add("orangebtn");
 
-		HBox cusheader = new HBox(10, heading, availbtn, mybookbtn, logoutbtn);
+		HBox cusheader = new HBox(10, availbtn, mybookbtn, logoutbtn);
 
 		// Past bookings switch
 		Button switchbtn = null;
@@ -413,9 +413,9 @@ public class BookingsView {
 		if (AppData.CALLER instanceof BusinessAccountModel) {
 			HBox busheader = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
 			busheader.setId("headerbox");
-			page = new VBox(busheader, body);
+			page = new VBox(heading, busheader, body);
 		} else {
-			page = new VBox(cusheader, body);
+			page = new VBox(heading, cusheader, body);
 		}
 
 		page.setId("border");
@@ -528,7 +528,7 @@ public class BookingsView {
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
 
-		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
+		HBox header = new HBox(10, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
 		header.setId("headerbox");
 		heading.getStyleClass().add("main-heading");
 
@@ -708,7 +708,7 @@ public class BookingsView {
 		body.setId("mainPageVBox");
 		body.getStyleClass().add("scroll-pane");
 
-		VBox page = new VBox(header, body);
+		VBox page = new VBox(heading, header, body);
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
 
@@ -999,7 +999,7 @@ public class BookingsView {
 		});
 		mybookbtn.getStyleClass().add("orangebtn");
 
-		HBox cusheader = new HBox(10, heading, availbtn, mybookbtn, logoutbtn);
+		HBox cusheader = new HBox(10, availbtn, mybookbtn, logoutbtn);
 		cusheader.setId("headerbox");
 
 		// Heading
@@ -1086,7 +1086,7 @@ public class BookingsView {
 		body.setId("mainPageVBox");
 		body.getStyleClass().add("scroll-pane");
 
-		VBox page = new VBox(cusheader, body);
+		VBox page = new VBox(heading, cusheader, body);
 
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
@@ -1112,10 +1112,6 @@ public class BookingsView {
 		popup.initModality(Modality.WINDOW_MODAL);
 		popup.initOwner(parcont.getView().stage);
 
-		String type = booking.getType();
-		String date = booking.getDate().toString();
-		String startTime = booking.getStartTime().toString();
-		
 		// Appointment details
 		Label dlbl = new Label("Date: ");
 		Text dtxt = new Text(booking.getDate().toString());

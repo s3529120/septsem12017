@@ -199,7 +199,7 @@ public class EditAvailabilitiesView {
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
 
-		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
+		HBox header = new HBox(10, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
 		header.setId("headerbox");
 		heading.getStyleClass().add("main-heading");
 		HBox backbox = new HBox(specbtn);
@@ -410,7 +410,7 @@ public class EditAvailabilitiesView {
 		VBox body = new VBox(topBox, dayBox, bottom);
 		body.setId("mainPageVBox");
 		header.setId("headerbox");
-		VBox page = new VBox(header, body);
+		VBox page = new VBox(heading, header, body);
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
 

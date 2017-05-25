@@ -95,7 +95,7 @@ public class AdminView {
 		logoutbtn.getStyleClass().add("linkbtn");
 
 		// Header navigation
-		HBox header = new HBox(h1, addbtn, logoutbtn);
+		HBox header = new HBox(10, h1, addbtn, logoutbtn);
 		header.setId("headerbox");
 
 		// Create a list of businesses and pass through each business to list

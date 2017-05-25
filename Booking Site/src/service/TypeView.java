@@ -215,7 +215,7 @@ public class TypeView {
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
 
-		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
+		HBox header = new HBox(10, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
 		header.setId("headerbox");
 		heading.getStyleClass().add("main-heading");
 		
@@ -283,7 +283,7 @@ public class TypeView {
 		// Set scene for update type view
 		HBox functions = new HBox(addVbox, remVbox);
 		VBox body = new VBox(h1, servicesText, functions);
-		VBox page = new VBox(header, body);
+		VBox page = new VBox(heading, header, body);
 		body.setId("mainPageVBox");
 		header.setId("headerbox");
 		page.setId("border");
