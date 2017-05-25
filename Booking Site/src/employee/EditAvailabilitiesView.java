@@ -18,6 +18,8 @@ import menu.MainMenuView;
 import service.TypeController;
 import service.TypeView;
 import utils.AppData;
+import utils.ColourController;
+
 import java.time.DayOfWeek;
 import java.util.Map;
 import booking.BookingController;
@@ -418,6 +420,12 @@ public class EditAvailabilitiesView {
 
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
+		if (ColourController.getAccountColour(AppData.CALLER.getUsername())) {
+			System.out.println("The theme color is");
+			System.out.println(AppData.colour);
+			String themeLocal = "/resources/display/css/" + AppData.colour + ".css";
+			scene.getStylesheets().add(getClass().getResource(themeLocal).toExternalForm());
+		}
 		stage.setScene(scene);
 		stage.show();
 	}
