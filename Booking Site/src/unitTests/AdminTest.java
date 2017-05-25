@@ -1,5 +1,6 @@
 package unitTests;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.ResultSet;
@@ -403,34 +404,20 @@ public class AdminTest {
 		}
 		dataCont.closeConnection();
 	}
-
+	AdminController admcont = new AdminController();
 	/*
-	 * Remove a business via method and check for existence with sql statement
+	 * Remove a business via method
 	 * */
 	@Test
-	public void delBusiness() throws SQLException{
-		DatabaseModel dbmod = new DatabaseModel();
-		DatabaseController dcont = new DatabaseController(dbmod);
-		AdminController admcont = new AdminController();
+	public void delBusiness() {
 
-		dcont.createConnection();
-		String sql;
-		ResultSet res;
-		String Busname="bus002";
+		assertTrue(admcont.delBusiness("bus001"));
 
-		admcont.delBusiness(Busname);
-		sql = "SELECT * FROM ACCOUNTS WHERE NAME = 'bus002';";
-
-		dcont.prepareStatement(sql);
-		res = dcont.runSQLRes();
-		try {
-			assertTrue(res.getString(0).isEmpty());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		res.close();
-		dcont.closeConnection();
+	}
+	
+	@Test
+	public void addBusiness() {
+		assertTrue(admcont.addBusiness("bus003", "abc123", "Jons Antique Toys", 
+				"1214555555", "77 Zap Lane", "jon@zap.com"));
 	}
 }
