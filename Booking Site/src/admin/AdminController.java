@@ -209,9 +209,9 @@ public class AdminController {
 				// A default employee
 				sql = "INSERT INTO Employee(Name, ContactNo, Email,Business) " + "VALUES(?,?,?,?)";
 				dbcont.prepareStatement(sql);
-				dbcont.getState().setString(1, "John Doe");
+				dbcont.getState().setString(1, Busname+"DefEmp");
 				dbcont.getState().setString(2, "0455555555");
-				dbcont.getState().setString(3, "johndoe@"+Busname+".com");
+				dbcont.getState().setString(3, Busname+"DefEmp@"+Busname+".com");
 				dbcont.getState().setString(4, Busname);
 				dbcont.runSQLUpdate();
 			} catch(Exception e1) {
