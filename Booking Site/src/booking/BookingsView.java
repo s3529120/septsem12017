@@ -340,8 +340,11 @@ public class BookingsView {
 		bookings.forEach(booking -> {
 			// If user is of type customer and booking is filled, skip this
 			// iteration
-			if (booking.getUser().compareToIgnoreCase("Unfilled") != 0 && AppData.CALLER instanceof UserAccountModel) {
-				return;
+			booking.getUser();
+			if(AppData.CALLER instanceof UserAccountModel){
+				if (booking.getUser().compareTo("Unfilled") != 0) {
+					return;
+				}
 			}
 			String newdate = booking.getDate().toString();
 			if (currentdate == null || !currentdate.equals(newdate)) {
