@@ -1139,7 +1139,7 @@ public class BookingsView {
 		close.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				updateCusView();
+				popup.close();
 			}
 		});
 		close.getStyleClass().add("redbtn-small");
