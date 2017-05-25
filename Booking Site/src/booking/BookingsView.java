@@ -372,7 +372,7 @@ public class BookingsView {
 				who.getChildren().add(customer);
 				bookingType.getChildren().add(type);
 			}
-			
+
 			if (AppData.CALLER instanceof UserAccountModel) {				
 				String busName = cont.getName(booking.getBusiness());
 				Text business = new Text("Business: " + busName);
@@ -395,11 +395,8 @@ public class BookingsView {
 					assignToBooking(booking, cont);
 				}
 			});
-			// Only add this if business is same as emp's business
-			if(booking.getBusiness() == AppData.CALLER.getUsername()){
-				// Add this booking data to booking list
-				bookingsList.getChildren().add(bookingBox);
-			}
+			// Add this booking data to booking list
+			bookingsList.getChildren().add(bookingBox);
 		});
 
 		// Set layout
@@ -657,7 +654,7 @@ public class BookingsView {
 
 		// Iterate through past bookings and add them to bookingsList
 		bookings.forEach(booking -> {
-			
+
 			String newdate = booking.getDate().toString();
 			if (currentdate == null || !currentdate.equals(newdate)) {
 				currentdate = newdate;
@@ -697,10 +694,10 @@ public class BookingsView {
 					assignToBooking(booking, cont);
 				}
 			});
-			if(booking.getBusiness() == AppData.CALLER.getUsername()){
-				// Add this booking data to booking list
-				bookingsList.getChildren().add(bookingBox);
-			}
+
+			// Add this booking data to booking list
+			bookingsList.getChildren().add(bookingBox);
+
 
 		});
 

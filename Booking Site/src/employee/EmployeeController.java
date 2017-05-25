@@ -192,7 +192,9 @@ public class EmployeeController
 		{
 			while(res.next()){
 				//Add returned employees to list where they are in the business
-				emps.put(res.getString("Name"),res.getString("Email"));
+				if(bus == AppData.CALLER.getUsername()){
+					emps.put(res.getString("Name"),res.getString("Email"));
+				}
 			}
 		}
 		catch (SQLException e)
