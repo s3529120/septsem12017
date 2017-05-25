@@ -1105,7 +1105,7 @@ public class BookingsView {
 		close.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				popup.close();
+				updateCusView();
 			}
 		});
 		close.getStyleClass().add("redbtn-small");
@@ -1117,8 +1117,7 @@ public class BookingsView {
 			public void handle(ActionEvent e) {
 				BookingController bcont = new BookingController();
 				bcont.cancelBooking(booking.getId());
-				popup.close();
-				parcont.updateView();
+				updateCusView();
 			}
 		});
 
