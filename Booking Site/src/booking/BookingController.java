@@ -77,7 +77,7 @@ public class BookingController
             }
          });
 		//Date
-      }if(date!=null){
+      }if(date!=null && !date.equals(LocalDate.of(2000, 01, 01))){
 			books.forEach(x->{
 				if(!x.getDate().equals(date)){
 					removes.add(x);
