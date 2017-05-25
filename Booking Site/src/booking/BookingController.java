@@ -116,9 +116,10 @@ public class BookingController {
 		}
 		// Employee
 		if (employee != null && employee.compareToIgnoreCase("none") != 0) {
-
 			books.forEach(x -> {
 				if (!(x.getEmployee().compareToIgnoreCase(employee) == 0)) {
+					System.out.println("Removing employee: " + x.getEmployee());
+					System.out.println("Does not match: " + employee + "\n\n");
 					removes.add(x);
 				}
 			});

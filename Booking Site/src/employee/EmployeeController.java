@@ -585,6 +585,34 @@ public class EmployeeController
 		dbcont.closeConnection();
 		return name;
 	}
+	
+	/**
+	 * Get email from name
+	 * @param name
+	 * @return
+	 */
+	public String getEmployeeMail(String name){
+		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+		String sql="", email;
+		ResultSet res;
+
+		//Create connection
+		dbcont.createConnection();
+
+		//Prepare statement
+		sql="SELECT Email FROM Employee WHERE Name=?;";
+		dbcont.prepareStatement(sql);
+		try{
+			dbcont.getState().setString(1, name);
+			res=dbcont.runSQLRes();
+			email=res.getString("Email");
+		}catch(SQLException e){
+			dbcont.closeConnection();
+			return "Employee email not found";
+		}
+		dbcont.closeConnection();
+		return email;
+	}
 
 	//Adds error message to error box
 	public void empAddedMessage(HBox empaddedhbox, Text empaddedtxt) {

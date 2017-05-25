@@ -283,27 +283,40 @@ public class BookingsView {
 		filterbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
+				EmployeeController econt = new EmployeeController();
+				String employeeMail = econt.getEmployeeMail(epick.getSelectionModel().getSelectedItem());
 				if(AppData.CALLER instanceof UserAccountModel){
 					String busName = bpick.getSelectionModel().getSelectedItem();
-					String busUsername = cont.getUsername(busName);
-					updateView(cont.filterBookings(cont.getBookings(),
+					String busUsername;
+					if(busName != null) {
+						busUsername = cont.getUsername(busName);
+					} else {
+						busUsername = null;
+					}
+					updateView(cont.filterBookings(
+							cont.getBookings(),
 							busUsername,
 							dpick.getValue(), 
 							spick.getSelectionModel().getSelectedItem(), 
 							fpick.getSelectionModel().getSelectedItem(), 
-							epick.getSelectionModel().getSelectedItem(), 
+							employeeMail, 
 							upick.getSelectionModel().getSelectedItem(), 
 							tpick.getSelectionModel().getSelectedItem()));
 				}else{
-					updateView(cont.filterBookings(cont.getBookings(),null,dpick.getValue(), 
+					updateView(cont.filterBookings(
+							cont.getBookings(),
+							null,
+							dpick.getValue(), 
 							spick.getSelectionModel().getSelectedItem(), 
 							fpick.getSelectionModel().getSelectedItem(), 
-							epick.getSelectionModel().getSelectedItem(), 
+							employeeMail, 
 							upick.getSelectionModel().getSelectedItem(), 
 							tpick.getSelectionModel().getSelectedItem()));
 				}
 			}
-		});
+		});		
+		
+		
 		HBox filterFields1;
 		HBox filterFields2;
 		if(AppData.CALLER instanceof UserAccountModel){
@@ -624,20 +637,29 @@ public class BookingsView {
 		filterbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
+				EmployeeController econt = new EmployeeController();
+				String employeeMail = econt.getEmployeeMail(epick.getSelectionModel().getSelectedItem());
+				System.out.println(epick.getSelectionModel().getSelectedItem());
 				if(AppData.CALLER instanceof UserAccountModel){
-					updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(), 
-							spick.getSelectionModel().getSelectedItem(), 
-							fpick.getSelectionModel().getSelectedItem(), 
-							epick.getSelectionModel().getSelectedItem(), 
-							upick.getSelectionModel().getSelectedItem(), 
-							tpick.getSelectionModel().getSelectedItem()));
+					updateView(cont.filterBookings(
+							cont.getBookings(), //bookings
+							bpick.getSelectionModel().getSelectedItem(), //business
+							dpick.getValue(), //date
+							spick.getSelectionModel().getSelectedItem(), //start time
+							fpick.getSelectionModel().getSelectedItem(), //finish time
+							employeeMail, //employee email
+							null, //user
+							tpick.getSelectionModel().getSelectedItem())); //type
 				}else{
-					updateView(cont.filterBookings(cont.getBookings(),null,dpick.getValue(), 
-							spick.getSelectionModel().getSelectedItem(), 
-							fpick.getSelectionModel().getSelectedItem(), 
-							epick.getSelectionModel().getSelectedItem(), 
-							upick.getSelectionModel().getSelectedItem(), 
-							tpick.getSelectionModel().getSelectedItem()));
+					updateView(cont.filterBookings(
+							cont.getBookings(), //bookings
+							null, //business
+							dpick.getValue(), //date
+							spick.getSelectionModel().getSelectedItem(), //start time
+							fpick.getSelectionModel().getSelectedItem(), //finish time
+							employeeMail, //employee email
+							upick.getSelectionModel().getSelectedItem(), //user
+							tpick.getSelectionModel().getSelectedItem())); //type
 				}
 			}
 		});
