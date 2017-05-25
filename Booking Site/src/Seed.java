@@ -64,7 +64,7 @@ public class Seed {
 			dataCont.runSQLUpdate();
 			// Employee
 			sql = "CREATE TABLE Employee(Business TEXT NOT NULL, Name TEXT NOT NULL, ContactNo TEXT NOT NULL, "
-					+ "Email TEXT NOT NULL, " + "PRIMARY KEY (Email)," 
+					+ "Email TEXT NOT NULL, " + "PRIMARY KEY (Email),"
 					+ "FOREIGN KEY (Business) REFERENCES Account(Username));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
@@ -73,24 +73,23 @@ public class Seed {
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 			// Id
-			sql = "CREATE TABLE Colour(Username TEXT NOT NULL,Colour TEXT NOT NULL," +
-					"PRIMARY KEY (Username)," +
-					"FOREIGN KEY (Username) REFERENCES Account(Username));";
+			sql = "CREATE TABLE Colour(Username TEXT NOT NULL,Colour TEXT NOT NULL," + "PRIMARY KEY (Username),"
+					+ "FOREIGN KEY (Username) REFERENCES Account(Username));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 			// Type
-         sql = "CREATE TABLE Type(Business TEXT NOT NULL,Type TEXT NOT NULL, " +
-               "Duration INTEGER NOT NULL, PRIMARY KEY (Type,Business)," +
-                "FOREIGN KEY (Business) REFERENCES Account(Username)); ";
-         dataCont.prepareStatement(sql);
-         dataCont.runSQLUpdate();
-      // Spec
-         sql = "CREATE TABLE Spec(Type TEXT NOT NULL, " +
-               "EmployeeEmail TEXT NOT NULL, PRIMARY KEY (Type, EmployeeEmail), " +
-               "FOREIGN KEY (Type) REFERENCES Type(Type), " +
-               "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email));";
-         dataCont.prepareStatement(sql);
-         dataCont.runSQLUpdate();
+			sql = "CREATE TABLE Type(Business TEXT NOT NULL,Type TEXT NOT NULL, "
+					+ "Duration INTEGER NOT NULL, PRIMARY KEY (Type,Business),"
+					+ "FOREIGN KEY (Business) REFERENCES Account(Username)); ";
+			dataCont.prepareStatement(sql);
+			dataCont.runSQLUpdate();
+			// Spec
+			sql = "CREATE TABLE Spec(Type TEXT NOT NULL, "
+					+ "EmployeeEmail TEXT NOT NULL, PRIMARY KEY (Type, EmployeeEmail), "
+					+ "FOREIGN KEY (Type) REFERENCES Type(Type), "
+					+ "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email));";
+			dataCont.prepareStatement(sql);
+			dataCont.runSQLUpdate();
 			// Address
 			sql = "CREATE TABLE Address(" + "EmployeeEmail TEXT NOT NULL, " + "StreetAddress TEXT NOT NULL, "
 					+ "City TEXT NOT NULL, " + "State TEXT NOT NULL, " + "PostCode TEXT NOT NULL, "
@@ -104,10 +103,9 @@ public class Seed {
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 			// Booking
-			sql = "CREATE TABLE Booking(Business TEXT NOT NULL, Date TEXT NOT NULL, " 
-			      + "StartTime TEXT NOT NULL, Id INTEGER,"
-					+ "FinishTime TEXT NOT NULL, " + "EmployeeEmail TEXT NOT NULL, " 
-			      + "Username TEXT, " + "Type TEXT, "
+			sql = "CREATE TABLE Booking(Business TEXT NOT NULL, Date TEXT NOT NULL, "
+					+ "StartTime TEXT NOT NULL, Id INTEGER," + "FinishTime TEXT NOT NULL, "
+					+ "EmployeeEmail TEXT NOT NULL, " + "Username TEXT, " + "Type TEXT, "
 					+ "PRIMARY KEY (Date,StartTime,EmployeeEmail), "
 					+ "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email), "
 					+ "FOREIGN KEY (Business) REFERENCES Account(Username), "
@@ -123,8 +121,7 @@ public class Seed {
 			dataCont.runSQLUpdate();
 
 			// Enter dummy data
-			sql = "INSERT INTO Id(High) "
-					+ "VALUES(?);";
+			sql = "INSERT INTO Id(High) " + "VALUES(?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setInt(1, 0);
 			dataCont.runSQLUpdate();
@@ -142,7 +139,6 @@ public class Seed {
 			dataCont.getState().setString(7, "francois@gmail.com");
 			dataCont.runSQLUpdate();
 
-
 			// Super User
 			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
 					+ "VALUES(?,?,?,?,?,?,?);";
@@ -156,64 +152,57 @@ public class Seed {
 			dataCont.getState().setString(7, "admin@operator.owner");
 			dataCont.runSQLUpdate();
 
-			//Availabilities
-			//Monday
-			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
-					+ "VALUES(?,?,?,?);";
+			// Availabilities
+			// Monday
+			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)" + "VALUES(?,?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
 			dataCont.getState().setString(2, "MONDAY");
 			dataCont.getState().setString(3, "10:00");
 			dataCont.getState().setString(4, "18:00");
 			dataCont.runSQLUpdate();
-			//Tuesday
-			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
-					+ "VALUES(?,?,?,?);";
+			// Tuesday
+			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)" + "VALUES(?,?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
 			dataCont.getState().setString(2, "TUESDAY");
 			dataCont.getState().setString(3, "10:00");
 			dataCont.getState().setString(4, "18:00");
 			dataCont.runSQLUpdate();
-			//Wednesday
-			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
-					+ "VALUES(?,?,?,?);";
+			// Wednesday
+			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)" + "VALUES(?,?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
 			dataCont.getState().setString(2, "WEDNESDAY");
 			dataCont.getState().setString(3, "10:00");
 			dataCont.getState().setString(4, "18:00");
 			dataCont.runSQLUpdate();
-			//Thursday
-			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
-					+ "VALUES(?,?,?,?);";
+			// Thursday
+			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)" + "VALUES(?,?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
 			dataCont.getState().setString(2, "THURSDAY");
 			dataCont.getState().setString(3, "10:00");
 			dataCont.getState().setString(4, "18:00");
 			dataCont.runSQLUpdate();
-			//Friday
-			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
-					+ "VALUES(?,?,?,?);";
+			// Friday
+			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)" + "VALUES(?,?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
 			dataCont.getState().setString(2, "FRIDAY");
 			dataCont.getState().setString(3, "10:00");
 			dataCont.getState().setString(4, "18:00");
 			dataCont.runSQLUpdate();
-			//Saturday
-			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
-					+ "VALUES(?,?,?,?);";
+			// Saturday
+			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)" + "VALUES(?,?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
 			dataCont.getState().setString(2, "SATURDAY");
 			dataCont.getState().setString(3, "08:30");
 			dataCont.getState().setString(4, "20:00");
 			dataCont.runSQLUpdate();
-			//Sunday
-			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
-					+ "VALUES(?,?,?,?);";
+			// Sunday
+			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)" + "VALUES(?,?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
 			dataCont.getState().setString(2, "SUNDAY");
@@ -227,52 +216,52 @@ public class Seed {
 			dataCont.getState().setString(1, LocalDate.now().toString());
 			dataCont.runSQLUpdate();
 
-			//Types
-			sql="INSERT INTO Type(Type,Duration,Business) Values(?,?,?);";
+			// Types
+			sql = "INSERT INTO Type(Type,Duration,Business) Values(?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "Grooming");
 			dataCont.getState().setInt(2, 15);
 			dataCont.getState().setString(3, "bus001");
 			dataCont.runSQLUpdate();
-			sql="INSERT INTO Type(Type,Duration,Business) Values(?,?,?);";
+			sql = "INSERT INTO Type(Type,Duration,Business) Values(?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "None");
 			dataCont.getState().setInt(2, 15);
 			dataCont.getState().setString(3, "bus001");
-         dataCont.runSQLUpdate();
-         sql="INSERT INTO Type(Type,Duration,Business) Values(?,?,?);";
+			dataCont.runSQLUpdate();
+			sql = "INSERT INTO Type(Type,Duration,Business) Values(?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "Cut");
 			dataCont.getState().setInt(2, 30);
-         dataCont.getState().setString(3, "bus001");
-         dataCont.runSQLUpdate();
-         sql="INSERT INTO Type(Type,Duration,Business) Values(?,?,?);";
+			dataCont.getState().setString(3, "bus001");
+			dataCont.runSQLUpdate();
+			sql = "INSERT INTO Type(Type,Duration,Business) Values(?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "Style");
 			dataCont.getState().setInt(2, 30);
-         dataCont.getState().setString(3, "bus001");
-         dataCont.runSQLUpdate();
-         sql="INSERT INTO Type(Type,Duration,Business) Values(?,?,?);";
+			dataCont.getState().setString(3, "bus001");
+			dataCont.runSQLUpdate();
+			sql = "INSERT INTO Type(Type,Duration,Business) Values(?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "Cut and Style");
 			dataCont.getState().setInt(2, 45);
-         dataCont.getState().setString(3, "bus001");
-         dataCont.runSQLUpdate();
+			dataCont.getState().setString(3, "bus001");
+			dataCont.runSQLUpdate();
 
-///////////// EMPLOYEE 1
+			///////////// EMPLOYEE 1
 			sql = "INSERT INTO Employee(Name, ContactNo, Email,Business) " + "VALUES(?,?,?,?)";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "John Doe");
 			dataCont.getState().setString(2, "0455555555");
 			dataCont.getState().setString(3, "johndoe@example.com");
-         dataCont.getState().setString(4, "bus001");
+			dataCont.getState().setString(4, "bus001");
 			dataCont.runSQLUpdate();
 
-			//Employee 1 Spec
-			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Grooming','johndoe@example.com');";
+			// Employee 1 Spec
+			sql = "INSERT INTO Spec(Type,EmployeeEmail) Values('Grooming','johndoe@example.com');";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
-			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('None','johndoe@example.com');";
+			sql = "INSERT INTO Spec(Type,EmployeeEmail) Values('None','johndoe@example.com');";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 
@@ -319,20 +308,20 @@ public class Seed {
 			dataCont.getState().setString(1, "Jane Oliver");
 			dataCont.getState().setString(2, "0455555555");
 			dataCont.getState().setString(3, "janeoliver@example.com");
-         dataCont.getState().setString(4, "bus001");
+			dataCont.getState().setString(4, "bus001");
 			dataCont.runSQLUpdate();
 
-			//Employee 2 Spec
-			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Cut','janeoliver@example.com');";
+			// Employee 2 Spec
+			sql = "INSERT INTO Spec(Type,EmployeeEmail) Values('Cut','janeoliver@example.com');";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
-			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('None','janeoliver@example.com');";
+			sql = "INSERT INTO Spec(Type,EmployeeEmail) Values('None','janeoliver@example.com');";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
-			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Style','janeoliver@example.com');";
+			sql = "INSERT INTO Spec(Type,EmployeeEmail) Values('Style','janeoliver@example.com');";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
-			sql="INSERT INTO Spec(Type,EmployeeEmail) Values('Cut and Style','janeoliver@example.com');";
+			sql = "INSERT INTO Spec(Type,EmployeeEmail) Values('Cut and Style','janeoliver@example.com');";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
 
@@ -364,7 +353,7 @@ public class Seed {
 			dataCont.getState().setString(4, "janeoliver@example.com");
 			dataCont.runSQLUpdate();
 
-			//Customer 1
+			// Customer 1
 			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
 					+ "VALUES(?,?,?,?,?,?,?);";
 			dataCont.prepareStatement(sql);
@@ -377,7 +366,7 @@ public class Seed {
 			dataCont.getState().setString(7, "aadamson@gmail.com");
 			dataCont.runSQLUpdate();
 
-			//Customer 2
+			// Customer 2
 			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
 					+ "VALUES(?,?,?,?,?,?,?);";
 			dataCont.prepareStatement(sql);
@@ -390,7 +379,7 @@ public class Seed {
 			dataCont.getState().setString(7, "bbobson@gmail.com");
 			dataCont.runSQLUpdate();
 
-			//Customer 3
+			// Customer 3
 			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
 					+ "VALUES(?,?,?,?,?,?,?);";
 			dataCont.prepareStatement(sql);
