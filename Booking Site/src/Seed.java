@@ -142,18 +142,6 @@ public class Seed {
 			dataCont.getState().setString(7, "francois@gmail.com");
 			dataCont.runSQLUpdate();
 
-			// BusAccount 2
-			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "
-					+ "VALUES(?,?,?,?,?,?,?);";
-			dataCont.prepareStatement(sql);
-			dataCont.getState().setString(1, "bus002");
-			dataCont.getState().setString(2, "abc123");
-			dataCont.getState().setString(3, "Gustavs Bike Shop");
-			dataCont.getState().setString(4, "1300655506");
-			dataCont.getState().setString(5, "Business");
-			dataCont.getState().setString(6, "1 Cycle Avenue");
-			dataCont.getState().setString(7, "gustav@gmail.com");
-			dataCont.runSQLUpdate();
 
 			// Super User
 			sql = "INSERT INTO Accounts(Username, Password, Name, ContactNo, Type, Address, Email) "

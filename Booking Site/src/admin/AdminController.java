@@ -2,6 +2,7 @@ package admin;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,53 +37,53 @@ public class AdminController {
 	public void updateView(){
 		view.updateView();
 	}
-	
+
 	/**Creates model from account data.
-    * @param name Username to assign account.
-    * @param type Account type, "Business" or "User" or "Admin".
-    * @return AccountModel representing account just created.
-    */
-   public static AccountModel createAccountModel(String name){
-      String sql="";
-      ResultSet res;
-      DatabaseModel dbmod = new DatabaseModel();
-      DatabaseController dbCont = new DatabaseController(dbmod);
-         String adminname;
-         String email;
-   
-         //Open database connection
-         dbCont.createConnection();
+	 * @param name Username to assign account.
+	 * @param type Account type, "Business" or "User" or "Admin".
+	 * @return AccountModel representing account just created.
+	 */
+	public static AccountModel createAccountModel(String name){
+		String sql="";
+		ResultSet res;
+		DatabaseModel dbmod = new DatabaseModel();
+		DatabaseController dbCont = new DatabaseController(dbmod);
+		String adminname;
+		String email;
 
-         //Prepare and run sql
-         sql="SELECT Name, Email "
-               + "FROM Accounts "
-               + "WHERE Username=?;";
-         dbCont.prepareStatement(sql);
-         try
-         {
-            dbCont.getState().setString(1, name);
-         }
-         catch (SQLException e2)
-         {
-            e2.printStackTrace();
-         }
+		//Open database connection
+		dbCont.createConnection();
 
-         res=dbCont.runSQLRes();
-         
-         try{
-            adminname=res.getString("Name");
-            email=res.getString("Email");
-         }catch(SQLException e){
-            e.printStackTrace();
-            dbCont.closeConnection();
-            return null;
-         }
-         
-         // Create and return the acc model, close connection
-         AdminAccountModel acc = new AdminAccountModel(adminname, email);
-         dbCont.closeConnection();
-         return acc;
-   }
+		//Prepare and run sql
+		sql="SELECT Name, Email "
+				+ "FROM Accounts "
+				+ "WHERE Username=?;";
+		dbCont.prepareStatement(sql);
+		try
+		{
+			dbCont.getState().setString(1, name);
+		}
+		catch (SQLException e2)
+		{
+			e2.printStackTrace();
+		}
+
+		res=dbCont.runSQLRes();
+
+		try{
+			adminname=res.getString("Name");
+			email=res.getString("Email");
+		}catch(SQLException e){
+			e.printStackTrace();
+			dbCont.closeConnection();
+			return null;
+		}
+
+		// Create and return the acc model, close connection
+		AdminAccountModel acc = new AdminAccountModel(adminname, email);
+		dbCont.closeConnection();
+		return acc;
+	}
 
 	// TODO: Add methods for adding and removing a business.
 
@@ -114,7 +115,7 @@ public class AdminController {
 		}
 		if(!acont.checkUsername(Busname)) {
 			sql = "INSERT INTO Accounts(Username,Password,Name,Type,ContactNo,Email,Address) " 
-				+ "Values(?,?,?,?,?,?,?);";
+					+ "Values(?,?,?,?,?,?,?);";
 
 			dbcont.prepareStatement(sql);
 			try {
@@ -126,11 +127,99 @@ public class AdminController {
 				dbcont.getState().setString(6, Email);
 				dbcont.getState().setString(7, Address);
 				dbcont.runSQLUpdate();
+
+				//Monday
+				sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
+						+ "VALUES(?,?,?,?);";
+				dbcont.prepareStatement(sql);
+				dbcont.getState().setString(1, Busname);
+				dbcont.getState().setString(2, "MONDAY");
+				dbcont.getState().setString(3, "10:00");
+				dbcont.getState().setString(4, "18:00");
+				dbcont.runSQLUpdate();
+				//Tuesday
+				sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
+						+ "VALUES(?,?,?,?);";
+				dbcont.prepareStatement(sql);
+				dbcont.getState().setString(1, Busname);
+				dbcont.getState().setString(2, "TUESDAY");
+				dbcont.getState().setString(3, "10:00");
+				dbcont.getState().setString(4, "18:00");
+				dbcont.runSQLUpdate();
+				//Wednesday
+				sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
+						+ "VALUES(?,?,?,?);";
+				dbcont.prepareStatement(sql);
+				dbcont.getState().setString(1, Busname);
+				dbcont.getState().setString(2, "WEDNESDAY");
+				dbcont.getState().setString(3, "10:00");
+				dbcont.getState().setString(4, "18:00");
+				dbcont.runSQLUpdate();
+				//Thursday
+				sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
+						+ "VALUES(?,?,?,?);";
+				dbcont.prepareStatement(sql);
+				dbcont.getState().setString(1, Busname);
+				dbcont.getState().setString(2, "THURSDAY");
+				dbcont.getState().setString(3, "10:00");
+				dbcont.getState().setString(4, "18:00");
+				dbcont.runSQLUpdate();
+				//Friday
+				sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
+						+ "VALUES(?,?,?,?);";
+				dbcont.prepareStatement(sql);
+				dbcont.getState().setString(1, Busname);
+				dbcont.getState().setString(2, "FRIDAY");
+				dbcont.getState().setString(3, "10:00");
+				dbcont.getState().setString(4, "18:00");
+				dbcont.runSQLUpdate();
+				//Saturday
+				sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
+						+ "VALUES(?,?,?,?);";
+				dbcont.prepareStatement(sql);
+				dbcont.getState().setString(1, Busname);
+				dbcont.getState().setString(2, "SATURDAY");
+				dbcont.getState().setString(3, "08:30");
+				dbcont.getState().setString(4, "20:00");
+				dbcont.runSQLUpdate();
+				//Sunday
+				sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
+						+ "VALUES(?,?,?,?);";
+				dbcont.prepareStatement(sql);
+				dbcont.getState().setString(1, Busname);
+				dbcont.getState().setString(2, "SUNDAY");
+				dbcont.getState().setString(3, "11:00");
+				dbcont.getState().setString(4, "16:00");
+				dbcont.runSQLUpdate();
+
+				// Booking date
+				sql = "INSERT INTO System(BookingsUntil) " + "VALUES(?);";
+				dbcont.prepareStatement(sql);
+				dbcont.getState().setString(1, LocalDate.now().toString());
+				dbcont.runSQLUpdate();
+
+				// Default type
+				sql="INSERT INTO Type(Type,Duration,Business) Values(?,?,?);";
+				dbcont.prepareStatement(sql);
+				dbcont.getState().setString(1, "None");
+				dbcont.getState().setInt(2, 15);
+				dbcont.getState().setString(3, Busname);
+				dbcont.runSQLUpdate();
+
+				// A default employee
+				sql = "INSERT INTO Employee(Name, ContactNo, Email,Business) " + "VALUES(?,?,?,?)";
+				dbcont.prepareStatement(sql);
+				dbcont.getState().setString(1, Busname+"DefEmp");
+				dbcont.getState().setString(2, "0455555555");
+				dbcont.getState().setString(3, Busname+"DefEmp@"+Busname+".com");
+				dbcont.getState().setString(4, Busname);
+				dbcont.runSQLUpdate();
 			} catch(Exception e1) {
 				e1.printStackTrace();
 				dbcont.closeConnection();
 				return false;
 			}
+			dbcont.closeConnection();
 			return true;
 		} else {
 			// If acc doesn't exist, add new account and return true, else return false
@@ -147,12 +236,12 @@ public class AdminController {
 	public static boolean delBusiness(String Busname){
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		String sql="";
-		
+
 		//Create a new conn and set the sql query to busname.
 		dbcont.createConnection();
 		sql="DELETE FROM accounts WHERE username=?;";
 		dbcont.prepareStatement(sql);
-		
+
 		try
 		{
 			// Run sql and close connection
