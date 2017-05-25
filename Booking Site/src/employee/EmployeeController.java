@@ -11,6 +11,7 @@ import java.util.Map;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import utils.AppData;
 import utils.DataMatcher;
 import utils.DatabaseController;
 import utils.DatabaseModel;
@@ -129,7 +130,7 @@ public class EmployeeController
 		}
 		return false;
 	}
-	
+
 
 	//Returns array of employees
 	public Map<String,String> getAllEmployees(){
@@ -165,49 +166,51 @@ public class EmployeeController
 		//Convert list of employees to array and return
 		return emps;
 	}
-	
-	  //Returns array of employees
-   public Map<String,String> getEmployees(String bus){
-      String sql="";
-      DatabaseController dbcont = new DatabaseController(new DatabaseModel());
-      ResultSet res;
-      Map<String,String> emps = new HashMap<String,String>();
 
-      //Create database connection
-      dbcont.createConnection();
-      //Prepare and run sql
-      sql="SELECT * FROM Employee WHERE Business=?;";
-      dbcont.prepareStatement(sql);
-      try
-      {
-         dbcont.getState().setString(1, bus);
-      }
-      catch (SQLException e1)
-      {
-         e1.printStackTrace();
-      }
-      res=dbcont.runSQLRes();
+	//Returns array of employees
+	public Map<String,String> getEmployees(String bus){
+		String sql="";
+		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+		ResultSet res;
+		Map<String,String> emps = new HashMap<String,String>();
 
-      try
-      {
-         while(res.next()){
-            //Add returned employees to list
-            emps.put(res.getString("Name"),res.getString("Email"));
-         }
-      }
-      catch (SQLException e)
-      {
-         return null;
-      }
+		//Create database connection
+		dbcont.createConnection();
+		//Prepare and run sql
+		sql="SELECT * FROM Employee WHERE Business=?;";
+		dbcont.prepareStatement(sql);
+		try
+		{
+			dbcont.getState().setString(1, bus);
+		}
+		catch (SQLException e1)
+		{
+			e1.printStackTrace();
+		}
+		res = dbcont.runSQLRes();
 
-      //Close database connection
-      dbcont.closeConnection();
-      if (emps.isEmpty()) {
-         return null;
-      }
-      //Convert list of employees to array and return
-      return emps;
-   }
+		try
+		{
+			while(res.next()){
+				//Add returned employees to list where they are in the business
+//				if(bus == AppData.CALLER.getUsername()){
+					emps.put(res.getString("Name"),res.getString("Email"));
+//				}
+			}
+		}
+		catch (SQLException e)
+		{
+			return null;
+		}
+
+		//Close database connection
+		dbcont.closeConnection();
+		if (emps.isEmpty()) {
+			return null;
+		}
+		//Convert list of employees to array and return
+		return emps;
+	}
 
 	/**Returns array of employee emails.
 	 * @return List of all employees email addresses.
@@ -293,7 +296,7 @@ public class EmployeeController
 		}
 
 	}
-	
+
 	/**
 	 * Set error text's on appropriate hboxes if there are any errors (This desperately needs abstraction, WIP)
 	 * @param fname Firstname
@@ -515,7 +518,7 @@ public class EmployeeController
 				streeterrorbox.getChildren().remove(streeterrortxt);
 			}
 		}
-		
+
 		// Check city error
 		if(cityerror){
 			if(!cityerrorbox.getChildren().contains(cityerrortxt)){
@@ -537,7 +540,7 @@ public class EmployeeController
 				emailerrorbox.getChildren().remove(emailerrortxt);
 			}
 		}
-		
+
 		if(pcodeerror){
 			if(!postcerrorbox.getChildren().contains(postcerrortxt)){
 				postcerrorbox.getChildren().add(postcerrortxt);
@@ -547,13 +550,13 @@ public class EmployeeController
 				postcerrorbox.getChildren().remove(postcerrortxt);
 			}
 		}
-		
+
 		if(!(numerror || fnameerror || 
 				snameerror || adderror || pcodeerror ||
 				emailerror || cityerror)){
 			return true;
 		}
-		
+
 		return false;
 
 

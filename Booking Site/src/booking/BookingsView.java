@@ -379,7 +379,7 @@ public class BookingsView {
 				who.getChildren().add(customer);
 				bookingType.getChildren().add(type);
 			}
-			
+
 			if (AppData.CALLER instanceof UserAccountModel) {				
 				String busName = cont.getName(booking.getBusiness());
 				Text business = new Text("Business: " + busName);
@@ -402,10 +402,8 @@ public class BookingsView {
 					assignToBooking(booking, cont);
 				}
 			});
-
-			// Add current booking to bookings list
+			// Add this booking data to booking list
 			bookingsList.getChildren().add(bookingBox);
-
 		});
 
 		// Set layout
@@ -706,6 +704,7 @@ public class BookingsView {
 
 			// Add this booking data to booking list
 			bookingsList.getChildren().add(bookingBox);
+
 
 		});
 
