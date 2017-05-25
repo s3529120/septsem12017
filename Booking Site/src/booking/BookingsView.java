@@ -209,7 +209,7 @@ public class BookingsView {
 		filterHeading.setId("bookingsh1");
 
 		//Date
-		DatePicker dpick = new DatePicker(LocalDate.of(2000, 01, 01));
+		DatePicker dpick = new DatePicker(LocalDate.now());
 		dpick.setId("form");
 		Text dText = new Text("Date");
 		VBox dBox = new VBox(dText,dpick);
@@ -300,13 +300,16 @@ public class BookingsView {
 				}
 			}
 		});
-		HBox filterFields;
+		HBox filterFields1;
+		HBox filterFields2;
 		if(AppData.CALLER instanceof UserAccountModel){
-			filterFields = new HBox(dBox,bBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+			filterFields1 = new HBox(10, dBox,bBox,sBox,fBox);
+			filterFields2 = new HBox(10, tBox,eBox,uBox);
 		}else{
-			filterFields = new HBox(dBox,sBox,fBox,tBox,eBox,uBox,filterbtn);
+			filterFields1 = new HBox(10, dBox,sBox,fBox);
+			filterFields2 = new HBox(10, tBox, eBox,uBox);
 		}
-		VBox filters = new VBox(filterHeading,filterFields,filterbtn);
+		VBox filters = new VBox(10, filterHeading,filterFields1,filterFields2, filterbtn);
 
 		// Heading
 		Text h1;
@@ -324,9 +327,9 @@ public class BookingsView {
 		if (AppData.CALLER instanceof BusinessAccountModel) {
 			switchbtn.setId("switchbtn");
 			HBox head1 = new HBox(bookingstitle, switchbtn);
-			head = new VBox(filters,head1);
+			head = new VBox(filters, head1);
 		} else {
-			head = new VBox(bookingstitle);
+			head = new VBox(filters, bookingstitle);
 		}
 
 		head.setId("bookingsHeader");
