@@ -369,6 +369,12 @@ public class BookingsView {
 				who.getChildren().add(customer);
 				bookingType.getChildren().add(type);
 			}
+			
+			if (AppData.CALLER instanceof UserAccountModel) {				
+				String busName = cont.getName(booking.getBusiness());
+				Text business = new Text("Business: " + busName);
+				bookingType.getChildren().add(business);
+			}
 
 			VBox when = new VBox(startTime, finishTime);
 

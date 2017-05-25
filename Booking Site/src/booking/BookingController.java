@@ -9,6 +9,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import accounts.BusinessAccountController;
+import accounts.BusinessAccountModel;
 import accounts.UserAccountModel;
 import employee.EmployeeController;
 import service.TypeModel;
@@ -507,34 +509,31 @@ public class BookingController {
 
 		return bookings;
 	}
-	
-	public int getNewId(){
-	   DatabaseController dbcont = new DatabaseController(new DatabaseModel()); 
-	   String sql="";
-	   ResultSet res;
-	   int old;
-	   
-	   dbcont.createConnection();
-	   sql="SELECT * FROM Id;";
-	   dbcont.prepareStatement(sql);
-	   res=dbcont.runSQLRes();
-	   try
-      {
-         old=res.getInt("High");
-         sql= "UPDATE Id SET High=? WHERE High=?;";
-         dbcont.prepareStatement(sql);
-         dbcont.getState().setInt(1, old+1);
-         dbcont.getState().setInt(2, old);
-         dbcont.runSQLUpdate();
-      }
-      catch (SQLException e)
-      {
-         dbcont.closeConnection();
-         e.printStackTrace();
-         return 999;
-      }
-	   dbcont.closeConnection();
-	   return old;
+
+	public int getNewId() {
+		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
+		String sql = "";
+		ResultSet res;
+		int old;
+
+		dbcont.createConnection();
+		sql = "SELECT * FROM Id;";
+		dbcont.prepareStatement(sql);
+		res = dbcont.runSQLRes();
+		try {
+			old = res.getInt("High");
+			sql = "UPDATE Id SET High=? WHERE High=?;";
+			dbcont.prepareStatement(sql);
+			dbcont.getState().setInt(1, old + 1);
+			dbcont.getState().setInt(2, old);
+			dbcont.runSQLUpdate();
+		} catch (SQLException e) {
+			dbcont.closeConnection();
+			e.printStackTrace();
+			return 999;
+		}
+		dbcont.closeConnection();
+		return old;
 	}
 
 	public Boolean cancelBooking(int id) {
@@ -554,5 +553,28 @@ public class BookingController {
 		}
 		dbcont.closeConnection();
 		return true;
+	}
+
+	public String getName(String username) {
+		String sql="";
+	    DatabaseController dbCont = new DatabaseController(new DatabaseModel());
+	    ResultSet res;
+	    String name = new String();
+	    
+	    // Create database connection
+	    dbCont.createConnection();
+		// Prepare and run sql
+		sql = "SELECT Name FROM Accounts WHERE Username='" + username + "';";
+		dbCont.createConnection();
+		dbCont.prepareStatement(sql);
+		res=dbCont.runSQLRes();
+		try {
+			name = res.getString("Name");
+			dbCont.closeConnection();
+			return name;
+		} catch (SQLException e) {
+			dbCont.closeConnection();
+			return "";
+		}
 	}
 }
