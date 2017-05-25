@@ -1097,8 +1097,9 @@ public class BookingsView {
 
 		String type = booking.getType();
 		String date = booking.getDate().toString();
+		String startTime = booking.getStartTime().toString();
 		
-		Text message = new Text("Are you sure you want to cancel your booking for " +  type + " on " + date + "?");
+		Text message = new Text("You are about to cancel booking for " +  type + " on " + date + " at " + startTime + ". \n Are you sure?");
 
 		// Cancel button
 		Button close = new Button("Close");
