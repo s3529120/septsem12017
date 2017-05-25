@@ -347,3 +347,9 @@ buttonbox {
 	-fx-background-color: #E0E4CC;
 	-fx-padding: 10px;
 }
+
+/* EDIT SPECIALIZATION */
+
+#reg-pane {
+    -fx-background-color: #74d1e1;
+}

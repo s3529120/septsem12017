@@ -278,20 +278,20 @@ public class EditAvailabilitiesView {
 
 		// populating lists, id like to do this in a loop, but apparently cant
 		// create an array of combo boxes
-		sundayStartTime.getItems().add(cont.getTradingHours(sunday).get("StartTime"));
-		sundayEndTime.getItems().add(cont.getTradingHours(sunday).get("FinishTime"));
-		mondayStartTime.getItems().add(cont.getTradingHours(monday).get("StartTime"));
-		mondayEndTime.getItems().add(cont.getTradingHours(monday).get("FinishTime"));
-		tuesdayStartTime.getItems().add(cont.getTradingHours(tuesday).get("StartTime"));
-		tuesdayEndTime.getItems().add(cont.getTradingHours(tuesday).get("FinishTime"));
-		wednesdayStartTime.getItems().add(cont.getTradingHours(wednesday).get("StartTime"));
-		wednesdayEndTime.getItems().add(cont.getTradingHours(wednesday).get("FinishTime"));
-		thursdayStartTime.getItems().add(cont.getTradingHours(thursday).get("StartTime"));
-		thursdayEndTime.getItems().add(cont.getTradingHours(thursday).get("FinishTime"));
-		fridayStartTime.getItems().add(cont.getTradingHours(friday).get("StartTime"));
-		fridayEndTime.getItems().add(cont.getTradingHours(friday).get("FinishTime"));
-		saturdayStartTime.getItems().add(cont.getTradingHours(saturday).get("StartTime"));
-		saturdayEndTime.getItems().add(cont.getTradingHours(saturday).get("FinishTime"));
+		sundayStartTime.getItems().addAll(cont.getPossibleTimes(cont.getTradingHours(sunday).get("StartTime"),cont.getTradingHours(sunday).get("FinishTime")));
+		sundayEndTime.getItems().addAll(cont.getPossibleTimes(cont.getTradingHours(sunday).get("StartTime"),cont.getTradingHours(sunday).get("FinishTime")));
+		mondayStartTime.getItems().addAll(cont.getPossibleTimes(cont.getTradingHours(monday).get("StartTime"),cont.getTradingHours(sunday).get("FinishTime")));
+		mondayEndTime.getItems().addAll(cont.getPossibleTimes(cont.getTradingHours(monday).get("StartTime"),cont.getTradingHours(sunday).get("FinishTime")));
+		tuesdayStartTime.getItems().addAll(cont.getPossibleTimes(cont.getTradingHours(tuesday).get("StartTime"),cont.getTradingHours(sunday).get("FinishTime")));
+		tuesdayEndTime.getItems().addAll(cont.getPossibleTimes(cont.getTradingHours(tuesday).get("StartTime"),cont.getTradingHours(sunday).get("FinishTime")));
+		wednesdayStartTime.getItems().addAll(cont.getPossibleTimes(cont.getTradingHours(wednesday).get("StartTime"),cont.getTradingHours(sunday).get("FinishTime")));
+		wednesdayEndTime.getItems().addAll(cont.getPossibleTimes(cont.getTradingHours(wednesday).get("StartTime"),cont.getTradingHours(sunday).get("FinishTime")));
+		thursdayStartTime.getItems().addAll(cont.getPossibleTimes(cont.getTradingHours(thursday).get("StartTime"),cont.getTradingHours(sunday).get("FinishTime")));
+		thursdayEndTime.getItems().addAll(cont.getPossibleTimes(cont.getTradingHours(thursday).get("StartTime"),cont.getTradingHours(sunday).get("FinishTime")));
+		fridayStartTime.getItems().addAll(cont.getPossibleTimes(cont.getTradingHours(friday).get("StartTime"),cont.getTradingHours(sunday).get("FinishTime")));
+		fridayEndTime.getItems().addAll(cont.getPossibleTimes(cont.getTradingHours(friday).get("StartTime"),cont.getTradingHours(sunday).get("FinishTime")));
+		saturdayStartTime.getItems().addAll(cont.getPossibleTimes(cont.getTradingHours(saturday).get("StartTime"),cont.getTradingHours(sunday).get("FinishTime")));
+		saturdayEndTime.getItems().addAll(cont.getPossibleTimes(cont.getTradingHours(saturday).get("StartTime"),cont.getTradingHours(sunday).get("FinishTime")));
 
 		// Setting default selections
 		cont.setSelection(sunday, emps.get(employee.getSelectionModel().getSelectedItem()), sundayStartTime,

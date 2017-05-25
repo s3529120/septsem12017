@@ -21,37 +21,37 @@
 /* MAIN */
 
 #border {
-	-fx-background-color: #696758;
-	-fx-background-image: url("/resources/display/images/stripes2.png");
+	-fx-background-color: #74d1e1;
+	-fx-background-image: url("/resources/display/images/stripes1.png");
 }
 
 #headerBox {
-    -fx-border-color: #45484B;
+    -fx-border-color: #ff8833;
     -fx-background-color: red;
 }
 
 #mainPageVBox {
-    -fx-background-color: #EEE6AB;
-    -fx-border-color: #45484B;
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
 }
 
 /* MAIN MENU */
 
 #mainMenuVBox {
-    -fx-background-color: #EEE6AB;
-    -fx-border-color: #45484B;
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
 }
 
 #mainRegisterVBox {
-    -fx-background-color: #EEE6AB;
-    -fx-border-color: #45484B;
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
 }
 
 /* FORM */
 
 #form {
     -fx-background-color: white;
-	-fx-border-color: #45484B;
+	-fx-border-color: #F38630;
 }
 
 #incorrectForm {
@@ -60,13 +60,13 @@
 }
 
 .orangebtn {
-	-fx-background-color: #45484B;
-	-fx-border-color: #C5BC8E;
+	-fx-background-color: #ff8833;
+	-fx-border-color: #ffb580;
 }
 
 .orangebtn-small {
-	-fx-background-color: #45484B;
-	-fx-border-color: #C5BC8E;
+	-fx-background-color: #ff8833;
+	-fx-border-color: #ffb580;
 }
 
 .linkbtn {
@@ -77,7 +77,7 @@
 /* BOOKINGS VIEW */
 
 .scroll-pane > .viewport {
-    -fx-background-color: #696758;
+    -fx-background-color: #74d1e1;
 	-fx-background-image: url("/view/images/stripes.png");
 }
 
@@ -86,12 +86,12 @@
 }
 
 #bookings-container {
-    -fx-background-color: #EEE6AB;
-    -fx-border-color: #45484B;
+    -fx-background-color: #E0E4CC;
+    -fx-border-color: #ff8833;
 }
 
 /* MAKE A BOOKING */
 
 #pop-up {
-    -fx-background-color: #EEE6AB;
+    -fx-background-color: #E0E4CC;
 }

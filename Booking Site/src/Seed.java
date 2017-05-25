@@ -117,7 +117,7 @@ public class Seed {
 			dataCont.runSQLUpdate();
 			// Trading Hours
 			sql = "CREATE TABLE Trading(" + "Day TEXT NOT NULL, " + "StartTime TEXT NOT NULL, "
-					+ "FinishTime TEXT NOT NULL, " + "Username TEXT NOT NULL, " + "PRIMARY KEY (Username,Day,StartTime),"
+					+ "FinishTime TEXT NOT NULL, " + "Username TEXT NOT NULL, " + "PRIMARY KEY (Username,Day)"
 					+ "FOREIGN KEY (Username) REFERENCES Accounts(Username));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
@@ -174,7 +174,7 @@ public class Seed {
 					+ "VALUES(?,?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
-			dataCont.getState().setString(2, "Monday");
+			dataCont.getState().setString(2, "MONDAY");
 			dataCont.getState().setString(3, "10:00");
 			dataCont.getState().setString(4, "18:00");
 			dataCont.runSQLUpdate();
@@ -183,7 +183,7 @@ public class Seed {
 					+ "VALUES(?,?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
-			dataCont.getState().setString(2, "Tuesday");
+			dataCont.getState().setString(2, "TUESDAY");
 			dataCont.getState().setString(3, "10:00");
 			dataCont.getState().setString(4, "18:00");
 			dataCont.runSQLUpdate();
@@ -192,7 +192,7 @@ public class Seed {
 					+ "VALUES(?,?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
-			dataCont.getState().setString(2, "Wednesday");
+			dataCont.getState().setString(2, "WEDNESDAY");
 			dataCont.getState().setString(3, "10:00");
 			dataCont.getState().setString(4, "18:00");
 			dataCont.runSQLUpdate();
@@ -201,7 +201,7 @@ public class Seed {
 					+ "VALUES(?,?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
-			dataCont.getState().setString(2, "Thursday");
+			dataCont.getState().setString(2, "THURSDAY");
 			dataCont.getState().setString(3, "10:00");
 			dataCont.getState().setString(4, "18:00");
 			dataCont.runSQLUpdate();
@@ -210,7 +210,7 @@ public class Seed {
 					+ "VALUES(?,?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
-			dataCont.getState().setString(2, "Friday");
+			dataCont.getState().setString(2, "FRIDAY");
 			dataCont.getState().setString(3, "10:00");
 			dataCont.getState().setString(4, "18:00");
 			dataCont.runSQLUpdate();
@@ -219,18 +219,18 @@ public class Seed {
 					+ "VALUES(?,?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
-			dataCont.getState().setString(2, "Saturday");
-			dataCont.getState().setString(3, "10:00");
-			dataCont.getState().setString(4, "18:00");
+			dataCont.getState().setString(2, "SATURDAY");
+			dataCont.getState().setString(3, "08:30");
+			dataCont.getState().setString(4, "20:00");
 			dataCont.runSQLUpdate();
 			//Sunday
 			sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
 					+ "VALUES(?,?,?,?);";
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
-			dataCont.getState().setString(2, "Sunday");
-			dataCont.getState().setString(3, "10:00");
-			dataCont.getState().setString(4, "18:00");
+			dataCont.getState().setString(2, "SUNDAY");
+			dataCont.getState().setString(3, "11:00");
+			dataCont.getState().setString(4, "16:00");
 			dataCont.runSQLUpdate();
 
 			// Booking date

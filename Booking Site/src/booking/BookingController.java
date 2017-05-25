@@ -77,7 +77,7 @@ public class BookingController
             }
          });
 		//Date
-      }if(date!=null){
+      }if(date!=null && !date.equals(LocalDate.of(2000, 01, 01))){
 			books.forEach(x->{
 				if(!x.getDate().equals(date)){
 					removes.add(x);
@@ -531,16 +531,16 @@ public class BookingController
 	   return old;
 	}
 	public Boolean cancelBooking(int id){
+		System.out.println("ID: " +id);
 	   DatabaseController dbcont = new DatabaseController(new DatabaseModel()); 
-      String sql="";
-      dbcont.prepareStatement(sql);
+      String sql;
       
       dbcont.createConnection();
-      sql="UPDATE Booking SET Username=?,Type=? WHERE Id=?;";
+      sql="UPDATE Booking SET Username='Unfilled',Type='None' WHERE Id=?;";
+      dbcont.prepareStatement(sql);
       try
       {
-         dbcont.getState().setString(1, "Unfilled");
-         dbcont.getState().setString(2, "None");
+         dbcont.getState().setInt(1, id);
          dbcont.runSQLUpdate();
       }
       catch (SQLException e)

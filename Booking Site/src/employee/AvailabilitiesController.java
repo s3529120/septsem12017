@@ -80,6 +80,48 @@ public class AvailabilitiesController
 		}
 		return times;
 	}
+	
+	/**Returns list of times in day based on duration value
+    * @return List of all possible appointment times that could be assigned 
+    * throughout day.
+    */
+   public String[] getPossibleTimes(String startStr, String finishStr){
+      String[] times;
+      int k=0,x=0;
+      LocalTime time,start,finish;
+      if(startStr==null || finishStr==null){
+         times=new String[1];
+         times[0]="00:00";
+         return times;
+      }
+      
+      start=LocalTime.parse(String.format("%s", startStr));
+      finish=LocalTime.parse(String.format("%s", finishStr));
+      
+    //Hours loop
+      for(int i=0;i<24;i++){
+         //Minutes loop
+         for(int j=0;j<(60/duration);j++){
+            time=LocalTime.parse(String.format("%02d:%02d",i,j*duration));
+            if((time.isAfter(start) && time.isBefore(finish))||time.equals(start) || time.equals(finish)){
+               x++;
+            }
+         }
+      }
+      times=new String[x];
+      //Hours loop
+      for(int i=0;i<24;i++){
+         //Minutes loop
+         for(int j=0;j<(60/duration);j++){
+            time=LocalTime.parse(String.format("%02d:%02d",i,j*duration));
+            if((time.isAfter(start) && time.isBefore(finish))||time.equals(start) || time.equals(finish)){
+               times[k]=String.format("%02d:%02d",i,j*duration);
+               k++;
+            }
+         }
+      }
+      return times;
+   }
 
 	/**Calls EmployeeController to return list of all employees.
 	 * @return Map containing names and email addresses of all employees.
@@ -179,6 +221,17 @@ public class AvailabilitiesController
 		//Open database connection
 		dbcont.createConnection();
 
+		//Remove existing
+      sql="DELETE FROM Availability WHERE Email=? AND Day=? AND StartTime=?;";
+      dbcont.prepareStatement(sql);
+      try{
+         dbcont.getState().setString(1, email);
+         dbcont.getState().setString(2, dow.toString());
+         dbcont.getState().setString(3, start.toString());
+      }catch(SQLException e){
+      }
+      dbcont.runSQLUpdate();
+		
 		//Prepare and run sql
 		sql="INSERT INTO Availability(Email,Day,StartTime,FinishTime) " +
 				"Values(?,?,?,?);";
@@ -272,15 +325,17 @@ public class AvailabilitiesController
 	   Map<String,String> map=new HashMap<String,String>();
 	   
 	   dbcont.createConnection();
-	   sql="SELECT StartTime, FinishTime FROM Trading WHERE username=? AND Day=?";
+	   sql="SELECT StartTime, FinishTime FROM Trading WHERE Username=? AND Day=?";
 	   dbcont.prepareStatement(sql);
 	   try
       {	 
          dbcont.getState().setString(1, AppData.CALLER.getUsername());
          dbcont.getState().setString(2, dow.toString());
          res=dbcont.runSQLRes();
-         map.put("StartTime", res.getString("StartTime"));
-         map.put("FinishTime", res.getString("FinishTime"));
+         while(res.next()){
+        	 map.put("StartTime", res.getString("StartTime"));
+        	 map.put("FinishTime", res.getString("FinishTime"));
+         }
       }
       catch (SQLException e)
       {

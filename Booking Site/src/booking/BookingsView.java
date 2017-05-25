@@ -209,7 +209,7 @@ public class BookingsView {
 		filterHeading.setId("bookingsh1");
 
 		//Date
-		DatePicker dpick = new DatePicker(null);
+		DatePicker dpick = new DatePicker(LocalDate.of(2000, 01, 01));
 		dpick.setId("form");
 		Text dText = new Text("Date");
 		VBox dBox = new VBox(dText,dpick);
@@ -235,8 +235,8 @@ public class BookingsView {
 
 		//FinishTime
 		ComboBox<String> fpick = new ComboBox<String>();
-		spick.getItems().add("none");
-		spick.getItems().addAll(acont.getPossibleTimes());
+		fpick.getItems().add("none");
+		fpick.getItems().addAll(acont.getPossibleTimes());
 		fpick.setId("form");
 		Text fText = new Text("Finish Time");
 		VBox fBox = new VBox(fText,fpick);
@@ -539,7 +539,7 @@ public class BookingsView {
 		filterHeading.setId("bookingsh1");
 
 		//Date
-		DatePicker dpick = new DatePicker();
+		DatePicker dpick = new DatePicker(LocalDate.of(2000, 01, 01));
 		dpick.setId("form");
 		Text dText = new Text("Date");
 		VBox dBox = new VBox(dText,dpick);
