@@ -859,6 +859,10 @@ public class BookingsView {
 			Text etxt = new Text(cont.getNameFromEmail(book.getEmployee()));
 			HBox ebox = new HBox(elbl, etxt);
 			VBox dets = new VBox(dbox, stbox, ftbox, ebox);
+			Label busNameLabel = new Label("Business: ");
+			Text busNameText = new Text(cont.getName(book.getBusiness()));
+			HBox busNameHBox = new HBox(busNameLabel, busNameText);
+			dets.getChildren().add(busNameHBox);
 
 			// Type selector
 			TypeController tcont = new TypeController();
@@ -1048,6 +1052,10 @@ public class BookingsView {
 				who.getChildren().add(customer);
 				bookingType.getChildren().add(type);
 			}
+							
+			String busName = cont.getName(booking.getBusiness());
+			Text business = new Text("Business: " + busName);
+			bookingType.getChildren().add(business);
 
 			VBox when = new VBox(startTime, finishTime);
 
@@ -1107,8 +1115,24 @@ public class BookingsView {
 		String type = booking.getType();
 		String date = booking.getDate().toString();
 		String startTime = booking.getStartTime().toString();
-
-		Text message = new Text("You are about to cancel booking for " +  type + " on " + date + " at " + startTime + ". \n Are you sure?");
+		
+		// Appointment details
+		Label dlbl = new Label("Date: ");
+		Text dtxt = new Text(booking.getDate().toString());
+		HBox dbox = new HBox(dlbl, dtxt);
+		Label stlbl = new Label("Start Time: ");
+		Text sttxt = new Text(booking.getStartTime().toString());
+		HBox stbox = new HBox(stlbl, sttxt);
+		Label elbl = new Label("Employee: ");
+		Text etxt = new Text(cont.getNameFromEmail(booking.getEmployee()));
+		HBox ebox = new HBox(elbl, etxt);
+		Label busNameLabel = new Label("Business: ");
+		Text busNameText = new Text(cont.getName(booking.getBusiness()));
+		HBox busNameHBox = new HBox(busNameLabel, busNameText);
+		
+		VBox dets = new VBox(dbox, stbox, ebox, busNameHBox);
+		Text h1 = new Text("Confirm cancellation of: ");
+		h1.setId("bookingsh1");
 
 		// Cancel button
 		Button close = new Button("Close");
@@ -1138,9 +1162,9 @@ public class BookingsView {
 		// Set layout
 
 		HBox buttons= new HBox(10, confirm_cancel, close);
-		VBox all = new VBox(20, message, buttons);
+		VBox all = new VBox(20, h1, dets, buttons);
 		buttons.setAlignment(Pos.CENTER);
-		message.setTextAlignment(TextAlignment.CENTER);
+		dets.setAlignment(Pos.CENTER);
 		StackPane pane = new StackPane();
 		pane.getChildren().addAll(all);
 
