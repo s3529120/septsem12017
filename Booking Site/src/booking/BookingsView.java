@@ -50,14 +50,14 @@ public class BookingsView {
 
 	private BookingController cont;
 	public Stage stage;
-	
+
 	public BookingsView(Stage stage) {
 		this.stage = stage;
 	}
 
 	/**
 	 * Sets associated controller
-	 * 
+	 *
 	 * @param controller
 	 * @return
 	 */
@@ -188,7 +188,7 @@ public class BookingsView {
 		});
 		mybookbtn.getStyleClass().add("orangebtn");
 
-		HBox cusheader = new HBox(10, heading, availbtn, mybookbtn, logoutbtn);
+		HBox cusheader = new HBox(10, availbtn, mybookbtn, logoutbtn);
 
 		// Past bookings switch
 		Button switchbtn = null;
@@ -222,7 +222,7 @@ public class BookingsView {
       bpick.setId("form");
       Text bText = new Text("Business");
       VBox bBox = new VBox(bText,bpick);
-		
+
 		//StartTime
 		AvailabilitiesController acont = new AvailabilitiesController();
 		ComboBox<String> spick = new ComboBox<String>();
@@ -283,18 +283,18 @@ public class BookingsView {
          @Override
          public void handle(ActionEvent e) {
             if(AppData.CALLER instanceof UserAccountModel){
-            updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(), 
-                  spick.getSelectionModel().getSelectedItem(), 
-                  fpick.getSelectionModel().getSelectedItem(), 
-                  epick.getSelectionModel().getSelectedItem(), 
-                  upick.getSelectionModel().getSelectedItem(), 
+            updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(),
+                  spick.getSelectionModel().getSelectedItem(),
+                  fpick.getSelectionModel().getSelectedItem(),
+                  epick.getSelectionModel().getSelectedItem(),
+                  upick.getSelectionModel().getSelectedItem(),
                   tpick.getSelectionModel().getSelectedItem()));
             }else{
-               updateView(cont.filterBookings(cont.getBookings(),null,dpick.getValue(), 
-                     spick.getSelectionModel().getSelectedItem(), 
-                     fpick.getSelectionModel().getSelectedItem(), 
-                     epick.getSelectionModel().getSelectedItem(), 
-                     upick.getSelectionModel().getSelectedItem(), 
+               updateView(cont.filterBookings(cont.getBookings(),null,dpick.getValue(),
+                     spick.getSelectionModel().getSelectedItem(),
+                     fpick.getSelectionModel().getSelectedItem(),
+                     epick.getSelectionModel().getSelectedItem(),
+                     upick.getSelectionModel().getSelectedItem(),
                      tpick.getSelectionModel().getSelectedItem()));
             }
          }
@@ -401,11 +401,11 @@ public class BookingsView {
 
 		// Change header menu based on account type
 		if (AppData.CALLER instanceof BusinessAccountModel) {
-			HBox busheader = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
+			HBox busheader = new HBox(10, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
 			busheader.setId("headerbox");
-			page = new VBox(busheader, body);
+			page = new VBox(heading, busheader, body);
 		} else {
-			page = new VBox(cusheader, body);
+			page = new VBox(heading, cusheader, body);
 		}
 
 		page.setId("border");
@@ -518,7 +518,7 @@ public class BookingsView {
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
 
-		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
+		HBox header = new HBox(10, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
 		header.setId("headerbox");
 		heading.getStyleClass().add("main-heading");
 
@@ -542,7 +542,7 @@ public class BookingsView {
 		dpick.setId("form");
 		Text dText = new Text("Date");
 		VBox dBox = new VBox(dText,dpick);
-		
+
 		//Business
 		   BusinessAccountController bcont = new BusinessAccountController();
          ComboBox<String> bpick = new ComboBox<String>();
@@ -608,18 +608,18 @@ public class BookingsView {
 			@Override
 			public void handle(ActionEvent e) {
 			   if(AppData.CALLER instanceof UserAccountModel){
-				updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(), 
-						spick.getSelectionModel().getSelectedItem(), 
-						fpick.getSelectionModel().getSelectedItem(), 
-						epick.getSelectionModel().getSelectedItem(), 
-						upick.getSelectionModel().getSelectedItem(), 
+				updateView(cont.filterBookings(cont.getBookings(),bpick.getSelectionModel().getSelectedItem(),dpick.getValue(),
+						spick.getSelectionModel().getSelectedItem(),
+						fpick.getSelectionModel().getSelectedItem(),
+						epick.getSelectionModel().getSelectedItem(),
+						upick.getSelectionModel().getSelectedItem(),
 						tpick.getSelectionModel().getSelectedItem()));
 			   }else{
-			      updateView(cont.filterBookings(cont.getBookings(),null,dpick.getValue(), 
-			            spick.getSelectionModel().getSelectedItem(), 
-			            fpick.getSelectionModel().getSelectedItem(), 
-			            epick.getSelectionModel().getSelectedItem(), 
-			            upick.getSelectionModel().getSelectedItem(), 
+			      updateView(cont.filterBookings(cont.getBookings(),null,dpick.getValue(),
+			            spick.getSelectionModel().getSelectedItem(),
+			            fpick.getSelectionModel().getSelectedItem(),
+			            epick.getSelectionModel().getSelectedItem(),
+			            upick.getSelectionModel().getSelectedItem(),
 			            tpick.getSelectionModel().getSelectedItem()));
 			   }
 			}
@@ -698,7 +698,7 @@ public class BookingsView {
 		body.setId("mainPageVBox");
 		body.getStyleClass().add("scroll-pane");
 
-		VBox page = new VBox(header, body);
+		VBox page = new VBox(heading, header, body);
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
 
@@ -720,7 +720,7 @@ public class BookingsView {
 
 	/**
 	 * Make a Booking pop up page
-	 * 
+	 *
 	 * @param book Booking selected
 	 * @param parcont Parent controller
 	 */
@@ -985,7 +985,7 @@ public class BookingsView {
 		});
 		mybookbtn.getStyleClass().add("orangebtn");
 
-		HBox cusheader = new HBox(10, heading, availbtn, mybookbtn, logoutbtn);
+		HBox cusheader = new HBox(10, availbtn, mybookbtn, logoutbtn);
 		cusheader.setId("headerbox");
 
 		// Heading
@@ -1005,7 +1005,7 @@ public class BookingsView {
 		VBox bookingsList = new VBox(head);
 
 		List<BookingModel> bookings = cont.filterBookings(cont.getBookings(),null,
-				null, null, null, null, 
+				null, null, null, null,
 				AppData.CALLER.getUsername().toString(), null);
 
 		// Iterates through bookings
@@ -1061,16 +1061,16 @@ public class BookingsView {
 			bookingsList.getChildren().add(bookingBox);
 
 		});
-		
+
 		// Set layout
 		bookingsList.setId("bookings-main");
-		
+
 		ScrollPane body = new ScrollPane(bookingsList);
 		body.setId("mainPageVBox");
 		body.getStyleClass().add("scroll-pane");
 
-		VBox page = new VBox(cusheader, body);
-		
+		VBox page = new VBox(heading, cusheader, body);
+
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
 
@@ -1091,11 +1091,11 @@ public class BookingsView {
 	}
 
 	/**Window allowing customers to cancel their bookings
-	 *  
+	 *
 	 * @param parcont Parent controller
 	 * @param booking Selected booking
 	 */
-	
+
 	public void cancelBooking(BookingController parcont,BookingModel booking){
 		Stage popup = new Stage();
 		popup.initModality(Modality.WINDOW_MODAL);

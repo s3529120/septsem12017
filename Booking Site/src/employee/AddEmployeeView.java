@@ -29,7 +29,7 @@ public class AddEmployeeView {
 
 	/**
 	 * Constructor, associates stage.
-	 * 
+	 *
 	 * @param stage
 	 *            Window to manipulate.
 	 */
@@ -39,7 +39,7 @@ public class AddEmployeeView {
 
 	/**
 	 * Sets associated controller.
-	 * 
+	 *
 	 * @param cont Controller to associate.
 	 * @return True upon success.
 	 */
@@ -139,7 +139,7 @@ public class AddEmployeeView {
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
 
-		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
+		HBox header = new HBox(10, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
 		header.setId("headerbox");
 		heading.getStyleClass().add("main-heading");
 
@@ -317,7 +317,7 @@ public class AddEmployeeView {
 		VBox body = new VBox(10, h1, form, subbtn);
 		header.setId("headerbox");
 		body.setId("mainPageVBox");
-		VBox page = new VBox(header, body);
+		VBox page = new VBox(heading, header, body);
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
 		StackPane pane = new StackPane(page);
