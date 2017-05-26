@@ -43,6 +43,9 @@ public class BusinessHoursView
 		this.cont=cont;
 	}
 
+	/**Business settings page
+	 * @param stage Application window
+	 */
 	public void updateView(Stage stage){
 		// Prompt texts
 
@@ -143,7 +146,7 @@ public class BusinessHoursView
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
 
-		HBox header = new HBox(10, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
+		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
 		header.setId("headerbox");
 		heading.getStyleClass().add("main-heading");
 
@@ -155,9 +158,8 @@ public class BusinessHoursView
 		//Colour selector
 		ComboBox<String> col = new ComboBox<String>();
 		col.getItems().addAll("BLUE","RED","YELLOW","BLACK","WHITE");
-		col.setId("form");
 
-		Button colsub = new Button("Change Theme");
+		Button colsub = new Button("Change Scheme");
 		// Register button
 		colsub.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -168,7 +170,6 @@ public class BusinessHoursView
 
 			}
 		});
-		colsub.getStyleClass().add("orangebtn");
 		HBox colsel = new HBox(col,colsub);
 
 		// top box construction
@@ -349,12 +350,13 @@ public class BusinessHoursView
 		HBox bottom = new HBox(savebtn, donebox);
 		VBox body = new VBox(topBox, dayBox, bottom);
 		body.setId("mainPageVBox");
-		VBox page = new VBox(heading, header, body);
+		VBox page = new VBox(header, body);
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
 
 		StackPane pane = new StackPane(page, insertconfirm);
 
+		//Layout
 		Scene scene = new Scene(pane);
 		scene.getStylesheets().add(getClass().getResource("/resources/display/css/styles.css").toExternalForm());
 		if (ColourController.getAccountColour(AppData.CALLER.getUsername())) {

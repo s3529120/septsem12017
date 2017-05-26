@@ -31,9 +31,7 @@ public class UserRegistrationView {
 
 	/**
 	 * Constructor, sets stage.
-	 * 
-	 * @param stage
-	 *            Window to manipulate.
+	 * @param stage Window to manipulate.
 	 */
 	public UserRegistrationView(Stage stage) {
 		this.stage = stage;
@@ -42,8 +40,7 @@ public class UserRegistrationView {
 	/**
 	 * Sets associated controller
 	 * 
-	 * @param cont
-	 *            Controller to associate.
+	 * @param cont Controller to associate.
 	 * @return True upon success.
 	 */
 	public Boolean setController(UserRegistrationController cont) {

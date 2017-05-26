@@ -66,7 +66,7 @@ public class EmployeeController
 	 * @return True if successfully added, false if and error occurs.
 	 */
 	public Boolean addEmployee(String name,String contactno,String email,
-			String streetadd,String city,String state,String postcode, String business){
+			String streetadd,String city,String state,String postcode){
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 		String sql;
 
@@ -80,15 +80,14 @@ public class EmployeeController
 		dbcont.createConnection();
 
 		//Prepare and run employee sql statement
-		sql="INSERT INTO Employee(Name,ContactNo,Email,Business) " +
-				"Values(?,?,?,?);";
+		sql="INSERT INTO Employee(Name,ContactNo,Email) " +
+				"Values(?,?,?);";
 		dbcont.prepareStatement(sql);
 		try
 		{
 			dbcont.getState().setString(1, name);
 			dbcont.getState().setString(2, contactno);
 			dbcont.getState().setString(3, email);
-			dbcont.getState().setString(4, business);
 
 		}
 		catch (SQLException e)
@@ -131,7 +130,9 @@ public class EmployeeController
 	}
 	
 
-	//Returns array of employees
+	/**Gets array of all employees that exist
+	 * @return
+	 */
 	public Map<String,String> getAllEmployees(){
 		String sql="";
 		DatabaseController dbcont = new DatabaseController(new DatabaseModel());
@@ -203,7 +204,7 @@ public class EmployeeController
       //Close database connection
       dbcont.closeConnection();
       if (emps.isEmpty()) {
-         return null;
+         emps.put("None", "N/A");
       }
       //Convert list of employees to array and return
       return emps;

@@ -2,16 +2,13 @@ package admin;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import accounts.AccountController;
 import accounts.AccountFactory;
 import accounts.AccountModel;
 import accounts.AdminAccountModel;
 import accounts.BusinessAccountModel;
-import accounts.UserAccountModel;
 import admin.AdminView;
 import utils.DatabaseController;
 import utils.DatabaseModel;
@@ -39,51 +36,51 @@ public class AdminController {
 	}
 
 	/**Creates model from account data.
-	 * @param name Username to assign account.
-	 * @param type Account type, "Business" or "User" or "Admin".
-	 * @return AccountModel representing account just created.
-	 */
-	public static AccountModel createAccountModel(String name){
-		String sql="";
-		ResultSet res;
-		DatabaseModel dbmod = new DatabaseModel();
-		DatabaseController dbCont = new DatabaseController(dbmod);
-		String adminname;
-		String email;
+    * @param name Username to assign account.
+    * @param type Account type, "Business" or "User" or "Admin".
+    * @return AccountModel representing account just created.
+    */
+   public static AccountModel createAccountModel(String name){
+      String sql="";
+      ResultSet res;
+      DatabaseModel dbmod = new DatabaseModel();
+      DatabaseController dbCont = new DatabaseController(dbmod);
+         String adminname;
+         String email;
 
-		//Open database connection
-		dbCont.createConnection();
+         //Open database connection
+         dbCont.createConnection();
 
-		//Prepare and run sql
-		sql="SELECT Name, Email "
-				+ "FROM Accounts "
-				+ "WHERE Username=?;";
-		dbCont.prepareStatement(sql);
-		try
-		{
-			dbCont.getState().setString(1, name);
-		}
-		catch (SQLException e2)
-		{
-			e2.printStackTrace();
-		}
+         //Prepare and run sql
+         sql="SELECT Name, Email "
+               + "FROM Accounts "
+               + "WHERE Username=?;";
+         dbCont.prepareStatement(sql);
+         try
+         {
+            dbCont.getState().setString(1, name);
+         }
+         catch (SQLException e2)
+         {
+            e2.printStackTrace();
+         }
 
-		res=dbCont.runSQLRes();
+         res=dbCont.runSQLRes();
 
-		try{
-			adminname=res.getString("Name");
-			email=res.getString("Email");
-		}catch(SQLException e){
-			e.printStackTrace();
-			dbCont.closeConnection();
-			return null;
-		}
+         try{
+            adminname=res.getString("Name");
+            email=res.getString("Email");
+         }catch(SQLException e){
+            e.printStackTrace();
+            dbCont.closeConnection();
+            return null;
+         }
 
-		// Create and return the acc model, close connection
-		AdminAccountModel acc = new AdminAccountModel(adminname, email);
-		dbCont.closeConnection();
-		return acc;
-	}
+         // Create and return the acc model, close connection
+         AdminAccountModel acc = new AdminAccountModel(adminname, email);
+         dbCont.closeConnection();
+         return acc;
+   }
 
 	// TODO: Add methods for adding and removing a business.
 
@@ -114,8 +111,8 @@ public class AdminController {
 			return false;
 		}
 		if(!acont.checkUsername(Busname)) {
-			sql = "INSERT INTO Accounts(Username,Password,Name,Type,ContactNo,Email,Address) " 
-					+ "Values(?,?,?,?,?,?,?);";
+			sql = "INSERT INTO Accounts(Username,Password,Name,Type,ContactNo,Email,Address) "
+				+ "Values(?,?,?,?,?,?,?);";
 
 			dbcont.prepareStatement(sql);
 			try {
@@ -127,6 +124,7 @@ public class AdminController {
 				dbcont.getState().setString(6, Email);
 				dbcont.getState().setString(7, Address);
 				dbcont.runSQLUpdate();
+
 
 				//Monday
 				sql = "INSERT INTO Trading(Username, Day, StartTime, FinishTime)"
@@ -224,7 +222,6 @@ public class AdminController {
 				dbcont.closeConnection();
 				return false;
 			}
-			dbcont.closeConnection();
 			return true;
 		} else {
 			// If acc doesn't exist, add new account and return true, else return false

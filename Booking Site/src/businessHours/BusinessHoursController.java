@@ -33,10 +33,20 @@ public class BusinessHoursController
       this.view = view;
    }
    
+   /**Gets possible times in day
+    * 
+    * @return
+    */
    public String[] getPossibleTimes(){
       AvailabilitiesController acont = new AvailabilitiesController();
       return acont.getPossibleTimes();
    }
+   
+   /**Returns trading hours of business for given day
+    * 
+    * @param dow Day of week to get hours for
+    * @return Trading hours
+    */
    public Map<String,String> getTradingHours(DayOfWeek dow){
       DatabaseController dbcont = new DatabaseController(new DatabaseModel());
       Map<String,String> map = new HashMap<String,String>();
@@ -85,6 +95,13 @@ public class BusinessHoursController
       }
    }
    
+   /**Replaces businesses trading hours on given day
+    * 
+    * @param dow Day to change
+    * @param startstring New start time
+    * @param finishstring New finish time
+    * @return Boolean success indicator
+    */
    public Boolean addBusinessHours(
         DayOfWeek dow,
         String startstring,
@@ -101,18 +118,6 @@ public class BusinessHoursController
 
         //Open database connection
         dbcont.createConnection();
-        
-      //Prepare and run sql
-        sql="DELETE FROM Trading WHERE Username=? AND day=?;";
-        dbcont.prepareStatement(sql);
-        try{
-            dbcont.getState().setString(1, AppData.CALLER.getUsername());
-            dbcont.getState().setString(2, dow.toString());
-       }catch(SQLException e){
-              dbcont.closeConnection();
-              return false;
-       }
-       dbcont.runSQLUpdate();
 
         //Prepare and run sql
         sql="INSERT INTO Trading(Username,Day,StartTime,FinishTime) " +

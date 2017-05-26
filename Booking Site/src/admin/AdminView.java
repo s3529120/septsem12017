@@ -51,8 +51,8 @@ public class AdminView {
 	/**
 	 * Sets associated controller
 	 * 
-	 * @param controller
-	 * @return
+	 * @param controller Controller to associate
+	 * @return True on success
 	 */
 	public Boolean setController(AdminController controller) {
 		this.cont = controller;
@@ -65,12 +65,13 @@ public class AdminView {
 	public void updateView() {
 		sp = new ScrollPane();
 
-		// Heading
+		// Headings
 		Text h1 = new Text("Administration Panel");
 
 		HBox bookingstitle = new HBox(h1);
 		bookingstitle.setId("bookingstitle");
 
+		//Add business button
 		Button addbtn = new Button("Add Business");
 		addbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -95,7 +96,7 @@ public class AdminView {
 		logoutbtn.getStyleClass().add("linkbtn");
 
 		// Header navigation
-		HBox header = new HBox(10, h1, addbtn, logoutbtn);
+		HBox header = new HBox(h1, addbtn, logoutbtn);
 		header.setId("headerbox");
 
 		// Create a list of businesses and pass through each business to list
@@ -161,10 +162,11 @@ public class AdminView {
 	/**
 	 * Delete business confirmation pop up
 	 * 
-	 * @param business
-	 * @param adcont
+	 * @param business Business that needs deletion confirmation
+	 * @param adcont Admin Controller
 	 */
 	public void confirmDelete(BusinessAccountModel business, AdminController adcont) {
+	   //Init popup
 		Stage popup = new Stage();
 		popup.initModality(Modality.WINDOW_MODAL);
 		popup.initOwner(adcont.getView().stage);
@@ -172,8 +174,10 @@ public class AdminView {
 
 		String busname = business.getBusinessName().toString();
 
+		//Message to Admin
 		Text message = new Text("You are about to delete " + busname + ".\n Are you sure?");
 
+		//Confirm button
 		Button confirm = new Button("Confirm");
 		confirm.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
@@ -214,14 +218,16 @@ public class AdminView {
 	/**
 	 * Pop up for adding a new business
 	 * 
-	 * @param cont
+	 * @param cont Associated controller
 	 */
 	public void addBusiness(AdminController cont) {
+	   //Init popup
 		Stage popup = new Stage();
 		popup.initModality(Modality.WINDOW_MODAL);
 		popup.initOwner(cont.getView().stage);
 		StackPane pane = new StackPane();
 
+		//Message to admin
 		Text h1 = new Text("Add a Business");
 
 		// Add business form

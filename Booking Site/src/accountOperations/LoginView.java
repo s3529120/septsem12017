@@ -33,9 +33,7 @@ public class LoginView {
 
 	/**
 	 * Sets associated controller.
-	 * 
-	 * @param controller
-	 *            Controller to associate.
+	 * @param controller Controller to associate.
 	 * @return True upon success.
 	 */
 	public Boolean setController(LoginController controller) {
@@ -105,7 +103,9 @@ public class LoginView {
 		loginbtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
+			   //Check entry
 				if (cont.isNotEmpty(usernamefield.getText(), pwordfield.getText())) {
+				   //Check login
 					if (!cont.login(usernamefield.getText(), pwordfield.getText())) {
 						if (!failerrorbox.getChildren().contains(failerrortxt)) {
 							failerrorbox.getChildren().add(failerrortxt);

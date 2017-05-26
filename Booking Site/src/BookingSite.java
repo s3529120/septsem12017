@@ -14,7 +14,6 @@ public class BookingSite extends Application {
 	public void start(Stage primaryStage) {
 	   //Set Stage properties 
 		primaryStage.setTitle("Booking Site");
-
 		int primaryScreenBoundsx = Screen.getMainScreen().getWidth();
 		int primaryScreenBoundsy = Screen.getMainScreen().getHeight();
 		

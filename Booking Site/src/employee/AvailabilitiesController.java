@@ -318,6 +318,11 @@ public class AvailabilitiesController
 		}
 	}
 	
+	/**Returns trading hours of business for given day
+    * 
+    * @param dow Day of week to get hours for
+    * @return Trading hours
+    */
 	public Map<String,String> getTradingHours(DayOfWeek dow){
 	   DatabaseController dbcont = new DatabaseController(new DatabaseModel());
 	   String sql="";
@@ -328,7 +333,8 @@ public class AvailabilitiesController
 	   sql="SELECT StartTime, FinishTime FROM Trading WHERE Username=? AND Day=?";
 	   dbcont.prepareStatement(sql);
 	   try
-      {	 
+      {
+		 
          dbcont.getState().setString(1, AppData.CALLER.getUsername());
          dbcont.getState().setString(2, dow.toString());
          res=dbcont.runSQLRes();

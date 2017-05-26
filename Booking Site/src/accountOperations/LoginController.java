@@ -50,6 +50,14 @@ public class LoginController {
 		}
 	}
 
+	/**Validate entries to login page
+	 * @param username Username entered
+	 * @param usernameBox Username box
+	 * @param pword Password entered
+	 * @param pwordBox Password box
+	 * @param emptyerrortxt Error message for invalid input
+	 * @param emptyerrorbox Error message box
+	 */
 	public void validateEntries (
 			TextField username, HBox usernameBox, 
 			TextField pword, HBox pwordBox,
@@ -96,18 +104,27 @@ public class LoginController {
 				//Create account model.
 				acc=AccountFactory.createAccountModel(
 				                      cont.checkAccountType(username), username);
+				//If admin account
 				if(!(acc instanceof AdminAccountModel)){
+				   //Init objects
 					BookingController bcont = new BookingController();
 		            bcont.setView(new BookingsView(view.stage));
 		            bcont.getView().setController(bcont);
+		            //Set caller
 		            AppData.CALLER=acc;
 		            ColourController.getAccountColour(acc.getUsername());
-		            bcont.updateView(acc.getUsername());
-				}else{
+		            //Show stage
+		            bcont.updateView(acc.getName());
+				}
+				//If user or business
+				else{
+				   //Init objects
 					AdminController admcont = new AdminController();
 					admcont.setView(new AdminView(view.stage));
 					admcont.getView().setController(admcont);
+					//Set caller
 					AppData.CALLER=acc;
+					//Show stage
 					admcont.updateView();
 				}
 			}

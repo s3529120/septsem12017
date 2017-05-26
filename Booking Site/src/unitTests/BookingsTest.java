@@ -27,9 +27,8 @@ public class BookingsTest {
 		String sql="";
 		DatabaseModel dataMod = new DatabaseModel();
 		DatabaseController dataCont = new DatabaseController(dataMod);
-		
+
 		EmployeeController econt = new EmployeeController();
-		
 
 		//Drop tables
 		sql="DROP TABLE IF EXISTS Accounts; ";
@@ -66,7 +65,7 @@ public class BookingsTest {
 					+ "Name TEXT NOT NULL, "
 					+ "ContactNo TEXT NOT NULL, "
 					+ "Type TEXT NOT NULL, "
-					+ "Address TEXT NOT NULL, " 
+					+ "Address TEXT NOT NULL, "
 					+"Email TEXT NOT NULL, "
 					+ "PRIMARY KEY (Username));";
 			dataCont.prepareStatement(sql);
@@ -83,7 +82,7 @@ public class BookingsTest {
 			sql="CREATE TABLE Address("
 					+ "EmployeeEmail TEXT NOT NULL, "
 					+ "StreetAddress TEXT NOT NULL, "
-					+ "City TEXT NOT NULL, " 
+					+ "City TEXT NOT NULL, "
 					+ "State TEXT NOT NULL, "
 					+ "PostCode TEXT NOT NULL, "
 					+ "PRIMARY KEY (EmployeeEmail)," +
@@ -96,7 +95,7 @@ public class BookingsTest {
 					+ "StartTime TEXT NOT NULL, "
 					+ "FinishTime TEXT NOT NULL, "
 					+ "Email TEXT NOT NULL, "
-					+ "PRIMARY KEY (Email,Day,StartTime)," 
+					+ "PRIMARY KEY (Email,Day,StartTime),"
 					+ "FOREIGN KEY (Email) REFERENCES Employee(Email));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
@@ -106,10 +105,10 @@ public class BookingsTest {
 					+ "StartTime TEXT NOT NULL, "
 					+ "FinishTime NOT NULL, "
 					+"EmployeeEmail TEXT NOT NULL, "
-					+ "Username TEXT, " 
+					+ "Username TEXT, "
 					+ "Type TEXT, "
-					+ "PRIMARY KEY (Date,StartTime,EmployeeEmail)," 
-					+ "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email), " 
+					+ "PRIMARY KEY (Date,StartTime,EmployeeEmail),"
+					+ "FOREIGN KEY (EmployeeEmail) REFERENCES Employee(Email), "
 					+ "FOREIGN KEY (Username) REFERENCES Accounts(Username));";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
@@ -136,8 +135,8 @@ public class BookingsTest {
 			dataCont.runSQLUpdate();
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, LocalDate.now().toString());
-			dataCont.runSQLUpdate();   
-			econt.addEmployee("John Smith", "0123456789", 
+			dataCont.runSQLUpdate();
+			econt.addEmployee("John Smith", "0123456789",
 					"empemail@email.com", "77 Fake st", "Melbourne", "Victoria", "3000", "bus001");
 		} catch (Exception e) {
 			dataCont.closeConnection();
@@ -175,7 +174,7 @@ public class BookingsTest {
 			sql="DROP TABLE IF EXISTS System; ";
 			dataCont.prepareStatement(sql);
 			dataCont.runSQLUpdate();
-			
+
 		} catch (Exception e) {
 			dataCont.closeConnection();
 			e.printStackTrace();
@@ -195,7 +194,7 @@ public class BookingsTest {
 	{
 
 	}
-	
+
 	@Test
 	public void testGetBooking(){
 		BookingController bcont = new BookingController();
@@ -203,13 +202,13 @@ public class BookingsTest {
 		DayOfWeek dow = focusdate.getDayOfWeek().plus(1);
 		String empemail = "newemail@email.com";
 		LocalTime start=LocalTime.now(),finish=LocalTime.now().plusHours(2);
-		
+
 		bcont.addBookings(dow, start, finish, empemail);
-		
+
 		assertTrue(bcont.getBookings().contains(dow));
 		assertTrue(bcont.getPastBookings().contains(focusdate.getDayOfWeek().minus(1)));
 	}
-	
+
 	@Test
 	public void makeEmpBooking(){
 		BookingController bcont = new BookingController();
@@ -219,15 +218,15 @@ public class BookingsTest {
 		String empemail = "empemail@email.com";
 		LocalTime start=LocalTime.now(),finish=LocalTime.now().plusHours(2);
 		String startstring = start.toString(), finishstring = finish.toString();
-		
+
 		acont.addAvailability(empemail, dow, startstring, finishstring);
 		bcont.addBookings(dow, start, finish, empemail);
-		
+
 		assertFalse(bcont.getBookings().isEmpty());
 		assertTrue(bcont.getBookings().contains(dow));
-		
+
 	}
-	
+
 	@Test
 	public void makeBookingCustomer(){
 		BookingController bcont = new BookingController();
@@ -237,13 +236,13 @@ public class BookingsTest {
 		String empemail = "empemail@email.com";
 		LocalTime start=LocalTime.now(),finish=LocalTime.now().plusHours(2);
 		String startstring = start.toString(), finishstring = finish.toString();
-		
+
 		avcont.addAvailability(empemail, dow, startstring, finishstring);
 		bcont.addBookings(dow, start, finish, empemail);
-		
+
 		assertFalse(bcont.getBookings().isEmpty());
 		assertTrue(bcont.getBookings().contains(dow));
-		
+
 	}
-	
+
 }
