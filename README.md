@@ -71,7 +71,8 @@ Maven home: /usr/local/Cellar/maven/3.5.0/libexec
 Java version: 1.8.0_73, vendor: Oracle Corporation
 Java home: /Library/Java/JavaVirtualMachines/jdk1.8.0_73.jdk/Contents/Home/jre
 Default locale: en_AU, platform encoding: UTF-8
-OS name: "mac os x", version: "10.12.4", arch: "x86_64", family: "mac" ``` 
+OS name: "mac os x", version: "10.12.4", arch: "x86_64", family: "mac"
+``` 
 
 Where details will reflect your system. If maven is not installed, install it before continuing.
 
