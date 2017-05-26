@@ -23,7 +23,7 @@ public class BookingSite extends Application {
         primaryStage.setHeight(primaryScreenBoundsy);
 		
 		//Seed data for demonstration
-		//Seed.initialize();
+		Seed.initialize();
 		
 		//Generate bookings
 		BookingController bcont=new BookingController();
