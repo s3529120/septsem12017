@@ -50,27 +50,33 @@ These instructions will get you a copy of the project up and running on your loc
 The required jar files for this project should be contained in the root of the ```src/``` directory. If they aren't, here's how you can get them:
 
 _Jar Files_
+
 * [sqlite-jdbc-3.16.1.jar](https://bitbucket.org/xerial/sqlite-jdbc/downloads/sqlite-jdbc-3.16.1.jar)
 * [jUnit](https://github.com/junit-team/junit4/wiki/Download-and-Install) 
     (Requires hamcrest-core)
 * [hamcrest-core](http://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar)
 
 _Using Maven_
+
 The required pom file is shipped with this source. Go down to installing for further details.
 
 ### Installing
 
 _Using Maven_
-Make sure that you have maven installed on your system using ```mvn --version```; It should display something like the following: ```
+
+Make sure that you have maven installed on your system using ```mvn --version```; It should display something like the following: 
+```
 Apache Maven 3.5.0 (ff8f5e7444045639af65f6095c62210b5713f426; 2017-04-04T05:39:06+10:00)
 Maven home: /usr/local/Cellar/maven/3.5.0/libexec
 Java version: 1.8.0_73, vendor: Oracle Corporation
 Java home: /Library/Java/JavaVirtualMachines/jdk1.8.0_73.jdk/Contents/Home/jre
 Default locale: en_AU, platform encoding: UTF-8
 OS name: "mac os x", version: "10.12.4", arch: "x86_64", family: "mac" ``` 
+
 Where details will reflect your system. If maven is not installed, install it before continuing.
 
 Firstly, after downloading the repository as a zip, unzip the repository and navigate to its root directory.
+
 ```
 Give the example
 ```
