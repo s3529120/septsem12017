@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class ColourController
 {
-   /**Ássigns account default colour to given
+   /**Assigns account default colour to given
     * @param uname Username of account to set
     * @param col Colour to set to
     * @return Boolean success indicator
