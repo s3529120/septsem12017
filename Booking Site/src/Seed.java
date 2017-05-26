@@ -135,7 +135,7 @@ public class Seed {
 			dataCont.prepareStatement(sql);
 			dataCont.getState().setString(1, "bus001");
 			dataCont.getState().setString(2, "abc123");
-			dataCont.getState().setString(3, "Francois le toiletteur pour animaux");
+			dataCont.getState().setString(3, "Dog Groomer");
 			dataCont.getState().setString(4, "1300655506");
 			dataCont.getState().setString(5, "Business");
 			dataCont.getState().setString(6, "1 Groomer Avenue");
