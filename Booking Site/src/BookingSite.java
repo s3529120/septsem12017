@@ -1,6 +1,4 @@
 import com.sun.glass.ui.Screen;
-
-import accounts.AccountModel;
 import booking.BookingController;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -15,7 +13,6 @@ public class BookingSite extends Application {
 	public void start(Stage primaryStage) {
 	   //Set Stage properties 
 		primaryStage.setTitle("Booking Site");
-
 		int primaryScreenBoundsx = Screen.getMainScreen().getWidth();
 		int primaryScreenBoundsy = Screen.getMainScreen().getHeight();
 		
@@ -26,7 +23,7 @@ public class BookingSite extends Application {
         primaryStage.setHeight(primaryScreenBoundsy);
 		
 		//Seed data for demonstration
-		Seed.initialize();
+		//Seed.initialize();
 		
 		//Generate bookings
 		BookingController bcont=new BookingController();

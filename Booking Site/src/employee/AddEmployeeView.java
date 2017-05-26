@@ -21,7 +21,6 @@ import menu.MainMenuView;
 import service.TypeController;
 import service.TypeView;
 import utils.AppData;
-import utils.Colour;
 import utils.ColourController;
 
 public class AddEmployeeView {
@@ -41,8 +40,7 @@ public class AddEmployeeView {
 	/**
 	 * Sets associated controller.
 	 * 
-	 * @param cont
-	 *            Controller to associate.
+	 * @param cont Controller to associate.
 	 * @return True upon success.
 	 */
 	public Boolean setController(EmployeeController cont) {
@@ -51,7 +49,7 @@ public class AddEmployeeView {
 	}
 
 	/**
-	 * Updates display of window.
+	 * Updates display of add employee page
 	 */
 	public void updateView() {
 
@@ -141,7 +139,7 @@ public class AddEmployeeView {
 		logoutbtn.setAlignment(Pos.TOP_RIGHT);
 		logoutbtn.getStyleClass().add("linkbtn");
 
-		HBox header = new HBox(10, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
+		HBox header = new HBox(10, heading, viewbookbtn, addempbtn, editavailbtn, edittypebtn, bussettingsbtn, logoutbtn);
 		header.setId("headerbox");
 		heading.getStyleClass().add("main-heading");
 
@@ -275,10 +273,9 @@ public class AddEmployeeView {
 							takenerrorbox, fnamerrortxt, fnameerrorbox, snamerrortxt, snameerrorbox, emailerrortxt,
 							emailerrorbox, phoneerrortxt, phoneerrorbox, streeterrortxt, streeterrorbox, cityerrortxt,
 							cityerrorbox, postcerrortxt, postcerrorbox, statebox.getValue())) {
-						String business = AppData.CALLER.getUsername();
 						if (cont.addEmployee(fnamefield.getText().concat(" ").concat(snamefield.getText()),
 								contactnofield.getText(), emailfield.getText(), streetaddfield.getText(),
-								cityfield.getText(), statebox.getValue(), pcodefield.getText(), business)) {
+								cityfield.getText(), statebox.getValue(), pcodefield.getText())) {
 							if (!empaddedhbox.getChildren().contains(empaddedtxt)) {
 								empaddedhbox.getChildren().add(empaddedtxt);
 							}
@@ -320,7 +317,7 @@ public class AddEmployeeView {
 		VBox body = new VBox(10, h1, form, subbtn);
 		header.setId("headerbox");
 		body.setId("mainPageVBox");
-		VBox page = new VBox(heading, header, body);
+		VBox page = new VBox(header, body);
 		page.setId("border");
 		page.getStyleClass().add("loginpageBox");
 		StackPane pane = new StackPane(page);

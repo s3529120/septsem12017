@@ -28,6 +28,7 @@ public class AccountController {
       res=dbcont.runSQLRes();
       try
       {
+         //Loop through customer results adding to list
          while(res.next()){
             cus=(UserAccountModel) AccountFactory.createAccountModel("User",res.getString("Username"));
             cus.setName(res.getString("Name"));
@@ -37,11 +38,13 @@ public class AccountController {
             cus=null;
          }
       }
+      //Skip run on error retrieving
       catch (SQLException e)
       {
       }
       
       dbcont.closeConnection();
+      //Return customer list
       return accs;
    }
    

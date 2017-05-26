@@ -25,9 +25,7 @@ public class UserRegistrationController {
 
 	/**
 	 * Constructor, sets associated view and assigns self to view.
-	 * 
-	 * @param view
-	 *            View to associate.
+	 * @param view View to associate.
 	 */
 	public UserRegistrationController(UserRegistrationView view) {
 		this.view = view;
@@ -41,6 +39,16 @@ public class UserRegistrationController {
 		view.updateView();
 	}
 
+	/**Check registration entries
+	 * @param uname Entered username
+	 * @param pname Entered name
+	 * @param pword Entered password 
+	 * @param pwordcon Entered comparison password
+	 * @param address Entered address
+	 * @param contactNo Entered contact number
+	 * @param email Entered email
+	 * @return True if valid entries, false if not.
+	 */
 	public Boolean checkValues(TextField uname, TextField pname, PasswordField pword, PasswordField pwordcon,
 			TextField address, TextField contactNo, TextField email) {
 		Boolean userExists;
@@ -48,13 +56,18 @@ public class UserRegistrationController {
 		AccountController acon = new AccountController();
 		userExists = acon.checkUsername(uname.getText());
 
+		//Check if empty
 		if (uname.getText().isEmpty() || pname.getText().isEmpty() || pword.getText().isEmpty()
 				|| pwordcon.getText().isEmpty() || address.getText().isEmpty() || contactNo.getText().isEmpty()
 				|| email.getText().isEmpty()) {
 			return false;
-		} else if (userExists == true) {
+		} 
+		//Check if user exists
+		else if (userExists == true) {
 			return false;
-		} else if (!pword.getText().equals(pwordcon.getText())) {
+		} 
+		//Check if passwords match
+		else if (!pword.getText().equals(pwordcon.getText())) {
 			return false;
 		} else {
 			return true;
@@ -143,13 +156,6 @@ public class UserRegistrationController {
 		} else if (!DataMatcher.phoneMatcher(contactNo.getText().trim())) {
 			contactNo.setId("incorrectForm");
 			numerror = true;
-			// Check for length of phone num
-			// } else if(contactNo.getText().replaceAll("\\s","").length() >
-			// 10){
-			// System.out.println(contactNo.getText().replaceAll("\\s","").length());
-			// System.out.println(contactNo.getText().replaceAll("\\s",""));
-			// numhbox.setId("incorrectForm");
-			// numerror = true;
 		} else {
 			numerror = false;
 			contactNo.setId("form");
@@ -283,13 +289,23 @@ public class UserRegistrationController {
 		}
 	}
 
+	/**Registers user, storing information in database
+	 * @param uname Username
+	 * @param pname Person's Name
+	 * @param pword Password
+	 * @param address Address
+	 * @param contactNo Phone number
+	 * @param email Email address
+	 */
 	public void register(String uname, String pname, String pword, String address, String contactNo, String email) {
 		String sql;
 		model = new UserAccountModel(uname, pname, address, contactNo, email);
 		DatabaseModel dbmod = new DatabaseModel();
 		DatabaseController dbcont = new DatabaseController(dbmod);
 
+		//Open connection
 		dbcont.createConnection();
+		//Prepare statement
 		sql = "INSERT INTO Accounts(Username,Password,Name,Type,ContactNo,Email,Address) " + "Values(?,?,?,?,?,?,?);";
 
 		dbcont.prepareStatement(sql);
@@ -301,12 +317,18 @@ public class UserRegistrationController {
 			dbcont.getState().setString(5, contactNo);
 			dbcont.getState().setString(6, email);
 			dbcont.getState().setString(7, address);
+			//Run sql statement to insert new user
 			dbcont.runSQLUpdate();
 		} catch (SQLException e) {
+		   //Abort on error
 			dbcont.closeConnection();
 			e.printStackTrace();
+			return;
 		}
+		//Close connection to database
 		   dbcont.closeConnection();
+		   
+		   //Log new user in
 			AccountModel acc = AccountFactory.createAccountModel("User",uname);
 			AppData.CALLER = acc;
 			BookingController bcont = new BookingController();

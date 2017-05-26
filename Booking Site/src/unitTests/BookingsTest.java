@@ -33,7 +33,7 @@ public class BookingsTest {
 		
 		EmployeeController econt = new EmployeeController();
 		econt.addEmployee("John Smith", "0123456789", 
-				"empemail@email.com", "77 Fake st", "Melbourne", "Victoria", "3000", "bus001");
+				"empemail@email.com", "77 Fake st", "Melbourne", "Victoria", "3000");
 
 		//Drop tables
 		sql="DROP TABLE IF EXISTS Accounts; ";

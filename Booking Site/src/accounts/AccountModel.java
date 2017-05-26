@@ -17,7 +17,7 @@ public class AccountModel {
 		this.email=email;
 		this.name=name;
 	}
-	
+	//Alternate constructor
 	public AccountModel(String username2, String name2, String email2) {
 		this.username=username2;
 		this.name=name2;

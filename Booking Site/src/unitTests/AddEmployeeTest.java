@@ -110,12 +110,12 @@ public class AddEmployeeTest {
 		 * */
 	
 		String name="John Smith", num="0555 555 555",email="JSemail@gmail.com",
-				add="123 Fake Street",city="Melbourne",state="Victoria",postc="3000", business="bus001";
+				add="123 Fake Street",city="Melbourne",state="Victoria",postc="3000";
 
 		EmployeeController econt = new EmployeeController();
 
 		try{
-			econt.addEmployee(name, num, email, add, city, state, postc, business);
+			econt.addEmployee(name, num, email, add, city, state, postc);
 			
 			assertTrue(econt.checkEmployee(email));
 			assertEquals(econt.getEmployeeName(email), name);	
@@ -175,10 +175,10 @@ public class AddEmployeeTest {
 	public void testAddEmpNoFirstName(){
 		EmployeeController econt = new EmployeeController();
 		String name="", contactno="0555 555 555", email="nullemail@gmail.com", 
-				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000",business="bus001";
+				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000";
 		
 		try{
-			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode, business);
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
 			
 			/* Get the employee name assigned to email, should return empty, 
 			 * 		and isEmpty() should return true. */
@@ -198,10 +198,10 @@ public class AddEmployeeTest {
 				+ "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 				+ "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b", 
 				contactno="0555 555 555", email="maxlengthemail@gmail.com", 
-				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000", business="bus001";
+				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000";
 		
 		try{
-			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode, business);
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
 			
 			/* Get the employee name assigned to email, should return empty, 
 			 * 		as was too long to fit into database.
@@ -217,10 +217,10 @@ public class AddEmployeeTest {
 	public void testAddEmpNoLastName(){
 		EmployeeController econt = new EmployeeController();
 		String fname="Jim", lname= " ", name = fname+" "+lname, contactno="0555 555 555", email="nolnameemail@gmail.com", 
-				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000", business="bus001";
+				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000";
 		
 		try{
-			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode, business);
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
 			
 			/* Get the employee name assigned to email, and compare length with some known value. */
 			assertEquals(econt.getEmployeeName(email).length(), name.length());
@@ -233,10 +233,10 @@ public class AddEmployeeTest {
 	public void testAddEmpInvalidEmail(){
 		EmployeeController econt = new EmployeeController();
 		String name = "Jhn InvalidEmail", contactno="0555 555 555", email="notanemail", 
-				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000", business="bus001";
+				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000";
 		
 		try{
-			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode, business);
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
 			
 			assertFalse(econt.getEmail(name).endsWith("@email.com"));
 		}catch(Exception e){
@@ -252,10 +252,10 @@ public class AddEmployeeTest {
 		String name = "Jhn InvalidEmail", contactno="0555 555 555", email="aaaaaaaaaaaaaaaaaaaaaaaaa"
 				+ "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 				+ "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@email.com", 
-				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000", business="bus001";
+				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000";
 		
 		try{
-			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode, business);
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
 			
 			assertFalse(econt.getEmail(name).length() < EMAIL_MAX_LENGTH);
 		}catch(Exception e){
@@ -268,10 +268,10 @@ public class AddEmployeeTest {
 		EmployeeController econt = new EmployeeController();
 		// Some arbitrary length 
 		String name = "ET NoPhone", contactno="", email="nophone@email.com", 
-				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000", business="bus001";
+				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000";
 		
 		try{
-			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode, business);
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
 			
 			/* Should return no employee if some fields are missing */
 			assertFalse(econt.checkEmployee(email));
@@ -287,10 +287,10 @@ public class AddEmployeeTest {
 		String name = "Phone TooLong", contactno="55555555555555555555555555555555555555"
 				+ "555555555555555555555555555555555555555555555555555555555555555555555", 
 				email="phoneTooLong@email.com", 
-				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000", business="bus001";
+				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="3000";
 		
 		try{
-			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode, business);
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
 			
 			/* Should return false if some fields are invalid */
 			assertFalse(econt.checkEmployee(email));
@@ -307,10 +307,10 @@ public class AddEmployeeTest {
 				email="AddressTooLong@email.com", 
 				streetadd="12322222222222222222222222222222222222222222222222222222222"
 						+ "22222222222222222222222222222222222222222222222222222222222"
-						+ " fake st", city="Melbourne", state="VIC", postcode="3000", business="bus001";
+						+ " fake st", city="Melbourne", state="VIC", postcode="3000";
 		
 		try{
-			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode, business);
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
 			
 			/* Should return false if some fields are invalid */
 			assertFalse(econt.checkEmployee(email));
@@ -325,10 +325,10 @@ public class AddEmployeeTest {
 		// Some arbitrary length 
 		String name = "No City", contactno="0123456789", 
 				email="NoCity@email.com", 
-				streetadd="123 fake st", city="", state="VIC", postcode="3000", business="bus001";
+				streetadd="123 fake st", city="", state="VIC", postcode="3000";
 		
 		try{
-			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode, business);
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
 			
 			/* Should return false if some fields are invalid */
 			assertFalse(econt.checkEmployee(email));
@@ -343,10 +343,10 @@ public class AddEmployeeTest {
 		// Some arbitrary length 
 		String name = "No State", contactno="0123456789", 
 				email="NoState@email.com", 
-				streetadd="123 fake st", city="Melbourne", state="", postcode="3000", business="bus001";
+				streetadd="123 fake st", city="Melbourne", state="", postcode="3000";
 		
 		try{
-			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode, business);
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
 			
 			/* Should return false if some fields are invalid */
 			assertFalse(econt.checkEmployee(email));
@@ -361,10 +361,10 @@ public class AddEmployeeTest {
 		// Some arbitrary length 
 		String name = "No Post", contactno="0123456789", 
 				email="NoPost@email.com", 
-				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="", business="bus001";
+				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="";
 		
 		try{
-			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode, business);
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
 			
 			/* Should return false if some fields are invalid */
 			assertFalse(econt.checkEmployee(email));
@@ -379,11 +379,11 @@ public class AddEmployeeTest {
 		// Some arbitrary length 
 		String name = "Inv Post", name2="inv Post2", contactno="0123456789", 
 				email="InvPost@email.com", email2 = "InvPost2@email.com", 
-				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="abc", postcode2 = "0 221 2", business="bus001";
+				streetadd="123 fake st", city="Melbourne", state="VIC", postcode="abc", postcode2 = "0 221 2";
 		
 		try{
-			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode, business);
-			econt.addEmployee(name2, contactno, email2, streetadd, city, state, postcode2, business);
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
+			econt.addEmployee(name2, contactno, email2, streetadd, city, state, postcode2);
 			
 			/* Should return false if any fields are invalid */
 			//has letters in postc
@@ -403,10 +403,10 @@ public class AddEmployeeTest {
 				email="PostCTooLong@email.com", 
 				streetadd="123 fake st", city="Melbourne", state="VIC", 
 				postcode="2222222222222222222222222222222222222222222222222222222222222222222222"
-						+ "222222222222222222222222222222222222222222222222222222222222222222222", business="bus001";
+						+ "222222222222222222222222222222222222222222222222222222222222222222222";
 		
 		try{
-			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode, business);
+			econt.addEmployee(name, contactno, email, streetadd, city, state, postcode);
 			
 			/* Should return false if some fields are invalid */
 			assertFalse(econt.checkEmployee(email));
