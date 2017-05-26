@@ -204,7 +204,7 @@ public class EmployeeController
       //Close database connection
       dbcont.closeConnection();
       if (emps.isEmpty()) {
-         return null;
+         emps.put("None", "N/A");
       }
       //Convert list of employees to array and return
       return emps;
