@@ -138,6 +138,9 @@ Find useful links such as [trello, slack, and leantesting here.](https://github.
 
 See also the list of [contributors](https://github.com/s3529120/septsem12017/graphs/contributors) who participated in this project.
 
+## Pitch Video
+
+[Link to pitch video here](https://vimeo.com/219203264)
 
 ## Acknowledgments
 
