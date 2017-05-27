@@ -8,7 +8,7 @@ This project is our work for the course Software Engineering: Processes and Tool
 
 ## Peer Assessment
 
-### Thomas Higgins - 34%
+### Thomas Higgins - 25%
 #### Lead Developer
 - Service functionality
 - Specialisation functionality
@@ -19,14 +19,14 @@ This project is our work for the course Software Engineering: Processes and Tool
 - Logging implementation
 - Class diagram
 
-### Declan McDonald - 21%
+### Declan McDonald - 25%
 #### UI Designer, developer
 - Wireframes for business make booking, customer make booking, manage service types and edit specialisations
 - Created design mockups
 - User stories for business make booking, customer make booking, manage service types and edit specialisations
 - Assisted with some layout code and bug-fixing
 
-### Jasmine Ellis - 21%
+### Jasmine Ellis - 25%
 #### Scrum master, developer
 - Facilitated meetings
 - Kept Trello up to date
@@ -34,12 +34,12 @@ This project is our work for the course Software Engineering: Processes and Tool
 - MVC diagram
 - Layout implementation
 
-### Rob Laine-Wyllie - 24%
+### Rob Laine-Wyllie - 25%
 #### Tester, developer
-- Input validation on user registration page
-- Input validation on add employee page
-- General bug-fixing
-- General code abstraction to some methods
+- Admin user functionality
+- Debugging and fixing issues
+- Unit testing for part c functions
+- Git management
 
 ## Getting Started
 
@@ -49,16 +49,34 @@ These instructions will get you a copy of the project up and running on your loc
 
 The required jar files for this project should be contained in the root of the ```src/``` directory. If they aren't, here's how you can get them:
 
+_Jar Files_
+
 * [sqlite-jdbc-3.16.1.jar](https://bitbucket.org/xerial/sqlite-jdbc/downloads/sqlite-jdbc-3.16.1.jar)
-* [jUnit]() 
+* [jUnit](https://github.com/junit-team/junit4/wiki/Download-and-Install) 
     (Requires hamcrest-core)
-* [hamcrest-core]()
+* [hamcrest-core](http://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar)
+
+_Using Maven_
+
+The required pom file is shipped with this source. Go down to installing for further details.
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
+_Using Maven_
 
-Say what the step will be
+Make sure that you have maven installed on your system using ```mvn --version```; It should display something like the following: 
+```
+Apache Maven 3.5.0 (ff8f5e7444045639af65f6095c62210b5713f426; 2017-04-04T05:39:06+10:00)
+Maven home: /usr/local/Cellar/maven/3.5.0/libexec
+Java version: 1.8.0_73, vendor: Oracle Corporation
+Java home: /Library/Java/JavaVirtualMachines/jdk1.8.0_73.jdk/Contents/Home/jre
+Default locale: en_AU, platform encoding: UTF-8
+OS name: "mac os x", version: "10.12.4", arch: "x86_64", family: "mac"
+``` 
+
+Where details will reflect your system. If maven is not installed, install it before continuing.
+
+Firstly, after downloading the repository as a zip, unzip the repository and navigate to its root directory.
 
 ```
 Give the example
@@ -97,15 +115,15 @@ Give an example
 Add additional notes about how to deploy this on a live system
 
 ## Built With
-
+* Maven
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/s3529120/septsem12017/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/s3529120/septsem12017/CONTRIBUTING.md) for some extra details.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/s3529120/septsem12017/tags). 
+We aim use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/s3529120/septsem12017/tags). 
 
 ## Links
 
