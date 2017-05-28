@@ -91,6 +91,9 @@ mvn install
 This should leave you with two nice little .jar files, ready to execute. The first of these files will be suffixed with -seed.jar file. Running this file will set up the database for future uses. This can be exited as soon as the login screen appears, and the app can be restarted using the second .jar file. The second of these files will be used in future uses, and it will keep the database after each usage. 
 
 _Without Maven_
+To build the jar, simply use 
+``` javac -jar inputfiles outputfiles ```
+
 Both versions of the application can be run by simply double clicking on the desired jar file or by entering the following command into command prompt
 ```java -jar bookingsiteclear.jar```
 Or
