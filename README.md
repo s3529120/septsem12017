@@ -61,7 +61,6 @@ _Using Maven_
 The required pom file is shipped with this source. Go down to installing for further details.
 
 ### Installing
-
 _Using Maven_
 
 Make sure that you have maven installed on your system using ```mvn --version```; It should display something like the following: 
@@ -91,28 +90,22 @@ mvn install
 ```
 This should leave you with two nice little .jar files, ready to execute. The first of these files will be suffixed with -seed.jar file. Running this file will set up the database for future uses. This can be exited as soon as the login screen appears, and the app can be restarted using the second .jar file. The second of these files will be used in future uses, and it will keep the database after each usage. 
 
+_Without Maven_
+Both versions of the application can be run by simply double clicking on the desired jar file or by entering the following command into command prompt
+```java -jar bookingsiteclear.jar```
+Or
+```java -jar bookingsitekeep.jar```
+
 ## Running the tests
+Unit tests for this project are contained in the 
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-The unit tests cover most of the functionality of the app and can be run using
+The unit tests cover most of the functionality of the app and can be run using from command line
 ```
 mvn test
 ```
 This will build the project in the test scope and output a .jar file
-### And coding style tests
 
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+Each test class is in its own java class file, and they are executed from the TestRunner class. Out put from these tests will be displayed in a neat format.
 
 ## Built With
 * Maven
