@@ -76,7 +76,7 @@ OS name: "mac os x", version: "10.12.4", arch: "x86_64", family: "mac"
 Where details will reflect your system. If maven is not installed, install it before continuing.
 
 Firstly, after downloading the repository as a zip, unzip the repository and navigate to 'Booking Site', just under its root directory.
-Once at the root of the project, if using maven to build, run
+Once there, from the command line, if using maven to build, run
 ```
 mvn build
 ```
