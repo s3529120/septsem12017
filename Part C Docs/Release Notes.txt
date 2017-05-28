@@ -1,7 +1,0 @@
-Restrictions
-
-Known Bugs
- - The is a bug with certine resolution/sized screens that cause the application to span 
-   outside the window and have a large number of the buttons unusable
-
-Incomplete Features
