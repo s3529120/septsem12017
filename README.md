@@ -115,6 +115,9 @@ This will build the project in the test scope and output a .jar file
 
 Each test class is in its own java class file, and they are executed from the TestRunner class. Out put from these tests will be displayed in a neat format.
 
+### Known Issues
+A list of the current known issues in the release version of the project can be found on our [issues page](https://github.com/s3529120/septsem12017/issues)
+
 ## Built With
 * Maven
 
