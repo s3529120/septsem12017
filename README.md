@@ -113,10 +113,6 @@ Each test class is in its own java class file, and they are executed from the Te
 ## Built With
 * Maven
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://github.com/s3529120/septsem12017/CONTRIBUTING.md) for some extra details.
-
 ## Versioning
 
 We aim use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/s3529120/septsem12017/tags). 
