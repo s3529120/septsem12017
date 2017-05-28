@@ -123,7 +123,7 @@ We aim use [SemVer](http://semver.org/) for versioning. For the versions availab
 
 ## Links
 
-Find useful links such as [trello, slack, and leantesting here.](https://github.com/s3529120/URLs.md)
+Find useful links such as [trello, slack, and leantesting here.](https://github.com/s3529120/septsem12017/blob/master/URLs.md)
 
 ### Pitch Video
 [Link to pitch video here](https://vimeo.com/219203264)
